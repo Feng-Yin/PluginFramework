@@ -4,7 +4,6 @@
 
 MainWindow* MainWindow::instance = NULL;
 const char *indexProperty = "widgetIndex";
-//QMap<QString, PluginInterface*> MainWindow::pluginMap;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
