@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icon/purchase_icon.png</file>
+        <file>Icon/add_icon.png</file>
+        <file>Icon/delete_icon.png</file>
+        <file>Icon/empty_icon1.png</file>
+        <file>Icon/empty_icon.png</file>
+        <file>Icon/import_icon.png</file>
+        <file>Icon/print_icon1.png</file>
+        <file>Icon/print_icon.png</file>
+        <file>Icon/commit_icon.png</file>
+        <file>Icon/commitall_icon.png</file>
+    </qresource>
+</RCC>

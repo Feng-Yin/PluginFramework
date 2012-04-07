@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icon/cash_icon.png</file>
+        <file>Icon/money_icon.png</file>
+    </qresource>
+</RCC>

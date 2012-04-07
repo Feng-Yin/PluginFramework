@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icon/sell_icon.png</file>
+        <file>Icon/down_icon.png</file>
+        <file>Icon/submitorder_icon.png</file>
+        <file>Icon/up_icon.png</file>
+    </qresource>
+</RCC>

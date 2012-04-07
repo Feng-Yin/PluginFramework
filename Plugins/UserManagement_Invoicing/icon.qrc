@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icon/login_icon.png</file>
+        <file>Icon/usermanagement_icon.png</file>
+        <file>Icon/add_icon.png</file>
+        <file>Icon/delete_icon.png</file>
+        <file>Icon/changepassword_icon.png</file>
+        <file>Icon/logout_icon.png</file>
+        <file>Icon/switchuser_icon.png</file>
+    </qresource>
+</RCC>

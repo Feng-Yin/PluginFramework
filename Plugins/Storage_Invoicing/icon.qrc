@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icon/storage_icon.png</file>
+        <file>Icon/up_icon.png</file>
+        <file>Icon/down_icon.png</file>
+        <file>Icon/update_icon.png</file>
+    </qresource>
+</RCC>

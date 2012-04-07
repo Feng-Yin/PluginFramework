@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icon/plugin_icon.png</file>
+        <file>Icon/quit_icon.png</file>
+        <file>Icon/about_icon.png</file>
+    </qresource>
+</RCC>

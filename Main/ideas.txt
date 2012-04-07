@@ -1,0 +1,19 @@
+TODO:
+
+1. set select to latest added one.
+2. check all input has been simplified except password.
+3. make all possible member const
+4. remove product related code to product plugin
+5. replace sql with model operation
+
+
+
+
+
+
+
+
+
+
+Done
+3. change compile output place to make is easy for testing.
