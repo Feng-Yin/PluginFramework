@@ -334,6 +334,9 @@ void Statistic_Invoicing::createFilterPanel()
     connect(sellingPriceCheckBox, SIGNAL(toggled(bool)), sellingPriceLineEdit, SLOT(setEnabled(bool)));
 
     basicFilterButton = new QPushButton(tr("Filter Result"), basicFilterPanel);
+    QFont f;
+    f.setBold(true);
+    basicFilterButton->setFont(f);
     connect(basicFilterButton, SIGNAL(clicked()), this, SLOT(onBasicFilter()));
 
     QGridLayout *basicFilterLayout = new QGridLayout(basicFilterPanel);
