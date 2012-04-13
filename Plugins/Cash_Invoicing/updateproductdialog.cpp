@@ -422,7 +422,7 @@ QString UpdateProductDialog::getPrintContent()
     QString table = QString("\
                     <html> \
                     <body> \
-                    <table align=\"center\" border=\"1\" cellpadding=\"20\"> \
+                    <table align=\"center\" border=\"5\" cellpadding=\"20\"> \
                     <caption align=\"center\"><h1>销 售 凭 证</h1></caption><br/> \
                     <tr> \
                         <th align=\"right\">产品序列号: </th> \
