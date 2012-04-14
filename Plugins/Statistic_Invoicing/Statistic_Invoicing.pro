@@ -9,6 +9,7 @@ QT       += sql
 TARGET = Statistic_Invoicing
 TEMPLATE = lib
 CONFIG += plugin copy_dir_files
+CONFIG += qwt
 INCLUDEPATH += ../../main
 DEFINES += STATISTIC_INVOICING_LIBRARY
 
@@ -19,10 +20,12 @@ CONFIG(release, debug|release) {
     DLLDESTDIR = ../../Main/release/plugins/Invoicing/
 }
 
-SOURCES += statistic_invoicing.cpp
+SOURCES += statistic_invoicing.cpp\
+        barchart.cpp
 
 HEADERS += statistic_invoicing.h\
-        Statistic_Invoicing_global.h
+        Statistic_Invoicing_global.h\
+        barchart.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN

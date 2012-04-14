@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
+#include "barchart.h"
 
 Statistic_Invoicing::Statistic_Invoicing():
     parentWindow(NULL),
@@ -399,7 +400,9 @@ void Statistic_Invoicing::createFilterPanel()
 
     filterPanel->addTab(basicFilterPanel, tr("Basci Filter"));
     //TODO: add advanced filter
-    filterPanel->addTab(new QWidget(), tr("Advance Filter"));
+    BarChart *d_chart = new BarChart();
+    QWidget *widget = new QWidget();
+    filterPanel->addTab(d_chart, tr("Advance Filter"));
 }
 
 void Statistic_Invoicing::updateDBTableModel()
