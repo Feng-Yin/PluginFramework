@@ -234,11 +234,26 @@ bool ProductManagementIF::updateProductDetailByProductID(int id, QString serialN
                               .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(schemaNameID).arg(quantity)
                               .arg(unit).arg(operatorUserID).arg(responserUserID).arg(productStatusID).arg(oldPurchasePrice)
                               .arg(purchasePrice).arg(sellingPrice).arg(comments).arg(id));
+//            qDebug()<<QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, schemaNameID = %4, quantity = %5, unit = '%6', operatorUserID = %7, responserUserID = %8, productStatusID = %9, oldPurchasePrice = '%10', purchasePrice = '%11', sellingPrice = '%12', comments = '%13' WHERE id=%14;")
+//                      .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(schemaNameID).arg(quantity)
+//                      .arg(unit).arg(operatorUserID).arg(responserUserID).arg(productStatusID).arg(oldPurchasePrice)
+//                      .arg(purchasePrice).arg(sellingPrice).arg(comments).arg(id);
             addProductinfoByProductID(id);
             return ret;
         }
     }
     return false;
+}
+
+//for table product
+int ProductManagementIF::getResponserUserIDByProductID(int id) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    query.exec(QString("select responserUserID from products where id=%1").arg(id));
+    if(query.first()) {
+        return query.value(0).toInt();
+    }
+    return 0;
 }
 
 //for table product
@@ -295,6 +310,33 @@ bool ProductManagementIF::isModelOutdate(QSqlRelationalTableModel* model) const
     int rowInModel = model->rowCount();
     //qDebug()<<rowInDB<<" "<<rowInModel;
     return rowInDB!=rowInModel;
+}
+
+QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int year, int month, int range) const
+{
+    QMap<QString, SalesResult> data;
+    data.clear();
+    QString timeRange = QString("and p1.timeStamp between '%1-%2-1' and ").arg(year).arg(month);
+    int endMonth = month + range - 1;
+    int endYear = year;
+    while(endMonth>12) {
+        endMonth -= 12;
+        endYear++;
+    }
+    timeRange += QString("'%1-%2-31'").arg(endYear).arg(endMonth);
+    QString queryString = QString("select u1.name, sum(p1.sellingprice), count(p1.sellingprice) from user u1, productsinfo p1 where p1.productstatusID = 7 and u1.id = p1.responserUserID %1 group by u1.name")
+            .arg(timeRange);
+    //qDebug()<<queryString;
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    query.exec(queryString);
+    while(query.next()) {
+        QString key = query.value(0).toString();
+        SalesResult result;
+        result.volume = query.value(1).toDouble();
+        result.quantity = query.value(2).toDouble();
+        data.insert(key, result);
+    }
+    return data;
 }
 
 //for table productsinfo

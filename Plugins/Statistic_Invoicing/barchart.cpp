@@ -5,144 +5,181 @@
 #include <qwt_column_symbol.h>
 #include <qwt_plot_layout.h>
 #include <qwt_legend.h>
-#include <qwt_scale_draw.h>
+#include <QtGlobal>
+#include <QtGui>
 
-BarChart::BarChart( QWidget *parent ):
-    QwtPlot( parent )
+BarChart::BarChart(QWidget *parent):
+    QwtPlot(parent),
+    d_barChartItem(NULL),
+    maxVolume(0),
+    maxQuantity(0)
 {
-    setAutoFillBackground( true );
+    //init();
+}
 
-    setPalette( Qt::white );
-    canvas()->setPalette( QColor( "LemonChiffon" ) );
+void BarChart::updatePlot(QMap<QString, SalesResult> data, SortArg sArg)
+{
+    salesData = data;
+    sortArg = sArg;
+    setAutoFillBackground(true);
 
-    setTitle( "Bar Chart" );
+    setPalette(Qt::white);
+    canvas()->setPalette(QColor("LemonChiffon"));
 
-    setAxisTitle( QwtPlot::yLeft, "Whatever" );
-    setAxisTitle( QwtPlot::xBottom, "Whatever" );
+    setTitle(tr("Sales Statistic"));
 
-    d_barChartItem = new QwtPlotMultiBarChart( "Bar Chart " );
-#if 1
-    d_barChartItem->setLayoutPolicy( QwtPlotMultiBarChart::AutoAdjustSamples );
-#endif
-#if 0
-    d_barChartItem->setLayoutPolicy( QwtPlotMultiBarChart::ScaleSamplesToAxes );
-    d_barChartItem->setLayoutHint( 0.8 );
-#endif
-#if 0
-    d_barChartItem->setLayoutPolicy( QwtPlotMultiBarChart::ScaleSampleToCanvas );
-    d_barChartItem->setLayoutHint( 0.08 );
-#endif
-#if 0
-    d_barChartItem->setLayoutPolicy( QwtPlotMultiBarChart::FixedSampleSize );
-    d_barChartItem->setLayoutHint( 20 );
-#endif
-    d_barChartItem->setSpacing( 20 );
-    d_barChartItem->setMargin( 3 );
+    if(!d_barChartItem) {
+        d_barChartItem = new QwtPlotMultiBarChart("Sales Statistic");
+    }
+    else {
+        d_barChartItem->detach();
+    }
 
-    d_barChartItem->attach( this );
+    d_barChartItem->setLayoutPolicy(QwtPlotMultiBarChart::AutoAdjustSamples);
 
-    insertLegend( new QwtLegend() );
+    d_barChartItem->setSpacing(20);
+    d_barChartItem->setMargin(3);
+
+    d_barChartItem->attach(this);
+
+    insertLegend(new QwtLegend());
 
     populate();
-    setOrientation( 0 );
+    setOrientation(0);
 
-    setAutoReplot( true );
+    setAutoReplot(true);
 }
 
 void BarChart::populate()
 {
-    static const char *colors[] = { "DarkOrchid", "SteelBlue", "Gold" };
+    static const char *colors[] = {"SteelBlue", "Gold"};
 
-    const int numSamples = 5;
-    const int numBars = sizeof( colors ) / sizeof( colors[0] );
+    const int numSamples = salesData.count();
+    const int numBars = sizeof(colors)/sizeof(colors[0]);
 
     QList<QwtText> titles;
-    for ( int i = 0; i < numBars; i++ )
-    {
-        QString title("Bar %1");
-        titles += title.arg( i );
-    }
-    d_barChartItem->setTitles( titles );
-    d_barChartItem->setLegendIconSize( QSize( 10, 14 ) );
+    titles += QString(tr("Sales Volume"));
+    titles += QString(tr("Sales Quantity"));
+    d_barChartItem->setTitles(titles);
+    d_barChartItem->setLegendIconSize(QSize(10, 14));
 
-    for ( int i = 0; i < numBars; i++ )
-    {
-        QwtColumnSymbol *symbol = new QwtColumnSymbol( QwtColumnSymbol::Box );
-        symbol->setLineWidth( 2 );
-        symbol->setFrameStyle( QwtColumnSymbol::Raised );
-        symbol->setPalette( QPalette( colors[i] ) );
+    for (int i = 0; i < numBars; i++) {
+        QwtColumnSymbol *symbol = new QwtColumnSymbol(QwtColumnSymbol::Box);
+        symbol->setLineWidth(2);
+        symbol->setFrameStyle(QwtColumnSymbol::Raised);
+        symbol->setPalette(QPalette(colors[i]));
 
-        d_barChartItem->setSymbol( i, symbol );
+        d_barChartItem->setSymbol(i, symbol);
     }
     
     QVector< QVector<double> > series;
-    for ( int i = 0; i < numSamples; i++ )
+    QList<SalesResult> results = salesData.values();
+    for (int i = 0; i < numSamples; i++)
     {
-        double sign = 1.0;
-#if 0
-        if ( i % 3 == 0 )
-            sign = -1.0;
-#endif
+        maxVolume =  (results[i].volume>maxVolume)?results[i].volume:maxVolume;
+        maxQuantity =  (results[i].quantity>maxQuantity)?results[i].quantity:maxQuantity;
+    }
+    QList<QString> keys = salesData.keys();
+    switch (sortArg.sortType){
+    case SORTBYVOLUMEASCEND:
+        qSort(keys.begin(), keys.end(), SortByVolumeAscend(salesData));
+        break;
+    case SORTBYVOLUMEDESCEND:
+        qSort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
+        break;
+    case SORTBYQUANTITYASCEND:
+        qSort(keys.begin(), keys.end(), SortByQuantityAscend(salesData));
+        break;
+    case SORTBYQUANTITYDESCEND:
+        qSort(keys.begin(), keys.end(), SortByQuantityDescend(salesData));
+        break;
+    default:
+        qSort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
+    }
 
+    int finalRange = salesData.count()>sortArg.peopleRange?
+                sortArg.peopleRange:salesData.count();
+    for (int i = 0; i < finalRange; i++)
+    {
         QVector<double> values;
-        for ( int j = 0; j < numBars; j++ )
-            values += sign * ( 2 + qrand() % 8 );
-
+        values += salesData.value(keys[i]).volume;
+        values += salesData.value(keys[i]).quantity/maxQuantity*maxVolume;
         series += values;
-#if 0
-        qDebug() << i << values;
-#endif
     }
 
-    d_barChartItem->setSamples( series );
+    d_barChartItem->setSamples(series);
 }
 
-void BarChart::setMode( int mode )
+void BarChart::setMode(int mode)
 {
-    if ( mode == 0 )
+    if (mode == 0)
     {
-        d_barChartItem->setStyle( QwtPlotMultiBarChart::Grouped );
+        d_barChartItem->setStyle(QwtPlotMultiBarChart::Grouped);
     }
     else
     {
-        d_barChartItem->setStyle( QwtPlotMultiBarChart::Stacked );
+        d_barChartItem->setStyle(QwtPlotMultiBarChart::Stacked);
     }
 }
 
-void BarChart::setOrientation( int orientation )
+void BarChart::setOrientation(int orientation)
 {
-    QwtPlot::Axis axis1, axis2;
+    QwtPlot::Axis axisAssistant, axisVolume, axisQuantity;
 
-    if ( orientation == 0 )
+    if (orientation == 0)
     {
-        axis1 = QwtPlot::xBottom;
-        axis2 = QwtPlot::yLeft;
+        axisAssistant = QwtPlot::xBottom;
+        axisVolume = QwtPlot::yLeft;
+        axisQuantity = QwtPlot::yRight;
 
-        d_barChartItem->setOrientation( Qt::Vertical );
+        d_barChartItem->setOrientation(Qt::Vertical);
+
+        enableAxis(QwtPlot::yRight);
+        setAxisTitle(QwtPlot::yLeft, tr("Sales Volume"));
+        setAxisTitle(QwtPlot::yRight, tr("Sales Quantity"));
+        setAxisTitle(QwtPlot::xBottom, tr("Shop Assistant(Volume, Quantity)"));
+
+        setAxisScaleDraw(QwtPlot::xBottom, new AssistantScaleDraw(salesData, sortArg) );
     }
     else
     {
-        axis1 = QwtPlot::yLeft;
-        axis2 = QwtPlot::xBottom;
+        axisAssistant = QwtPlot::yLeft;
+        axisVolume = QwtPlot::xBottom;
+        axisQuantity = QwtPlot::xTop;
 
-        d_barChartItem->setOrientation( Qt::Horizontal );
+        d_barChartItem->setOrientation(Qt::Horizontal);
+
+        enableAxis(QwtPlot::xTop);
+        setAxisTitle(QwtPlot::yLeft, tr("Shop Assistant(Volume, Quantity)"));
+        setAxisTitle(QwtPlot::xBottom, tr("Sales Volume"));
+        setAxisTitle(QwtPlot::xTop, tr("Sales Quantity"));
+
+        setAxisScaleDraw(QwtPlot::yLeft, new AssistantScaleDraw(salesData, sortArg) );
     }
 
-    setAxisScale( axis1, 0, d_barChartItem->dataSize() - 1, 1.0 );
-    setAxisAutoScale( axis2 );
+    int finalRange = salesData.count()>sortArg.peopleRange?
+                sortArg.peopleRange:salesData.count();
+    setAxisScale(axisAssistant, 0, finalRange-1, 1.0);
+    setAxisScale(axisVolume, 0, maxVolume);
+    setAxisScale(axisQuantity, 0, maxQuantity);
 
-    QwtScaleDraw *scaleDraw1 = axisScaleDraw( axis1 );
-    scaleDraw1->enableComponent( QwtScaleDraw::Backbone, false );
-    scaleDraw1->enableComponent( QwtScaleDraw::Ticks, false );
+    QwtScaleDraw *scaleDraw1 = axisScaleDraw(axisAssistant);
+    scaleDraw1->enableComponent(QwtScaleDraw::Backbone, false);
+    scaleDraw1->enableComponent(QwtScaleDraw::Ticks, false);
 
-    QwtScaleDraw *scaleDraw2 = axisScaleDraw( axis2 );
-    scaleDraw2->enableComponent( QwtScaleDraw::Backbone, true );
-    scaleDraw2->enableComponent( QwtScaleDraw::Ticks, true );
+    QwtScaleDraw *scaleDraw2 = axisScaleDraw(axisVolume);
+    scaleDraw2->enableComponent(QwtScaleDraw::Backbone, true);
+    scaleDraw2->enableComponent(QwtScaleDraw::Ticks, true);
 
-    plotLayout()->setAlignCanvasToScale( axis1, true );
-    plotLayout()->setAlignCanvasToScale( axis2, false );
+    QwtScaleDraw *scaleDraw3 = axisScaleDraw(axisQuantity);
+    scaleDraw3->enableComponent(QwtScaleDraw::Backbone, true);
+    scaleDraw3->enableComponent(QwtScaleDraw::Ticks, true);
 
-    plotLayout()->setCanvasMargin( 0 );
+    plotLayout()->setAlignCanvasToScale(axisAssistant, true);
+    plotLayout()->setAlignCanvasToScale(axisVolume, false);
+    plotLayout()->setAlignCanvasToScale(axisQuantity, false);
+
+    plotLayout()->setCanvasMargin(0);
     updateCanvasMargins();
 
     replot();
@@ -151,5 +188,29 @@ void BarChart::setOrientation( int orientation )
 void BarChart::exportChart()
 {
     QwtPlotRenderer renderer;
-    renderer.exportTo( this, "barchart.pdf" );
+    renderer.exportTo(this, "barchart.pdf");
+}
+
+void BarChart::printChart()
+{
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOrientation(QPrinter::Landscape);
+
+    QPrintDialog *dialog = new QPrintDialog(&printer, this);
+    dialog->setWindowTitle(tr("Print Document"));
+    if (dialog->exec() == QDialog::Accepted) {
+        QPainter painter;
+        painter.begin(&printer);
+        double xscale = printer.pageRect().width()/double(width());
+        double yscale = printer.pageRect().height()/double(height());
+        double scale = qMin(xscale, yscale);
+        painter.translate(printer.paperRect().x() + printer.pageRect().width()/2,
+                          printer.paperRect().y() + printer.pageRect().height()/2);
+        painter.scale(scale, scale);
+        painter.translate(-width()/2, -height()/2);
+
+        render(&painter);
+        painter.end();
+    }
+
 }

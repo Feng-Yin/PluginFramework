@@ -6,6 +6,8 @@
 #include "productmanagement_interface.h"
 #include "barchart.h"
 
+const char *sortTypeProperty = "SortType";
+
 Statistic_Invoicing::Statistic_Invoicing():
     parentWindow(NULL),
     userManagementInterface(NULL),
@@ -16,6 +18,16 @@ Statistic_Invoicing::Statistic_Invoicing():
     statisticView(NULL),
     filterPanel(NULL),
     basicFilterPanel(NULL),
+    salesStatisticPlot(NULL),
+    sortByVolumeAscRadioButton(NULL),
+    sortByVolumeDesRadioButton(NULL),
+    sortByQuantityAscRadioButton(NULL),
+    sortByQuantityDesRadioButton(NULL),
+    time(NULL),
+    timeRange(NULL),
+    peopleRange(NULL),
+    updateStatisticPushButton(NULL),
+    printStatisticPushButton(NULL),
     serialNumberLabel(NULL),
     serialNumberLineEdit(NULL),
 	serialNumberCheckBox(NULL),
@@ -399,10 +411,67 @@ void Statistic_Invoicing::createFilterPanel()
     filterPanel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
     filterPanel->addTab(basicFilterPanel, tr("Basci Filter"));
-    //TODO: add advanced filter
-    BarChart *d_chart = new BarChart();
-    QWidget *widget = new QWidget();
-    filterPanel->addTab(d_chart, tr("Advance Filter"));
+
+    salesStatisticPlot = new BarChart();
+
+    sortByVolumeAscRadioButton = new QRadioButton(tr("SortByVolumeAsc"));
+    sortByVolumeDesRadioButton = new QRadioButton(tr("SortByVolumeDes"));
+    sortByVolumeDesRadioButton->setChecked(true);
+    sortByQuantityAscRadioButton = new QRadioButton(tr("SortByQuantityAsc"));
+    sortByQuantityDesRadioButton = new QRadioButton(tr("SortByQuantityDes"));
+
+    QHBoxLayout *sortTypeHLayout = new QHBoxLayout();
+    sortTypeHLayout->addWidget(sortByVolumeAscRadioButton);
+    sortTypeHLayout->addWidget(sortByVolumeDesRadioButton);
+    sortTypeHLayout->addWidget(sortByQuantityAscRadioButton);
+    sortTypeHLayout->addWidget(sortByQuantityDesRadioButton);
+    QGroupBox *sortTypeGroup = new QGroupBox(tr("Sort Type"));
+    sortTypeGroup->setLayout(sortTypeHLayout);
+
+    QLabel *timeLabel = new QLabel(tr("Start Time :"));
+    time = new QDateEdit();
+    time->setDisplayFormat("yyyy-MM");
+    time->setDateTime(QDateTime::currentDateTime());
+    time->setCalendarPopup(true);
+    QLabel *timeRangeLabel = new QLabel(tr("Month Range :"));
+    timeRange = new QSpinBox();
+    timeRange->setMinimum(1);
+    QLabel *peopleRangeLabel = new QLabel(tr("People Range :"));
+    peopleRange = new QSpinBox();
+    peopleRange->setMinimum(1);
+    peopleRange->setValue(10);
+
+    QHBoxLayout *sortRangeHLayout = new QHBoxLayout();
+    sortRangeHLayout->addWidget(timeLabel);
+    sortRangeHLayout->addWidget(time);
+    sortRangeHLayout->addWidget(timeRangeLabel);
+    sortRangeHLayout->addWidget(timeRange);
+    sortRangeHLayout->addWidget(peopleRangeLabel);
+    sortRangeHLayout->addWidget(peopleRange);
+    QGroupBox *sortRangeGroup = new QGroupBox(tr("Sort Range"));
+    sortRangeGroup->setLayout(sortRangeHLayout);
+
+    updateStatisticPushButton = new QPushButton(tr("Update"));
+    updateStatisticPushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    connect(updateStatisticPushButton, SIGNAL(clicked()), this, SLOT(updateSalesStatisticPlot()));
+    printStatisticPushButton = new QPushButton(tr("Print"));
+    printStatisticPushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    connect(printStatisticPushButton, SIGNAL(clicked()), salesStatisticPlot, SLOT(printChart()));
+
+    QHBoxLayout *sortHLayout = new QHBoxLayout();
+    sortHLayout->addWidget(sortRangeGroup);
+    sortHLayout->addWidget(sortTypeGroup);
+    sortHLayout->addWidget(updateStatisticPushButton);
+    sortHLayout->addWidget(printStatisticPushButton);
+
+    QVBoxLayout *salesStatisticVLayout = new QVBoxLayout();
+    //salesStatisticVLayout->addWidget(sortTypeGroup);
+    salesStatisticVLayout->addLayout(sortHLayout);
+    salesStatisticVLayout->addWidget(salesStatisticPlot);
+    QWidget *salesStatisticContainer = new QWidget();
+    salesStatisticContainer->setLayout(salesStatisticVLayout);
+
+    filterPanel->addTab(salesStatisticContainer, tr("Sales Statistic"));
 }
 
 void Statistic_Invoicing::updateDBTableModel()
@@ -414,13 +483,6 @@ void Statistic_Invoicing::updateDBTableModel()
         statisticView->resizeColumnsToContents();
         if(index.isValid()) {
             int rowPosition = statisticView->rowViewportPosition(index.row());
-            //        qDebug()<<statisticView->height();
-            //        qDebug()<<statisticView->geometry().height();
-            //        qDebug()<<statisticView->horizontalHeader()->size().height();
-            //        qDebug()<<statisticView->horizontalScrollBar()->height();
-            //        int validHeight = statisticView->geometry().height() -
-            //                statisticView->horizontalHeader()->size().height() -
-            //                statisticView->horizontalScrollBar()->height();
             if(rowPosition>=0 && rowPosition<statisticView->height()) {
                 statisticView->setCurrentIndex(index);
             }
@@ -440,19 +502,6 @@ void Statistic_Invoicing::updateDBTableModel()
 
 void Statistic_Invoicing::setProductModelFilter()
 {
-//    QString productType = productTypeComboBox->currentText();
-//    QString brandName = brandNameComboBox->currentText();
-//    int productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
-//    if(!productTypeID) {
-//        productTypeID = 1;
-//    }
-//    int brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
-//    if(!brandNameID) {
-//        brandNameID = 1;
-//    }
-
-//    productModelModel->setFilter(QString("productTypeID = %1 and brandNameID = %2")
-//                                 .arg(productTypeID).arg(brandNameID));
     //we want to make all model avaliable, so no filter on table productmodel
     productModelModel->select();
 }
@@ -460,16 +509,6 @@ void Statistic_Invoicing::setProductModelFilter()
 void Statistic_Invoicing::populateSchemaComboBox() const
 {
     QSet<QString> schemaNameSet = userManagementInterface->getAllSchemaName();;
-//    int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
-//    if(userManagementInterface->isAdmin(userManagementInterface->getCurrentUserName())) {
-//        schemaNameSet = userManagementInterface->getAllSchemaName();
-//    }
-//    else {
-//        QSet<int> schemaIDSet = userManagementInterface->getSchemaIDSetByUserID(userID);
-//        foreach(int schemaID, schemaIDSet) {
-//            schemaNameSet<<userManagementInterface->getSchemaNameBySchemaID(schemaID);
-//        }
-//    }
 
     schemaComboBox->clear();
     schemaComboBox->addItems(schemaNameSet.toList());
@@ -606,6 +645,34 @@ void Statistic_Invoicing::onBasicFilter()
 //    qDebug()<<statisticModel->filter();
 //    qDebug()<<statisticModel->query().lastQuery();
     statisticView->resizeColumnsToContents();
+}
+
+void Statistic_Invoicing::updateSalesStatisticPlot()
+{
+    int year = time->date().year();
+    int month = time->date().month();
+    int monthRange = timeRange->value();
+    QMap<QString, SalesResult> data =
+            productManagementInterface->getSalesResultByTimeRange(year, month, monthRange);
+
+    int sortType = SORTBYVOLUMEDESCEND;
+    if(sortByVolumeAscRadioButton->isChecked()) {
+        sortType = SORTBYVOLUMEASCEND;
+    }
+    else if(sortByVolumeDesRadioButton->isChecked()) {
+        sortType = SORTBYVOLUMEDESCEND;
+    }
+    else if(sortByQuantityAscRadioButton->isChecked()) {
+        sortType = SORTBYQUANTITYASCEND;
+    }
+    else if(sortByQuantityDesRadioButton->isChecked()) {
+        sortType = SORTBYQUANTITYDESCEND;
+    }
+    SortArg sArg;
+    sArg.sortType = sortType;
+    sArg.peopleRange = peopleRange->value();
+
+    salesStatisticPlot->updatePlot(data, sArg);
 }
 
 QT_BEGIN_NAMESPACE

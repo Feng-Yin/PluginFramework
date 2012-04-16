@@ -2,6 +2,7 @@
 #define PRODUCTMANAGEMENTIF_H
 
 #include <QObject>
+#include <QMap>
 #include <plugin_interface.h>
 #include <productmanagement_interface.h>
 #include "ProductManagementIF_global.h"
@@ -58,10 +59,11 @@ public:
                                        QString oldPurchasePrice, QString purchasePrice, QString sellingPrice,
                                        int operatorUserID, int responserUserID, int productStatusID,
                                        QString comments) const;
+    virtual int getResponserUserIDByProductID(int id) const;
     virtual bool updateStatusIDByProductID(int productID, int statusID) const;
-
     virtual int getProductCountByQuery(QString queryString) const;
     virtual bool isModelOutdate(QSqlRelationalTableModel* model) const;
+    virtual QMap<QString, SalesResult> getSalesResultByTimeRange(int year, int month, int range = 1) const;
 
     //help function
     virtual bool checkSerialNumber(QString serialNumber) const;

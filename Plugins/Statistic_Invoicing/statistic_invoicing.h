@@ -17,10 +17,13 @@ class QSpinBox;
 class QCheckBox;
 class QTabWidget;
 class QPushButton;
+class QRadioButton;
+class QDateEdit;
 QT_END_NAMESPACE
 
 class UserManagementInterface;
 class ProductManagementInterface;
+class BarChart;
 
 class STATISTIC_INVOICINGSHARED_EXPORT Statistic_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
@@ -52,6 +55,7 @@ private slots:
     void setProductModelFilter();
     void populateSchemaComboBox() const;
     void onBasicFilter();
+    void updateSalesStatisticPlot();
 
 private:
     MainWindow *parentWindow;
@@ -66,6 +70,16 @@ private:
 
     QTabWidget *filterPanel;
     QWidget *basicFilterPanel;
+    BarChart *salesStatisticPlot;
+    QRadioButton *sortByVolumeAscRadioButton;
+    QRadioButton *sortByVolumeDesRadioButton;
+    QRadioButton *sortByQuantityAscRadioButton;
+    QRadioButton *sortByQuantityDesRadioButton;
+    QDateEdit *time;
+    QSpinBox *timeRange;
+    QSpinBox *peopleRange;
+    QPushButton *updateStatisticPushButton;
+    QPushButton *printStatisticPushButton;
 
     QLabel *serialNumberLabel;
     QLineEdit *serialNumberLineEdit;

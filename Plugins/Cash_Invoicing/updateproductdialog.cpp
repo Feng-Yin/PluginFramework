@@ -274,14 +274,15 @@ void UpdateProductDialog::updateProductInfo()
 
     int schemaID = userManagementInterface->getSchemaIDBySchemaName(schemaComboBox->currentText());
     int quantity = quantitySpinBox->value();
-    int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
+    int operatorUserID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
     int statusID = productManagementInterface->getStatusIDByStatusName("已销售");
     QString comments = commentsTextEdit->document()->toPlainText().simplified();
     int productID = record.value(ProductID).toInt();
+    int responserUserID = productManagementInterface->getResponserUserIDByProductID(productID);
     productManagementInterface->updateProductDetailByProductID(productID, serialNumber, productTypeID, brandNameID,
                                                         productModelID, schemaID, quantity, unit,
                                                         oldPurchasePrice, purchasePrice, sellingPrice,
-                                                        userID, userID, statusID, comments);
+                                                        operatorUserID, responserUserID, statusID, comments);
 
 //    int deleteID = productManagementInterface->getStatusIDByStatusName("已删除");
 //    productManagementInterface->updateStatusIDByProductID(productID, deleteID);
@@ -297,7 +298,6 @@ void UpdateProductDialog::printBill()
 {
     if(!printer) {
         printer = new QPrinter(QPrinter::HighResolution);
-        //printer->setOrientation(QPrinter::Landscape);
     }
 
     QPrintDialog *dialog = new QPrintDialog(printer, this);

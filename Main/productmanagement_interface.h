@@ -3,6 +3,7 @@
 
 #include <QtPlugin>
 #include <QSet>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 class QString;
@@ -27,6 +28,11 @@ enum {
     TimeStamp = 14,
     Comments = 15
 };
+
+typedef struct _SalesResult {
+    double volume;
+    double quantity;
+} SalesResult, *pSalesResult;
 
 class ProductManagementInterface
 {
@@ -62,13 +68,11 @@ public:
                                        QString oldPurchasePrice, QString purchasePrice, QString sellingPrice,
                                        int operatorUserID, int responserUserID, int productStatusID,
                                        QString comments) const = 0;
+    virtual int getResponserUserIDByProductID(int id) const = 0;
     virtual bool updateStatusIDByProductID(int productID, int statusID) const = 0;
-
     virtual int getProductCountByQuery(QString queryString) const = 0;
     virtual bool isModelOutdate(QSqlRelationalTableModel* model) const = 0;
-
-//    //for table productsinfo
-//    virtual bool addProductinfoByProductID(int productID) const = 0;
+    virtual QMap<QString, SalesResult> getSalesResultByTimeRange(int year, int month, int range = 1) const = 0;
 
     //help function
     virtual bool checkSerialNumber(QString serialNumber) const = 0;
