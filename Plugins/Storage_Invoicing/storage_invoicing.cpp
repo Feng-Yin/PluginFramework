@@ -303,47 +303,51 @@ void Storage_Invoicing::createStoragePanel()
 void Storage_Invoicing::inStorage()
 {
     QModelIndex purchaseIndex = purchaseView->currentIndex();
-    QSqlRecord record = purchaseModel->record(purchaseIndex.row());
-    int productID = record.value(ProductID).toInt();
-    int statusID = productManagementInterface->getStatusIDByStatusName("已入库");
-    productManagementInterface->updateStatusIDByProductID(productID, statusID);
-    purchaseModel->select();
-    storageModel->select();
+    if(purchaseIndex.isValid()) {
+        QSqlRecord record = purchaseModel->record(purchaseIndex.row());
+        int productID = record.value(ProductID).toInt();
+        int statusID = productManagementInterface->getStatusIDByStatusName("已入库");
+        productManagementInterface->updateStatusIDByProductID(productID, statusID);
+        purchaseModel->select();
+        storageModel->select();
 
-    if(purchaseIndex.row()<purchaseModel->rowCount()) {
-        purchaseView->selectRow(purchaseIndex.row());
+        if(purchaseIndex.row()<purchaseModel->rowCount()) {
+            purchaseView->selectRow(purchaseIndex.row());
+        }
+        else {
+            purchaseView->selectRow(purchaseModel->rowCount()-1);
+        }
+        //purchaseView->resizeColumnsToContents();
+        //purchaseView->resizeRowsToContents();
+        storageView->resizeColumnsToContents();
+        //storageView->resizeRowsToContents();
+        purchaseView->setFocus();
     }
-    else {
-        purchaseView->selectRow(purchaseModel->rowCount()-1);
-    }
-    //purchaseView->resizeColumnsToContents();
-    //purchaseView->resizeRowsToContents();
-    storageView->resizeColumnsToContents();
-    //storageView->resizeRowsToContents();
-    purchaseView->setFocus();
 }
 
 void Storage_Invoicing::outStorage()
 {
     QModelIndex storageIndex = storageView->currentIndex();
-    QSqlRecord record = storageModel->record(storageIndex.row());
-    int productID = record.value(ProductID).toInt();
-    int statusID = productManagementInterface->getStatusIDByStatusName("待入库");
-    productManagementInterface->updateStatusIDByProductID(productID, statusID);
-    purchaseModel->select();
-    storageModel->select();
+    if(storageIndex.isValid()) {
+        QSqlRecord record = storageModel->record(storageIndex.row());
+        int productID = record.value(ProductID).toInt();
+        int statusID = productManagementInterface->getStatusIDByStatusName("待入库");
+        productManagementInterface->updateStatusIDByProductID(productID, statusID);
+        purchaseModel->select();
+        storageModel->select();
 
-    if(storageIndex.row()<storageModel->rowCount()) {
-        storageView->selectRow(storageIndex.row());
+        if(storageIndex.row()<storageModel->rowCount()) {
+            storageView->selectRow(storageIndex.row());
+        }
+        else {
+            storageView->selectRow(storageModel->rowCount()-1);
+        }
+        purchaseView->resizeColumnsToContents();
+        //purchaseView->resizeRowsToContents();
+        //storageView->resizeColumnsToContents();
+        //storageView->resizeRowsToContents();
+        storageView->setFocus();
     }
-    else {
-        storageView->selectRow(storageModel->rowCount()-1);
-    }
-    purchaseView->resizeColumnsToContents();
-    //purchaseView->resizeRowsToContents();
-    //storageView->resizeColumnsToContents();
-    //storageView->resizeRowsToContents();
-    storageView->setFocus();
 }
 
 void Storage_Invoicing::updateProductinfo()

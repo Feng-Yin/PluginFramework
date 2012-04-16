@@ -300,44 +300,48 @@ void Sell_Invoicing::createStoragePanel()
 
 void Sell_Invoicing::submitOrder()
 {
-    if(updateProductinfo()==QDialog::Accepted) {
-        QModelIndex storageIndex = storageView->currentIndex();
-        QSqlRecord record = storageModel->record(storageIndex.row());
-        int productID = record.value(ProductID).toInt();
-        int statusID = productManagementInterface->getStatusIDByStatusName("已下单");
-        productManagementInterface->updateStatusIDByProductID(productID, statusID);
-        orderModel->select();
-        storageModel->select();
+    QModelIndex storageIndex = storageView->currentIndex();
+    if(storageIndex.isValid()) {
+        if(updateProductinfo()==QDialog::Accepted) {
+            QSqlRecord record = storageModel->record(storageIndex.row());
+            int productID = record.value(ProductID).toInt();
+            int statusID = productManagementInterface->getStatusIDByStatusName("已下单");
+            productManagementInterface->updateStatusIDByProductID(productID, statusID);
+            orderModel->select();
+            storageModel->select();
 
-        if(storageIndex.row()<storageModel->rowCount()) {
-            storageView->selectRow(storageIndex.row());
+            if(storageIndex.row()<storageModel->rowCount()) {
+                storageView->selectRow(storageIndex.row());
+            }
+            else {
+                storageView->selectRow(storageModel->rowCount()-1);
+            }
+            orderView->resizeColumnsToContents();
+            storageView->setFocus();
         }
-        else {
-            storageView->selectRow(storageModel->rowCount()-1);
-        }
-        orderView->resizeColumnsToContents();
-        storageView->setFocus();
     }
 }
 
 void Sell_Invoicing::backToStorage()
 {
     QModelIndex purchaseIndex = orderView->currentIndex();
-    QSqlRecord record = orderModel->record(purchaseIndex.row());
-    int productID = record.value(ProductID).toInt();
-    int statusID = productManagementInterface->getStatusIDByStatusName("已入库");
-    productManagementInterface->updateStatusIDByProductID(productID, statusID);
-    orderModel->select();
-    storageModel->select();
+    if(purchaseIndex.isValid()) {
+        QSqlRecord record = orderModel->record(purchaseIndex.row());
+        int productID = record.value(ProductID).toInt();
+        int statusID = productManagementInterface->getStatusIDByStatusName("已入库");
+        productManagementInterface->updateStatusIDByProductID(productID, statusID);
+        orderModel->select();
+        storageModel->select();
 
-    if(purchaseIndex.row()<orderModel->rowCount()) {
-        orderView->selectRow(purchaseIndex.row());
+        if(purchaseIndex.row()<orderModel->rowCount()) {
+            orderView->selectRow(purchaseIndex.row());
+        }
+        else {
+            orderView->selectRow(orderModel->rowCount()-1);
+        }
+        storageView->resizeColumnsToContents();
+        orderView->setFocus();
     }
-    else {
-        orderView->selectRow(orderModel->rowCount()-1);
-    }
-    storageView->resizeColumnsToContents();
-    orderView->setFocus();
 }
 
 void Sell_Invoicing::updateDBTableModel() const

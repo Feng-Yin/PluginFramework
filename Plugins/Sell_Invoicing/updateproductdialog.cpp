@@ -356,6 +356,7 @@ void UpdateProductDialog::updateRecord(const QSqlRecord &record)
     sellingPriceLineEdit->setText(record.value(SellingPrice).toString());
     commentsTextEdit->setText(record.value(Comments).toString());
     this->record = record;
+    sellingPriceLineEdit->setFocus();
 }
 
 void UpdateProductDialog::userChanged() const
