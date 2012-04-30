@@ -655,24 +655,26 @@ void Statistic_Invoicing::updateSalesStatisticPlot()
     QMap<QString, SalesResult> data =
             productManagementInterface->getSalesResultByTimeRange(year, month, monthRange);
 
-    int sortType = SORTBYVOLUMEDESCEND;
-    if(sortByVolumeAscRadioButton->isChecked()) {
-        sortType = SORTBYVOLUMEASCEND;
-    }
-    else if(sortByVolumeDesRadioButton->isChecked()) {
-        sortType = SORTBYVOLUMEDESCEND;
-    }
-    else if(sortByQuantityAscRadioButton->isChecked()) {
-        sortType = SORTBYQUANTITYASCEND;
-    }
-    else if(sortByQuantityDesRadioButton->isChecked()) {
-        sortType = SORTBYQUANTITYDESCEND;
-    }
-    SortArg sArg;
-    sArg.sortType = sortType;
-    sArg.peopleRange = peopleRange->value();
+    if(!data.isEmpty()) {
+        int sortType = SORTBYVOLUMEDESCEND;
+        if(sortByVolumeAscRadioButton->isChecked()) {
+            sortType = SORTBYVOLUMEASCEND;
+        }
+        else if(sortByVolumeDesRadioButton->isChecked()) {
+            sortType = SORTBYVOLUMEDESCEND;
+        }
+        else if(sortByQuantityAscRadioButton->isChecked()) {
+            sortType = SORTBYQUANTITYASCEND;
+        }
+        else if(sortByQuantityDesRadioButton->isChecked()) {
+            sortType = SORTBYQUANTITYDESCEND;
+        }
+        SortArg sArg;
+        sArg.sortType = sortType;
+        sArg.peopleRange = peopleRange->value();
 
-    salesStatisticPlot->updatePlot(data, sArg);
+        salesStatisticPlot->updatePlot(data, sArg);
+    }
 }
 
 QT_BEGIN_NAMESPACE
