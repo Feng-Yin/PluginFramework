@@ -127,11 +127,32 @@ public:
         }
         QString key = keys.at(value);
         SalesResult result = salesData.value(key);
-        return QwtText(QString("%1(%2, %3)").arg(key).arg(result.volume).arg(result.quantity));
+        return QwtText(QString("%1(%2, %3)").arg(key).arg((ulong)result.volume).arg((ulong)result.quantity));
     }
 private:
     QMap<QString, SalesResult> &salesData;
     SortArg sortArg;
+};
+
+class DefaultScaleDraw: public QwtScaleDraw
+{
+public:
+    DefaultScaleDraw()
+    {
+        setTickLength(QwtScaleDiv::MajorTick, 9);
+        setTickLength(QwtScaleDiv::MinorTick, 3);
+        setTickLength(QwtScaleDiv::MediumTick, 6);
+
+        //setLabelRotation(-90.0);
+        setLabelAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
+        setSpacing(15);
+    }
+
+    virtual QwtText label(double value) const
+    {
+        return QwtText(QString("%1").arg((ulong)value));
+    }
 };
 
 #endif

@@ -121,7 +121,8 @@ void MainWindow::createPluginToolBox(QWidget *toolbox, PluginInterface *plugin)
     QGridLayout *toolButtonLayout = new QGridLayout;
     toolButtonLayout->addWidget(toolButton, 0, 0, Qt::AlignHCenter);
     toolButtonLayout->addWidget(new QLabel(plugin->getMainWidget()->windowIconText()),
-                                1, 0, Qt::AlignCenter);
+                                1, 0, Qt::AlignHCenter);
+    toolButtonLayout->setSizeConstraint(QLayout::SetFixedSize);
     QWidget *toolButtonWidget = new QWidget;
     toolButtonWidget->setLayout(toolButtonLayout);
 

@@ -139,7 +139,9 @@ void BarChart::setOrientation(int orientation)
         setAxisTitle(QwtPlot::yRight, tr("Sales Quantity"));
         setAxisTitle(QwtPlot::xBottom, tr("Shop Assistant(Volume, Quantity)"));
 
-        setAxisScaleDraw(QwtPlot::xBottom, new AssistantScaleDraw(salesData, sortArg) );
+        setAxisScaleDraw(QwtPlot::yLeft, new DefaultScaleDraw());
+        setAxisScaleDraw(QwtPlot::yRight, new DefaultScaleDraw());
+        setAxisScaleDraw(QwtPlot::xBottom, new AssistantScaleDraw(salesData, sortArg));
     }
     else
     {
@@ -154,7 +156,9 @@ void BarChart::setOrientation(int orientation)
         setAxisTitle(QwtPlot::xBottom, tr("Sales Volume"));
         setAxisTitle(QwtPlot::xTop, tr("Sales Quantity"));
 
-        setAxisScaleDraw(QwtPlot::yLeft, new AssistantScaleDraw(salesData, sortArg) );
+        setAxisScaleDraw(QwtPlot::xTop, new DefaultScaleDraw());
+        setAxisScaleDraw(QwtPlot::xBottom, new DefaultScaleDraw());
+        setAxisScaleDraw(QwtPlot::yLeft, new AssistantScaleDraw(salesData, sortArg));
     }
 
     int finalRange = salesData.count()>sortArg.peopleRange?
