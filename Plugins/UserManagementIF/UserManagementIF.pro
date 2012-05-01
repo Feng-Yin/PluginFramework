@@ -26,6 +26,8 @@ SOURCES += usermanagementif.cpp
 HEADERS += usermanagementif.h\
         UserManagementIF_global.h
 
+#TRANSLATIONS = Translations/UserManagementIF_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xE4EAF9F2

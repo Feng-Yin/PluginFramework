@@ -27,6 +27,8 @@ HEADERS += usermanagement_invoicing.h\
     logindialog.h \
     usermanagementdialog.h
 
+TRANSLATIONS = Translations/UserManagement_Invoicing_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xE0EACA55
@@ -56,4 +58,6 @@ OTHER_FILES += \
     Icon/add_icon.png \
     Icon/changepassword_icon.png \
     Icon/logout_icon.png \
-    Icon/switchuser_icon.png
+    Icon/switchuser_icon.png \
+    Translations/UserManagement_Invoicing_zh_CN.qm \
+    Translations/UserManagement_Invoicing_zh_CN.ts

@@ -3,5 +3,6 @@
         <file>Icon/plugin_icon.png</file>
         <file>Icon/quit_icon.png</file>
         <file>Icon/about_icon.png</file>
+        <file>Translations/Main_zh_CN.qm</file>
     </qresource>
 </RCC>

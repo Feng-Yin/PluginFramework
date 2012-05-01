@@ -6,6 +6,9 @@ TODO:
 4. remove product related code to product plugin
 5. replace sql with model operation
 
+6. storage bug, operator always root
+7. statisc bug, 1 person display error
+
 
 
 

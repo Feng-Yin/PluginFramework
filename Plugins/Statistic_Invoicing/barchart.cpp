@@ -201,7 +201,7 @@ void BarChart::printChart()
     printer.setOrientation(QPrinter::Landscape);
 
     QPrintDialog *dialog = new QPrintDialog(&printer, this);
-    dialog->setWindowTitle(tr("Print Document"));
+    dialog->setWindowTitle(tr("Print Statistic Chart"));
     if (dialog->exec() == QDialog::Accepted) {
         QPainter painter;
         painter.begin(&printer);

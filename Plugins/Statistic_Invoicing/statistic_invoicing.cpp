@@ -61,6 +61,13 @@ Statistic_Invoicing::Statistic_Invoicing():
     sellingPriceLineEdit(NULL),
     sellingPriceCheckBox(NULL)
 {
+    QDir qmdir(":/Translations");
+    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
+        //qDebug()<<QFileInfo(fileName).baseName();
+        QTranslator *qtTranslator = new QTranslator(this);
+        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
+        QApplication::instance()->installTranslator(qtTranslator);
+    }
 }
 
 
@@ -205,8 +212,8 @@ void Statistic_Invoicing::createStatisticPanel()
     statisticModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
     statisticModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
     statisticModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
-    statisticModel->setHeaderData(OldPurchasePrice, Qt::Horizontal, tr("Old statistic Price"));
-    statisticModel->setHeaderData(PurchasePrice, Qt::Horizontal, tr("statistic Price"));
+    statisticModel->setHeaderData(OldPurchasePrice, Qt::Horizontal, tr("Old Purchase Price"));
+    statisticModel->setHeaderData(PurchasePrice, Qt::Horizontal, tr("Purchase Price"));
     statisticModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
     statisticModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
     statisticModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));

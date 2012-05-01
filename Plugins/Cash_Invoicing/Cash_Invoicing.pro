@@ -26,6 +26,8 @@ HEADERS += cash_invoicing.h\
         Cash_Invoicing_global.h \
     updateproductdialog.h
 
+TRANSLATIONS = Translations/Cash_Invoicing_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xE60B2F0C
@@ -47,7 +49,9 @@ unix:!symbian {
 
 OTHER_FILES += \
     Icon/cash_icon.png \
-    Icon/money_icon.png
+    Icon/money_icon.png \
+    Translations/Cash_Invoicing_zh_CN.qm \
+    Translations/Cash_Invoicing_zh_CN.ts
 
 RESOURCES += \
     icon.qrc

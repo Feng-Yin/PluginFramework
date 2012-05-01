@@ -26,6 +26,8 @@ HEADERS += sell_invoicing.h\
         Sell_Invoicing_global.h \
     updateproductdialog.h
 
+TRANSLATIONS = Translations/Sell_Invoicing_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xE5968762
@@ -49,7 +51,9 @@ OTHER_FILES += \
     Icon/sell_icon.png \
     Icon/up_icon.png \
     Icon/submitorder_icon.png \
-    Icon/down_icon.png
+    Icon/down_icon.png \
+    Translations/Sell_Invoicing_zh_CN.ts \
+    Translations/Sell_Invoicing_zh_CN.qm
 
 RESOURCES += \
     icon.qrc

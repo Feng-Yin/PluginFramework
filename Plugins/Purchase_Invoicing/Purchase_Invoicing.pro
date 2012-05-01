@@ -25,6 +25,8 @@ HEADERS += purchase_invoicing.h\
         Purchase_Invoicing_global.h \
     addproductdialog.h
 
+TRANSLATIONS = Translations/Purchase_Invoicing_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xECF2370F
@@ -57,4 +59,6 @@ OTHER_FILES += \
     Icon/delete_icon.png \
     Icon/add_icon.png \
     Icon/commit_icon.png \
-    Icon/commitall_icon.png
+    Icon/commitall_icon.png \
+    Translations/Purchase_Invoicing_zh_CN.ts \
+    Translations/Purchase_Invoicing_zh_CN.qm

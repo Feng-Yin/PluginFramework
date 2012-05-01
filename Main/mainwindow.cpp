@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <typeinfo>
 #include "mainwindow.h"
 #include "plugin_interface.h"
 
@@ -17,6 +18,14 @@ MainWindow::MainWindow(QWidget *parent) :
     pluginTable(NULL),
     containerDialog(NULL)
 {
+    QDir qmdir(":/Translations");
+    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
+        //qDebug()<<QFileInfo(fileName).baseName();
+        QTranslator *qtTranslator = new QTranslator(this);
+        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
+        QApplication::instance()->installTranslator(qtTranslator);
+    }
+
     createActions();
     createToolBox();
     createMenus();
@@ -65,19 +74,20 @@ void MainWindow::createToolBox()
 
 void MainWindow::createActions()
 {
-    exitAction = new QAction(tr("E&xit"), this);
-    exitAction->setShortcuts(QKeySequence::Quit);
+    exitAction = new QAction(tr("&Exit"), this);
+    //exitAction->setShortcuts(QKeySequence::Quit);
+    exitAction->setShortcut(QString("Ctrl+E"));
     exitAction->setStatusTip(tr("Quit"));
     exitAction->setIcon(QIcon(":/Icon/quit_icon.png"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
     aboutAction = new QAction(tr("A&bout"), this);
-    aboutAction->setShortcut(tr("Ctrl+B"));
+    aboutAction->setShortcut(QString("Ctrl+B"));
     aboutAction->setIcon(QIcon(":/Icon/about_icon.png"));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
     pluginAction = new QAction(tr("P&lugin List"), this);
-    pluginAction->setShortcut(tr("Ctrl+P"));
+    pluginAction->setShortcut(QString("Ctrl+P"));
     pluginAction->setIcon(QIcon(":/Icon/plugin_icon.png"));
     connect(pluginAction, SIGNAL(triggered()), this, SLOT(pluginDialog()));
 }

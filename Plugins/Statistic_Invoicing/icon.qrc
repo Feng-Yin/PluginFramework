@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>Icon/statistic_icon.png</file>
+        <file>Translations/Statistic_Invoicing_zh_CN.qm</file>
     </qresource>
 </RCC>

@@ -23,6 +23,8 @@ SOURCES += productmanagementif.cpp
 HEADERS += productmanagementif.h\
         ProductManagementIF_global.h
 
+#TRANSLATIONS = Translations/ProductManagementIF_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xEC5895ED

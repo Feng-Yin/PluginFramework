@@ -15,6 +15,9 @@ UserManagement_Invoicing::UserManagement_Invoicing() :
     toolBar(NULL),
     userManagementInterface(NULL)
 {
+    QTranslator *qtTranslator = new QTranslator(this);
+    qtTranslator->load("UserManagement_Invoicing_zh_CN", ":/Translations");
+    QApplication::instance()->installTranslator(qtTranslator);
 }
 
 UserManagement_Invoicing::~UserManagement_Invoicing()

@@ -4,5 +4,6 @@
         <file>Icon/up_icon.png</file>
         <file>Icon/down_icon.png</file>
         <file>Icon/update_icon.png</file>
+        <file>Translations/Storage_Invoicing_zh_CN.qm</file>
     </qresource>
 </RCC>

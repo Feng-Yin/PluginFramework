@@ -27,6 +27,8 @@ HEADERS += statistic_invoicing.h\
         Statistic_Invoicing_global.h\
         barchart.h
 
+TRANSLATIONS = Translations/Statistic_Invoicing_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xED5A9B43
@@ -47,7 +49,9 @@ unix:!symbian {
 }
 
 OTHER_FILES += \
-    Icon/statistic_icon.png
+    Icon/statistic_icon.png \
+    Translations/Statistic_Invoicing_zh_CN.ts \
+    Translations/Statistic_Invoicing_zh_CN.qm
 
 RESOURCES += \
     icon.qrc

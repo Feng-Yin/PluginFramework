@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>Icon/cash_icon.png</file>
         <file>Icon/money_icon.png</file>
+        <file>Translations/Cash_Invoicing_zh_CN.qm</file>
     </qresource>
 </RCC>

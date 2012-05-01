@@ -24,6 +24,13 @@ Storage_Invoicing::Storage_Invoicing():
     filterPushButton(NULL)
 
 {
+    QDir qmdir(":/Translations");
+    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
+        //qDebug()<<QFileInfo(fileName).baseName();
+        QTranslator *qtTranslator = new QTranslator(this);
+        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
+        QApplication::instance()->installTranslator(qtTranslator);
+    }
 }
 
 QWidget* Storage_Invoicing::getMainWidget() const

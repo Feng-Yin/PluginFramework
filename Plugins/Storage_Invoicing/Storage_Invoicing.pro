@@ -26,6 +26,8 @@ HEADERS += storage_invoicing.h\
         Storage_Invoicing_global.h \
     updateproductdialog.h
 
+TRANSLATIONS = Translations/Storage_Invoicing_zh_CN.ts
+
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xEE3CB746
@@ -49,7 +51,9 @@ OTHER_FILES += \
     Icon/storage_icon.png \
     Icon/up_icon.png \
     Icon/down_icon.png \
-    Icon/update_icon.png
+    Icon/update_icon.png \
+    Translations/Storage_Invoicing_zh_CN.ts \
+    Translations/Storage_Invoicing_zh_CN.qm
 
 RESOURCES += \
     icon.qrc

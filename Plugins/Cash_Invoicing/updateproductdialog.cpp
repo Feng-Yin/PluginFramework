@@ -301,7 +301,7 @@ void UpdateProductDialog::printBill()
     }
 
     QPrintDialog *dialog = new QPrintDialog(printer, this);
-    dialog->setWindowTitle(tr("Print Document"));
+    dialog->setWindowTitle(tr("Print Bill"));
     if (dialog->exec() == QDialog::Accepted) {
         QString html = getPrintContent();
         QTextDocument textDocument;

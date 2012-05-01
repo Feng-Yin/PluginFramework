@@ -15,6 +15,13 @@ Cash_Invoicing::Cash_Invoicing():
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 {
+    QDir qmdir(":/Translations");
+    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
+        //qDebug()<<QFileInfo(fileName).baseName();
+        QTranslator *qtTranslator = new QTranslator(this);
+        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
+        QApplication::instance()->installTranslator(qtTranslator);
+    }
 }
 
 
