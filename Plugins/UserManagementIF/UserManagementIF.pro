@@ -6,7 +6,7 @@
 
 QT       += sql
 
-QT       -= gui
+#QT       -= gui
 
 TARGET = UserManagementIF
 TEMPLATE = lib
@@ -26,7 +26,7 @@ SOURCES += usermanagementif.cpp
 HEADERS += usermanagementif.h\
         UserManagementIF_global.h
 
-#TRANSLATIONS = Translations/UserManagementIF_zh_CN.ts
+TRANSLATIONS = Translations/UserManagementIF_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -46,3 +46,10 @@ unix:!symbian {
     }
     INSTALLS += target
 }
+
+OTHER_FILES += \
+    Translations/UserManagementIF_zh_CN.ts \
+    Translations/UserManagementIF_zh_CN.qm
+
+RESOURCES += \
+    rc.qrc

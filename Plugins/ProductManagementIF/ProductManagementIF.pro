@@ -23,7 +23,7 @@ SOURCES += productmanagementif.cpp
 HEADERS += productmanagementif.h\
         ProductManagementIF_global.h
 
-#TRANSLATIONS = Translations/ProductManagementIF_zh_CN.ts
+TRANSLATIONS = Translations/ProductManagementIF_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -43,3 +43,10 @@ unix:!symbian {
     }
     INSTALLS += target
 }
+
+OTHER_FILES += \
+    Translations/ProductManagementIF_zh_CN.ts \
+    Translations/ProductManagementIF_zh_CN.qm
+
+RESOURCES += \
+    rc.qrc

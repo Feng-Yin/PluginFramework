@@ -1,4 +1,5 @@
 #include <QtSql>
+#include <QApplication>
 #include "mainwindow.h"
 #include <usermanagement_interface.h>
 #include <productmanagement_interface.h>
@@ -14,6 +15,13 @@ const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList
 ProductManagementIF::ProductManagementIF():
     userManagementInterface(NULL)
 {
+    QDir qmdir(":/Translations");
+    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
+        //qDebug()<<QFileInfo(fileName).baseName();
+        QTranslator *qtTranslator = new QTranslator(this);
+        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
+        QApplication::instance()->installTranslator(qtTranslator);
+    }
 }
 
 ProductManagementIF::~ProductManagementIF()
@@ -272,7 +280,8 @@ bool ProductManagementIF::updateStatusIDByProductID(int productID, int statusID)
             break;
         }
         if(different) {
-            bool ret = query.exec(QString("UPDATE products SET productStatusID=%1 WHERE id=%2;").arg(statusID).arg(productID));
+            int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
+            bool ret = query.exec(QString("UPDATE products SET productStatusID=%1,operatorUserID = %2, responserUserID = %2 WHERE id=%3;").arg(statusID).arg(userID).arg(productID));
             addProductinfoByProductID(productID);
             return ret;
         }

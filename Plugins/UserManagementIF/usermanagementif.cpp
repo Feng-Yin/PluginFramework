@@ -1,4 +1,5 @@
 #include <QtSql>
+#include <QApplication>
 #include "usermanagementif.h"
 
 
@@ -12,6 +13,13 @@ UserManagementIF::UserManagementIF() :
     currentIP(""),
     observerSet(QSet<UserChangeNotifyInterface *>())
 {
+    QDir qmdir(":/Translations");
+    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
+        //qDebug()<<QFileInfo(fileName).baseName();
+        QTranslator *qtTranslator = new QTranslator(this);
+        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
+        QApplication::instance()->installTranslator(qtTranslator);
+    }
 }
 
 UserManagementIF::~UserManagementIF()

@@ -115,7 +115,7 @@
     <message>
         <location filename="../purchase_invoicing.cpp" line="41"/>
         <source>Purchase</source>
-        <translation>购买</translation>
+        <translation>采购</translation>
     </message>
     <message>
         <location filename="../purchase_invoicing.cpp" line="47"/>
@@ -245,7 +245,7 @@
     <message>
         <location filename="../purchase_invoicing.cpp" line="316"/>
         <source>Purchase Function</source>
-        <translation>进货功能模块</translation>
+        <translation>采购功能模块</translation>
     </message>
 </context>
 </TS>
