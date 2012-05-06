@@ -8,6 +8,7 @@ TODO:
 
 
 7. statisc bug, 1 person display error
+8. update the purchase view
 
 
 

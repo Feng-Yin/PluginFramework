@@ -189,10 +189,10 @@ bool Purchase_Invoicing::init(MainWindow *parent)
     initMainWidget();
     userChanged();
 
-//    QTimer *timer = new QTimer(this);
-//    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
-//    timer->setInterval(1000);
-//    timer->start(1000);
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
+    timer->setInterval(1000);
+    timer->start(1000);
 
     return true;
 }
