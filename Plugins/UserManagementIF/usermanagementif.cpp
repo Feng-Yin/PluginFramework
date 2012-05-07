@@ -137,6 +137,7 @@ bool UserManagementIF::openDatabase(QString username, QString password, QString 
         if(db.open()) {
             currentUser = username;
             currentIP = ipaddress;
+            //qDebug()<<"QSqlDriver::Transactions "<<db.driver()->hasFeature(QSqlDriver::Transactions);
             //create default db
             if(!getDatabase().isValid()) {
                 QSqlDatabase defaultDB(addDatabase("default"));

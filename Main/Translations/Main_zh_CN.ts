@@ -21,7 +21,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="84"/>
         <source>A&amp;bout</source>
-        <translation>关于（&amp;A）</translation>
+        <translation>关于（&amp;B）</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="89"/>
