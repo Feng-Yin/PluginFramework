@@ -12,21 +12,26 @@ QT_END_NAMESPACE
 
 enum {
     ProductID = 0,
-    SerialNumber = 1,
-    ProductTypeID = 2,
-    BrandNameID = 3,
-    ProductModelID = 4,
-    SchemaNameID = 5,
-    Quantity = 6,
-    Unit = 7,
-    OldPurchasePrice = 8,
-    PurchasePrice = 9,
-    SellingPrice = 10,
-    OperatorUserID = 11,
-    ResponserUserID = 12,
-    ProductStatusID = 13,
-    TimeStamp = 14,
-    Comments = 15
+    SerialNumber,
+    ProductTypeID,
+    BrandNameID,
+    ProductModelID,
+    ColorID,
+    VendorID,
+    SchemaNameID,
+    Quantity,
+    Unit,
+    OldPurchasePrice,
+    PurchasePrice,
+    SellingPrice,
+    OperatorUserID,
+    ResponserUserID,
+    SellerID,
+    BarInfo,
+    ProductStatusID,
+    ReplacementStatusID,
+    TimeStamp,
+    Comments
 };
 
 typedef struct _SalesResult {
@@ -82,6 +87,9 @@ public:
     const static QStringList defaultBrandName;
     const static QStringList defaultProductModel;
     const static QStringList defaultProdcutStatus;
+    const static QStringList defaultVendorInfo;
+    const static QStringList defaultColor;
+    const static QStringList replacementStatus;
 
 };
 

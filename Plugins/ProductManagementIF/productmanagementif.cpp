@@ -11,6 +11,9 @@ const QStringList ProductManagementInterface::defaultBrandName
                                         = QStringList() <<"其它"<<"诺基亚"<<"摩托罗拉"<<"三星"<<"HTC"<<"苹果";
 const QStringList ProductManagementInterface::defaultProductModel = QStringList() <<"其它";
 const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList() <<"已删除"<<"待进货"<<"录入"<<"待入库"<<"已入库"<<"已下单"<<"已销售";
+const QStringList ProductManagementInterface::defaultVendorInfo = QStringList() <<"其它";
+const QStringList ProductManagementInterface::defaultColor = QStringList() <<"其它";
+const QStringList ProductManagementInterface::replacementStatus = QStringList() <<"否"<<"是";
 
 ProductManagementIF::ProductManagementIF():
     userManagementInterface(NULL)
@@ -457,6 +460,21 @@ bool ProductManagementIF::checkSerialNumber(QString serialNumber) const
     return query.first();
 }
 
+bool ProductManagementIF::dropAllTables() const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    query.exec("drop schema `producttype`");
+    query.exec("drop schema `brandname`");
+    query.exec("drop schema `productmodel`");
+    query.exec("drop schema `productstatus`");
+    query.exec("drop schema `vendorinfo`");
+    query.exec("drop schema `defaultcolor`");
+    query.exec("drop schema `repalcementstatus`");
+    query.exec("drop schema `products`");
+    query.exec("drop schema `productsinfo`");
+    return true;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////
 bool ProductManagementIF::createProductManagementTables() const
 {
@@ -466,6 +484,7 @@ bool ProductManagementIF::createProductManagementTables() const
                         (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
                          `name` VARCHAR(45) NOT NULL ,\
                          PRIMARY KEY (`id`) )")) {
+            dropAllTables();
             return false;
         }
         //insert default ProductType
@@ -480,7 +499,7 @@ bool ProductManagementIF::createProductManagementTables() const
                         (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
                          `name` VARCHAR(45) NOT NULL ,\
                          PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `producttype`");
+            dropAllTables();
             return false;
         }
         //insert default BrandName
@@ -499,8 +518,7 @@ bool ProductManagementIF::createProductManagementTables() const
                          FOREIGN KEY (`brandNameID`) REFERENCES brandname(`id`) ,\
                          `model` VARCHAR(45) NOT NULL ,\
                          PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `producttype`");
-            query.exec("drop schema `brandname`");
+            dropAllTables();
             return false;
         }
         //insert default ProductModel
@@ -515,9 +533,7 @@ bool ProductManagementIF::createProductManagementTables() const
                        (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
                         `status` VARCHAR(45) NOT NULL ,\
                         PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `producttype`");
-            query.exec("drop schema `brandname`");
-            query.exec("drop schema `productmodel`");
+            dropAllTables();
             return false;
         }
         //insert default ProdcutStatus
@@ -525,6 +541,51 @@ bool ProductManagementIF::createProductManagementTables() const
         foreach(QString status, defaultProdcutStatus) {
                        query.exec(QString("INSERT INTO `productstatus` (`id`, `status`) VALUES (%1, '%2')")
                                   .arg(id++).arg(status));
+        }
+    }
+    if(!query.exec("desc vendorinfo")) {
+        if(!query.exec("CREATE TABLE `vendorinfo` \
+                       (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
+                        `name` VARCHAR(45) NOT NULL ,\
+                        PRIMARY KEY (`id`) )")) {
+            dropAllTables();
+            return false;
+        }
+        //insert default vendorinfo
+        int id = 1;
+        foreach(QString name, defaultVendorInfo) {
+                       query.exec(QString("INSERT INTO `vendorinfo` (`id`, `name`) VALUES (%1, '%2')")
+                                  .arg(id++).arg(name));
+        }
+    }
+    if(!query.exec("desc colorinfo")) {
+        if(!query.exec("CREATE TABLE `colorinfo` \
+                       (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
+                        `color` VARCHAR(45) NOT NULL ,\
+                        PRIMARY KEY (`id`) )")) {
+            dropAllTables();
+            return false;
+        }
+        //insert default colorinfo
+        int id = 1;
+        foreach(QString name, defaultColor) {
+                       query.exec(QString("INSERT INTO `colorinfo` (`id`, `color`) VALUES (%1, '%2')")
+                                  .arg(id++).arg(name));
+        }
+    }
+    if(!query.exec("desc replacementstatus")) {
+        if(!query.exec("CREATE TABLE `replacementstatus` \
+                       (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
+                        `status` VARCHAR(45) NOT NULL ,\
+                        PRIMARY KEY (`id`) )")) {
+           dropAllTables();
+           return false;
+        }
+        //insert default replacementstatus
+        int id = 1;
+        foreach(QString status, replacementStatus) {
+            query.exec(QString("INSERT INTO `replacementstatus` (`id`, `status`) VALUES (%1, '%2')")
+                       .arg(id++).arg(status));
         }
     }
     if(!query.exec("desc products")) {
@@ -537,6 +598,10 @@ bool ProductManagementIF::createProductManagementTables() const
                          FOREIGN KEY (`brandNameID`) REFERENCES brandname(`id`) ,\
                          `productModelID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`productModelID`) REFERENCES productmodel(`id`) ,\
+                         `colorID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
+                         FOREIGN KEY (`colorID`) REFERENCES colorinfo(`id`) ,\
+                         `vendorID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
+                         FOREIGN KEY (`vendorID`) REFERENCES vendorinfo(`id`) ,\
                          `schemaNameID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`schemaNameID`) REFERENCES schemaname(`id`) ,\
                          `quantity` INT UNSIGNED NOT NULL DEFAULT 1 ,\
@@ -548,16 +613,18 @@ bool ProductManagementIF::createProductManagementTables() const
                          FOREIGN KEY (`operatorUserID`) REFERENCES user(`id`) ,\
                          `responserUserID` INT UNSIGNED NOT NULL ,\
                          FOREIGN KEY (`responserUserID`) REFERENCES user(`id`) ,\
+                         `sellerID` INT UNSIGNED ,\
+                         FOREIGN KEY (`sellerID`) REFERENCES user(`id`) ,\
+                         `barInfo` VARCHAR(45) NULL ,\
                          `productStatusID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`productStatusID`) REFERENCES productstatus(`id`) ,\
+                         `replacementStatusID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
+                         FOREIGN KEY (`replacementStatusID`) REFERENCES replacementstatus(`id`) ,\
                          `timeStamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
                          `comments` VARCHAR(45) NULL ,\
                          PRIMARY KEY (`id`) ,\
                          UNIQUE INDEX `serialNumber_UNIQUE` (`serialNumber` ASC) )")) {
-            query.exec("drop schema `producttype`");
-            query.exec("drop schema `brandname`");
-            query.exec("drop schema `productmodel`");
-            query.exec("drop schema `productstatus`");
+            dropAllTables();
             return false;
         }
     }
@@ -571,6 +638,10 @@ bool ProductManagementIF::createProductManagementTables() const
                          FOREIGN KEY (`brandNameID`) REFERENCES brandname(`id`) ,\
                          `productModelID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`productModelID`) REFERENCES productmodel(`id`) ,\
+                         `colorID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
+                         FOREIGN KEY (`colorID`) REFERENCES colorinfo(`id`) ,\
+                         `vendorID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
+                         FOREIGN KEY (`vendorID`) REFERENCES vendorinfo(`id`) ,\
                          `schemaNameID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`schemaNameID`) REFERENCES schemaname(`id`) ,\
                          `quantity` INT UNSIGNED NOT NULL DEFAULT 1 ,\
@@ -582,16 +653,17 @@ bool ProductManagementIF::createProductManagementTables() const
                          FOREIGN KEY (`operatorUserID`) REFERENCES user(`id`) ,\
                          `responserUserID` INT UNSIGNED NOT NULL ,\
                          FOREIGN KEY (`responserUserID`) REFERENCES user(`id`) ,\
+                         `sellerID` INT UNSIGNED ,\
+                         FOREIGN KEY (`sellerID`) REFERENCES user(`id`) ,\
+                         `barInfo` VARCHAR(45) NULL ,\
                          `productStatusID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`productStatusID`) REFERENCES productstatus(`id`) ,\
+                         `replacementStatusID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
+                         FOREIGN KEY (`replacementStatusID`) REFERENCES replacementstatus(`id`) ,\
                          `timeStamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
                          `comments` VARCHAR(45) NULL ,\
                          PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `producttype`");
-            query.exec("drop schema `brandname`");
-            query.exec("drop schema `productmodel`");
-            query.exec("drop schema `productstatus`");
-			query.exec("drop schema `products`");
+            dropAllTables();
             return false;
         }
 	}

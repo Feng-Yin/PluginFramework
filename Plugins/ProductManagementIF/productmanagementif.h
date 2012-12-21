@@ -71,6 +71,7 @@ public:
 
 private:
     bool createProductManagementTables() const;
+    bool dropAllTables() const;
 
     //for table productsinfo
     virtual bool addProductinfoByProductID(int productID) const;

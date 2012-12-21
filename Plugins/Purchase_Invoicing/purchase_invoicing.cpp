@@ -214,10 +214,14 @@ void Purchase_Invoicing::createPurchasePanel()
     purchaseModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     purchaseModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
     purchaseModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    purchaseModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    purchaseModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
     purchaseModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
     purchaseModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
     purchaseModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    purchaseModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
     purchaseModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    purchaseModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
     purchaseModel->setSort(TimeStamp, Qt::AscendingOrder);
 
     purchaseModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
@@ -225,6 +229,8 @@ void Purchase_Invoicing::createPurchasePanel()
     purchaseModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
     purchaseModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
     purchaseModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    purchaseModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    purchaseModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
     purchaseModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
     purchaseModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
     purchaseModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
@@ -233,7 +239,10 @@ void Purchase_Invoicing::createPurchasePanel()
     purchaseModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
     purchaseModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
     purchaseModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    purchaseModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    purchaseModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
     purchaseModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    purchaseModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
     purchaseModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     purchaseModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
