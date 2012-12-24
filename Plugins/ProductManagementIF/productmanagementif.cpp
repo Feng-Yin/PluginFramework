@@ -101,6 +101,18 @@ int ProductManagementIF::getStatusIDByStatusName(QString status) const
     return 0;
 }
 
+//for table replacementstatus
+int ProductManagementIF::getReplacementStatusIDByReplacementStatusName(QString status) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    query.exec(QString("select id from replacementstatus where status = '%1'").arg(status));
+    if(query.first()) {
+        return query.record().value("id").toInt();
+    }
+    return 0;
+}
+
+
 //for table product
 QSet<int> ProductManagementIF::getProductIDSetByUserIDStatusID(int userID, int statusID) const
 {
@@ -167,6 +179,40 @@ bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTy
     if(query.first()) {
         int id = query.record().value(ProductID).toInt();
         addProductinfoByProductID(id);
+    }
+    return ret;
+}
+
+bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTypeID, int brandNameID,
+                                int productModelID, int colorID, int vendorID, int schemaNameID,
+                                int quantity, QString unit, QString oldPurchasePrice, QString purchasePrice,
+                                QString sellingPrice, int operatorUserID, int responserUserID, int sellerID,
+                                QString barInfo, int productStatusID, int replacementStatusID, QString time,
+                                QString comments) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    bool ret = query.exec(QString("select quantity, timeStamp from products where serialNumber='%1'").arg(serialNumber));
+    if(query.first()) {
+        QSqlRecord record = query.record();
+        int newquatity = record.value("quantity").toInt() + quantity;
+        QString time = record.value("timeStamp").toString();
+        time.replace("T", " ", Qt::CaseInsensitive);
+        qDebug()<<"old one: "<<record;
+        qDebug()<<QString("UPDATE products SET quantity = %1, timestamp = '%2' where serialNumber='%3'").arg(newquatity).arg(time).arg(serialNumber);
+        ret = query.exec(QString("UPDATE products SET quantity = %1, timestamp = '%2' where serialNumber='%3'").arg(newquatity).arg(time).arg(serialNumber));
+    } else {
+        QString addProductSQL = "INSERT INTO `products` (`serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `timeStamp`, `comments`";
+        addProductSQL += QString(") VALUES ( '%1', %2, %3, %4, %5, %6, '%7', %8, '%9', '%10', '%11', '%12', %13, %14, %15, '%16', %17, %18, '%19', '%20')")
+                .arg(serialNumber).arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
+                .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
+                .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments);
+        qDebug()<<"new one: "<<addProductSQL;
+        ret = query.exec(addProductSQL);
+        query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+        if(query.first()) {
+            int id = query.record().value(ProductID).toInt();
+            //addProductinfoByProductID(id);
+        }
     }
     return ret;
 }
@@ -417,6 +463,44 @@ bool ProductManagementIF::addBrandName(QString brandName) const
     QSqlQuery query(userManagementInterface->getSqlQuery());
     return query.exec(QString("INSERT INTO `brandname` (`name`) VALUES ('%1')")
                .arg(brandName));
+}
+
+//for table vendorinfo
+int ProductManagementIF::getVendorIDByVendorName(QString vendorName) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    query.exec(QString("select id from vendorinfo where name = '%1'").arg(vendorName));
+    if(query.first()) {
+        return query.record().value("id").toInt();
+    }
+    return 0;
+}
+
+//for table vendorinfo
+bool ProductManagementIF::addVendorName(QString vendorName) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    return query.exec(QString("INSERT INTO `vendorinfo` (`name`) VALUES ('%1')")
+               .arg(vendorName));
+}
+
+//for table colorinfo
+int ProductManagementIF::getColorIDByColorName(QString colorName) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    query.exec(QString("select id from colorinfo where color = '%1'").arg(colorName));
+    if(query.first()) {
+        return query.record().value("id").toInt();
+    }
+    return 0;
+}
+
+//for table colorinfo
+bool ProductManagementIF::addColorName(QString colorName) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    return query.exec(QString("INSERT INTO `colorinfo` (`color`) VALUES ('%1')")
+               .arg(colorName));
 }
 
 //for table productmodel

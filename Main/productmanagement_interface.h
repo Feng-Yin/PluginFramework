@@ -52,11 +52,19 @@ public:
     virtual int getBrandIDByBrandName(QString brandName) const = 0;
     virtual QString getBrandNameByBrandID(int brandID) const = 0;
     virtual bool addBrandName(QString brandName) const = 0;
+    //for table vendorinfo
+    virtual int getVendorIDByVendorName(QString vendorName) const = 0;
+    virtual bool addVendorName(QString vendorName) const = 0;
+    //for table colorinfo
+    virtual int getColorIDByColorName(QString colorName) const = 0;
+    virtual bool addColorName(QString colorName) const = 0;
     //for table productmodel
     virtual QString getModelNameByModelID(int modelID) const = 0;
     virtual bool addProductModel(int productTypeID, int brandNameID, QString productModel) const = 0;
     //for table productstatus
     virtual int getStatusIDByStatusName(QString status) const = 0;
+    //for table replacementstatus
+    virtual int getReplacementStatusIDByReplacementStatusName(QString status) const = 0;
     //for table products
     virtual QSet<int> getProductIDSetByUserIDStatusID(int userID, int statusID) const = 0;
     virtual int getModelIDByTypeIDBrandIDModelName(int productTypeID,
@@ -67,6 +75,12 @@ public:
                                     int productModelID, int schemaNameID, int quantity, QString unit,
                                     QString oldPurchasePrice, QString purchasePrice, QString sellingPrice,
                                     int operatorUserID, int responserUserID, int productStatusID,
+                                    QString comments) const = 0;
+    virtual bool addProductByDetail(QString serialNumber, int productTypeID, int brandNameID,
+                                    int productModelID, int colorID, int vendorID, int schemaNameID,
+                                    int quantity, QString unit, QString oldPurchasePrice, QString purchasePrice,
+                                    QString sellingPrice, int operatorUserID, int responserUserID, int sellerID,
+                                    QString barInfo, int productStatusID, int replacementStatusID, QString time,
                                     QString comments) const = 0;
     virtual bool updateProductDetailByProductID(int id, QString serialNumber, int productTypeID, int brandNameID,
                                        int productModelID, int schemaNameID, int quantity, QString unit,

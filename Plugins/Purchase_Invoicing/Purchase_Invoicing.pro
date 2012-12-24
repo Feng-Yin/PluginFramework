@@ -9,6 +9,7 @@ QT       += sql
 TARGET = Purchase_Invoicing
 TEMPLATE = lib
 CONFIG += plugin copy_dir_files
+CONFIG += qaxcontainer
 INCLUDEPATH += ../../main
 DEFINES += PURCHASE_INVOICING_LIBRARY
 CONFIG(debug, debug|release) {

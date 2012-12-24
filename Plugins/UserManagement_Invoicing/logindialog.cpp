@@ -194,6 +194,8 @@ bool LoginDialog::createInvoicingSchema()
                                              QLineEdit::Normal, "", &ret);
     dbSchema.simplified();
     if(ret && !dbSchema.isEmpty()) {
+        userManagementInterface->addSchema("未指定");
+        userManagementInterface->addUser("未指定", "test");
         userManagementInterface->addSchema(dbSchema);
         ret = true;
     }

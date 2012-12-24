@@ -15,6 +15,7 @@ class QString;
 class QLabel;
 class QPushButton;
 class QLineEdit;
+class QProgressBar;
 QT_END_NAMESPACE
 
 class AddProductDialog;
@@ -51,9 +52,12 @@ private:
 
 private slots:
     void addProduct();
+    bool addProduct(QStringList &product);
+    void addProduct(QMap<QString, QList<QStringList> > &productsMap);
     void productAdded();
     void delProduct();
     void emptyProducts();
+    void importProducts();
     void commitProduct();
     void commitAllProducts();
     void updateDBTableModel() const;
@@ -76,6 +80,8 @@ private:
     QWidget *purchasePanel;
     QSqlRelationalTableModel *purchaseModel;
     QTableView *purchaseView;
+
+    QProgressBar *bar;
 
     MainWindow *parentWindow;
     UserManagementInterface *userManagementInterface;

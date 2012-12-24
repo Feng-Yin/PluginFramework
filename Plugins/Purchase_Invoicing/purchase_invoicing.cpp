@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <QtSql>
+#include <QAxObject>
 #include "purchase_invoicing.h"
 #include "mainwindow.h"
 #include "usermanagement_interface.h"
@@ -66,6 +67,7 @@ void Purchase_Invoicing::initMainWidget()
     importProductsButton->setIconSize(QSize(25, 25));
     importProductsButton->setFlat(true);
     importProductsButton->setToolTip(QString(tr("Import Products")));
+    connect(importProductsButton, SIGNAL(clicked()), this, SLOT(importProducts()));
 
     commitProductsButton = new QPushButton();
     commitProductsButton->setIcon(QIcon(":/Icon/commit_icon.png"));
@@ -140,13 +142,18 @@ void Purchase_Invoicing::initMainWidget()
     QWidget *filterWidget = new QWidget();
     filterWidget->setLayout(filterLayout);
 
+    bar = new QProgressBar();
+    bar->setFormat("%v/%m");
+
     QGridLayout *mainLayout = new QGridLayout(mainWidget);
     mainLayout->addWidget(filterWidget, 0, 0, Qt::AlignTop);
     mainLayout->addLayout(hlayout, 1, 0, Qt::AlignTop);
 
     createPurchasePanel();
     mainLayout->addWidget(purchasePanel, 2, 0);
+    mainLayout->addWidget(bar, 3, 0);
     mainWidget->setLayout(mainLayout);
+    bar->hide();
 }
 
 QWidget* Purchase_Invoicing::getMainWidget() const
@@ -345,6 +352,179 @@ void Purchase_Invoicing::addProduct()
     addProductDialog->exec();
 }
 
+bool Purchase_Invoicing::addProduct(QStringList &product)
+{
+    //进货日期 供货商 品牌 机型 串号 颜色 数量 备注
+    QString productType;
+    QString time;
+    QString vendorName;
+    QString brandName;
+    QString modelName;
+    QString serialNumber;
+    QString colorName;
+    QString quatityString;
+    QString comments;
+    productType = product.at(0).simplified();
+    time = product.at(1).simplified();
+    vendorName = product.at(2).simplified();
+    brandName = product.at(3).simplified();
+    modelName = product.at(4).simplified();
+    serialNumber = product.at(5).simplified();
+    colorName = product.at(6).simplified();
+    quatityString = product.at(7).simplified();
+    comments = product.at(8).simplified();
+    int productTypeID;
+    if(productType.isEmpty()) {
+        productTypeID = productManagementInterface->getTypeIDByTypeName("其它");
+    } else {
+        productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
+        if(!productTypeID) {
+            productManagementInterface->addProductType(productType);
+            productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
+        }
+    }
+
+    int vendorID;
+    if(vendorName.isEmpty()) {
+        vendorID = productManagementInterface->getVendorIDByVendorName("其它");
+    } else {
+        vendorID = productManagementInterface->getVendorIDByVendorName(vendorName);
+        if(!vendorID) {
+            productManagementInterface->addVendorName(vendorName);
+            vendorID = productManagementInterface->getVendorIDByVendorName(vendorName);
+        }
+    }
+
+    int brandNameID;
+    if(brandName.isEmpty()) {
+        brandNameID = productManagementInterface->getBrandIDByBrandName("其它");
+    } else {
+        brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
+        if(!brandNameID) {
+            productManagementInterface->addBrandName(brandName);
+            brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
+        }
+    }
+    int productModelID;
+    if(modelName.isEmpty()) {
+        productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "其它");
+        if(!productModelID) {
+            productManagementInterface->addProductModel(productTypeID, brandNameID, "其它");
+            productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "其它");
+        }
+    } else {
+        productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, modelName);
+        if(!productModelID) {
+            productManagementInterface->addProductModel(productTypeID, brandNameID, modelName);
+            productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, modelName);
+        }
+    }
+
+    int colorID;
+    if(colorName.isEmpty()) {
+        colorID = productManagementInterface->getColorIDByColorName("其它");
+    } else {
+        colorID = productManagementInterface->getColorIDByColorName(colorName);
+        if(!colorID) {
+            productManagementInterface->addColorName(colorName);
+            colorID = productManagementInterface->getColorIDByColorName(colorName);
+        }
+    }
+
+    int schemaID = userManagementInterface->getSchemaIDBySchemaName("未指定");
+    //int schemaID = 1;
+    int quantity = quatityString.toInt();
+    int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
+    int sellerID = userManagementInterface->getUserIDByUserName("未指定");
+    int statusID = productManagementInterface->getStatusIDByStatusName("录入");
+    time.replace("T", " ", Qt::CaseInsensitive);
+    QDateTime tmpTime = QDateTime::fromString(time, "yyyy-MM-dd hh:mm:ss");
+    QString timeStamp("");
+    if(tmpTime.isValid()) {
+        timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
+    }
+    int replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("否");
+    int ret = productManagementInterface->addProductByDetail(serialNumber.simplified(), productTypeID, brandNameID,
+                                                   productModelID, colorID, vendorID, schemaID, quantity, /*unit*/"个",
+                                                   "", "", "", userID, userID, sellerID, "未指定", statusID, replacementStatusID,
+                                                   timeStamp.simplified(), comments.simplified());
+    if(!ret) {
+        //QMessageBox::warning(0, "Error", QString("Insert %1 Error").arg(serialNumber));
+    }
+    return ret;
+    //productAdded();
+}
+
+void Purchase_Invoicing::addProduct(QMap<QString, QList<QStringList> > &productsMap)
+{
+    foreach(QString productType, productsMap.keys()) {
+        int productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
+        if(!productTypeID) {
+            productManagementInterface->addProductType(productType);
+            productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
+        }
+
+        //进货日期 供货商 品牌 机型 串号 颜色 数量 备注
+        QString time;
+        QString vendorName;
+        QString brandName;
+        QString modelName;
+        QString serialNumber;
+        QString colorName;
+        QString quatityString;
+        QString comments;
+        foreach(QStringList product, productsMap[productType]){
+            //product>>time>>vendorName>>brandName>>modelName>>serialNumber>>colorName>>quatityString>>comments;
+            product.pop_front();
+            time = product.at(0);
+            vendorName = product.at(1);
+            brandName = product.at(2);
+            modelName = product.at(3);
+            serialNumber = product.at(4);
+            colorName = product.at(5);
+            quatityString = product.at(6);
+            comments = product.at(7);
+            int vendorID = productManagementInterface->getVendorIDByVendorName(vendorName);
+            if(!vendorID) {
+                productManagementInterface->addVendorName(vendorName);
+            }
+            vendorID = productManagementInterface->getVendorIDByVendorName(vendorName);
+            int brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
+            if(!brandNameID) {
+                productManagementInterface->addBrandName(brandName);
+            }
+            brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
+            int productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, modelName);
+            if(!productModelID) {
+                productManagementInterface->addProductModel(productTypeID, brandNameID, modelName);
+            }
+            productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, modelName);
+            int colorID = productManagementInterface->getColorIDByColorName(colorName);
+            if(!colorID) {
+                productManagementInterface->addColorName(colorName);
+            }
+            colorID = productManagementInterface->getColorIDByColorName(colorName);
+
+            //int schemaID = userManagementInterface->getSchemaIDBySchemaName("未指定");
+            int schemaID = 1;
+            int quantity = quatityString.toInt();
+            int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
+            int statusID = productManagementInterface->getStatusIDByStatusName("录入");
+            time.replace("T", " ", Qt::CaseInsensitive);
+            QDateTime tmpTime = QDateTime::fromString(time, "yyyy-MM-dd hh:mm:ss");
+            QString timeStamp("");
+            if(tmpTime.isValid()) {
+                timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
+            }
+            int replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("否");
+            productManagementInterface->addProductByDetail(serialNumber.simplified(), productTypeID, brandNameID,
+                                                           productModelID, colorID, vendorID, schemaID, quantity, /*unit*/"个",
+                                                           "", "", "", userID, userID, userID, "未指定", statusID, replacementStatusID,
+                                                           timeStamp.simplified(), comments.simplified());
+        }
+    }
+}
+
 void Purchase_Invoicing::productAdded()
 {
     purchaseModel->select();
@@ -380,6 +560,99 @@ void Purchase_Invoicing::emptyProducts()
         productManagementInterface->deleteProductByProductID(id);
     }
     purchaseModel->select();
+}
+
+void Purchase_Invoicing::importProducts()
+{
+    QString fileName = QFileDialog::getOpenFileName(0, tr("Open Inventory"), ".", tr("Inventory files (*.xls *.xlsx)"));
+    if (!fileName.isEmpty())
+    {
+        // load file into the excel ojbect
+        QAxObject* excel = new QAxObject( "Excel.Application", 0 );
+        QAxObject* workbooks = excel->querySubObject( "Workbooks" );
+        QAxObject* workbook = workbooks->querySubObject( "Open(QString&)", fileName );
+        try{
+            QAxObject* sheets = workbook->querySubObject( "Worksheets" );
+            //worksheets count
+            int count=sheets->dynamicCall("Count()").toInt();
+            int totalRows = 0;
+            int rowCount = 0;
+            for(int i=1; i<count+1; i++) {
+                QAxObject* sheet = sheets->querySubObject( "Item( int )", i );
+                //////////////////////////////////////////////////////////////////
+                QAxObject* usedrange = sheet->querySubObject("UsedRange");
+                QAxObject* rows = usedrange->querySubObject("Rows");
+                int intRows = rows->property("Count").toInt();
+                totalRows += (intRows - 1);
+            }
+            bar->setRange(0, totalRows);
+            bar->setValue(0);
+            bar->show();
+            for(int i=1; i<count+1; i++) {
+                QAxObject* sheet = sheets->querySubObject( "Item( int )", i );
+                //////////////////////////////////////////////////////////////////
+                QAxObject* usedrange = sheet->querySubObject("UsedRange");
+                QAxObject* rows = usedrange->querySubObject("Rows");
+//                QAxObject* columns = usedrange->querySubObject("Columns");
+//                int intRowStart = usedrange->property("Row").toInt();
+//                int intColStart = usedrange->property("Column").toInt();
+//                int intCols = columns->property("Count").toInt();
+                int intRows = rows->property("Count").toInt();
+                QString name = sheet->dynamicCall("Name()").toString();
+//                QMessageBox::about(0, "testing", QString("%1 %2 %3 %4 %5").arg(name).arg(intRowStart).arg(intColStart).arg(intRows).arg(intCols));
+                //////////////////////////////////////////////////////////////////
+                if(sheet) {
+                    //进货日期 供货商 品牌 机型 串号 颜色 数量 备注
+                    QList<QStringList> products;
+                    bool done = false;
+                    for(int row=1; ; row++) {
+                        QStringList data;
+                        data.append(name);
+                        for(int col=1; col<9; col++) {
+                            QAxObject* cell = sheet->querySubObject( "Cells( int, int )", row+1, col );
+                            QVariant value = cell->dynamicCall( "Value()" );
+                            if(value.toString().isEmpty() && col==1 && row>=intRows) {
+                                done = true;
+                                break;
+                            } else {
+                                data.append(value.toString());
+                            }
+                        }
+                        if(done) {
+                            break;
+                        } else {
+                            //products.append(data);
+                            int ret = addProduct(data);
+                            bar->setValue(++rowCount);
+                            if(!ret) {
+                                QMessageBox::warning(0, "Error", QString("Insert Error. Sheet:%1, Row: %2").arg(name).arg(row));
+                            }
+                        }
+                    }
+    //                foreach(QStringList product, products) {
+    //                    QMessageBox::about(0, product.at(0), QString("进货日期:%1 供货商:%2 品牌:%3 机型:%4 串号:%5 颜色:%6 数量:%7 备注:%8")
+    //                                       .arg(product.at(1)).arg(product.at(2)).arg(product.at(3)).arg(product.at(4))
+    //                                       .arg(product.at(5)).arg(product.at(6)).arg(product.at(7)).arg(product.at(8)));
+    //                }
+    //                productsMap.insert(name, products);
+                }
+
+            }
+        }
+        catch(...) {
+            //bar->hide();
+            QMessageBox::about(0, tr("Import"), tr("Error"));
+            workbook->dynamicCall("Close()");
+            excel->dynamicCall("Quit()");
+            productAdded();
+            return;
+        }
+        //bar->hide();
+        workbook->dynamicCall("Close()");
+        excel->dynamicCall("Quit()");
+        productAdded();
+        //addProduct(productsMap);
+    }
 }
 
 void Purchase_Invoicing::commitProduct()
