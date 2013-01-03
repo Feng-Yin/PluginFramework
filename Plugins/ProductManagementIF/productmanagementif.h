@@ -47,6 +47,7 @@ public:
     //for table productmodel
     virtual QString getModelNameByModelID(int modelID) const;
     virtual bool addProductModel(int productTypeID, int brandNameID, QString productModel) const;
+    virtual QSet<int> getBrandNameIDSetbyProductTypeID(int productTypeID) const;
     //for table productstatus
     virtual int getStatusIDByStatusName(QString status) const;
     //for table replacementstatus
@@ -69,10 +70,16 @@ public:
                                     QString barInfo, int productStatusID, int replacementStatusID, QString time,
                                     QString comments) const;
     virtual bool updateProductDetailByProductID(int id, QString serialNumber, int productTypeID, int brandNameID,
-                                       int productModelID, int schemaNameID, int quantity, QString unit,
-                                       QString oldPurchasePrice, QString purchasePrice, QString sellingPrice,
-                                       int operatorUserID, int responserUserID, int productStatusID,
-                                       QString comments) const;
+                                    int productModelID, int schemaNameID, int quantity, QString unit,
+                                    QString oldPurchasePrice, QString purchasePrice, QString sellingPrice,
+                                    int operatorUserID, int responserUserID, int productStatusID,
+                                    QString comments) const;
+    virtual bool updateProductDetailByProductID(int id, QString serialNumber, int productTypeID, int brandNameID,
+                                    int productModelID, int colorID, int vendorID, int schemaNameID,
+                                    int quantity, QString unit, QString oldPurchasePrice, QString purchasePrice,
+                                    QString sellingPrice, int operatorUserID, int responserUserID, int sellerID,
+                                    QString barInfo, int productStatusID, int replacementStatusID, QString time,
+                                    QString comments) const;
     virtual int getResponserUserIDByProductID(int id) const;
     virtual bool updateStatusIDByProductID(int productID, int statusID) const;
     virtual int getProductCountByQuery(QString queryString) const;

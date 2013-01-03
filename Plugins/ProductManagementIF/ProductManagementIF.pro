@@ -11,6 +11,7 @@ TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 INCLUDEPATH += ../../main
 DEFINES += PRODUCTMANAGEMENTIF_LIBRARY
+TRANSLATIONS = ./Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/
 }
@@ -22,8 +23,6 @@ SOURCES += productmanagementif.cpp
 
 HEADERS += productmanagementif.h\
         ProductManagementIF_global.h
-
-TRANSLATIONS = Translations/ProductManagementIF_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -45,8 +44,8 @@ unix:!symbian {
 }
 
 OTHER_FILES += \
-    Translations/ProductManagementIF_zh_CN.ts \
-    Translations/ProductManagementIF_zh_CN.qm
+    Translations/$${TARGET}_zh_CN.ts \
+    Translations/$${TARGET}_zh_CN.qm
 
 RESOURCES += \
     rc.qrc

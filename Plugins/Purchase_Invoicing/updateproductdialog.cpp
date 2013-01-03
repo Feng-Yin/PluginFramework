@@ -2,10 +2,11 @@
 #include <QtSql>
 #include <usermanagement_interface.h>
 #include "productmanagement_interface.h"
-#include "addproductdialog.h"
+#include "updateproductdialog.h"
 
-AddProductDialog::AddProductDialog(UserManagementInterface *userManagementInterface,
-                                   ProductManagementInterface *productManagementInterface, QWidget *parent):
+UpdateProductDialog::UpdateProductDialog(UserManagementInterface *userManagementInterface,
+                                         ProductManagementInterface *productManagementInterface,
+                                         QWidget *parent):
     QDialog(parent),
     userManagementInterface(userManagementInterface),
     productManagementInterface(productManagementInterface),
@@ -46,18 +47,18 @@ AddProductDialog::AddProductDialog(UserManagementInterface *userManagementInterf
     sellingPriceLineEdit(NULL),
     commentsLabel(NULL),
     commentsTextEdit(NULL),
-    addProductButton(NULL),
+    updateProductButton(NULL),
     clearInfoButton(NULL)
 {
     init();
 }
 
-AddProductDialog::~AddProductDialog()
+UpdateProductDialog::~UpdateProductDialog()
 {
     userManagementInterface->deregisteObserver(this);
 }
 
-void AddProductDialog::init()
+void UpdateProductDialog::init()
 {
     serialNumberLabel = new QLabel(tr("Serial Number")+"<b style=\"COLOR: #ff0000\">*</b>: ", this);
     serialNumberLineEdit = new QLineEdit(this);
@@ -219,18 +220,19 @@ void AddProductDialog::init()
     mainLayout->addWidget(commentsLabel, 36, 0, Qt::AlignLeft);
     mainLayout->addWidget(commentsTextEdit, 37, 0, 1, 6);
 
-    addProductButton = new QPushButton(tr("Add Product"), this);
-    connect(addProductButton, SIGNAL(clicked()), this, SLOT(addProduct()));
-    clearInfoButton = new QPushButton(tr("Clear Info"), this);
-    connect(clearInfoButton, SIGNAL(clicked()), this, SLOT(clearInfo()));
-    QDialogButtonBox *addProductButtonBox = new QDialogButtonBox(Qt::Horizontal, this);
-    addProductButtonBox->addButton(addProductButton, QDialogButtonBox::ActionRole);
-    addProductButtonBox->addButton(clearInfoButton, QDialogButtonBox::ActionRole);
-    mainLayout->addWidget(addProductButtonBox, 40, 2, 1, 2, Qt::AlignHCenter);
+    updateProductButton = new QPushButton(tr("Update Product"), this);
+    connect(updateProductButton, SIGNAL(clicked()), this, SLOT(updateProductInfo()));
+//    clearInfoButton = new QPushButton(tr("Clear Info"), this);
+//    clearInfoButton->hide();
+//    connect(clearInfoButton, SIGNAL(clicked()), this, SLOT(clearInfo()));
+    QDialogButtonBox *updateProductButtonBox = new QDialogButtonBox(Qt::Horizontal, this);
+    updateProductButtonBox->addButton(updateProductButton, QDialogButtonBox::ActionRole);
+//    updateProductButtonBox->addButton(clearInfoButton, QDialogButtonBox::ActionRole);
+    mainLayout->addWidget(updateProductButtonBox, 40, 2, 1, 2, Qt::AlignHCenter);
     mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 
-    setWindowTitle(tr("Add Product"));
-    setWindowIcon(QIcon(":/Icon/add_icon.png"));
+    setWindowTitle(tr("Update Product"));
+    setWindowIcon(QIcon(":/Icon/update_icon.png"));
     setLayout(mainLayout);
 
     userManagementInterface->registeObserver(this);
@@ -241,17 +243,17 @@ void AddProductDialog::init()
 //    timer->start(1000);
 }
 
-void AddProductDialog::addProduct()
+void UpdateProductDialog::updateProductInfo()
 {
     QString serialNumber = serialNumberLineEdit->text();
     serialNumber.simplified();
     if(serialNumber.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Serial Number can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Serial Number can't be empty !"));
         serialNumberLineEdit->setFocus();
         return;
     }
 //    if(productManagementInterface->checkSerialNumber(serialNumber)) {
-//        QMessageBox::critical(this, tr("Add Product Error"), tr("Serial Number has exist !"));
+//        QMessageBox::critical(this, tr("Update Product Error"), tr("Serial Number has exist !"));
 //        serialNumberLineEdit->setFocus();
 //        return;
 //    }
@@ -259,7 +261,7 @@ void AddProductDialog::addProduct()
     QString unit = unitLineEdit->text();
     unit.simplified();
     if(unit.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Unit can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Unit can't be empty !"));
         unitLineEdit->setFocus();
         return;
     }
@@ -267,7 +269,7 @@ void AddProductDialog::addProduct()
     QString productType = productTypeComboBox->currentText();
     productType.simplified();
     if(productType.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Product Type can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Type can't be empty !"));
         productTypeComboBox->setFocus();
         return;
     }
@@ -283,7 +285,7 @@ void AddProductDialog::addProduct()
     QString brandName = brandNameComboBox->currentText();
     brandName.simplified();
     if(brandName.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Brand Name can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Brand Name can't be empty !"));
         brandNameComboBox->setFocus();
         return;
     }
@@ -300,7 +302,7 @@ void AddProductDialog::addProduct()
     QString productModel = productModelComboBox->currentText();
     productModel.simplified();
     if(productModel.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Product Model can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Model can't be empty !"));
         productModelComboBox->setFocus();
         return;
     }
@@ -316,7 +318,7 @@ void AddProductDialog::addProduct()
     QString productColor = productColorComboBox->currentText();
     productColor.simplified();
     if(productColor.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Product Color can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Color can't be empty !"));
         productColorComboBox->setFocus();
         return;
     }
@@ -332,7 +334,7 @@ void AddProductDialog::addProduct()
     QString productVendor = productVendorComboBox->currentText();
     productVendor.simplified();
     if(productVendor.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Product Vendor can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Vendor can't be empty !"));
         productVendorComboBox->setFocus();
         return;
     }
@@ -348,7 +350,7 @@ void AddProductDialog::addProduct()
     QString replacementInfo = replacementInfoComboBox->currentText();
     replacementInfo.simplified();
     if(replacementInfo.isEmpty()) {
-        QMessageBox::critical(this, tr("Add Product Error"), tr("Replacement Info can't be empty !"));
+        QMessageBox::critical(this, tr("Update Product Error"), tr("Replacement Info can't be empty !"));
         replacementInfoComboBox->setFocus();
         return;
     }
@@ -369,38 +371,19 @@ void AddProductDialog::addProduct()
     qDebug()<<comments;
     QDateTime tmpTime = QDateTime::currentDateTime();
     QString timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
-//    productManagementInterface->addProductByDetail(serialNumber, productTypeID, brandNameID,
-//                                                   productModelID, schemaID, quantity, unit,
-//                                                   oldPurchasePrice, purchasePrice, sellingPrice,
-//                                                   userID, userID, statusID, comments);
-    productManagementInterface->addProductByDetail(serialNumber, productTypeID, brandNameID,
-                                                   productModelID, productColorID, productVendorID,
-                                                   schemaID, quantity, unit, oldPurchasePrice, purchasePrice,
-                                                   sellingPrice, userID, userID, sellerID, "未指定", statusID,
-                                                   replacementInfoID, timeStamp, comments);
-    emit(productAdded());
-    serialNumberLineEdit->clear();
-    serialNumberLineEdit->setFocus();
+
+    int productID = record.value(ProductID).toInt();
+    productManagementInterface->updateProductDetailByProductID(productID, serialNumber, productTypeID, brandNameID,
+                                                               productModelID, productColorID, productVendorID,
+                                                               schemaID, quantity, unit, oldPurchasePrice, purchasePrice,
+                                                               sellingPrice, userID, userID, sellerID, "未指定", statusID,
+                                                               replacementInfoID, timeStamp, comments);
+
+    emit(productUpdated());
+    //accept();
 }
 
-void AddProductDialog::clearInfo()
-{
-    serialNumberLineEdit->clear();
-    productTypeComboBox->setCurrentIndex(0);
-    brandNameComboBox->setCurrentIndex(0);
-    productTypeComboBox->setCurrentIndex(0);
-    productColorComboBox->setCurrentIndex(0);
-    productVendorComboBox->setCurrentIndex(0);
-    replacementInfoComboBox->setCurrentIndex(0);
-    quantitySpinBox->setValue(1);
-    unitLineEdit->clear();
-    oldPurchasePriceLineEdit->clear();
-    purchasePriceLineEdit->clear();
-    sellingPriceLineEdit->clear();
-    commentsTextEdit->clear();
-}
-
-void AddProductDialog::populateBrandNameComboBox()
+void UpdateProductDialog::populateBrandNameComboBox()
 {
     QString productType = productTypeComboBox->currentText();
     int productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
@@ -418,7 +401,7 @@ void AddProductDialog::populateBrandNameComboBox()
     setProductModelFilter();
 }
 
-void AddProductDialog::setProductModelFilter()
+void UpdateProductDialog::setProductModelFilter()
 {
     QString productType = productTypeComboBox->currentText();
     QString brandName = brandNameComboBox->currentText();
@@ -436,7 +419,7 @@ void AddProductDialog::setProductModelFilter()
     productModelModel->select();
 }
 
-void AddProductDialog::populateSchemaComboBox() const
+void UpdateProductDialog::populateSchemaComboBox() const
 {
     QSet<QString> schemaNameSet;
     int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
@@ -463,7 +446,7 @@ void AddProductDialog::populateSchemaComboBox() const
 //    }
 }
 
-void AddProductDialog::populateSellerNameComboBox() const
+void UpdateProductDialog::populateSellerNameComboBox() const
 {
     int sellerRoleID = userManagementInterface->getRoleIDByRoleName("销售");
     int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
@@ -480,34 +463,8 @@ void AddProductDialog::populateSellerNameComboBox() const
     }
 }
 
-void AddProductDialog::updateDBTableModel()
+void UpdateProductDialog::updateDBTableModel()
 {
-//    QString tmp = productTypeComboBox->currentText();
-//    QModelIndex index = productTypeComboBox->view()->currentIndex();
-//    productTypeModel->select();
-//    qDebug()<<tmp;
-//    if(productTypeComboBox->findText(tmp)==-1) {
-//        productTypeComboBox->setEditText(tmp);
-//    }
-//    else if(index.isValid()) {
-//        productTypeComboBox->view()->setCurrentIndex(index);
-//    }
-//    else {
-//        productTypeComboBox->setEditText(tmp);
-//    }
-//    QString tmp = productTypeComboBox->currentText();
-//    productTypeModel->select();
-//    productTypeComboBox->setEditText(tmp);
-
-
-//    tmp = brandNameComboBox->currentText();
-//    brandNameModel->select();
-//    brandNameComboBox->setEditText(tmp);
-
-//    tmp = productModelComboBox->currentText();
-//    productModelModel->select();
-//    productModelComboBox->setEditText(tmp);
-
     productTypeModel->select();
     //brandNameModel->select();
     populateBrandNameComboBox();
@@ -516,7 +473,28 @@ void AddProductDialog::updateDBTableModel()
     populateSellerNameComboBox();
 }
 
-void AddProductDialog::userChanged() const
+void UpdateProductDialog::updateRecord(const QSqlRecord &record)
+{
+    serialNumberLineEdit->setText(record.value(SerialNumber).toString());
+    productTypeComboBox->setEditText(record.value(ProductTypeID).toString());
+    brandNameComboBox->setEditText(record.value(BrandNameID).toString());
+    productModelComboBox->setEditText(record.value(ProductModelID).toString());
+    productColorComboBox->setEditText(record.value(ColorID).toString());
+    productVendorComboBox->setEditText(record.value(VendorID).toString());
+    replacementInfoComboBox->setCurrentIndex(replacementInfoComboBox->findText(record.value(ReplacementStatusID).toString()));
+    quantitySpinBox->setValue(record.value(Quantity).toInt());
+    unitLineEdit->setText(record.value(Unit).toString());
+    schemaComboBox->setCurrentIndex(schemaComboBox->findText(record.value(SchemaNameID).toString()));
+    barInfoLineEdit->setText(record.value(BarInfo).toString());
+    sellerComboBox->setEditText(record.value(SellerID).toString());
+    oldPurchasePriceLineEdit->setText(record.value(OldPurchasePrice).toString());
+    purchasePriceLineEdit->setText(record.value(PurchasePrice).toString());
+    sellingPriceLineEdit->setText(record.value(SellingPrice).toString());
+    commentsTextEdit->setText(record.value(Comments).toString());
+    this->record = record;
+}
+
+void UpdateProductDialog::userChanged() const
 {
     populateSchemaComboBox();
     populateSellerNameComboBox();

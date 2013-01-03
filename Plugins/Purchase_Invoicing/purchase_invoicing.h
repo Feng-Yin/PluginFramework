@@ -19,7 +19,7 @@ class QProgressBar;
 QT_END_NAMESPACE
 
 class AddProductDialog;
-
+class UpdateProductDialog;
 class UserManagementInterface;
 class ProductManagementInterface;
 
@@ -62,6 +62,7 @@ private slots:
     void commitAllProducts();
     void updateDBTableModel() const;
     void onFilter();
+    void updateProductinfo();
 
 signals:
 
@@ -88,6 +89,7 @@ private:
     ProductManagementInterface *productManagementInterface;
 
     AddProductDialog *addProductDialog;
+    UpdateProductDialog *updateProductDialog;
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;

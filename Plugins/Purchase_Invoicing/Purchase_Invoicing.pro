@@ -12,6 +12,7 @@ CONFIG += plugin copy_dir_files
 CONFIG += qaxcontainer
 INCLUDEPATH += ../../main
 DEFINES += PURCHASE_INVOICING_LIBRARY
+TRANSLATIONS = ./Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
@@ -20,14 +21,13 @@ CONFIG(release, debug|release) {
 }
 
 SOURCES += purchase_invoicing.cpp \
-    addproductdialog.cpp
+    addproductdialog.cpp \
+    updateproductdialog.cpp
 
 HEADERS += purchase_invoicing.h\
         Purchase_Invoicing_global.h \
-    addproductdialog.h
-
-TRANSLATIONS = Translations/Purchase_Invoicing_zh_CN.ts
-
+    addproductdialog.h \
+    updateproductdialog.h
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xECF2370F
@@ -61,5 +61,5 @@ OTHER_FILES += \
     Icon/add_icon.png \
     Icon/commit_icon.png \
     Icon/commitall_icon.png \
-    Translations/Purchase_Invoicing_zh_CN.ts \
-    Translations/Purchase_Invoicing_zh_CN.qm
+    Translations/$${TARGET}_zh_CN.qm \
+    Translations/$${TARGET}_zh_CN.ts

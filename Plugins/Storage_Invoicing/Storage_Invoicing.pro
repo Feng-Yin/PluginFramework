@@ -11,7 +11,7 @@ TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 INCLUDEPATH += ../../main
 DEFINES += STORAGE_INVOICING_LIBRARY
-
+TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
@@ -25,8 +25,6 @@ SOURCES += storage_invoicing.cpp \
 HEADERS += storage_invoicing.h\
         Storage_Invoicing_global.h \
     updateproductdialog.h
-
-TRANSLATIONS = Translations/Storage_Invoicing_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -52,8 +50,8 @@ OTHER_FILES += \
     Icon/up_icon.png \
     Icon/down_icon.png \
     Icon/update_icon.png \
-    Translations/Storage_Invoicing_zh_CN.ts \
-    Translations/Storage_Invoicing_zh_CN.qm
+    Translations/$${TARGET}_zh_CN.ts \
+    Translations/$${TARGET}_zh_CN.qm
 
 RESOURCES += \
     icon.qrc

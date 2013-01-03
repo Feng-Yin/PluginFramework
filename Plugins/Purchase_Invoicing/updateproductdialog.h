@@ -1,7 +1,8 @@
-#ifndef ADDPRODUCTDIALOG_H
-#define ADDPRODUCTDIALOG_H
+#ifndef UPDATEPRODUCTDIALOG_H
+#define UPDATEPRODUCTDIALOG_H
 
 #include <QDialog>
+#include <QSqlRecord>
 #include "usermanagement_interface.h"
 
 QT_BEGIN_NAMESPACE
@@ -13,30 +14,32 @@ class QPushButton;
 class QSqlRelationalTableModel;
 class QString;
 class QTextEdit;
+class QDialogButtonBox;
+class QPrinter;
 QT_END_NAMESPACE
 
 class UserManagementInterface;
 class ProductManagementInterface;
 
-class AddProductDialog : public QDialog, public UserChangeNotifyInterface
+class UpdateProductDialog : public QDialog, public UserChangeNotifyInterface
 {
     Q_OBJECT
     Q_INTERFACES(UserChangeNotifyInterface)
 public:
-    explicit AddProductDialog(UserManagementInterface *userManagementInterface,
-                              ProductManagementInterface *productManagementInterface,
-                              QWidget *parent = 0);
-    ~AddProductDialog();
+    explicit UpdateProductDialog(UserManagementInterface *userManagementInterface,
+                                 ProductManagementInterface *productManagementInterface,
+                                 QWidget *parent = 0);
+    ~UpdateProductDialog();
     virtual void userChanged() const;
 signals:
-    void productAdded();
-    
+    void productUpdated();
+
 public slots:
     void updateDBTableModel();
+    void updateRecord(const QSqlRecord &record);
 
 private slots:
-    void addProduct();
-    void clearInfo();
+    void updateProductInfo();
     void setProductModelFilter();
     void populateBrandNameComboBox();
     void populateSchemaComboBox() const;
@@ -104,10 +107,10 @@ private:
     QLabel *commentsLabel;
     QTextEdit *commentsTextEdit;
 
-    QPushButton *addProductButton;
+    QPushButton *updateProductButton;
     QPushButton *clearInfoButton;
 
-    
+    QSqlRecord record;
 };
 
-#endif // ADDPRODUCTDIALOG_H
+#endif // UPDATEPRODUCTDIALOG_H

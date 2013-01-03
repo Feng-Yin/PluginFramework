@@ -61,33 +61,33 @@
     </message>
     <message>
         <location filename="../logindialog.cpp" line="156"/>
-        <location filename="../logindialog.cpp" line="287"/>
+        <location filename="../logindialog.cpp" line="289"/>
         <source>Database Authenticate Error</source>
         <translation>数据库认证失败</translation>
     </message>
     <message>
         <location filename="../logindialog.cpp" line="157"/>
-        <location filename="../logindialog.cpp" line="288"/>
+        <location filename="../logindialog.cpp" line="290"/>
         <source>Check your &lt;b&gt;Username&lt;/b&gt;, &lt;b&gt;Password&lt;/b&gt; &amp; DB &lt;b&gt;IP&lt;/b&gt;</source>
         <translation>请检查&lt;b&gt;用户名&lt;/b&gt;、&lt;b&gt;密码&lt;/b&gt;及&lt;b&gt;数据库IP地址&lt;/b&gt;是否正确</translation>
     </message>
     <message>
         <location filename="../logindialog.cpp" line="164"/>
         <location filename="../logindialog.cpp" line="171"/>
-        <location filename="../logindialog.cpp" line="296"/>
-        <location filename="../logindialog.cpp" line="301"/>
+        <location filename="../logindialog.cpp" line="298"/>
+        <location filename="../logindialog.cpp" line="303"/>
         <source>Setup</source>
         <translation>初始化</translation>
     </message>
     <message>
         <location filename="../logindialog.cpp" line="165"/>
-        <location filename="../logindialog.cpp" line="297"/>
+        <location filename="../logindialog.cpp" line="299"/>
         <source>Haven&apos;t create DB Schema. Pls create the DB Schema first!</source>
         <translation>店铺不存在，请首先创建店铺！</translation>
     </message>
     <message>
         <location filename="../logindialog.cpp" line="172"/>
-        <location filename="../logindialog.cpp" line="302"/>
+        <location filename="../logindialog.cpp" line="304"/>
         <source>Haven&apos;t DB Schema access. Pls contact admin!</source>
         <translation>没有任何店铺访问权限，请联系管理员！</translation>
     </message>

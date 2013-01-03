@@ -11,7 +11,7 @@ TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 INCLUDEPATH += ../../main
 DEFINES += SELL_INVOICING_LIBRARY
-
+TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
@@ -25,8 +25,6 @@ SOURCES += sell_invoicing.cpp \
 HEADERS += sell_invoicing.h\
         Sell_Invoicing_global.h \
     updateproductdialog.h
-
-TRANSLATIONS = Translations/Sell_Invoicing_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -52,8 +50,8 @@ OTHER_FILES += \
     Icon/up_icon.png \
     Icon/submitorder_icon.png \
     Icon/down_icon.png \
-    Translations/Sell_Invoicing_zh_CN.ts \
-    Translations/Sell_Invoicing_zh_CN.qm
+    Translations/$${TARGET}_zh_CN.ts \
+    Translations/$${TARGET}_zh_CN.qm
 
 RESOURCES += \
     icon.qrc

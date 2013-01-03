@@ -6,6 +6,7 @@
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
 #include "addproductdialog.h"
+#include "updateproductdialog.h"
 
 Purchase_Invoicing::Purchase_Invoicing() :
     mainWidget(NULL),
@@ -23,6 +24,7 @@ Purchase_Invoicing::Purchase_Invoicing() :
     userManagementInterface(NULL),
     productManagementInterface(NULL),
     addProductDialog(NULL),
+    updateProductDialog(NULL),
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 {
@@ -288,6 +290,7 @@ void Purchase_Invoicing::createPurchasePanel()
     purchaseView->horizontalHeader()->setStretchLastSection(true);
     purchaseView->setColumnHidden(ProductID, true);
     purchaseView->horizontalHeader()->setVisible(true);
+    connect(purchaseView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(updateProductinfo()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(purchaseView);
@@ -437,10 +440,18 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
     int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
     int sellerID = userManagementInterface->getUserIDByUserName("未指定");
     int statusID = productManagementInterface->getStatusIDByStatusName("录入");
-    time.replace("T", " ", Qt::CaseInsensitive);
-    QDateTime tmpTime = QDateTime::fromString(time, "yyyy-MM-dd hh:mm:ss");
     QString timeStamp("");
-    if(tmpTime.isValid()) {
+    if(!time.isEmpty()) {
+        time.replace("T", " ", Qt::CaseInsensitive);
+        QDateTime tmpTime = QDateTime::fromString(time, "yyyy-MM-dd hh:mm:ss");
+        if(tmpTime.isValid()) {
+            timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
+        } else {
+            QDateTime tmpTime = QDateTime::currentDateTime();
+            timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
+        }
+    } else {
+        QDateTime tmpTime = QDateTime::currentDateTime();
         timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
     }
     int replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("否");
@@ -555,9 +566,14 @@ void Purchase_Invoicing::emptyProducts()
                 userManagementInterface->getCurrentUserName());
     int deleteID = productManagementInterface->getStatusIDByStatusName("已删除");
     QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
+    bar->setRange(0, productIDSet.count());
+    bar->setValue(0);
+    int i = 0;
     foreach(int id, productIDSet) {
         productManagementInterface->updateStatusIDByProductID(id, deleteID);
         productManagementInterface->deleteProductByProductID(id);
+        bar->setValue(++i);
+        qApp->processEvents();
     }
     purchaseModel->select();
 }
@@ -624,6 +640,8 @@ void Purchase_Invoicing::importProducts()
                             //products.append(data);
                             int ret = addProduct(data);
                             bar->setValue(++rowCount);
+                            //bar->update();
+                            //qApp->processEvents();
                             if(!ret) {
                                 QMessageBox::warning(0, "Error", QString("Insert Error. Sheet:%1, Row: %2").arg(name).arg(row));
                             }
@@ -674,13 +692,34 @@ void Purchase_Invoicing::commitProduct()
 
 void Purchase_Invoicing::commitAllProducts()
 {
+    /*
+    bar->setRange(0, purchaseModel->rowCount());
+    bar->setValue(0);
+    int i = 0;
     while(purchaseModel->rowCount()>0) {
         QSqlRecord record = purchaseModel->record(0);
         int productID = record.value(ProductID).toInt();
         int statusID = productManagementInterface->getStatusIDByStatusName("待入库");
         productManagementInterface->updateStatusIDByProductID(productID, statusID);
-        purchaseModel->select();
+        bar->setValue(++i);
     }
+    purchaseModel->select();
+    */
+    int statusID = productManagementInterface->getStatusIDByStatusName("录入");
+    int userID = userManagementInterface->getUserIDByUserName(
+                userManagementInterface->getCurrentUserName());
+    int deleteID = productManagementInterface->getStatusIDByStatusName("待入库");
+    QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
+    bar->setRange(0, productIDSet.count());
+    bar->setValue(0);
+    int i = 0;
+    foreach(int id, productIDSet) {
+        productManagementInterface->updateStatusIDByProductID(id, deleteID);
+        bar->setValue(++i);
+        //bar->update();
+        qApp->processEvents();
+    }
+    purchaseModel->select();
 }
 
 void Purchase_Invoicing::updateDBTableModel() const
@@ -748,6 +787,20 @@ void Purchase_Invoicing::updatePurchaseFilter() const
     }
 
     purchaseModel->setFilter(filter);
+}
+
+void Purchase_Invoicing::updateProductinfo()
+{
+    if(!updateProductDialog) {
+        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productAdded()));
+    }
+    updateProductDialog->updateDBTableModel();
+    QModelIndex storageIndex = purchaseView->currentIndex();
+    QSqlRecord record = purchaseModel->record(storageIndex.row());
+    updateProductDialog->updateRecord(record);
+    updateProductDialog->exec();
 }
 
 QT_BEGIN_NAMESPACE

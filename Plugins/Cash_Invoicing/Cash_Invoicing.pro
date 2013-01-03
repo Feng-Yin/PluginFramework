@@ -11,7 +11,7 @@ TEMPLATE = lib
 CONFIG += plugin  copy_dir_files
 INCLUDEPATH += ../../main
 DEFINES += CASH_INVOICING_LIBRARY
-
+TRANSLATIONS = ./Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
@@ -25,8 +25,6 @@ SOURCES += cash_invoicing.cpp \
 HEADERS += cash_invoicing.h\
         Cash_Invoicing_global.h \
     updateproductdialog.h
-
-TRANSLATIONS = Translations/Cash_Invoicing_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -50,8 +48,8 @@ unix:!symbian {
 OTHER_FILES += \
     Icon/cash_icon.png \
     Icon/money_icon.png \
-    Translations/Cash_Invoicing_zh_CN.qm \
-    Translations/Cash_Invoicing_zh_CN.ts
+    Translations/$${TARGET}_zh_CN.qm \
+    Translations/$${TARGET}_zh_CN.ts
 
 RESOURCES += \
     icon.qrc

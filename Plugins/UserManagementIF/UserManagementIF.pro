@@ -12,8 +12,9 @@ TARGET = UserManagementIF
 TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 INCLUDEPATH += ../../main
-
 DEFINES += USERMANAGEMENTIF_LIBRARY
+TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
+
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/
 }
@@ -25,8 +26,6 @@ SOURCES += usermanagementif.cpp
 
 HEADERS += usermanagementif.h\
         UserManagementIF_global.h
-
-TRANSLATIONS = Translations/UserManagementIF_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -48,8 +47,8 @@ unix:!symbian {
 }
 
 OTHER_FILES += \
-    Translations/UserManagementIF_zh_CN.ts \
-    Translations/UserManagementIF_zh_CN.qm
+    Translations/$${TARGET}_zh_CN.ts \
+    Translations/$${TARGET}_zh_CN.qm
 
 RESOURCES += \
     rc.qrc

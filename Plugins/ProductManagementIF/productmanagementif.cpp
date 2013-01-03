@@ -191,8 +191,10 @@ bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTy
                                 QString comments) const
 {
     QSqlQuery query(userManagementInterface->getSqlQuery());
-    bool ret = query.exec(QString("select quantity, timeStamp from products where serialNumber='%1'").arg(serialNumber));
-    if(query.first()) {
+    bool ret = false;
+    //bool ret = query.exec(QString("select quantity, timeStamp from products where serialNumber='%1'").arg(serialNumber));
+    //if(query.first()) {
+    if(0) {
         QSqlRecord record = query.record();
         int newquatity = record.value("quantity").toInt() + quantity;
         QString time = record.value("timeStamp").toString();
@@ -211,7 +213,7 @@ bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTy
         query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
         if(query.first()) {
             int id = query.record().value(ProductID).toInt();
-            //addProductinfoByProductID(id);
+            addProductinfoByProductID(id);
         }
     }
     return ret;
@@ -295,6 +297,119 @@ bool ProductManagementIF::updateProductDetailByProductID(int id, QString serialN
 //                      .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(schemaNameID).arg(quantity)
 //                      .arg(unit).arg(operatorUserID).arg(responserUserID).arg(productStatusID).arg(oldPurchasePrice)
 //                      .arg(purchasePrice).arg(sellingPrice).arg(comments).arg(id);
+            addProductinfoByProductID(id);
+            return ret;
+        }
+    }
+    return false;
+}
+
+//for table product
+bool ProductManagementIF::updateProductDetailByProductID(int id, QString serialNumber, int productTypeID, int brandNameID,
+                                int productModelID, int colorID, int vendorID, int schemaNameID,
+                                int quantity, QString unit, QString oldPurchasePrice, QString purchasePrice,
+                                QString sellingPrice, int operatorUserID, int responserUserID, int sellerID,
+                                QString barInfo, int productStatusID, int replacementStatusID, QString time,
+                                QString comments) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    query.exec(QString("select * from products where id=%1").arg(id));
+    if(query.first()) {
+        QSqlRecord record = query.record();
+        bool different = false;
+        while(1) {
+            if(record.value(SerialNumber).toString().compare(serialNumber)) {
+                different = true;
+                break;
+            }
+            if(record.value(ProductTypeID).toInt()!=productTypeID) {
+                different = true;
+                break;
+            }
+            if(record.value(BrandNameID).toInt()!=brandNameID) {
+                different = true;
+                break;
+            }
+            if(record.value(ProductModelID).toInt()!=productModelID) {
+                different = true;
+                break;
+            }
+            if(record.value(ColorID).toInt()!=colorID) {
+                different = true;
+                break;
+            }
+            if(record.value(VendorID).toInt()!=vendorID) {
+                different = true;
+                break;
+            }
+            if(record.value(SchemaNameID).toInt()!=schemaNameID) {
+                different = true;
+                break;
+            }
+            if(record.value(Quantity).toInt()!=quantity) {
+                different = true;
+                break;
+            }
+            if(record.value(Unit).toString().compare(unit)) {
+                different = true;
+                break;
+            }
+            if(record.value(OldPurchasePrice).toString().compare(oldPurchasePrice)) {
+                different = true;
+                break;
+            }
+            if(record.value(PurchasePrice).toString().compare(purchasePrice)) {
+                different = true;
+                break;
+            }
+            if(record.value(SellingPrice).toString().compare(sellingPrice)) {
+                different = true;
+                break;
+            }
+            if(record.value(OperatorUserID).toInt()!=operatorUserID) {
+                different = true;
+                break;
+            }
+            if(record.value(ResponserUserID).toInt()!=responserUserID) {
+                different = true;
+                break;
+            }
+            if(record.value(SellerID).toInt()!=sellerID) {
+                different = true;
+                break;
+            }
+            if(record.value(BarInfo).toString().compare(barInfo)) {
+                different = true;
+                break;
+            }
+            if(record.value(ProductStatusID).toInt()!=productStatusID) {
+                different = true;
+                break;
+            }
+            if(record.value(ReplacementStatusID).toInt()!=replacementStatusID) {
+                different = true;
+                break;
+            }
+            if(record.value(TimeStamp).toString().compare(time)) {
+                different = true;
+                break;
+            }
+            if(record.value(Comments).toString().compare(comments)) {
+                different = true;
+                break;
+            }
+
+            break;
+        }
+        if(different) {
+            bool ret = query.exec(QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = \"%19\", serialNumber = '%20' WHERE id = %21;")
+                                  .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
+                                  .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
+                                  .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments).arg(serialNumber).arg(id));
+            qDebug()<<QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = '%19', serialNumber = '%20' WHERE id = %21;")
+            .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
+            .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
+            .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments).arg(serialNumber).arg(id);
             addProductinfoByProductID(id);
             return ret;
         }
@@ -401,7 +516,7 @@ QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int ye
 bool ProductManagementIF::addProductinfoByProductID(int productID) const
 {
     QSqlQuery query(userManagementInterface->getSqlQuery());
-    QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `schemaNameID`, `quantity`, `unit`, `operatorUserID`, `responserUserID`, `productStatusID`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `comments`, `timeStamp` ";
+    QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `timeStamp`, `comments`";
     return query.exec(QString("insert into productsinfo ( %1 ) (select %1 from products where id=%2)").arg(filedsString).arg(productID));
 }
 
@@ -533,6 +648,19 @@ bool ProductManagementIF::addProductModel(int productTypeID, int brandNameID, QS
     QSqlQuery query(userManagementInterface->getSqlQuery());
     return query.exec(QString("INSERT INTO `productmodel` (`productTypeID`, `brandNameID`, `model`) VALUES (%1, %2, '%3')")
                .arg(productTypeID).arg(brandNameID).arg(productModel));
+}
+
+//for table productmodel
+QSet<int> ProductManagementIF::getBrandNameIDSetbyProductTypeID(int productTypeID) const
+{
+    QSqlQuery query(userManagementInterface->getSqlQuery());
+    QSet<int> IDList;
+    query.exec(QString("select DISTINCT brandNameID from productmodel where productTypeID = %1")
+               .arg(productTypeID));
+    while (query.next()) {
+        IDList<<query.record().value("brandNameID").toInt();
+    }
+    return IDList;
 }
 
 //help function
@@ -705,9 +833,8 @@ bool ProductManagementIF::createProductManagementTables() const
                          `replacementStatusID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`replacementStatusID`) REFERENCES replacementstatus(`id`) ,\
                          `timeStamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
-                         `comments` VARCHAR(45) NULL ,\
-                         PRIMARY KEY (`id`) ,\
-                         UNIQUE INDEX `serialNumber_UNIQUE` (`serialNumber` ASC) )")) {
+                         `comments` VARCHAR(4096) NULL ,\
+                         PRIMARY KEY (`id`) )")) {
             dropAllTables();
             return false;
         }
@@ -745,7 +872,7 @@ bool ProductManagementIF::createProductManagementTables() const
                          `replacementStatusID` INT UNSIGNED NOT NULL DEFAULT 1 ,\
                          FOREIGN KEY (`replacementStatusID`) REFERENCES replacementstatus(`id`) ,\
                          `timeStamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
-                         `comments` VARCHAR(45) NULL ,\
+                         `comments` VARCHAR(4096) NULL ,\
                          PRIMARY KEY (`id`) )")) {
             dropAllTables();
             return false;

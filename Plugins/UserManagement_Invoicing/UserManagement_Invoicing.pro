@@ -11,6 +11,7 @@ TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 INCLUDEPATH += ../../main
 DEFINES += USERMANAGEMENT_INVOICING_LIBRARY
+TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
@@ -26,8 +27,6 @@ HEADERS += usermanagement_invoicing.h\
         UserManagement_Invoicing_global.h \
     logindialog.h \
     usermanagementdialog.h
-
-TRANSLATIONS = Translations/UserManagement_Invoicing_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -59,5 +58,5 @@ OTHER_FILES += \
     Icon/changepassword_icon.png \
     Icon/logout_icon.png \
     Icon/switchuser_icon.png \
-    Translations/UserManagement_Invoicing_zh_CN.qm \
-    Translations/UserManagement_Invoicing_zh_CN.ts
+    Translations/$${TARGET}_zh_CN.qm \
+    Translations/$${TARGET}_zh_CN.ts

@@ -11,5 +11,6 @@
         <file>Icon/commit_icon.png</file>
         <file>Icon/commitall_icon.png</file>
         <file>Translations/Purchase_Invoicing_zh_CN.qm</file>
+        <file>Icon/update_icon.png</file>
     </qresource>
 </RCC>

@@ -12,7 +12,7 @@ CONFIG += plugin copy_dir_files
 CONFIG += qwt
 INCLUDEPATH += ../../main
 DEFINES += STATISTIC_INVOICING_LIBRARY
-
+TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
@@ -26,8 +26,6 @@ SOURCES += statistic_invoicing.cpp\
 HEADERS += statistic_invoicing.h\
         Statistic_Invoicing_global.h\
         barchart.h
-
-TRANSLATIONS = Translations/Statistic_Invoicing_zh_CN.ts
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
@@ -50,8 +48,8 @@ unix:!symbian {
 
 OTHER_FILES += \
     Icon/statistic_icon.png \
-    Translations/Statistic_Invoicing_zh_CN.ts \
-    Translations/Statistic_Invoicing_zh_CN.qm
+    Translations/$${TARGET}_zh_CN.ts \
+    Translations/$${TARGET}_zh_CN.qm
 
 RESOURCES += \
     icon.qrc
