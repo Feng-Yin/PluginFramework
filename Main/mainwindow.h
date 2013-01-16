@@ -40,6 +40,8 @@ private slots:
     void about();
     void widgetChange();
     void pluginDialog();
+    void update();
+    void updateAll();
 
 private:
     void createToolBox();
@@ -60,6 +62,7 @@ private:
     QAction *exitAction;
     QAction *aboutAction;
     QAction *pluginAction;
+    QAction *updateAction;
 
     QToolBox *toolBox;
     QStackedWidget *stackedWidget;

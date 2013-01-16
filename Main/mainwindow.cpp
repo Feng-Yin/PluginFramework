@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     exitAction(NULL),
     aboutAction(NULL),
     pluginAction(NULL),
+    updateAction(NULL),
     toolBox(NULL),
     stackedWidget(NULL),
     pluginTable(NULL),
@@ -50,7 +51,14 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(":/Icon/plugin_icon.png"));
     setUnifiedTitleAndToolBarOnMac(true);
 
+    setCursor(Qt::BusyCursor);
     loadPlugins();
+    unsetCursor();
+
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    timer->setInterval(1000*10);
+    timer->start();
 }
 
 MainWindow::~MainWindow()
@@ -90,6 +98,11 @@ void MainWindow::createActions()
     pluginAction->setShortcut(QString("Ctrl+P"));
     pluginAction->setIcon(QIcon(":/Icon/plugin_icon.png"));
     connect(pluginAction, SIGNAL(triggered()), this, SLOT(pluginDialog()));
+
+    updateAction = new QAction(tr("&Refresh DB"), this);
+    updateAction->setShortcut(QString("Ctrl+R"));
+    updateAction->setIcon(QIcon(":/Icon/update_icon.png"));
+    connect(updateAction, SIGNAL(triggered()), this, SLOT(updateAll()));
 }
 
 void MainWindow::createMenus()
@@ -102,6 +115,7 @@ void MainWindow::createMenus()
     aboutMenu->addAction(aboutAction);
 
     QToolBar *toolbar = new QToolBar(this);
+    toolbar->addAction(updateAction);
     toolbar->addAction(pluginAction);
     toolbar->addAction(exitAction);
     addToolBar(toolbar);
@@ -326,4 +340,20 @@ void MainWindow::pluginDialog()
     }
 
     containerDialog->exec();
+}
+
+void MainWindow::update()
+{
+    static int i = 0;
+    i = i % pluginVector.size();
+    pluginVector.at(i++)->update();
+}
+
+void MainWindow::updateAll()
+{
+    setCursor(Qt::BusyCursor);
+    foreach(PluginInterface* plugin, pluginVector) {
+        plugin->update();
+    }
+    unsetCursor();
 }

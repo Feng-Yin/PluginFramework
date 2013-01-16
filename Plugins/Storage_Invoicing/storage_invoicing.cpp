@@ -15,10 +15,12 @@ Storage_Invoicing::Storage_Invoicing():
     purchaseModel(NULL),
     purchaseView(NULL),
     inStoragePushButton(NULL),
+    inAllStoragePushButton(NULL),
     storagePanel(NULL),
     storageModel(NULL),
     storageView(NULL),
     outStoragePushButton(NULL),
+    outAllStoragePushButton(NULL),
     updateProductDialog(NULL),
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
@@ -72,10 +74,10 @@ bool Storage_Invoicing::init(MainWindow *parent)
 
     initMainWidget();
     userChanged();
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
-    timer->setInterval(1000);
-    timer->start(1000);
+//    QTimer *timer = new QTimer(this);
+//    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
+//    timer->setInterval(poll_interval);
+//    timer->start(poll_interval);
 
     return true;
 }
@@ -152,12 +154,25 @@ void Storage_Invoicing::initMainWidget()
     inStoragePushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     inStoragePushButton->setIcon(QIcon(":/Icon/down_icon.png"));
     inStoragePushButton->setIconSize(inStoragePushButton->sizeHint());
+    inAllStoragePushButton = new QPushButton();
+    connect(inAllStoragePushButton, SIGNAL(clicked()), this, SLOT(allInStorage()));
+    inAllStoragePushButton->setToolTip(tr("All In Storage"));
+    inAllStoragePushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    inAllStoragePushButton->setIcon(QIcon(":/Icon/downall_icon.png"));
+    inAllStoragePushButton->setIconSize(inAllStoragePushButton->sizeHint());
+
     outStoragePushButton = new QPushButton();
     connect(outStoragePushButton, SIGNAL(clicked()), this, SLOT(outStorage()));
     outStoragePushButton->setToolTip(tr("Out Storage"));
     outStoragePushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     outStoragePushButton->setIcon(QIcon(":/Icon/up_icon.png"));
     outStoragePushButton->setIconSize(outStoragePushButton->sizeHint());
+    outAllStoragePushButton = new QPushButton();
+    connect(outAllStoragePushButton, SIGNAL(clicked()), this, SLOT(allOutStorage()));
+    outAllStoragePushButton->setToolTip(tr("All Out Storage"));
+    outAllStoragePushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    outAllStoragePushButton->setIcon(QIcon(":/Icon/upall_icon.png"));
+    outAllStoragePushButton->setIconSize(outAllStoragePushButton->sizeHint());
 
     QLabel *purchaseLabel = new QLabel(tr("Waiting For Storage :"));
     QLabel *storageLabel = new QLabel(tr("Storaged :"));
@@ -168,13 +183,20 @@ void Storage_Invoicing::initMainWidget()
     storageVLayout->addWidget(storageLabel);
     storageVLayout->addWidget(storagePanel, 10);
     QHBoxLayout *purchaseHLayout = new QHBoxLayout();
-    //purchaseHLayout->addWidget(purchasePanel, 10);
     purchaseHLayout->addLayout(purchaseVLayout, 10);
-    purchaseHLayout->addWidget(inStoragePushButton);
+    QVBoxLayout *inStorageVLayout = new QVBoxLayout();
+    inStorageVLayout->addWidget(inStoragePushButton);
+    inStorageVLayout->addWidget(inAllStoragePushButton);
+    purchaseHLayout->addLayout(inStorageVLayout);
+
+
     QHBoxLayout *storageHLayout = new QHBoxLayout();
-    //storageHLayout->addWidget(storagePanel, 10);
     storageHLayout->addLayout(storageVLayout, 10);
-    storageHLayout->addWidget(outStoragePushButton);
+    QVBoxLayout *outStorageVLayout = new QVBoxLayout();
+    outStorageVLayout->addWidget(outStoragePushButton);
+    outStorageVLayout->addWidget(outAllStoragePushButton);
+    storageHLayout->addLayout(outStorageVLayout);
+
 
     QWidget *purchageWidget = new QWidget();
     purchageWidget->setLayout(purchaseHLayout);
@@ -198,6 +220,14 @@ void Storage_Invoicing::initMainWidget()
     splitter->addWidget(filterWidget);
     splitter->addWidget(purchageWidget);
     splitter->addWidget(storageWidget);
+    bar = new QProgressBar();
+    bar->setFormat("%v/%m");
+    splitter->addWidget(bar);
+    splitter->setCollapsible(splitter->indexOf(filterWidget), false);
+    splitter->setCollapsible(splitter->indexOf(purchageWidget), true);
+    splitter->setCollapsible(splitter->indexOf(purchageWidget), true);
+    splitter->setCollapsible(splitter->indexOf(bar), false);
+
     QHBoxLayout *mainLayout = new QHBoxLayout();
     mainLayout->addWidget(splitter);
     mainWidget->setLayout(mainLayout);
@@ -213,10 +243,14 @@ void Storage_Invoicing::createPurchasePanel()
     purchaseModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     purchaseModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
     purchaseModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    purchaseModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    purchaseModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
     purchaseModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
     purchaseModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
     purchaseModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    purchaseModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
     purchaseModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    purchaseModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
     purchaseModel->setSort(TimeStamp, Qt::AscendingOrder);
 
     purchaseModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
@@ -224,6 +258,8 @@ void Storage_Invoicing::createPurchasePanel()
     purchaseModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
     purchaseModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
     purchaseModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    purchaseModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    purchaseModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
     purchaseModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
     purchaseModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
     purchaseModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
@@ -232,7 +268,10 @@ void Storage_Invoicing::createPurchasePanel()
     purchaseModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
     purchaseModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
     purchaseModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    purchaseModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    purchaseModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
     purchaseModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    purchaseModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
     purchaseModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     purchaseModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
@@ -265,10 +304,14 @@ void Storage_Invoicing::createStoragePanel()
     storageModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     storageModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
     storageModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    storageModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    storageModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
     storageModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
     storageModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
     storageModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    storageModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
     storageModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    storageModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
     storageModel->setSort(TimeStamp, Qt::AscendingOrder);
 
     storageModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
@@ -276,6 +319,8 @@ void Storage_Invoicing::createStoragePanel()
     storageModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
     storageModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
     storageModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    storageModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    storageModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
     storageModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
     storageModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
     storageModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
@@ -284,9 +329,13 @@ void Storage_Invoicing::createStoragePanel()
     storageModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
     storageModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
     storageModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    storageModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    storageModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
     storageModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    storageModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
     storageModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     storageModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
+
 
     updateStorageFilter();
     storageModel->select();
@@ -301,6 +350,7 @@ void Storage_Invoicing::createStoragePanel()
     storageView->horizontalHeader()->setStretchLastSection(true);
     storageView->setColumnHidden(ProductID, true);
     storageView->horizontalHeader()->setVisible(true);
+    connect(storageView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(updateProductinfo()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(storageView);
@@ -331,6 +381,26 @@ void Storage_Invoicing::inStorage()
         purchaseView->setFocus();
     }
 }
+void Storage_Invoicing::allInStorage()
+{
+    int statusID = productManagementInterface->getStatusIDByStatusName("待入库");
+    int userID = userManagementInterface->getUserIDByUserName(
+                userManagementInterface->getCurrentUserName());
+    int deleteID = productManagementInterface->getStatusIDByStatusName("已入库");
+    QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
+    bar->setRange(0, productIDSet.count());
+    bar->setValue(0);
+    int i = 0;
+    mainWidget->setCursor(Qt::BusyCursor);
+    foreach(int id, productIDSet) {
+        productManagementInterface->updateStatusIDByProductID(id, deleteID);
+        bar->setValue(++i);
+        //bar->update();
+        //qApp->processEvents();
+    }
+    mainWidget->unsetCursor();
+    productUpdated();
+}
 
 void Storage_Invoicing::outStorage()
 {
@@ -357,6 +427,27 @@ void Storage_Invoicing::outStorage()
     }
 }
 
+void Storage_Invoicing::allOutStorage()
+{
+    int statusID = productManagementInterface->getStatusIDByStatusName("已入库");
+    int userID = userManagementInterface->getUserIDByUserName(
+                userManagementInterface->getCurrentUserName());
+    int deleteID = productManagementInterface->getStatusIDByStatusName("待入库");
+    QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
+    bar->setRange(0, productIDSet.count());
+    bar->setValue(0);
+    int i = 0;
+    mainWidget->setCursor(Qt::BusyCursor);
+    foreach(int id, productIDSet) {
+        productManagementInterface->updateStatusIDByProductID(id, deleteID);
+        bar->setValue(++i);
+        //bar->update();
+        //qApp->processEvents();
+    }
+    mainWidget->unsetCursor();
+    productUpdated();
+}
+
 void Storage_Invoicing::updateProductinfo()
 {
     if(!updateProductDialog) {
@@ -365,20 +456,31 @@ void Storage_Invoicing::updateProductinfo()
         connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
     updateProductDialog->updateDBTableModel();
-    QModelIndex storageIndex = purchaseView->currentIndex();
-    QSqlRecord record = purchaseModel->record(storageIndex.row());
-    updateProductDialog->updateRecord(record);
-    updateProductDialog->exec();
+    if(QObject::sender()==purchaseView) {
+        QModelIndex storageIndex = purchaseView->currentIndex();
+        QSqlRecord record = purchaseModel->record(storageIndex.row());
+        updateProductDialog->updateRecord(record);
+        updateProductDialog->exec();
+    }
+    else {
+        QModelIndex storageIndex = storageView->currentIndex();
+        QSqlRecord record = storageModel->record(storageIndex.row());
+        updateProductDialog->updateRecord(record);
+        updateProductDialog->exec();
+    }
 }
 
 void Storage_Invoicing::productUpdated()
 {
     purchaseModel->select();
     purchaseView->resizeColumnsToContents();
+    storageModel->select();
+    storageView->resizeColumnsToContents();
 }
 
 void Storage_Invoicing::updateDBTableModel() const
 {
+    qDebug()<<"Storage_Invoicing::updateDBTableModel()";
     if(productManagementInterface->isModelOutdate(purchaseModel)) {
         QModelIndex purchaseIndex = purchaseView->currentIndex();
         static QModelIndex purchaseOutViewPortindex;

@@ -10,6 +10,8 @@ class QString;
 class QSqlRelationalTableModel;
 QT_END_NAMESPACE
 
+#define poll_interval  60000
+
 enum {
     ProductID = 0,
     SerialNumber,

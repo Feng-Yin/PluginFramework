@@ -42,6 +42,7 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
+    virtual void update() const { updateDBTableModel(); }
 
     virtual void userChanged() const;
 
@@ -51,7 +52,7 @@ private:
     void createFilterPanel();
 
 private slots:
-    void updateDBTableModel();
+    void updateDBTableModel() const;
     void setProductModelFilter();
     void populateSchemaComboBox() const;
     void onBasicFilter();

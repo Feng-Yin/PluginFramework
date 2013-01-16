@@ -356,8 +356,8 @@ void UpdateProductDialog::updateProductInfo()
     }
     int replacementInfoID = productManagementInterface->getReplacementStatusIDByReplacementStatusName(replacementInfo);
 
-    QString barInfo("");
-    int sellerID = userManagementInterface->getUserIDByUserName("未指定");
+    int sellerID = userManagementInterface->getUserIDByUserName(record.value(SellerID).toString());
+    QString barInfo = barInfoLineEdit->text();
 
     QString oldPurchasePrice = oldPurchasePriceLineEdit->text().simplified();
     QString purchasePrice = purchasePriceLineEdit->text().simplified();
@@ -366,9 +366,9 @@ void UpdateProductDialog::updateProductInfo()
     int schemaID = userManagementInterface->getSchemaIDBySchemaName(schemaComboBox->currentText());
     int quantity = quantitySpinBox->value();
     int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
-    int statusID = productManagementInterface->getStatusIDByStatusName("录入");
+    int statusID = productManagementInterface->getStatusIDByStatusName(record.value(ProductStatusID).toString());
     QString comments = commentsTextEdit->document()->toPlainText().simplified();
-    qDebug()<<comments;
+    //qDebug()<<comments;
     QDateTime tmpTime = QDateTime::currentDateTime();
     QString timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
 
@@ -376,7 +376,7 @@ void UpdateProductDialog::updateProductInfo()
     productManagementInterface->updateProductDetailByProductID(productID, serialNumber, productTypeID, brandNameID,
                                                                productModelID, productColorID, productVendorID,
                                                                schemaID, quantity, unit, oldPurchasePrice, purchasePrice,
-                                                               sellingPrice, userID, userID, sellerID, "未指定", statusID,
+                                                               sellingPrice, userID, userID, sellerID, barInfo, statusID,
                                                                replacementInfoID, timeStamp, comments);
 
     emit(productUpdated());

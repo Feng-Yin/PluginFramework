@@ -72,10 +72,10 @@ bool Sell_Invoicing::init(MainWindow *parent)
     initMainWidget();
     userChanged();
 
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
-    timer->setInterval(1000);
-    timer->start(1000);
+//    QTimer *timer = new QTimer(this);
+//    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
+//    timer->setInterval(poll_interval);
+//    timer->start(poll_interval);
 
     return true;
 }
@@ -210,10 +210,14 @@ void Sell_Invoicing::createOrderPanel()
     orderModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     orderModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
     orderModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    orderModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    orderModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
     orderModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
     orderModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
     orderModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    orderModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
     orderModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    orderModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
     orderModel->setSort(TimeStamp, Qt::AscendingOrder);
 
     orderModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
@@ -221,6 +225,8 @@ void Sell_Invoicing::createOrderPanel()
     orderModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
     orderModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
     orderModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    orderModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    orderModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
     orderModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
     orderModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
     orderModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
@@ -229,7 +235,10 @@ void Sell_Invoicing::createOrderPanel()
     orderModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
     orderModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
     orderModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    orderModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    orderModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
     orderModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    orderModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
     orderModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     orderModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
@@ -260,13 +269,18 @@ void Sell_Invoicing::createStoragePanel()
     QSqlDatabase db(userManagementInterface->getDatabase());
     storageModel = new QSqlRelationalTableModel(this, db);
     storageModel->setTable("products");
+    storageModel->setTable("products");
     storageModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     storageModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
     storageModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    storageModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    storageModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
     storageModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
     storageModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
     storageModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    storageModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
     storageModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    storageModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
     storageModel->setSort(TimeStamp, Qt::AscendingOrder);
 
     storageModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
@@ -274,6 +288,8 @@ void Sell_Invoicing::createStoragePanel()
     storageModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
     storageModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
     storageModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    storageModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    storageModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
     storageModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
     storageModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
     storageModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
@@ -282,7 +298,10 @@ void Sell_Invoicing::createStoragePanel()
     storageModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
     storageModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
     storageModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    storageModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    storageModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
     storageModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    storageModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
     storageModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     storageModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
@@ -418,6 +437,9 @@ void Sell_Invoicing::productUpdated()
 {
     storageModel->select();
     storageView->resizeColumnsToContents();
+    orderModel->select();
+    orderView->resizeColumnsToContents();
+    updateProductDialog->hide();
 }
 
 void Sell_Invoicing::onFilter()

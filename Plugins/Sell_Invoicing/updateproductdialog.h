@@ -2,7 +2,7 @@
 #define UPDATEPRODUCTDIALOG_H
 
 #include <QDialog>
- #include <QSqlRecord>
+#include <QSqlRecord>
 #include "usermanagement_interface.h"
 
 QT_BEGIN_NAMESPACE
@@ -14,6 +14,8 @@ class QPushButton;
 class QSqlRelationalTableModel;
 class QString;
 class QTextEdit;
+class QDialogButtonBox;
+class QPrinter;
 QT_END_NAMESPACE
 
 class UserManagementInterface;
@@ -38,9 +40,10 @@ public slots:
 
 private slots:
     void updateProductInfo();
-    void clearInfo();
     void setProductModelFilter();
+    void populateBrandNameComboBox();
     void populateSchemaComboBox() const;
+    void populateSellerNameComboBox() const;
 
 private:
     void init();
@@ -63,6 +66,24 @@ private:
     QLabel *productModelLabel;
     QComboBox *productModelComboBox;
     QSqlRelationalTableModel *productModelModel;
+
+    QLabel *productColorLabel;
+    QComboBox *productColorComboBox;
+    QSqlRelationalTableModel *productColorModel;
+
+    QLabel *productVendorLabel;
+    QComboBox *productVendorComboBox;
+    QSqlRelationalTableModel *productVendorModel;
+
+    QLabel *replacementInfoLabel;
+    QComboBox *replacementInfoComboBox;
+    QSqlRelationalTableModel *replacementInfoModel;
+
+    QLabel *barInfoLabel;
+    QLineEdit *barInfoLineEdit;
+
+    QLabel *sellerLabel;
+    QComboBox *sellerComboBox;
 
     QLabel *quantityLabel;
     QSpinBox *quantitySpinBox;

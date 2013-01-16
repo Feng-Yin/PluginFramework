@@ -28,6 +28,7 @@ public:
     virtual QString moduleDescription() const = 0;
     virtual QSet<QString> getAccessRoleNameSet() const = 0;
     virtual QSet<QString> getDependencySet() const = 0;
+    virtual void update() const = 0;
 };
 
 QT_BEGIN_NAMESPACE

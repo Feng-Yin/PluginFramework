@@ -198,10 +198,10 @@ bool Purchase_Invoicing::init(MainWindow *parent)
     initMainWidget();
     userChanged();
 
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
-    timer->setInterval(1000);
-    timer->start(1000);
+//    QTimer *timer = new QTimer(this);
+//    connect(timer, SIGNAL(timeout()), this, SLOT(updateDBTableModel()));
+//    timer->setInterval(poll_interval);
+//    timer->start(poll_interval);
 
     return true;
 }
@@ -569,12 +569,14 @@ void Purchase_Invoicing::emptyProducts()
     bar->setRange(0, productIDSet.count());
     bar->setValue(0);
     int i = 0;
+    mainWidget->setCursor(Qt::BusyCursor);
     foreach(int id, productIDSet) {
         productManagementInterface->updateStatusIDByProductID(id, deleteID);
         productManagementInterface->deleteProductByProductID(id);
         bar->setValue(++i);
-        qApp->processEvents();
+        //qApp->processEvents();
     }
+    mainWidget->unsetCursor();
     purchaseModel->select();
 }
 
@@ -604,6 +606,7 @@ void Purchase_Invoicing::importProducts()
             bar->setRange(0, totalRows);
             bar->setValue(0);
             bar->show();
+            mainWidget->setCursor(Qt::BusyCursor);
             for(int i=1; i<count+1; i++) {
                 QAxObject* sheet = sheets->querySubObject( "Item( int )", i );
                 //////////////////////////////////////////////////////////////////
@@ -654,8 +657,8 @@ void Purchase_Invoicing::importProducts()
     //                }
     //                productsMap.insert(name, products);
                 }
-
             }
+            mainWidget->unsetCursor();
         }
         catch(...) {
             //bar->hide();
@@ -713,13 +716,15 @@ void Purchase_Invoicing::commitAllProducts()
     bar->setRange(0, productIDSet.count());
     bar->setValue(0);
     int i = 0;
+    mainWidget->setCursor(Qt::BusyCursor);
     foreach(int id, productIDSet) {
         productManagementInterface->updateStatusIDByProductID(id, deleteID);
         bar->setValue(++i);
         //bar->update();
-        qApp->processEvents();
+        //qApp->processEvents();
     }
-    purchaseModel->select();
+    mainWidget->unsetCursor();
+    productAdded();
 }
 
 void Purchase_Invoicing::updateDBTableModel() const

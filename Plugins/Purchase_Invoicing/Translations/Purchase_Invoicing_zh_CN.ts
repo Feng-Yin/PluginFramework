@@ -60,8 +60,12 @@
     </message>
     <message>
         <location filename="../addproductdialog.cpp" line="147"/>
+        <source>Schema</source>
+        <translation>店铺名称</translation>
+    </message>
+    <message>
         <source>Schema: </source>
-        <translation>店铺：</translation>
+        <translation type="obsolete">店铺：</translation>
     </message>
     <message>
         <location filename="../addproductdialog.cpp" line="152"/>
@@ -393,8 +397,12 @@
     </message>
     <message>
         <location filename="../updateproductdialog.cpp" line="148"/>
+        <source>Schema</source>
+        <translation>店铺</translation>
+    </message>
+    <message>
         <source>Schema: </source>
-        <translation>店铺：</translation>
+        <translation type="obsolete">店铺：</translation>
     </message>
     <message>
         <location filename="../updateproductdialog.cpp" line="153"/>

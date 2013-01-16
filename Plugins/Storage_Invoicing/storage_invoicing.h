@@ -12,6 +12,7 @@ class QTableView;
 class QPushButton;
 class QModelIndex;
 class QLineEdit;
+class QProgressBar;
 QT_END_NAMESPACE
 
 class UpdateProductDialog;
@@ -36,6 +37,7 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
+    virtual void update() const { updateDBTableModel(); }
 
     virtual void userChanged() const;
 
@@ -48,7 +50,9 @@ private:
 
 private slots:
     void inStorage();
+    void allInStorage();
     void outStorage();
+    void allOutStorage();
     void updateProductinfo();
     void productUpdated();
     void updateDBTableModel() const;
@@ -65,16 +69,20 @@ private:
     QSqlRelationalTableModel *purchaseModel;
     QTableView *purchaseView;
     QPushButton *inStoragePushButton;
+    QPushButton *inAllStoragePushButton;
 
     QWidget *storagePanel;
     QSqlRelationalTableModel *storageModel;
     QTableView *storageView;
     QPushButton *outStoragePushButton;
+    QPushButton *outAllStoragePushButton;
 
     UpdateProductDialog *updateProductDialog;
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;
+
+    QProgressBar *bar;
 };
 
 #endif // STORAGE_INVOICING_H

@@ -41,6 +41,7 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
+    virtual void update() const { }
 
 private slots:
     void logout();
