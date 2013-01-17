@@ -172,10 +172,14 @@ void Cash_Invoicing::createCashPanel()
     cashModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     cashModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
     cashModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    cashModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    cashModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
     cashModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
     cashModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
     cashModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    cashModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
     cashModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    cashModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
     cashModel->setSort(TimeStamp, Qt::AscendingOrder);
 
     cashModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
@@ -183,6 +187,8 @@ void Cash_Invoicing::createCashPanel()
     cashModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
     cashModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
     cashModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    cashModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    cashModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
     cashModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
     cashModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
     cashModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
@@ -191,7 +197,10 @@ void Cash_Invoicing::createCashPanel()
     cashModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
     cashModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
     cashModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    cashModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    cashModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
     cashModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    cashModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
     cashModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     cashModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 

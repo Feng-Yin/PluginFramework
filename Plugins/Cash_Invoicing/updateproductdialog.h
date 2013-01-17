@@ -42,7 +42,9 @@ private slots:
     void updateProductInfo();
     void printBill();
     void setProductModelFilter();
+    void populateBrandNameComboBox();
     void populateSchemaComboBox() const;
+    void populateSellerNameComboBox() const;
 
 private:
     void init();
@@ -66,6 +68,24 @@ private:
     QLabel *productModelLabel;
     QComboBox *productModelComboBox;
     QSqlRelationalTableModel *productModelModel;
+
+    QLabel *productColorLabel;
+    QComboBox *productColorComboBox;
+    QSqlRelationalTableModel *productColorModel;
+
+    QLabel *productVendorLabel;
+    QComboBox *productVendorComboBox;
+    QSqlRelationalTableModel *productVendorModel;
+
+    QLabel *replacementInfoLabel;
+    QComboBox *replacementInfoComboBox;
+    QSqlRelationalTableModel *replacementInfoModel;
+
+    QLabel *barInfoLabel;
+    QLineEdit *barInfoLineEdit;
+
+    QLabel *sellerLabel;
+    QComboBox *sellerComboBox;
 
     QLabel *quantityLabel;
     QSpinBox *quantitySpinBox;

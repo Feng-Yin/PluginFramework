@@ -364,7 +364,7 @@ void UpdateProductDialog::updateProductInfo()
     }
     int replacementInfoID = productManagementInterface->getReplacementStatusIDByReplacementStatusName(replacementInfo);
 
-    int sellerID = userManagementInterface->getUserIDByUserName(record.value(SellerID).toString());
+    int sellerID = userManagementInterface->getUserIDByUserName(sellerComboBox->currentText());
     QString barInfo = barInfoLineEdit->text();
 
     QString oldPurchasePrice = oldPurchasePriceLineEdit->text().simplified();
