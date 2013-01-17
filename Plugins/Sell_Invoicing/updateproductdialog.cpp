@@ -386,6 +386,23 @@ void UpdateProductDialog::updateProductInfo()
                                                                schemaID, quantity, unit, oldPurchasePrice, purchasePrice,
                                                                sellingPrice, userID, userID, sellerID, barInfo, statusID,
                                                                replacementInfoID, timeStamp, comments);
+    int total = record.value(Quantity).toInt();
+    qDebug()<<record;
+    if(quantity < total) {
+        productManagementInterface->addProductByDetail(serialNumber, productTypeID, brandNameID,
+                                                       productModelID, productColorID, productVendorID,
+                                                       userManagementInterface->getSchemaIDBySchemaName(record.value(SchemaNameID).toString()),
+                                                       total-quantity, unit, record.value(OldPurchasePrice).toString(),
+                                                       record.value(PurchasePrice).toString(), record.value(SellingPrice).toString(),
+                                                       userManagementInterface->getUserIDByUserName(record.value(OperatorUserID).toString()),
+                                                       userManagementInterface->getUserIDByUserName(record.value(ResponserUserID).toString()),
+                                                       userManagementInterface->getUserIDByUserName(record.value(SellerID).toString()),
+                                                       record.value(BarInfo).toString(),
+                                                       productManagementInterface->getStatusIDByStatusName("ÒÑÈë¿â"),
+                                                       productManagementInterface->getReplacementStatusIDByReplacementStatusName(record.value(ReplacementStatusID).toString()),
+                                                       record.value(TimeStamp).toString(),
+                                                       record.value(Comments).toString());
+    }
 
     emit(productUpdated());
     //accept();

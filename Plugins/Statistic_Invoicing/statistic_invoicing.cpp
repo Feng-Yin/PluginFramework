@@ -221,7 +221,7 @@ void Statistic_Invoicing::createStatisticPanel()
     statisticModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     statisticModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
-    statisticModel->select();
+    //statisticModel->select();
 
     statisticView = new QTableView;
     statisticView->setModel(statisticModel);
