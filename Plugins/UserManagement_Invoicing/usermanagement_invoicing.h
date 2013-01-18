@@ -36,12 +36,12 @@ public:
     virtual QToolBar* getToolBar() const;
     virtual bool init(MainWindow *parent);
     virtual bool deInit();
-    virtual void userChanged() const;
+    virtual void userChanged();
     virtual QString moduleName() const;
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
-    virtual void update() const { }
+    virtual void update() { }
 
 private slots:
     void logout();

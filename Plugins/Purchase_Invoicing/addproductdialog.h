@@ -27,7 +27,7 @@ public:
                               ProductManagementInterface *productManagementInterface,
                               QWidget *parent = 0);
     ~AddProductDialog();
-    virtual void userChanged() const;
+    virtual void userChanged();
 signals:
     void productAdded();
     

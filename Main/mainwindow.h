@@ -69,6 +69,7 @@ private:
 
     QMap<QString, PluginInterface*> pluginMap;
     QVector<PluginInterface*> pluginVector;
+    PluginInterface *currentPlugin;
     QSet<QString> deferLoadingFile;
     QTableWidget *pluginTable;
     QDialog *containerDialog;

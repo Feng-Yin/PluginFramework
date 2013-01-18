@@ -496,7 +496,7 @@ void UpdateProductDialog::updateRecord(const QSqlRecord &record)
     this->record = record;
 }
 
-void UpdateProductDialog::userChanged() const
+void UpdateProductDialog::userChanged()
 {
     populateSchemaComboBox();
     populateSellerNameComboBox();

@@ -35,17 +35,17 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
-    virtual void update() const { updateDBTableModel(); }
+    virtual void update() { updateDBTableModel(); }
 
-    virtual void userChanged() const;
+    virtual void userChanged();
 
 private:
     void initMainWidget();
     void createCashPanel();
-    void updateCashFilter() const;
+    void updateCashFilter();
 
 private slots:
-    void updateDBTableModel() const;
+    void updateDBTableModel();
     void onFilter();
     void updateProductinfo();
     void productUpdated();

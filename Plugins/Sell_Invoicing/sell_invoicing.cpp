@@ -89,7 +89,7 @@ bool Sell_Invoicing::deInit()
 }
 
 
-void Sell_Invoicing::userChanged() const
+void Sell_Invoicing::userChanged()
 {
     if(userManagementInterface->checkAccess(getAccessRoleNameSet())) {
         if(mainWidget) {
@@ -370,9 +370,9 @@ void Sell_Invoicing::backToStorage()
     }
 }
 
-void Sell_Invoicing::updateDBTableModel() const
+void Sell_Invoicing::updateDBTableModel()
 {
-    if(productManagementInterface->isModelOutdate(storageModel)) {
+    if(productManagementInterface->isModelOutdate(storageModel, storageTimeStamp)) {
         QModelIndex storageIndex = storageView->currentIndex();
         static QModelIndex storageOutViewPortindex;
         storageModel->select();
@@ -395,7 +395,7 @@ void Sell_Invoicing::updateDBTableModel() const
         storageView->resizeColumnsToContents();
     }
 
-    if(productManagementInterface->isModelOutdate(orderModel)) {
+    if(productManagementInterface->isModelOutdate(orderModel, timeStamp)) {
         QModelIndex orderIndex = orderView->currentIndex();
         static QModelIndex orderOutViewPortindex;
         orderModel->select();
@@ -462,7 +462,7 @@ void Sell_Invoicing::onFilter()
     orderModel->select();
 }
 
-void Sell_Invoicing::updateStorageFilter() const
+void Sell_Invoicing::updateStorageFilter()
 {
     int statusID = productManagementInterface->getStatusIDByStatusName("已入库");
     int userID = userManagementInterface->getUserIDByUserName(
@@ -487,7 +487,7 @@ void Sell_Invoicing::updateStorageFilter() const
     storageModel->setFilter(filter);
 }
 
-void Sell_Invoicing::updateOrderFilter() const
+void Sell_Invoicing::updateOrderFilter()
 {
     int statusID = productManagementInterface->getStatusIDByStatusName("已下单");
     int userID = userManagementInterface->getUserIDByUserName(

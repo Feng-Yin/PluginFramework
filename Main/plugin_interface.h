@@ -3,6 +3,7 @@
 
 #include <QtPlugin>
 #include <QSet>
+#include <QMetaType>
 
 QT_BEGIN_NAMESPACE
 class QWidget;
@@ -28,8 +29,13 @@ public:
     virtual QString moduleDescription() const = 0;
     virtual QSet<QString> getAccessRoleNameSet() const = 0;
     virtual QSet<QString> getDependencySet() const = 0;
-    virtual void update() const = 0;
+    virtual void update() = 0;
+
+protected:
+    QString timeStamp;
 };
+
+Q_DECLARE_METATYPE(PluginInterface*)
 
 QT_BEGIN_NAMESPACE
 Q_DECLARE_INTERFACE(PluginInterface, "com.emma.PluginInterface/1.0")

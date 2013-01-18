@@ -297,7 +297,7 @@ void Purchase_Invoicing::createPurchasePanel()
     purchasePanel->setLayout(layout);
 }
 
-void Purchase_Invoicing::userChanged() const
+void Purchase_Invoicing::userChanged()
 {
     if(userManagementInterface->checkAccess(getAccessRoleNameSet())) {
         if(mainWidget) {
@@ -727,9 +727,9 @@ void Purchase_Invoicing::commitAllProducts()
     productAdded();
 }
 
-void Purchase_Invoicing::updateDBTableModel() const
+void Purchase_Invoicing::updateDBTableModel()
 {
-    if(productManagementInterface->isModelOutdate(purchaseModel)) {
+    if(productManagementInterface->isModelOutdate(purchaseModel, timeStamp)) {
         QModelIndex index = purchaseView->currentIndex();
         static QModelIndex outViewPortindex;
         purchaseModel->select();
@@ -768,7 +768,7 @@ void Purchase_Invoicing::onFilter()
     purchaseModel->select();
 }
 
-void Purchase_Invoicing::updatePurchaseFilter() const
+void Purchase_Invoicing::updatePurchaseFilter()
 {
     int statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
     int userID = userManagementInterface->getUserIDByUserName(

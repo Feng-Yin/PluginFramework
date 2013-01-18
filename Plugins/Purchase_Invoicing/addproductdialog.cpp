@@ -516,7 +516,7 @@ void AddProductDialog::updateDBTableModel()
     populateSellerNameComboBox();
 }
 
-void AddProductDialog::userChanged() const
+void AddProductDialog::userChanged()
 {
     populateSchemaComboBox();
     populateSellerNameComboBox();

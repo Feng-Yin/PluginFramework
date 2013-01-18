@@ -49,7 +49,7 @@ class UserChangeNotifyInterface
 {
 public:
     virtual ~UserChangeNotifyInterface() {}
-    virtual void userChanged() const = 0;
+    virtual void userChanged() = 0;
 };
 
 class UserManagementInterface

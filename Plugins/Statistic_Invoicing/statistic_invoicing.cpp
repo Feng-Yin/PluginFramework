@@ -128,7 +128,7 @@ bool Statistic_Invoicing::deInit()
 }
 
 
-void Statistic_Invoicing::userChanged() const
+void Statistic_Invoicing::userChanged()
 {
     if(userManagementInterface->checkAccess(getAccessRoleNameSet())) {
         if(mainWidget) {
@@ -481,9 +481,9 @@ void Statistic_Invoicing::createFilterPanel()
     filterPanel->addTab(salesStatisticContainer, tr("Sales Statistic"));
 }
 
-void Statistic_Invoicing::updateDBTableModel() const
+void Statistic_Invoicing::updateDBTableModel()
 {
-    if(productManagementInterface->isModelOutdate(statisticModel)) {
+    if(productManagementInterface->isModelOutdate(statisticModel, timeStamp)) {
         QModelIndex index = statisticView->currentIndex();
         static QModelIndex outViewPortindex;
         statisticModel->select();

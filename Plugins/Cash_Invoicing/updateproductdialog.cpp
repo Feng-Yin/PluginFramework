@@ -522,7 +522,7 @@ void UpdateProductDialog::updateRecord(const QSqlRecord &record)
     sellingPriceLineEdit->setEnabled(true);
 }
 
-void UpdateProductDialog::userChanged() const
+void UpdateProductDialog::userChanged()
 {
     populateSchemaComboBox();
     populateSellerNameComboBox();

@@ -105,7 +105,7 @@ bool UserManagement_Invoicing::deInit()
     return true;
 }
 
-void UserManagement_Invoicing::userChanged() const
+void UserManagement_Invoicing::userChanged()
 {
     if(userManagementInterface->checkAccess(getAccessRoleNameSet())) {
         if(mainWidget) {

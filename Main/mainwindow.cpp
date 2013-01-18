@@ -5,6 +5,7 @@
 
 MainWindow* MainWindow::instance = NULL;
 const char *indexProperty = "widgetIndex";
+const char *pluginProperty = "plugin";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,8 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
     updateAction(NULL),
     toolBox(NULL),
     stackedWidget(NULL),
+    currentPlugin(NULL),
     pluginTable(NULL),
     containerDialog(NULL)
+
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -159,6 +162,7 @@ void MainWindow::createPluginToolBox(QWidget *toolbox, PluginInterface *plugin)
     layout->setColumnStretch(layout->columnCount(), 10);
     int index = stackedWidget->addWidget(plugin->getMainWidget());
     toolButton->setProperty(indexProperty, QVariant(index));
+    toolButton->setProperty(pluginProperty, QVariant::fromValue(plugin));
     if(index==0) {
         toolButton->setChecked(true);
     }
@@ -178,7 +182,7 @@ void MainWindow::widgetChange()
     if(sender) {
         QToolButton *toolButton = qobject_cast<QToolButton *>(sender);
         int index = toolButton->property(indexProperty).toInt();
-        stackedWidget->setCurrentIndex(index);
+        currentPlugin = toolButton->property(pluginProperty).value<PluginInterface*>();
         QList<QToolButton *> toolButtonList = sender->parent()->parent()
                 ->findChildren<QToolButton *>();
         foreach(QToolButton *tb, toolButtonList) {
@@ -189,6 +193,9 @@ void MainWindow::widgetChange()
                 tb->setChecked(true);
             }
         }
+        qApp->processEvents();
+        update();
+        stackedWidget->setCurrentIndex(index);
     }
 }
 
@@ -344,16 +351,22 @@ void MainWindow::pluginDialog()
 
 void MainWindow::update()
 {
-    static int i = 0;
-    i = i % pluginVector.size();
-    pluginVector.at(i++)->update();
+//    static int i = 0;
+//    i = i % pluginVector.size();
+//    pluginVector.at(i++)->update();
+    if(currentPlugin) {
+        setCursor(Qt::BusyCursor);
+        currentPlugin->update();
+        unsetCursor();
+    }
 }
 
 void MainWindow::updateAll()
 {
-    setCursor(Qt::BusyCursor);
-    foreach(PluginInterface* plugin, pluginVector) {
-        plugin->update();
-    }
-    unsetCursor();
+//    setCursor(Qt::BusyCursor);
+//    foreach(PluginInterface* plugin, pluginVector) {
+//        plugin->update();
+//    }
+//    unsetCursor();
+    update();
 }

@@ -460,7 +460,7 @@ int ProductManagementIF::getProductCountByQuery(QString queryString) const
     return query.size();
 }
 
-bool ProductManagementIF::isModelOutdate(QSqlRelationalTableModel* model) const
+bool ProductManagementIF::isModelOutdate(QSqlRelationalTableModel* model, QString &timeStamp)
 {
     QString queryString = model->query().lastQuery();
     int selectIndex = queryString.indexOf("select", 0, Qt::CaseInsensitive);
@@ -482,7 +482,32 @@ bool ProductManagementIF::isModelOutdate(QSqlRelationalTableModel* model) const
     }
     int rowInModel = model->rowCount();
     //qDebug()<<rowInDB<<" "<<rowInModel;
-    return rowInDB!=rowInModel;
+    bool outDate = rowInDB!=rowInModel;
+    queryString.replace(reg1, "max(timeStamp)");
+    if(timeStamp.isEmpty()) {
+        query.exec(queryString);
+        if(query.first()) {
+            timeStamp = query.value(0).toString();
+            timeStamp.replace("T", " ", Qt::CaseInsensitive);
+        }
+        return outDate;
+    }
+
+    if(!outDate) {
+        query.exec(queryString);
+        if(query.first()) {
+            QString dbtime = query.value(0).toString();
+            dbtime.replace("T", " ", Qt::CaseInsensitive);
+            QDateTime dbT = QDateTime::fromString(dbtime, "yyyy-MM-dd hh:mm:ss");
+            timeStamp.replace("T", " ", Qt::CaseInsensitive);
+            QDateTime modelT = QDateTime::fromString(timeStamp, "yyyy-MM-dd hh:mm:ss");
+            outDate = dbT!=modelT;
+            if(outDate) {
+                timeStamp = dbtime;
+            }
+        }
+    }
+    return outDate;
 }
 
 QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int year, int month, int range) const

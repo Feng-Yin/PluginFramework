@@ -82,7 +82,7 @@ bool Cash_Invoicing::deInit()
 }
 
 
-void Cash_Invoicing::userChanged() const
+void Cash_Invoicing::userChanged()
 {
     if(userManagementInterface->checkAccess(getAccessRoleNameSet())) {
         if(mainWidget) {
@@ -239,9 +239,9 @@ void Cash_Invoicing::onFilter()
     cashModel->select();
 }
 
-void Cash_Invoicing::updateDBTableModel() const
+void Cash_Invoicing::updateDBTableModel()
 {
-    if(productManagementInterface->isModelOutdate(cashModel)) {
+    if(productManagementInterface->isModelOutdate(cashModel, timeStamp)) {
         QModelIndex index = cashView->currentIndex();
         static QModelIndex outViewPortindex;
         cashModel->select();
@@ -265,7 +265,7 @@ void Cash_Invoicing::updateDBTableModel() const
     }
 }
 
-void Cash_Invoicing::updateCashFilter() const
+void Cash_Invoicing::updateCashFilter()
 {
     int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÏÂµ¥");
     int userID = userManagementInterface->getUserIDByUserName(

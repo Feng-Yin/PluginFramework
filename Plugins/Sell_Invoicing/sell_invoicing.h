@@ -36,22 +36,22 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
-    virtual void update() const { updateDBTableModel(); }
+    virtual void update() { updateDBTableModel(); }
 
-    virtual void userChanged() const;
+    virtual void userChanged();
 
 private:
     void initMainWidget();
     void createOrderPanel();
     void createStoragePanel();
     int updateProductinfo();
-    void updateStorageFilter() const;
-    void updateOrderFilter() const;
+    void updateStorageFilter();
+    void updateOrderFilter();
 
 private slots:
     void submitOrder();
     void backToStorage();
-    void updateDBTableModel() const;
+    void updateDBTableModel();
     void productUpdated();
     void onFilter();
 
@@ -76,6 +76,8 @@ private:
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;
+
+    QString storageTimeStamp;
 };
 
 #endif // SELL_INVOICING_H

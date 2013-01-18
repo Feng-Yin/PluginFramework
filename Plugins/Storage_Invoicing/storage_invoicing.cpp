@@ -91,7 +91,7 @@ bool Storage_Invoicing::deInit()
 }
 
 
-void Storage_Invoicing::userChanged() const
+void Storage_Invoicing::userChanged()
 {
     if(userManagementInterface->checkAccess(getAccessRoleNameSet())) {
         if(mainWidget) {
@@ -478,10 +478,10 @@ void Storage_Invoicing::productUpdated()
     storageView->resizeColumnsToContents();
 }
 
-void Storage_Invoicing::updateDBTableModel() const
+void Storage_Invoicing::updateDBTableModel()
 {
     qDebug()<<"Storage_Invoicing::updateDBTableModel()";
-    if(productManagementInterface->isModelOutdate(purchaseModel)) {
+    if(productManagementInterface->isModelOutdate(purchaseModel, purchageTimeStamp)) {
         QModelIndex purchaseIndex = purchaseView->currentIndex();
         static QModelIndex purchaseOutViewPortindex;
         purchaseModel->select();
@@ -504,7 +504,7 @@ void Storage_Invoicing::updateDBTableModel() const
         purchaseView->resizeColumnsToContents();
     }
 
-    if(productManagementInterface->isModelOutdate(storageModel)) {
+    if(productManagementInterface->isModelOutdate(storageModel, timeStamp)) {
         QModelIndex storageIndex = storageView->currentIndex();
         static QModelIndex storageOutViewPortindex;
         storageModel->select();
@@ -548,7 +548,7 @@ void Storage_Invoicing::onFilter()
     storageModel->select();
 }
 
-void Storage_Invoicing::updatePurchaseFilter() const
+void Storage_Invoicing::updatePurchaseFilter()
 {
     int statusID = productManagementInterface->getStatusIDByStatusName("´ýÈë¿â");
     int userID = userManagementInterface->getUserIDByUserName(
@@ -573,7 +573,7 @@ void Storage_Invoicing::updatePurchaseFilter() const
     purchaseModel->setFilter(filter);
 }
 
-void Storage_Invoicing::updateStorageFilter() const
+void Storage_Invoicing::updateStorageFilter()
 {
     int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÈë¿â");
     int userID = userManagementInterface->getUserIDByUserName(

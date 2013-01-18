@@ -99,7 +99,7 @@ public:
     virtual int getResponserUserIDByProductID(int id) const = 0;
     virtual bool updateStatusIDByProductID(int productID, int statusID) const = 0;
     virtual int getProductCountByQuery(QString queryString) const = 0;
-    virtual bool isModelOutdate(QSqlRelationalTableModel* model) const = 0;
+    virtual bool isModelOutdate(QSqlRelationalTableModel* model, QString &timeStamp) = 0;
     virtual QMap<QString, SalesResult> getSalesResultByTimeRange(int year, int month, int range = 1) const = 0;
 
     //help function

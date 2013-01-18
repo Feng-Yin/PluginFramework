@@ -41,14 +41,14 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
-    virtual void update() const { updateDBTableModel(); }
+    virtual void update() { updateDBTableModel(); }
 
-    virtual void userChanged() const;
+    virtual void userChanged();
 
 private:
     void initMainWidget();
     void createPurchasePanel();
-    void updatePurchaseFilter() const;
+    void updatePurchaseFilter();
 
 
 private slots:
@@ -61,7 +61,7 @@ private slots:
     void importProducts();
     void commitProduct();
     void commitAllProducts();
-    void updateDBTableModel() const;
+    void updateDBTableModel();
     void onFilter();
     void updateProductinfo();
 

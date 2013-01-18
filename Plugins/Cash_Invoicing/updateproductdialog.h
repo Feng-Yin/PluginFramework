@@ -30,7 +30,7 @@ public:
                                  ProductManagementInterface *productManagementInterface,
                                  QWidget *parent = 0);
     ~UpdateProductDialog();
-    virtual void userChanged() const;
+    virtual void userChanged();
 signals:
     void productUpdated();
 

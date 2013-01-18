@@ -29,7 +29,7 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
-    virtual void update() const {}
+    virtual void update() {}
 
     //for table producttype
     virtual int getTypeIDByTypeName(QString productType) const;
@@ -84,7 +84,7 @@ public:
     virtual int getResponserUserIDByProductID(int id) const;
     virtual bool updateStatusIDByProductID(int productID, int statusID) const;
     virtual int getProductCountByQuery(QString queryString) const;
-    virtual bool isModelOutdate(QSqlRelationalTableModel* model) const;
+    virtual bool isModelOutdate(QSqlRelationalTableModel* model, QString &timeStamp);
     virtual QMap<QString, SalesResult> getSalesResultByTimeRange(int year, int month, int range = 1) const;
 
     //help function
