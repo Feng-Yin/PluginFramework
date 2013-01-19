@@ -99,6 +99,8 @@ Statistic_Invoicing::Statistic_Invoicing():
     endTimeAllProductsDateEdit(NULL),
     endTimeAllProductsCheckBox(NULL),
     allProductsFilterButton(NULL),
+    allProductsSummaryLabel(NULL),
+    allProductsSummaryLineEdit(NULL),
     serialNumberUnsellProductsLabel(NULL),
     serialNumberUnsellProductsLineEdit(NULL),
     serialNumberUnsellProductsCheckBox(NULL),
@@ -164,7 +166,9 @@ Statistic_Invoicing::Statistic_Invoicing():
     endTimeUnsellProductsLabel(NULL),
     endTimeUnsellProductsDateEdit(NULL),
     endTimeUnsellProductsCheckBox(NULL),
-    unsellProductsFilterButton(NULL)
+    unsellProductsFilterButton(NULL),
+    unsellProductsSummaryLabel(NULL),
+    unsellProductsSummaryLineEdit(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -271,7 +275,7 @@ QString Statistic_Invoicing::moduleDescription() const
 
 QSet<QString> Statistic_Invoicing::getAccessRoleNameSet() const
 {
-    return QSet<QString>()<<"管理员";
+    return QSet<QString>()<<"管理员"<<"审计";
 }
 
 QSet<QString> Statistic_Invoicing::getDependencySet() const
@@ -333,7 +337,6 @@ void Statistic_Invoicing::createAllProductsPanel()
     allProductsModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
     allProductsModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     allProductsModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
-
 
     allProductsView = new QTableView;
     allProductsView->setModel(allProductsModel);
@@ -621,6 +624,9 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     connect(endTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), endTimeUnsellProductsLabel, SLOT(setEnabled(bool)));
     connect(endTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), endTimeUnsellProductsDateEdit, SLOT(setEnabled(bool)));
 
+    unsellProductsSummaryLabel = new QLabel(tr("Summary: "), unsellProductsFilterPanel);
+    unsellProductsSummaryLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    unsellProductsSummaryLineEdit->setReadOnly(true);
 
     unsellProductsFilterButton = new QPushButton(tr("Filter Result"), unsellProductsFilterPanel);
     QFont f;
@@ -694,6 +700,9 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     unsellProductsFilterLayout->addWidget(endTimeUnsellProductsDateEdit, 36, 21);
     unsellProductsFilterLayout->addWidget(endTimeUnsellProductsCheckBox, 36, 22);
 
+    unsellProductsFilterLayout->addWidget(unsellProductsSummaryLabel, 50, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(unsellProductsSummaryLineEdit, 50, 1, 1, unsellProductsFilterLayout->columnCount());
+
     QFrame *line1 = new QFrame();
     line1->setAttribute(Qt::WA_MouseNoMask);
     line1->setFrameStyle(QFrame::Sunken);
@@ -712,8 +721,14 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     line3->setFrameShape(QFrame::HLine);
     unsellProductsFilterLayout->addWidget(line3, 35, 0, 1, unsellProductsFilterLayout->columnCount());
 
+    QFrame *line4 = new QFrame();
+    line4->setAttribute(Qt::WA_MouseNoMask);
+    line4->setFrameStyle(QFrame::Sunken);
+    line4->setFrameShape(QFrame::HLine);
+    unsellProductsFilterLayout->addWidget(line4, 45, 0, 1, unsellProductsFilterLayout->columnCount());
+
     createUnsellProductsPanel();
-    unsellProductsFilterLayout->addWidget(unsellProductsPanel, 45, 0, 1, unsellProductsFilterLayout->columnCount());
+    unsellProductsFilterLayout->addWidget(unsellProductsPanel, 55, 0, 1, unsellProductsFilterLayout->columnCount());
 
     unsellProductsFilterPanel->setLayout(unsellProductsFilterLayout);
 }
@@ -991,6 +1006,10 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     connect(endTimeAllProductsCheckBox, SIGNAL(toggled(bool)), endTimeAllProductsLabel, SLOT(setEnabled(bool)));
     connect(endTimeAllProductsCheckBox, SIGNAL(toggled(bool)), endTimeAllProductsDateEdit, SLOT(setEnabled(bool)));
 
+    allProductsSummaryLabel = new QLabel(tr("Summary: "), allProductsFilterPanel);
+    allProductsSummaryLineEdit = new QLineEdit(allProductsFilterPanel);
+    allProductsSummaryLineEdit->setReadOnly(true);
+
     allProductsFilterButton = new QPushButton(tr("Filter Result"), allProductsFilterPanel);
     QFont f;
     f.setBold(true);
@@ -1063,6 +1082,9 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     allProductsFilterLayout->addWidget(endTimeAllProductsDateEdit, 36, 21);
     allProductsFilterLayout->addWidget(endTimeAllProductsCheckBox, 36, 22);
 
+    allProductsFilterLayout->addWidget(allProductsSummaryLabel, 50, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(allProductsSummaryLineEdit, 50, 1, 1, allProductsFilterLayout->columnCount());
+
     QFrame *line1 = new QFrame();
     line1->setAttribute(Qt::WA_MouseNoMask);
     line1->setFrameStyle(QFrame::Sunken);
@@ -1081,8 +1103,14 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     line3->setFrameShape(QFrame::HLine);
     allProductsFilterLayout->addWidget(line3, 35, 0, 1, allProductsFilterLayout->columnCount());
 
+    QFrame *line4 = new QFrame();
+    line4->setAttribute(Qt::WA_MouseNoMask);
+    line4->setFrameStyle(QFrame::Sunken);
+    line4->setFrameShape(QFrame::HLine);
+    allProductsFilterLayout->addWidget(line4, 45, 0, 1, allProductsFilterLayout->columnCount());
+
     createAllProductsPanel();
-    allProductsFilterLayout->addWidget(allProductsPanel, 45, 0, 1, allProductsFilterLayout->columnCount());
+    allProductsFilterLayout->addWidget(allProductsPanel, 55, 0, 1, allProductsFilterLayout->columnCount());
 
     allProductsFilterPanel->setLayout(allProductsFilterLayout);
 }
@@ -1143,6 +1171,8 @@ void Statistic_Invoicing::populateSchemaComboBox(QComboBox *schemaComboBox) cons
 
 void Statistic_Invoicing::onAllProductsFilter()
 {
+    allProductsSummaryLineEdit->clear();
+
     QString allProductsFilter("");
     if(serialNumberAllProductsCheckBox->isChecked()) {
         QString serialNumber = serialNumberAllProductsLineEdit->text().simplified();
@@ -1382,11 +1412,30 @@ void Statistic_Invoicing::onAllProductsFilter()
 //    qDebug()<<statisticModel->filter();
 //    qDebug()<<statisticModel->query().lastQuery();
     allProductsView->resizeColumnsToContents();
+
+    int rows = allProductsModel->rowCount();
+    int totalQuantity = 0;
+    qulonglong totalSelling = 0;
+    QSqlRecord record;
+    for(int i=0; i<rows; i++) {
+        record = allProductsModel->record(i);
+        totalQuantity += record.value(Quantity).toInt();
+        QString selling = record.value(SellingPrice).toString().simplified();
+        //qDebug()<<selling<<selling.toULongLong();
+        if(!selling.isEmpty()) {
+            totalSelling += selling.toULongLong();
+        }
+    }
+    allProductsSummaryLineEdit->setText(QString("Numbers of Total Products: %1  Numbers of Total Selling: %2")
+                                        .arg(totalQuantity).arg(totalSelling));
+
     mainWidget->unsetCursor();
 }
 
 void Statistic_Invoicing::onUnsellProductsFilter()
 {
+    unsellProductsSummaryLineEdit->clear();
+
     QString unsellProductsFilter("");
     if(serialNumberUnsellProductsCheckBox->isChecked()) {
         QString serialNumber = serialNumberUnsellProductsLineEdit->text().simplified();
@@ -1626,6 +1675,23 @@ void Statistic_Invoicing::onUnsellProductsFilter()
 //    qDebug()<<statisticModel->filter();
 //    qDebug()<<statisticModel->query().lastQuery();
     unsellProductsView->resizeColumnsToContents();
+
+    int rows = unsellProductsModel->rowCount();
+    int totalQuantity = 0;
+    int totalSelling = 0;
+    QSqlRecord record;
+    for(int i=0; i<rows; i++) {
+        record = unsellProductsModel->record(i);
+        totalQuantity += record.value(Quantity).toInt();
+        QString selling = record.value(SellingPrice).toString().simplified();
+        //qDebug()<<selling<<selling.toULongLong();
+        if(!selling.isEmpty()) {
+            totalSelling += selling.toULongLong();
+        }
+    }
+    unsellProductsSummaryLineEdit->setText(QString("Numbers of Total Products: %1  Numbers of Total Selling: %2")
+                                           .arg(totalQuantity).arg(totalSelling));
+
     mainWidget->unsetCursor();
 
 }

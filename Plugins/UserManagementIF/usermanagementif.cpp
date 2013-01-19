@@ -4,7 +4,7 @@
 
 
 const QStringList UserManagementInterface::defaultSchema = QStringList();
-const QStringList UserManagementInterface::defaultRole = QStringList() <<"管理员"<<"采购"<<"库管"<<"销售"<<"收银员";
+const QStringList UserManagementInterface::defaultRole = QStringList() <<"管理员"<<"采购"<<"库管"<<"销售"<<"收银员"<<"审计";
 const QStringList UserManagementInterface::defaultUser = QStringList() <<"root";
 
 UserManagementIF::UserManagementIF() :

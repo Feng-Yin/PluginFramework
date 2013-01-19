@@ -180,6 +180,8 @@ private:
     QCheckBox *endTimeAllProductsCheckBox;
 
     QPushButton *allProductsFilterButton;
+    QLabel *allProductsSummaryLabel;
+    QLineEdit *allProductsSummaryLineEdit;
 
     QLabel *serialNumberUnsellProductsLabel;
     QLineEdit *serialNumberUnsellProductsLineEdit;
@@ -266,6 +268,8 @@ private:
     QCheckBox *endTimeUnsellProductsCheckBox;
 
     QPushButton *unsellProductsFilterButton;
+    QLabel *unsellProductsSummaryLabel;
+    QLineEdit *unsellProductsSummaryLineEdit;
 };
 
 #endif // STATISTIC_INVOICING_H
