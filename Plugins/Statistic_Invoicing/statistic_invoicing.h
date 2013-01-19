@@ -48,14 +48,21 @@ public:
 
 private:
     void initMainWidget();
-    void createStatisticPanel();
     void createFilterPanel();
+    void createAllProductsPanel();
+    void createUnsellProductsPanel();
+    void createBarChartPanel();
+    void createAllProductsFilterPanel();
+    void createUnsellProductsFilterPanel();
+
 
 private slots:
     void updateDBTableModel();
     void setProductModelFilter();
-    void populateSchemaComboBox() const;
-    void onBasicFilter();
+    void populateSchemaComboBox(QComboBox *schemaComboBox) const;
+    void populateSellerNameComboBox(QComboBox *sellerNameComboBox) const;
+    void onAllProductsFilter();
+    void onUnsellProductsFilter();
     void updateSalesStatisticPlot();
 
 private:
@@ -65,12 +72,18 @@ private:
 
     QWidget *mainWidget;
 
-    QWidget *statisticPanel;
-    QSqlRelationalTableModel *statisticModel;
-    QTableView *statisticView;
+    QWidget *allProductsPanel;
+    QSqlRelationalTableModel *allProductsModel;
+    QTableView *allProductsView;
+
+    QWidget *unsellProductsPanel;
+    QSqlRelationalTableModel *unsellProductsModel;
+    QTableView *unsellProductsView;
 
     QTabWidget *filterPanel;
-    QWidget *basicFilterPanel;
+    QWidget *unsellProductsFilterPanel;
+    QWidget *allProductsFilterPanel;
+    QWidget *salesStatisticContainer;
     BarChart *salesStatisticPlot;
     QRadioButton *sortByVolumeAscRadioButton;
     QRadioButton *sortByVolumeDesRadioButton;
@@ -82,51 +95,177 @@ private:
     QPushButton *updateStatisticPushButton;
     QPushButton *printStatisticPushButton;
 
-    QLabel *serialNumberLabel;
-    QLineEdit *serialNumberLineEdit;
-    QCheckBox *serialNumberCheckBox;
+    QLabel *serialNumberAllProductsLabel;
+    QLineEdit *serialNumberAllProductsLineEdit;
+    QCheckBox *serialNumberAllProductsCheckBox;
 
-    QLabel *productTypeLabel;
-    QComboBox *productTypeComboBox;
-    QSqlRelationalTableModel *productTypeModel;
-    QCheckBox *productTypeCheckBox;
+    QLabel *productTypeAllProductsLabel;
+    QComboBox *productTypeAllProductsComboBox;
+    QSqlRelationalTableModel *productTypeAllProductsModel;
+    QCheckBox *productTypeAllProductsCheckBox;
 
-    QLabel *brandNameLabel;
-    QComboBox *brandNameComboBox;
-    QSqlRelationalTableModel *brandNameModel;
-    QCheckBox *brandNameCheckBox;
+    QLabel *brandNameAllProductsLabel;
+    QComboBox *brandNameAllProductsComboBox;
+    QSqlRelationalTableModel *brandNameAllProductsModel;
+    QCheckBox *brandNameAllProductsCheckBox;
 
-    QLabel *productModelLabel;
-    QComboBox *productModelComboBox;
-    QSqlRelationalTableModel *productModelModel;
-    QCheckBox *productModelCheckBox;
+    QLabel *productModelAllProductsLabel;
+    QComboBox *productModelAllProductsComboBox;
+    QSqlRelationalTableModel *productModelAllProductsModel;
+    QCheckBox *productModelAllProductsCheckBox;
 
-    QLabel *quantityLabel;
-    QSpinBox *quantitySpinBox;
-    QCheckBox *quantityCheckBox;
+    QLabel *productColorAllProductsLabel;
+    QComboBox *productColorAllProductsComboBox;
+    QSqlRelationalTableModel *productColorAllProductsModel;
+    QCheckBox *productColorAllProductsCheckBox;
 
-    QLabel *unitLabel;
-    QLineEdit *unitLineEdit;
-    QCheckBox *unitCheckBox;
+    QLabel *productVendorAllProductsLabel;
+    QComboBox *productVendorAllProductsComboBox;
+    QSqlRelationalTableModel *productVendorAllProductsModel;
+    QCheckBox *productVendorAllProductsCheckBox;
 
-    QLabel *schemaLabel;
-    QComboBox *schemaComboBox;
-    QSqlRelationalTableModel *userSchemaModel;
-    QCheckBox *schemaCheckBox;
+    QLabel *replacementInfoAllProductsLabel;
+    QComboBox *replacementInfoAllProductsComboBox;
+    QSqlRelationalTableModel *replacementInfoAllProductsModel;
+    QCheckBox *replacementInfoAllProductsCheckBox;
 
-    QLabel *oldPurchasePriceLabel;
-    QLineEdit *oldPurchasePriceLineEdit;
-    QCheckBox *oldPurchasePriceCheckBox;
+    QLabel *barInfoAllProductsLabel;
+    QLineEdit *barInfoAllProductsLineEdit;
+    QCheckBox *barInfoAllProductsCheckBox;
 
-    QLabel *purchasePriceLabel;
-    QLineEdit *purchasePriceLineEdit;
-    QCheckBox *purchasePriceCheckBox;
+    QLabel *sellerAllProductsLabel;
+    QComboBox *sellerAllProductsComboBox;
+    QCheckBox *sellerAllProductsCheckBox;
 
-    QLabel *sellingPriceLabel;
-    QLineEdit *sellingPriceLineEdit;
-    QCheckBox *sellingPriceCheckBox;
+    QLabel *productStatusAllProductsLabel;
+    QComboBox *productStatusAllProductsComboBox;
+    QSqlRelationalTableModel *productStatusAllProductsModel;
+    QCheckBox *productStatusAllProductsCheckBox;
 
-    QPushButton *basicFilterButton;
+    QLabel *quantityAllProductsLabel;
+    QSpinBox *quantityAllProductsSpinBox;
+    QCheckBox *quantityAllProductsCheckBox;
+
+    QLabel *unitAllProductsLabel;
+    QLineEdit *unitAllProductsLineEdit;
+    QCheckBox *unitAllProductsCheckBox;
+
+    QLabel *schemaAllProductsLabel;
+    QComboBox *schemaAllProductsComboBox;
+    QSqlRelationalTableModel *userSchemaAllProductsModel;
+    QCheckBox *schemaAllProductsCheckBox;
+
+    QLabel *oldPurchasePriceAllProductsLabel;
+    QLineEdit *oldPurchasePriceAllProductsLineEdit;
+    QCheckBox *oldPurchasePriceAllProductsCheckBox;
+
+    QLabel *purchasePriceAllProductsLabel;
+    QLineEdit *purchasePriceAllProductsLineEdit;
+    QCheckBox *purchasePriceAllProductsCheckBox;
+
+    QLabel *sellingPriceAllProductsLabel;
+    QLineEdit *sellingPriceAllProductsLineEdit;
+    QCheckBox *sellingPriceAllProductsCheckBox;
+
+    QLabel *commentsAllProductsLabel;
+    QLineEdit *commentsAllProductsLineEdit;
+    QCheckBox *commentsAllProductsCheckBox;
+
+    QLabel *startTimeAllProductsLabel;
+    QDateEdit *startTimeAllProductsDateEdit;
+    QCheckBox *startTimeAllProductsCheckBox;
+
+    QLabel *endTimeAllProductsLabel;
+    QDateEdit *endTimeAllProductsDateEdit;
+    QCheckBox *endTimeAllProductsCheckBox;
+
+    QPushButton *allProductsFilterButton;
+
+    QLabel *serialNumberUnsellProductsLabel;
+    QLineEdit *serialNumberUnsellProductsLineEdit;
+    QCheckBox *serialNumberUnsellProductsCheckBox;
+
+    QLabel *productTypeUnsellProductsLabel;
+    QComboBox *productTypeUnsellProductsComboBox;
+    QSqlRelationalTableModel *productTypeUnsellProductsModel;
+    QCheckBox *productTypeUnsellProductsCheckBox;
+
+    QLabel *brandNameUnsellProductsLabel;
+    QComboBox *brandNameUnsellProductsComboBox;
+    QSqlRelationalTableModel *brandNameUnsellProductsModel;
+    QCheckBox *brandNameUnsellProductsCheckBox;
+
+    QLabel *productModelUnsellProductsLabel;
+    QComboBox *productModelUnsellProductsComboBox;
+    QSqlRelationalTableModel *productModelUnsellProductsModel;
+    QCheckBox *productModelUnsellProductsCheckBox;
+
+    QLabel *productColorUnsellProductsLabel;
+    QComboBox *productColorUnsellProductsComboBox;
+    QSqlRelationalTableModel *productColorUnsellProductsModel;
+    QCheckBox *productColorUnsellProductsCheckBox;
+
+    QLabel *productVendorUnsellProductsLabel;
+    QComboBox *productVendorUnsellProductsComboBox;
+    QSqlRelationalTableModel *productVendorUnsellProductsModel;
+    QCheckBox *productVendorUnsellProductsCheckBox;
+
+    QLabel *replacementInfoUnsellProductsLabel;
+    QComboBox *replacementInfoUnsellProductsComboBox;
+    QSqlRelationalTableModel *replacementInfoUnsellProductsModel;
+    QCheckBox *replacementInfoUnsellProductsCheckBox;
+
+    QLabel *barInfoUnsellProductsLabel;
+    QLineEdit *barInfoUnsellProductsLineEdit;
+    QCheckBox *barInfoUnsellProductsCheckBox;
+
+    QLabel *sellerUnsellProductsLabel;
+    QComboBox *sellerUnsellProductsComboBox;
+    QCheckBox *sellerUnsellProductsCheckBox;
+
+    QLabel *productStatusUnsellProductsLabel;
+    QComboBox *productStatusUnsellProductsComboBox;
+    QSqlRelationalTableModel *productStatusUnsellProductsModel;
+    QCheckBox *productStatusUnsellProductsCheckBox;
+
+    QLabel *quantityUnsellProductsLabel;
+    QSpinBox *quantityUnsellProductsSpinBox;
+    QCheckBox *quantityUnsellProductsCheckBox;
+
+    QLabel *unitUnsellProductsLabel;
+    QLineEdit *unitUnsellProductsLineEdit;
+    QCheckBox *unitUnsellProductsCheckBox;
+
+    QLabel *schemaUnsellProductsLabel;
+    QComboBox *schemaUnsellProductsComboBox;
+    QSqlRelationalTableModel *userSchemaUnsellProductsModel;
+    QCheckBox *schemaUnsellProductsCheckBox;
+
+    QLabel *oldPurchasePriceUnsellProductsLabel;
+    QLineEdit *oldPurchasePriceUnsellProductsLineEdit;
+    QCheckBox *oldPurchasePriceUnsellProductsCheckBox;
+
+    QLabel *purchasePriceUnsellProductsLabel;
+    QLineEdit *purchasePriceUnsellProductsLineEdit;
+    QCheckBox *purchasePriceUnsellProductsCheckBox;
+
+    QLabel *sellingPriceUnsellProductsLabel;
+    QLineEdit *sellingPriceUnsellProductsLineEdit;
+    QCheckBox *sellingPriceUnsellProductsCheckBox;
+
+    QLabel *commentsUnsellProductsLabel;
+    QLineEdit *commentsUnsellProductsLineEdit;
+    QCheckBox *commentsUnsellProductsCheckBox;
+
+    QLabel *startTimeUnsellProductsLabel;
+    QDateEdit *startTimeUnsellProductsDateEdit;
+    QCheckBox *startTimeUnsellProductsCheckBox;
+
+    QLabel *endTimeUnsellProductsLabel;
+    QDateEdit *endTimeUnsellProductsDateEdit;
+    QCheckBox *endTimeUnsellProductsCheckBox;
+
+    QPushButton *unsellProductsFilterButton;
 };
 
 #endif // STATISTIC_INVOICING_H

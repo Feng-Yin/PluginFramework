@@ -13,11 +13,16 @@ Statistic_Invoicing::Statistic_Invoicing():
     userManagementInterface(NULL),
     productManagementInterface(NULL),
     mainWidget(NULL),
-    statisticPanel(NULL),
-    statisticModel(NULL),
-    statisticView(NULL),
+    allProductsPanel(NULL),
+    allProductsModel(NULL),
+    allProductsView(NULL),
+    unsellProductsPanel(NULL),
+    unsellProductsModel(NULL),
+    unsellProductsView(NULL),
     filterPanel(NULL),
-    basicFilterPanel(NULL),
+    unsellProductsFilterPanel(NULL),
+    allProductsFilterPanel(NULL),
+    salesStatisticContainer(NULL),
     salesStatisticPlot(NULL),
     sortByVolumeAscRadioButton(NULL),
     sortByVolumeDesRadioButton(NULL),
@@ -28,38 +33,138 @@ Statistic_Invoicing::Statistic_Invoicing():
     peopleRange(NULL),
     updateStatisticPushButton(NULL),
     printStatisticPushButton(NULL),
-    serialNumberLabel(NULL),
-    serialNumberLineEdit(NULL),
-	serialNumberCheckBox(NULL),
-    productTypeLabel(NULL),
-    productTypeComboBox(NULL),
-    productTypeModel(NULL),
-	productTypeCheckBox(NULL),
-    brandNameLabel(NULL),
-    brandNameComboBox(NULL),
-    brandNameModel(NULL),
-	brandNameCheckBox(NULL),
-    productModelLabel(NULL),
-    productModelComboBox(NULL),
-    productModelModel(NULL),
-	productModelCheckBox(NULL),
-    quantityLabel(NULL),
-    quantitySpinBox(NULL),
-    unitLabel(NULL),
-    unitLineEdit(NULL),
-    schemaLabel(NULL),
-    schemaComboBox(NULL),
-    userSchemaModel(NULL),
-    schemaCheckBox(NULL),
-    oldPurchasePriceLabel(NULL),
-    oldPurchasePriceLineEdit(NULL),
-	oldPurchasePriceCheckBox(NULL),
-    purchasePriceLabel(NULL),
-    purchasePriceLineEdit(NULL),
-	purchasePriceCheckBox(NULL),
-    sellingPriceLabel(NULL),
-    sellingPriceLineEdit(NULL),
-    sellingPriceCheckBox(NULL)
+    serialNumberAllProductsLabel(NULL),
+    serialNumberAllProductsLineEdit(NULL),
+    serialNumberAllProductsCheckBox(NULL),
+    productTypeAllProductsLabel(NULL),
+    productTypeAllProductsComboBox(NULL),
+    productTypeAllProductsModel(NULL),
+    productTypeAllProductsCheckBox(NULL),
+    brandNameAllProductsLabel(NULL),
+    brandNameAllProductsComboBox(NULL),
+    brandNameAllProductsModel(NULL),
+    brandNameAllProductsCheckBox(NULL),
+    productModelAllProductsLabel(NULL),
+    productModelAllProductsComboBox(NULL),
+    productModelAllProductsModel(NULL),
+    productModelAllProductsCheckBox(NULL),
+    productColorAllProductsLabel(NULL),
+    productColorAllProductsComboBox(NULL),
+    productColorAllProductsModel(NULL),
+    productColorAllProductsCheckBox(NULL),
+    productVendorAllProductsLabel(NULL),
+    productVendorAllProductsComboBox(NULL),
+    productVendorAllProductsModel(NULL),
+    productVendorAllProductsCheckBox(NULL),
+    replacementInfoAllProductsLabel(NULL),
+    replacementInfoAllProductsComboBox(NULL),
+    replacementInfoAllProductsModel(NULL),
+    replacementInfoAllProductsCheckBox(NULL),
+    barInfoAllProductsLabel(NULL),
+    barInfoAllProductsLineEdit(NULL),
+    barInfoAllProductsCheckBox(NULL),
+    sellerAllProductsLabel(NULL),
+    sellerAllProductsComboBox(NULL),
+    sellerAllProductsCheckBox(NULL),
+    productStatusAllProductsLabel(NULL),
+    productStatusAllProductsComboBox(NULL),
+    productStatusAllProductsModel(NULL),
+    productStatusAllProductsCheckBox(NULL),
+    quantityAllProductsLabel(NULL),
+    quantityAllProductsSpinBox(NULL),
+    quantityAllProductsCheckBox(NULL),
+    unitAllProductsLabel(NULL),
+    unitAllProductsLineEdit(NULL),
+    unitAllProductsCheckBox(NULL),
+    schemaAllProductsLabel(NULL),
+    schemaAllProductsComboBox(NULL),
+    userSchemaAllProductsModel(NULL),
+    schemaAllProductsCheckBox(NULL),
+    oldPurchasePriceAllProductsLabel(NULL),
+    oldPurchasePriceAllProductsLineEdit(NULL),
+    oldPurchasePriceAllProductsCheckBox(NULL),
+    purchasePriceAllProductsLabel(NULL),
+    purchasePriceAllProductsLineEdit(NULL),
+    purchasePriceAllProductsCheckBox(NULL),
+    sellingPriceAllProductsLabel(NULL),
+    sellingPriceAllProductsLineEdit(NULL),
+    sellingPriceAllProductsCheckBox(NULL),
+    commentsAllProductsLabel(NULL),
+    commentsAllProductsLineEdit(NULL),
+    commentsAllProductsCheckBox(NULL),
+    startTimeAllProductsLabel(NULL),
+    startTimeAllProductsDateEdit(NULL),
+    startTimeAllProductsCheckBox(NULL),
+    endTimeAllProductsLabel(NULL),
+    endTimeAllProductsDateEdit(NULL),
+    endTimeAllProductsCheckBox(NULL),
+    allProductsFilterButton(NULL),
+    serialNumberUnsellProductsLabel(NULL),
+    serialNumberUnsellProductsLineEdit(NULL),
+    serialNumberUnsellProductsCheckBox(NULL),
+    productTypeUnsellProductsLabel(NULL),
+    productTypeUnsellProductsComboBox(NULL),
+    productTypeUnsellProductsModel(NULL),
+    productTypeUnsellProductsCheckBox(NULL),
+    brandNameUnsellProductsLabel(NULL),
+    brandNameUnsellProductsComboBox(NULL),
+    brandNameUnsellProductsModel(NULL),
+    brandNameUnsellProductsCheckBox(NULL),
+    productModelUnsellProductsLabel(NULL),
+    productModelUnsellProductsComboBox(NULL),
+    productModelUnsellProductsModel(NULL),
+    productModelUnsellProductsCheckBox(NULL),
+    productColorUnsellProductsLabel(NULL),
+    productColorUnsellProductsComboBox(NULL),
+    productColorUnsellProductsModel(NULL),
+    productColorUnsellProductsCheckBox(NULL),
+    productVendorUnsellProductsLabel(NULL),
+    productVendorUnsellProductsComboBox(NULL),
+    productVendorUnsellProductsModel(NULL),
+    productVendorUnsellProductsCheckBox(NULL),
+    replacementInfoUnsellProductsLabel(NULL),
+    replacementInfoUnsellProductsComboBox(NULL),
+    replacementInfoUnsellProductsModel(NULL),
+    replacementInfoUnsellProductsCheckBox(NULL),
+    barInfoUnsellProductsLabel(NULL),
+    barInfoUnsellProductsLineEdit(NULL),
+    barInfoUnsellProductsCheckBox(NULL),
+    sellerUnsellProductsLabel(NULL),
+    sellerUnsellProductsComboBox(NULL),
+    sellerUnsellProductsCheckBox(NULL),
+    productStatusUnsellProductsLabel(NULL),
+    productStatusUnsellProductsComboBox(NULL),
+    productStatusUnsellProductsModel(NULL),
+    productStatusUnsellProductsCheckBox(NULL),
+    quantityUnsellProductsLabel(NULL),
+    quantityUnsellProductsSpinBox(NULL),
+    quantityUnsellProductsCheckBox(NULL),
+    unitUnsellProductsLabel(NULL),
+    unitUnsellProductsLineEdit(NULL),
+    unitUnsellProductsCheckBox(NULL),
+    schemaUnsellProductsLabel(NULL),
+    schemaUnsellProductsComboBox(NULL),
+    userSchemaUnsellProductsModel(NULL),
+    schemaUnsellProductsCheckBox(NULL),
+    oldPurchasePriceUnsellProductsLabel(NULL),
+    oldPurchasePriceUnsellProductsLineEdit(NULL),
+    oldPurchasePriceUnsellProductsCheckBox(NULL),
+    purchasePriceUnsellProductsLabel(NULL),
+    purchasePriceUnsellProductsLineEdit(NULL),
+    purchasePriceUnsellProductsCheckBox(NULL),
+    sellingPriceUnsellProductsLabel(NULL),
+    sellingPriceUnsellProductsLineEdit(NULL),
+    sellingPriceUnsellProductsCheckBox(NULL),
+    commentsUnsellProductsLabel(NULL),
+    commentsUnsellProductsLineEdit(NULL),
+    commentsUnsellProductsCheckBox(NULL),
+    startTimeUnsellProductsLabel(NULL),
+    startTimeUnsellProductsDateEdit(NULL),
+    startTimeUnsellProductsCheckBox(NULL),
+    endTimeUnsellProductsLabel(NULL),
+    endTimeUnsellProductsDateEdit(NULL),
+    endTimeUnsellProductsCheckBox(NULL),
+    unsellProductsFilterButton(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -180,245 +285,441 @@ void Statistic_Invoicing::initMainWidget()
     mainWidget->setWindowIcon(QIcon(":/Icon/statistic_icon.png"));
     mainWidget->setWindowIconText(tr("Statistic"));
 
-    createStatisticPanel();
     createFilterPanel();
 
-    QGridLayout *mainLayout = new QGridLayout(mainWidget);
-    mainLayout->addWidget(filterPanel, 0, 0);
-    //mainLayout->addWidget(statisticPanel, 1, 0);
-    mainWidget->setLayout(mainLayout);
+    QGridLayout *statisticFilterLayout = new QGridLayout(mainWidget);
+    statisticFilterLayout->addWidget(filterPanel, 0, 0);
+    //statisticFilterLayout->addWidget(statisticPanel, 1, 0);
+    mainWidget->setLayout(statisticFilterLayout);
 }
 
-void Statistic_Invoicing::createStatisticPanel()
+void Statistic_Invoicing::createAllProductsPanel()
 {
-    statisticPanel = new QWidget();
+    allProductsPanel = new QWidget();
     QSqlDatabase db(userManagementInterface->getDatabase());
-    statisticModel = new QSqlRelationalTableModel(this, db);
-    statisticModel->setTable("productsinfo");
-    statisticModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
-    statisticModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
-    statisticModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
-    statisticModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
-    statisticModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
-    statisticModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
-    statisticModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
-    statisticModel->setSort(TimeStamp, Qt::AscendingOrder);
+    allProductsModel = new QSqlRelationalTableModel(this, db);
+    allProductsModel->setTable("productsinfo");
+    allProductsModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
+    allProductsModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
+    allProductsModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    allProductsModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    allProductsModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
+    allProductsModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
+    allProductsModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
+    allProductsModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    allProductsModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
+    allProductsModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    allProductsModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
+    allProductsModel->setSort(TimeStamp, Qt::AscendingOrder);
 
-    statisticModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
-    statisticModel->setHeaderData(SerialNumber, Qt::Horizontal, tr("Serial Number"));
-    statisticModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
-    statisticModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
-    statisticModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
-    statisticModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
-    statisticModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
-    statisticModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
-    statisticModel->setHeaderData(OldPurchasePrice, Qt::Horizontal, tr("Old Purchase Price"));
-    statisticModel->setHeaderData(PurchasePrice, Qt::Horizontal, tr("Purchase Price"));
-    statisticModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
-    statisticModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
-    statisticModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
-    statisticModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
-    statisticModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
-    statisticModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
+    allProductsModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
+    allProductsModel->setHeaderData(SerialNumber, Qt::Horizontal, tr("Serial Number"));
+    allProductsModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
+    allProductsModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
+    allProductsModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    allProductsModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    allProductsModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
+    allProductsModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
+    allProductsModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
+    allProductsModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
+    allProductsModel->setHeaderData(OldPurchasePrice, Qt::Horizontal, tr("Old Purchase Price"));
+    allProductsModel->setHeaderData(PurchasePrice, Qt::Horizontal, tr("Purchase Price"));
+    allProductsModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
+    allProductsModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
+    allProductsModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    allProductsModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    allProductsModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
+    allProductsModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    allProductsModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
+    allProductsModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
+    allProductsModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
-    //statisticModel->select();
 
-    statisticView = new QTableView;
-    statisticView->setModel(statisticModel);
-    statisticView->setItemDelegate(new QSqlRelationalDelegate(this));
-    statisticView->setSelectionMode(QAbstractItemView::SingleSelection);
-    statisticView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    //statisticView->setSelectionMode(QAbstractItemView::NoSelection);
-    statisticView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    statisticView->resizeColumnsToContents();
-    statisticView->horizontalHeader()->setStretchLastSection(true);
-    statisticView->setColumnHidden(ProductID, true);
-    statisticView->horizontalHeader()->setVisible(true);
-    statisticView->resizeColumnsToContents();
+    allProductsView = new QTableView;
+    allProductsView->setModel(allProductsModel);
+    allProductsView->setItemDelegate(new QSqlRelationalDelegate(this));
+    allProductsView->setSelectionMode(QAbstractItemView::SingleSelection);
+    allProductsView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    allProductsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    allProductsView->resizeColumnsToContents();
+    allProductsView->horizontalHeader()->setStretchLastSection(true);
+    allProductsView->setColumnHidden(ProductID, true);
+    allProductsView->horizontalHeader()->setVisible(true);
+    allProductsView->resizeColumnsToContents();
 
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(statisticView);
-    statisticPanel->setLayout(layout);
+    layout->addWidget(allProductsView);
+    allProductsPanel->setLayout(layout);
 }
 
-void Statistic_Invoicing::createFilterPanel()
+void Statistic_Invoicing::createUnsellProductsPanel()
 {
-    filterPanel = new QTabWidget();
-
-    basicFilterPanel = new QWidget();
-    serialNumberLabel = new QLabel(tr("Serial Number: "), basicFilterPanel);
-    serialNumberLabel->setEnabled(false);
-    serialNumberLineEdit = new QLineEdit(basicFilterPanel);
-    serialNumberLineEdit->setEnabled(false);
-    serialNumberCheckBox = new QCheckBox(basicFilterPanel);
-    connect(serialNumberCheckBox, SIGNAL(toggled(bool)), serialNumberLabel, SLOT(setEnabled(bool)));
-    connect(serialNumberCheckBox, SIGNAL(toggled(bool)), serialNumberLineEdit, SLOT(setEnabled(bool)));
-
-    productTypeLabel = new QLabel(tr("Product Type: "), basicFilterPanel);
-    productTypeLabel->setEnabled(false);
-    productTypeComboBox = new QComboBox(basicFilterPanel);
-    productTypeComboBox->setEnabled(false);
-    productTypeComboBox->setEditable(false);
+    unsellProductsPanel = new QWidget();
     QSqlDatabase db(userManagementInterface->getDatabase());
-    productTypeModel = new QSqlRelationalTableModel(this, db);
-    productTypeModel->setTable("producttype");
-    productTypeModel->select();
-    productTypeComboBox->setModel(productTypeModel);
-    productTypeComboBox->setModelColumn(1);
-//    connect(productTypeComboBox, SIGNAL(currentIndexChanged(const QString &))
-//            , this, SLOT(setProductModelFilter()));
-    productTypeCheckBox = new QCheckBox(basicFilterPanel);
-    connect(productTypeCheckBox, SIGNAL(toggled(bool)), productTypeLabel, SLOT(setEnabled(bool)));
-    connect(productTypeCheckBox, SIGNAL(toggled(bool)), productTypeComboBox, SLOT(setEnabled(bool)));
+    unsellProductsModel = new QSqlRelationalTableModel(this, db);
+    unsellProductsModel->setTable("products");
+    unsellProductsModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
+    unsellProductsModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
+    unsellProductsModel->setRelation(ProductModelID, QSqlRelation("productmodel", "id", "model"));
+    unsellProductsModel->setRelation(ColorID, QSqlRelation("colorinfo", "id", "color"));
+    unsellProductsModel->setRelation(VendorID, QSqlRelation("vendorinfo", "id", "name"));
+    unsellProductsModel->setRelation(SchemaNameID, QSqlRelation("schemaname", "id", "name"));
+    unsellProductsModel->setRelation(OperatorUserID, QSqlRelation("user", "id", "name"));
+    unsellProductsModel->setRelation(ResponserUserID, QSqlRelation("user", "id", "name"));
+    unsellProductsModel->setRelation(SellerID, QSqlRelation("user", "id", "name"));
+    unsellProductsModel->setRelation(ProductStatusID, QSqlRelation("productstatus", "id", "status"));
+    unsellProductsModel->setRelation(ReplacementStatusID, QSqlRelation("replacementstatus", "id", "status"));
+    unsellProductsModel->setSort(TimeStamp, Qt::AscendingOrder);
 
-    brandNameLabel = new QLabel(tr("Brand Name: "), basicFilterPanel);
-    brandNameLabel->setEnabled(false);
-    brandNameComboBox = new QComboBox(basicFilterPanel);
-    brandNameComboBox->setEnabled(false);
-    brandNameComboBox->setEditable(false);
-    brandNameModel = new QSqlRelationalTableModel(this, db);
-    brandNameModel->setTable("brandname");
-    brandNameModel->select();
-    brandNameComboBox->setModel(brandNameModel);
-    brandNameComboBox->setModelColumn(1);
-    brandNameCheckBox = new QCheckBox(basicFilterPanel);
-//    connect(brandNameComboBox, SIGNAL(currentIndexChanged(const QString &))
-//            , this, SLOT(setProductModelFilter()));
-    connect(brandNameCheckBox, SIGNAL(toggled(bool)), brandNameLabel, SLOT(setEnabled(bool)));
-    connect(brandNameCheckBox, SIGNAL(toggled(bool)), brandNameComboBox, SLOT(setEnabled(bool)));
+    unsellProductsModel->setHeaderData(ProductID, Qt::Horizontal, tr("ID"));
+    unsellProductsModel->setHeaderData(SerialNumber, Qt::Horizontal, tr("Serial Number"));
+    unsellProductsModel->setHeaderData(ProductTypeID, Qt::Horizontal, tr("Product Type"));
+    unsellProductsModel->setHeaderData(BrandNameID, Qt::Horizontal, tr("Brand Name"));
+    unsellProductsModel->setHeaderData(ProductModelID, Qt::Horizontal, tr("Model Name"));
+    unsellProductsModel->setHeaderData(ColorID, Qt::Horizontal, tr("Color"));
+    unsellProductsModel->setHeaderData(VendorID, Qt::Horizontal, tr("Vendor"));
+    unsellProductsModel->setHeaderData(SchemaNameID, Qt::Horizontal, tr("Schema Name"));
+    unsellProductsModel->setHeaderData(Quantity, Qt::Horizontal, tr("Quantity"));
+    unsellProductsModel->setHeaderData(Unit, Qt::Horizontal, tr("Unit"));
+    unsellProductsModel->setHeaderData(OldPurchasePrice, Qt::Horizontal, tr("Old Purchase Price"));
+    unsellProductsModel->setHeaderData(PurchasePrice, Qt::Horizontal, tr("Purchase Price"));
+    unsellProductsModel->setHeaderData(SellingPrice, Qt::Horizontal, tr("Selling Price"));
+    unsellProductsModel->setHeaderData(OperatorUserID, Qt::Horizontal, tr("Operator"));
+    unsellProductsModel->setHeaderData(ResponserUserID, Qt::Horizontal, tr("Responser"));
+    unsellProductsModel->setHeaderData(SellerID, Qt::Horizontal, tr("Seller"));
+    unsellProductsModel->setHeaderData(BarInfo, Qt::Horizontal, tr("BarInfo"));
+    unsellProductsModel->setHeaderData(ProductStatusID, Qt::Horizontal, tr("Product Status"));
+    unsellProductsModel->setHeaderData(ReplacementStatusID, Qt::Horizontal, tr("Replacement Status"));
+    unsellProductsModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
+    unsellProductsModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
-    productModelLabel = new QLabel(tr("Product Model: "), basicFilterPanel);
-    productModelLabel->setEnabled(false);
-    productModelComboBox = new QComboBox(basicFilterPanel);
-    productModelComboBox->setEnabled(false);
-    productModelComboBox->setEditable(false);
-    productModelModel = new QSqlRelationalTableModel(this, db);
-    productModelModel->setTable("productmodel");
-    setProductModelFilter();
-    productModelComboBox->setModel(productModelModel);
-    productModelComboBox->setModelColumn(3);
-    productModelCheckBox = new QCheckBox(basicFilterPanel);
-    connect(productModelCheckBox, SIGNAL(toggled(bool)), productModelLabel, SLOT(setEnabled(bool)));
-    connect(productModelCheckBox, SIGNAL(toggled(bool)), productModelComboBox, SLOT(setEnabled(bool)));
+    unsellProductsView = new QTableView;
+    unsellProductsView->setModel(unsellProductsModel);
+    unsellProductsView->setItemDelegate(new QSqlRelationalDelegate(this));
+    unsellProductsView->setSelectionMode(QAbstractItemView::SingleSelection);
+    unsellProductsView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    unsellProductsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    unsellProductsView->resizeColumnsToContents();
+    unsellProductsView->horizontalHeader()->setStretchLastSection(true);
+    unsellProductsView->setColumnHidden(ProductID, true);
+    unsellProductsView->horizontalHeader()->setVisible(true);
+    unsellProductsView->resizeColumnsToContents();
 
-    quantityLabel = new QLabel(tr("Quantity: "), basicFilterPanel);
-    quantityLabel->setEnabled(false);
-    quantitySpinBox = new QSpinBox(basicFilterPanel);
-    quantitySpinBox->setEnabled(false);
-    quantitySpinBox->setMinimum(1);
-    quantitySpinBox->setValue(1);
-    quantityCheckBox = new QCheckBox(basicFilterPanel);
-    connect(quantityCheckBox, SIGNAL(toggled(bool)), quantityLabel, SLOT(setEnabled(bool)));
-    connect(quantityCheckBox, SIGNAL(toggled(bool)), quantitySpinBox, SLOT(setEnabled(bool)));
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(unsellProductsView);
+    unsellProductsPanel->setLayout(layout);
+}
 
-    unitLabel = new QLabel(tr("Unit: "), basicFilterPanel);
-    unitLabel->setEnabled(false);
-    unitLineEdit = new QLineEdit(basicFilterPanel);
-    unitLineEdit->setEnabled(false);
-    unitCheckBox = new QCheckBox(basicFilterPanel);
-    connect(unitCheckBox, SIGNAL(toggled(bool)), unitLabel, SLOT(setEnabled(bool)));
-    connect(unitCheckBox, SIGNAL(toggled(bool)), unitLineEdit, SLOT(setEnabled(bool)));
+void Statistic_Invoicing::createUnsellProductsFilterPanel()
+{
+    unsellProductsFilterPanel = new QWidget();
 
-    schemaLabel = new QLabel(tr("Schema: "), basicFilterPanel);
-    schemaLabel->setEnabled(false);
-    schemaComboBox = new QComboBox(basicFilterPanel);
-    schemaComboBox->setEnabled(false);
-    schemaComboBox->setEditable(false);
-    populateSchemaComboBox();
-    schemaCheckBox = new QCheckBox(basicFilterPanel);
-    connect(schemaCheckBox, SIGNAL(toggled(bool)), schemaLabel, SLOT(setEnabled(bool)));
-    connect(schemaCheckBox, SIGNAL(toggled(bool)), schemaComboBox, SLOT(setEnabled(bool)));
+    serialNumberUnsellProductsLabel = new QLabel(tr("Serial Number*: "), unsellProductsFilterPanel);
+    serialNumberUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    serialNumberUnsellProductsLabel->setEnabled(false);
+    serialNumberUnsellProductsLineEdit->setEnabled(false);
+    serialNumberUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(serialNumberUnsellProductsCheckBox, SIGNAL(toggled(bool)), serialNumberUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(serialNumberUnsellProductsCheckBox, SIGNAL(toggled(bool)), serialNumberUnsellProductsLineEdit, SLOT(setEnabled(bool)));
 
-    oldPurchasePriceLabel = new QLabel(tr("Old Purchase Price: "), basicFilterPanel);
-    oldPurchasePriceLabel->setEnabled(false);
-    oldPurchasePriceLineEdit = new QLineEdit(basicFilterPanel);
-    oldPurchasePriceLineEdit->setEnabled(false);
-    oldPurchasePriceCheckBox = new QCheckBox(basicFilterPanel);
-    connect(oldPurchasePriceCheckBox, SIGNAL(toggled(bool)), oldPurchasePriceLabel, SLOT(setEnabled(bool)));
-    connect(oldPurchasePriceCheckBox, SIGNAL(toggled(bool)), oldPurchasePriceLineEdit, SLOT(setEnabled(bool)));
+    productTypeUnsellProductsLabel = new QLabel(tr("Product Type: "), unsellProductsFilterPanel);
+    productTypeUnsellProductsLabel->setEnabled(false);
+    productTypeUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    productTypeUnsellProductsComboBox->setEnabled(false);
+    productTypeUnsellProductsComboBox->setEditable(true);
+    QSqlDatabase db(userManagementInterface->getDatabase());
+    productTypeUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productTypeUnsellProductsModel->setTable("producttype");
+    productTypeUnsellProductsModel->select();
+    productTypeUnsellProductsComboBox->setModel(productTypeUnsellProductsModel);
+    productTypeUnsellProductsComboBox->setModelColumn(1);
+    productTypeUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(productTypeUnsellProductsCheckBox, SIGNAL(toggled(bool)), productTypeUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(productTypeUnsellProductsCheckBox, SIGNAL(toggled(bool)), productTypeUnsellProductsComboBox, SLOT(setEnabled(bool)));
 
-    purchasePriceLabel = new QLabel(tr("Purchase Price: "), basicFilterPanel);
-    purchasePriceLabel->setEnabled(false);
-    purchasePriceLineEdit = new QLineEdit(basicFilterPanel);
-    purchasePriceLineEdit->setEnabled(false);
-    purchasePriceCheckBox = new QCheckBox(basicFilterPanel);
-    connect(purchasePriceCheckBox, SIGNAL(toggled(bool)), purchasePriceLabel, SLOT(setEnabled(bool)));
-    connect(purchasePriceCheckBox, SIGNAL(toggled(bool)), purchasePriceLineEdit, SLOT(setEnabled(bool)));
+    brandNameUnsellProductsLabel = new QLabel(tr("Brand Name: "), unsellProductsFilterPanel);
+    brandNameUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    brandNameUnsellProductsComboBox->setEditable(true);
+    brandNameUnsellProductsLabel->setEnabled(false);
+    brandNameUnsellProductsComboBox->setEnabled(false);
+    brandNameUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    brandNameUnsellProductsModel->setTable("brandname");
+    brandNameUnsellProductsModel->select();
+    brandNameUnsellProductsComboBox->setModel(brandNameUnsellProductsModel);
+    brandNameUnsellProductsComboBox->setModelColumn(1);
+    brandNameUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(brandNameUnsellProductsCheckBox, SIGNAL(toggled(bool)), brandNameUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(brandNameUnsellProductsCheckBox, SIGNAL(toggled(bool)), brandNameUnsellProductsComboBox, SLOT(setEnabled(bool)));
 
-    sellingPriceLabel = new QLabel(tr("Selling Price: "), basicFilterPanel);
-    sellingPriceLabel->setEnabled(false);
-    sellingPriceLineEdit = new QLineEdit(basicFilterPanel);
-    sellingPriceLineEdit->setEnabled(false);
-    sellingPriceCheckBox = new QCheckBox(basicFilterPanel);
-    connect(sellingPriceCheckBox, SIGNAL(toggled(bool)), sellingPriceLabel, SLOT(setEnabled(bool)));
-    connect(sellingPriceCheckBox, SIGNAL(toggled(bool)), sellingPriceLineEdit, SLOT(setEnabled(bool)));
+    productModelUnsellProductsLabel = new QLabel(tr("Product Model: "), unsellProductsFilterPanel);
+    productModelUnsellProductsLabel->setEnabled(false);
+    productModelUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    productModelUnsellProductsComboBox->setEnabled(false);
+    productModelUnsellProductsComboBox->setEditable(true);
+    productModelUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productModelUnsellProductsModel->setTable("productmodel");
+    productModelUnsellProductsModel->select();
+    productModelUnsellProductsComboBox->setModel(productModelUnsellProductsModel);
+    productModelUnsellProductsComboBox->setModelColumn(3);
+    productModelUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(productModelUnsellProductsCheckBox, SIGNAL(toggled(bool)), productModelUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(productModelUnsellProductsCheckBox, SIGNAL(toggled(bool)), productModelUnsellProductsComboBox, SLOT(setEnabled(bool)));
 
-    basicFilterButton = new QPushButton(tr("Filter Result"), basicFilterPanel);
+    productColorUnsellProductsLabel = new QLabel(tr("Product Color: "), unsellProductsFilterPanel);
+    productColorUnsellProductsLabel->setEnabled(false);
+    productColorUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    productColorUnsellProductsComboBox->setEnabled(false);
+    productColorUnsellProductsComboBox->setEditable(true);
+    productColorUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productColorUnsellProductsModel->setTable("colorinfo");
+    productColorUnsellProductsModel->select();
+    productColorUnsellProductsComboBox->setModel(productColorUnsellProductsModel);
+    productColorUnsellProductsComboBox->setModelColumn(1);
+    productColorUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(productColorUnsellProductsCheckBox, SIGNAL(toggled(bool)), productColorUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(productColorUnsellProductsCheckBox, SIGNAL(toggled(bool)), productColorUnsellProductsComboBox, SLOT(setEnabled(bool)));
+
+    productVendorUnsellProductsLabel = new QLabel(tr("Vendor: "), unsellProductsFilterPanel);
+    productVendorUnsellProductsLabel->setEnabled(false);
+    productVendorUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    productVendorUnsellProductsComboBox->setEnabled(false);
+    productVendorUnsellProductsComboBox->setEditable(true);
+    productVendorUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productVendorUnsellProductsModel->setTable("vendorinfo");
+    productVendorUnsellProductsModel->select();
+    productVendorUnsellProductsComboBox->setModel(productVendorUnsellProductsModel);
+    productVendorUnsellProductsComboBox->setModelColumn(1);
+    productVendorUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(productVendorUnsellProductsCheckBox, SIGNAL(toggled(bool)), productVendorUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(productVendorUnsellProductsCheckBox, SIGNAL(toggled(bool)), productVendorUnsellProductsComboBox, SLOT(setEnabled(bool)));
+
+    replacementInfoUnsellProductsLabel = new QLabel(tr("Replacement Info: "), unsellProductsFilterPanel);
+    replacementInfoUnsellProductsLabel->setEnabled(false);
+    replacementInfoUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    replacementInfoUnsellProductsComboBox->setEnabled(false);
+    replacementInfoUnsellProductsComboBox->setEditable(false);
+    replacementInfoUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    replacementInfoUnsellProductsModel->setTable("replacementstatus");
+    replacementInfoUnsellProductsModel->select();
+    replacementInfoUnsellProductsComboBox->setModel(replacementInfoUnsellProductsModel);
+    replacementInfoUnsellProductsComboBox->setModelColumn(1);
+    replacementInfoUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(replacementInfoUnsellProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(replacementInfoUnsellProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoUnsellProductsComboBox, SLOT(setEnabled(bool)));
+
+    barInfoUnsellProductsLabel = new QLabel(tr("Bar Info*: "), unsellProductsFilterPanel);
+    barInfoUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    barInfoUnsellProductsLabel->setEnabled(false);
+    barInfoUnsellProductsLineEdit->setEnabled(false);
+    barInfoUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(barInfoUnsellProductsCheckBox, SIGNAL(toggled(bool)), barInfoUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(barInfoUnsellProductsCheckBox, SIGNAL(toggled(bool)), barInfoUnsellProductsLineEdit, SLOT(setEnabled(bool)));
+
+    sellerUnsellProductsLabel = new QLabel(tr("Seller: "), unsellProductsFilterPanel);
+    sellerUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    sellerUnsellProductsComboBox->setEditable(false);
+    populateSellerNameComboBox(sellerUnsellProductsComboBox);
+    sellerUnsellProductsLabel->setEnabled(false);
+    sellerUnsellProductsComboBox->setEnabled(false);
+    sellerUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(sellerUnsellProductsCheckBox, SIGNAL(toggled(bool)), sellerUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(sellerUnsellProductsCheckBox, SIGNAL(toggled(bool)), sellerUnsellProductsComboBox, SLOT(setEnabled(bool)));
+
+    productStatusUnsellProductsLabel = new QLabel(tr("Product Status: "), unsellProductsFilterPanel);
+    productStatusUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    productStatusUnsellProductsLabel->setEnabled(false);
+    productStatusUnsellProductsComboBox->setEnabled(false);
+    productStatusUnsellProductsComboBox->setEditable(false);
+    productStatusUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productStatusUnsellProductsModel->setTable("productstatus");
+    productStatusUnsellProductsModel->select();
+    productStatusUnsellProductsComboBox->setModel(productStatusUnsellProductsModel);
+    productStatusUnsellProductsComboBox->setModelColumn(1);
+    productStatusUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(productStatusUnsellProductsCheckBox, SIGNAL(toggled(bool)), productStatusUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(productStatusUnsellProductsCheckBox, SIGNAL(toggled(bool)), productStatusUnsellProductsComboBox, SLOT(setEnabled(bool)));
+
+    quantityUnsellProductsLabel = new QLabel(tr("Quantity: "), unsellProductsFilterPanel);
+    quantityUnsellProductsSpinBox = new QSpinBox(unsellProductsFilterPanel);
+    quantityUnsellProductsSpinBox->setMinimum(1);
+    quantityUnsellProductsSpinBox->setValue(1);
+    quantityUnsellProductsLabel->setEnabled(false);
+    quantityUnsellProductsSpinBox->setEnabled(false);
+    quantityUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(quantityUnsellProductsCheckBox, SIGNAL(toggled(bool)), quantityUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(quantityUnsellProductsCheckBox, SIGNAL(toggled(bool)), quantityUnsellProductsSpinBox, SLOT(setEnabled(bool)));
+
+    unitUnsellProductsLabel = new QLabel(tr("Unit: "), unsellProductsFilterPanel);
+    unitUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    unitUnsellProductsLabel->setEnabled(false);
+    unitUnsellProductsLineEdit->setEnabled(false);
+    unitUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(unitUnsellProductsCheckBox, SIGNAL(toggled(bool)), unitUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(unitUnsellProductsCheckBox, SIGNAL(toggled(bool)), unitUnsellProductsLineEdit, SLOT(setEnabled(bool)));
+
+    schemaUnsellProductsLabel = new QLabel(tr("Schema: "), unsellProductsFilterPanel);
+    schemaUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
+    schemaUnsellProductsComboBox->setEditable(false);
+    populateSchemaComboBox(schemaUnsellProductsComboBox);
+    schemaUnsellProductsLabel->setEnabled(false);
+    schemaUnsellProductsComboBox->setEnabled(false);
+    schemaUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(schemaUnsellProductsCheckBox, SIGNAL(toggled(bool)), schemaUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(schemaUnsellProductsCheckBox, SIGNAL(toggled(bool)), schemaUnsellProductsComboBox, SLOT(setEnabled(bool)));
+
+    oldPurchasePriceUnsellProductsLabel = new QLabel(tr("Old Purchase Price: "), unsellProductsFilterPanel);
+    oldPurchasePriceUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    oldPurchasePriceUnsellProductsLabel->setEnabled(false);
+    oldPurchasePriceUnsellProductsLineEdit->setEnabled(false);
+    oldPurchasePriceUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(oldPurchasePriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), oldPurchasePriceUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(oldPurchasePriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), oldPurchasePriceUnsellProductsLineEdit, SLOT(setEnabled(bool)));
+
+    purchasePriceUnsellProductsLabel = new QLabel(tr("Purchase Price: "), unsellProductsFilterPanel);
+    purchasePriceUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    purchasePriceUnsellProductsLabel->setEnabled(false);
+    purchasePriceUnsellProductsLineEdit->setEnabled(false);
+    purchasePriceUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(purchasePriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), purchasePriceUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(purchasePriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), purchasePriceUnsellProductsLineEdit, SLOT(setEnabled(bool)));
+
+    sellingPriceUnsellProductsLabel = new QLabel(tr("Selling Price: "), unsellProductsFilterPanel);
+    sellingPriceUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    sellingPriceUnsellProductsLabel->setEnabled(false);
+    sellingPriceUnsellProductsLineEdit->setEnabled(false);
+    sellingPriceUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(sellingPriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(sellingPriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceUnsellProductsLineEdit, SLOT(setEnabled(bool)));
+
+    commentsUnsellProductsLabel = new QLabel(tr("Comments*: "), unsellProductsFilterPanel);
+    commentsUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
+    commentsUnsellProductsLabel->setEnabled(false);
+    commentsUnsellProductsLineEdit->setEnabled(false);
+    commentsUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(commentsUnsellProductsCheckBox, SIGNAL(toggled(bool)), commentsUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(commentsUnsellProductsCheckBox, SIGNAL(toggled(bool)), commentsUnsellProductsLineEdit, SLOT(setEnabled(bool)));
+
+    startTimeUnsellProductsLabel = new QLabel(tr("Start Time: "), unsellProductsFilterPanel);
+    startTimeUnsellProductsDateEdit = new QDateEdit();
+    startTimeUnsellProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
+    startTimeUnsellProductsDateEdit->setDateTime(QDateTime::currentDateTime());
+    startTimeUnsellProductsDateEdit->setCalendarPopup(true);
+    startTimeUnsellProductsLabel->setEnabled(false);
+    startTimeUnsellProductsDateEdit->setEnabled(false);
+    startTimeUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(startTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), startTimeUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(startTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), startTimeUnsellProductsDateEdit, SLOT(setEnabled(bool)));
+
+    endTimeUnsellProductsLabel = new QLabel(tr("End Time: "), unsellProductsFilterPanel);
+    endTimeUnsellProductsDateEdit = new QDateEdit();
+    endTimeUnsellProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
+    endTimeUnsellProductsDateEdit->setDateTime(QDateTime::currentDateTime());
+    endTimeUnsellProductsDateEdit->setCalendarPopup(true);
+    endTimeUnsellProductsLabel->setEnabled(false);
+    endTimeUnsellProductsDateEdit->setEnabled(false);
+    endTimeUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
+    connect(endTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), endTimeUnsellProductsLabel, SLOT(setEnabled(bool)));
+    connect(endTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), endTimeUnsellProductsDateEdit, SLOT(setEnabled(bool)));
+
+
+    unsellProductsFilterButton = new QPushButton(tr("Filter Result"), unsellProductsFilterPanel);
     QFont f;
     f.setBold(true);
-    basicFilterButton->setFont(f);
-    connect(basicFilterButton, SIGNAL(clicked()), this, SLOT(onBasicFilter()));
+    unsellProductsFilterButton->setFont(f);
+    connect(unsellProductsFilterButton, SIGNAL(clicked()), this, SLOT(onUnsellProductsFilter()));
 
-    QGridLayout *basicFilterLayout = new QGridLayout(basicFilterPanel);
-    basicFilterLayout->addWidget(serialNumberLabel, 0, 0, Qt::AlignRight);
-    basicFilterLayout->addWidget(serialNumberLineEdit, 0, 1);
-    basicFilterLayout->addWidget(serialNumberCheckBox, 0, 2);
+    QGridLayout *unsellProductsFilterLayout = new QGridLayout(unsellProductsFilterPanel);
+    unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsLabel, 0, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsLineEdit, 0, 1);
+    unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsCheckBox, 0, 2);
+    unsellProductsFilterLayout->addWidget(unsellProductsFilterButton, 0, 20, 1, 3);
 
-    basicFilterLayout->addWidget(productTypeLabel, 10, 0, Qt::AlignRight);
-    basicFilterLayout->addWidget(productTypeComboBox, 10, 1);
-    basicFilterLayout->addWidget(productTypeCheckBox, 10, 2);
-    basicFilterLayout->addWidget(brandNameLabel, 10, 10, Qt::AlignRight);
-    basicFilterLayout->addWidget(brandNameComboBox, 10, 11);
-    basicFilterLayout->addWidget(brandNameCheckBox, 10, 12);
-    basicFilterLayout->addWidget(productModelLabel, 10, 20, Qt::AlignRight);
-    basicFilterLayout->addWidget(productModelComboBox, 10, 21);
-    basicFilterLayout->addWidget(productModelCheckBox, 10, 22);
+    unsellProductsFilterLayout->addWidget(productTypeUnsellProductsLabel, 10, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(productTypeUnsellProductsComboBox, 10, 1);
+    unsellProductsFilterLayout->addWidget(productTypeUnsellProductsCheckBox, 10, 2);
+    unsellProductsFilterLayout->addWidget(brandNameUnsellProductsLabel, 10, 10, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(brandNameUnsellProductsComboBox, 10, 11);
+    unsellProductsFilterLayout->addWidget(brandNameUnsellProductsCheckBox, 10, 12);
+    unsellProductsFilterLayout->addWidget(productModelUnsellProductsLabel, 10, 20, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(productModelUnsellProductsComboBox, 10, 21);
+    unsellProductsFilterLayout->addWidget(productModelUnsellProductsCheckBox, 10, 22);
 
-    basicFilterLayout->addWidget(quantityLabel, 20, 0, Qt::AlignRight);
-    basicFilterLayout->addWidget(quantitySpinBox, 20, 1);
-    basicFilterLayout->addWidget(quantityCheckBox, 20, 2);
-    basicFilterLayout->addWidget(unitLabel, 20, 10, Qt::AlignRight);
-    basicFilterLayout->addWidget(unitLineEdit, 20, 11);
-    basicFilterLayout->addWidget(unitCheckBox, 20, 12);
-    basicFilterLayout->addWidget(schemaLabel, 20, 20, Qt::AlignRight);
-    basicFilterLayout->addWidget(schemaComboBox, 20, 21);
-    basicFilterLayout->addWidget(schemaCheckBox, 20, 22);
+    unsellProductsFilterLayout->addWidget(productColorUnsellProductsLabel, 15, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(productColorUnsellProductsComboBox, 15, 1);
+    unsellProductsFilterLayout->addWidget(productColorUnsellProductsCheckBox, 15, 2);
+    unsellProductsFilterLayout->addWidget(productVendorUnsellProductsLabel, 15, 10, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(productVendorUnsellProductsComboBox, 15, 11);
+    unsellProductsFilterLayout->addWidget(productVendorUnsellProductsCheckBox, 15, 12);
+    unsellProductsFilterLayout->addWidget(replacementInfoUnsellProductsLabel, 15, 20, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(replacementInfoUnsellProductsComboBox, 15, 21);
+    unsellProductsFilterLayout->addWidget(replacementInfoUnsellProductsCheckBox, 15, 22);
 
-    basicFilterLayout->addWidget(oldPurchasePriceLabel, 30, 0, Qt::AlignRight);
-    basicFilterLayout->addWidget(oldPurchasePriceLineEdit, 30, 1);
-    basicFilterLayout->addWidget(oldPurchasePriceCheckBox, 30, 2);
-    basicFilterLayout->addWidget(purchasePriceLabel, 30, 10, Qt::AlignRight);
-    basicFilterLayout->addWidget(purchasePriceLineEdit, 30, 11);
-    basicFilterLayout->addWidget(purchasePriceCheckBox, 30, 12);
-    basicFilterLayout->addWidget(sellingPriceLabel, 30, 20, Qt::AlignRight);
-    basicFilterLayout->addWidget(sellingPriceLineEdit, 30, 21);
-    basicFilterLayout->addWidget(sellingPriceCheckBox, 30, 22);
+    unsellProductsFilterLayout->addWidget(quantityUnsellProductsLabel, 20, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(quantityUnsellProductsSpinBox, 20, 1);
+    unsellProductsFilterLayout->addWidget(quantityUnsellProductsCheckBox, 20, 2);
+    unsellProductsFilterLayout->addWidget(unitUnsellProductsLabel, 20, 10, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(unitUnsellProductsLineEdit, 20, 11);
+    unsellProductsFilterLayout->addWidget(unitUnsellProductsCheckBox, 20, 12);
+    unsellProductsFilterLayout->addWidget(schemaUnsellProductsLabel, 20, 20, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(schemaUnsellProductsComboBox, 20, 21);
+    unsellProductsFilterLayout->addWidget(schemaUnsellProductsCheckBox, 20, 22);
 
-    basicFilterLayout->addWidget(basicFilterButton, 0, 20, 1, 3);
+    unsellProductsFilterLayout->addWidget(barInfoUnsellProductsLabel, 23, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(barInfoUnsellProductsLineEdit, 23, 1);
+    unsellProductsFilterLayout->addWidget(barInfoUnsellProductsCheckBox, 23, 2);
+    unsellProductsFilterLayout->addWidget(sellerUnsellProductsLabel, 23, 10, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(sellerUnsellProductsComboBox, 23, 11);
+    unsellProductsFilterLayout->addWidget(sellerUnsellProductsCheckBox, 23, 12);
+    unsellProductsFilterLayout->addWidget(productStatusUnsellProductsLabel, 23, 20, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(productStatusUnsellProductsComboBox, 23, 21);
+    unsellProductsFilterLayout->addWidget(productStatusUnsellProductsCheckBox, 23, 22);
+
+    unsellProductsFilterLayout->addWidget(oldPurchasePriceUnsellProductsLabel, 30, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(oldPurchasePriceUnsellProductsLineEdit, 30, 1);
+    unsellProductsFilterLayout->addWidget(oldPurchasePriceUnsellProductsCheckBox, 30, 2);
+    unsellProductsFilterLayout->addWidget(purchasePriceUnsellProductsLabel, 30, 10, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(purchasePriceUnsellProductsLineEdit, 30, 11);
+    unsellProductsFilterLayout->addWidget(purchasePriceUnsellProductsCheckBox, 30, 12);
+    unsellProductsFilterLayout->addWidget(sellingPriceUnsellProductsLabel, 30, 20, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(sellingPriceUnsellProductsLineEdit, 30, 21);
+    unsellProductsFilterLayout->addWidget(sellingPriceUnsellProductsCheckBox, 30, 22);
+
+    unsellProductsFilterLayout->addWidget(commentsUnsellProductsLabel, 36, 0, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(commentsUnsellProductsLineEdit, 36, 1);
+    unsellProductsFilterLayout->addWidget(commentsUnsellProductsCheckBox, 36, 2);
+    unsellProductsFilterLayout->addWidget(startTimeUnsellProductsLabel, 36, 10, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(startTimeUnsellProductsDateEdit, 36, 11);
+    unsellProductsFilterLayout->addWidget(startTimeUnsellProductsCheckBox, 36, 12);
+    unsellProductsFilterLayout->addWidget(endTimeUnsellProductsLabel, 36, 20, Qt::AlignRight);
+    unsellProductsFilterLayout->addWidget(endTimeUnsellProductsDateEdit, 36, 21);
+    unsellProductsFilterLayout->addWidget(endTimeUnsellProductsCheckBox, 36, 22);
 
     QFrame *line1 = new QFrame();
     line1->setAttribute(Qt::WA_MouseNoMask);
     line1->setFrameStyle(QFrame::Sunken);
     line1->setFrameShape(QFrame::HLine);
-    basicFilterLayout->addWidget(line1, 5, 0, 1, basicFilterLayout->columnCount());
+    unsellProductsFilterLayout->addWidget(line1, 5, 0, 1, unsellProductsFilterLayout->columnCount());
+
     QFrame *line2 = new QFrame();
     line2->setAttribute(Qt::WA_MouseNoMask);
     line2->setFrameStyle(QFrame::Sunken);
     line2->setFrameShape(QFrame::HLine);
-    basicFilterLayout->addWidget(line2, 25, 0, 1, basicFilterLayout->columnCount());
+    unsellProductsFilterLayout->addWidget(line2, 25, 0, 1, unsellProductsFilterLayout->columnCount());
+
     QFrame *line3 = new QFrame();
     line3->setAttribute(Qt::WA_MouseNoMask);
     line3->setFrameStyle(QFrame::Sunken);
     line3->setFrameShape(QFrame::HLine);
-    basicFilterLayout->addWidget(line3, 35, 0, 1, basicFilterLayout->columnCount());
+    unsellProductsFilterLayout->addWidget(line3, 35, 0, 1, unsellProductsFilterLayout->columnCount());
 
-    basicFilterLayout->addWidget(statisticPanel, 45, 0, 1, basicFilterLayout->columnCount());
+    createUnsellProductsPanel();
+    unsellProductsFilterLayout->addWidget(unsellProductsPanel, 45, 0, 1, unsellProductsFilterLayout->columnCount());
 
-    basicFilterPanel->setLayout(basicFilterLayout);
-    filterPanel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    unsellProductsFilterPanel->setLayout(unsellProductsFilterLayout);
+}
 
-    filterPanel->addTab(basicFilterPanel, tr("Basci Filter"));
-
+void Statistic_Invoicing::createBarChartPanel()
+{
     salesStatisticPlot = new BarChart();
 
     sortByVolumeAscRadioButton = new QRadioButton(tr("SortByVolumeAsc"));
@@ -475,45 +776,364 @@ void Statistic_Invoicing::createFilterPanel()
     //salesStatisticVLayout->addWidget(sortTypeGroup);
     salesStatisticVLayout->addLayout(sortHLayout);
     salesStatisticVLayout->addWidget(salesStatisticPlot);
-    QWidget *salesStatisticContainer = new QWidget();
+    salesStatisticContainer = new QWidget();
     salesStatisticContainer->setLayout(salesStatisticVLayout);
+}
 
+void Statistic_Invoicing::createAllProductsFilterPanel()
+{
+    allProductsFilterPanel = new QWidget();
+
+    serialNumberAllProductsLabel = new QLabel(tr("Serial Number*: "), allProductsFilterPanel);
+    serialNumberAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
+    serialNumberAllProductsLabel->setEnabled(false);
+    serialNumberAllProductsLineEdit->setEnabled(false);
+    serialNumberAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(serialNumberAllProductsCheckBox, SIGNAL(toggled(bool)), serialNumberAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(serialNumberAllProductsCheckBox, SIGNAL(toggled(bool)), serialNumberAllProductsLineEdit, SLOT(setEnabled(bool)));
+
+    productTypeAllProductsLabel = new QLabel(tr("Product Type: "), allProductsFilterPanel);
+    productTypeAllProductsLabel->setEnabled(false);
+    productTypeAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    productTypeAllProductsComboBox->setEnabled(false);
+    productTypeAllProductsComboBox->setEditable(true);
+    QSqlDatabase db(userManagementInterface->getDatabase());
+    productTypeAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productTypeAllProductsModel->setTable("producttype");
+    productTypeAllProductsModel->select();
+    productTypeAllProductsComboBox->setModel(productTypeAllProductsModel);
+    productTypeAllProductsComboBox->setModelColumn(1);
+    productTypeAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(productTypeAllProductsCheckBox, SIGNAL(toggled(bool)), productTypeAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(productTypeAllProductsCheckBox, SIGNAL(toggled(bool)), productTypeAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    brandNameAllProductsLabel = new QLabel(tr("Brand Name: "), allProductsFilterPanel);
+    brandNameAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    brandNameAllProductsComboBox->setEditable(true);
+    brandNameAllProductsLabel->setEnabled(false);
+    brandNameAllProductsComboBox->setEnabled(false);
+    brandNameAllProductsModel = new QSqlRelationalTableModel(this, db);
+    brandNameAllProductsModel->setTable("brandname");
+    brandNameAllProductsModel->select();
+    brandNameAllProductsComboBox->setModel(brandNameAllProductsModel);
+    brandNameAllProductsComboBox->setModelColumn(1);
+    brandNameAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(brandNameAllProductsCheckBox, SIGNAL(toggled(bool)), brandNameAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(brandNameAllProductsCheckBox, SIGNAL(toggled(bool)), brandNameAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    productModelAllProductsLabel = new QLabel(tr("Product Model: "), allProductsFilterPanel);
+    productModelAllProductsLabel->setEnabled(false);
+    productModelAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    productModelAllProductsComboBox->setEnabled(false);
+    productModelAllProductsComboBox->setEditable(true);
+    productModelAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productModelAllProductsModel->setTable("productmodel");
+    productModelAllProductsModel->select();
+    productModelAllProductsComboBox->setModel(productModelAllProductsModel);
+    productModelAllProductsComboBox->setModelColumn(3);
+    productModelAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(productModelAllProductsCheckBox, SIGNAL(toggled(bool)), productModelAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(productModelAllProductsCheckBox, SIGNAL(toggled(bool)), productModelAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    productColorAllProductsLabel = new QLabel(tr("Product Color: "), allProductsFilterPanel);
+    productColorAllProductsLabel->setEnabled(false);
+    productColorAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    productColorAllProductsComboBox->setEnabled(false);
+    productColorAllProductsComboBox->setEditable(true);
+    productColorAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productColorAllProductsModel->setTable("colorinfo");
+    productColorAllProductsModel->select();
+    productColorAllProductsComboBox->setModel(productColorAllProductsModel);
+    productColorAllProductsComboBox->setModelColumn(1);
+    productColorAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(productColorAllProductsCheckBox, SIGNAL(toggled(bool)), productColorAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(productColorAllProductsCheckBox, SIGNAL(toggled(bool)), productColorAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    productVendorAllProductsLabel = new QLabel(tr("Vendor: "), allProductsFilterPanel);
+    productVendorAllProductsLabel->setEnabled(false);
+    productVendorAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    productVendorAllProductsComboBox->setEnabled(false);
+    productVendorAllProductsComboBox->setEditable(true);
+    productVendorAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productVendorAllProductsModel->setTable("vendorinfo");
+    productVendorAllProductsModel->select();
+    productVendorAllProductsComboBox->setModel(productVendorAllProductsModel);
+    productVendorAllProductsComboBox->setModelColumn(1);
+    productVendorAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(productVendorAllProductsCheckBox, SIGNAL(toggled(bool)), productVendorAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(productVendorAllProductsCheckBox, SIGNAL(toggled(bool)), productVendorAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    replacementInfoAllProductsLabel = new QLabel(tr("Replacement Info: "), allProductsFilterPanel);
+    replacementInfoAllProductsLabel->setEnabled(false);
+    replacementInfoAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    replacementInfoAllProductsComboBox->setEnabled(false);
+    replacementInfoAllProductsComboBox->setEditable(false);
+    replacementInfoAllProductsModel = new QSqlRelationalTableModel(this, db);
+    replacementInfoAllProductsModel->setTable("replacementstatus");
+    replacementInfoAllProductsModel->select();
+    replacementInfoAllProductsComboBox->setModel(replacementInfoAllProductsModel);
+    replacementInfoAllProductsComboBox->setModelColumn(1);
+    replacementInfoAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(replacementInfoAllProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(replacementInfoAllProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    barInfoAllProductsLabel = new QLabel(tr("Bar Info*: "), allProductsFilterPanel);
+    barInfoAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
+    barInfoAllProductsLabel->setEnabled(false);
+    barInfoAllProductsLineEdit->setEnabled(false);
+    barInfoAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(barInfoAllProductsCheckBox, SIGNAL(toggled(bool)), barInfoAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(barInfoAllProductsCheckBox, SIGNAL(toggled(bool)), barInfoAllProductsLineEdit, SLOT(setEnabled(bool)));
+
+    sellerAllProductsLabel = new QLabel(tr("Seller: "), allProductsFilterPanel);
+    sellerAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    sellerAllProductsComboBox->setEditable(false);
+    populateSellerNameComboBox(sellerAllProductsComboBox);
+    sellerAllProductsLabel->setEnabled(false);
+    sellerAllProductsComboBox->setEnabled(false);
+    sellerAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(sellerAllProductsCheckBox, SIGNAL(toggled(bool)), sellerAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(sellerAllProductsCheckBox, SIGNAL(toggled(bool)), sellerAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    productStatusAllProductsLabel = new QLabel(tr("Product Status: "), allProductsFilterPanel);
+    productStatusAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    productStatusAllProductsLabel->setEnabled(false);
+    productStatusAllProductsComboBox->setEnabled(false);
+    productStatusAllProductsComboBox->setEditable(false);
+    productStatusAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productStatusAllProductsModel->setTable("productstatus");
+    productStatusAllProductsModel->select();
+    productStatusAllProductsComboBox->setModel(productStatusAllProductsModel);
+    productStatusAllProductsComboBox->setModelColumn(1);
+    productStatusAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(productStatusAllProductsCheckBox, SIGNAL(toggled(bool)), productStatusAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(productStatusAllProductsCheckBox, SIGNAL(toggled(bool)), productStatusAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    quantityAllProductsLabel = new QLabel(tr("Quantity: "), allProductsFilterPanel);
+    quantityAllProductsSpinBox = new QSpinBox(allProductsFilterPanel);
+    quantityAllProductsSpinBox->setMinimum(1);
+    quantityAllProductsSpinBox->setValue(1);
+    quantityAllProductsLabel->setEnabled(false);
+    quantityAllProductsSpinBox->setEnabled(false);
+    quantityAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(quantityAllProductsCheckBox, SIGNAL(toggled(bool)), quantityAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(quantityAllProductsCheckBox, SIGNAL(toggled(bool)), quantityAllProductsSpinBox, SLOT(setEnabled(bool)));
+
+    unitAllProductsLabel = new QLabel(tr("Unit: "), allProductsFilterPanel);
+    unitAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
+    unitAllProductsLabel->setEnabled(false);
+    unitAllProductsLineEdit->setEnabled(false);
+    unitAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(unitAllProductsCheckBox, SIGNAL(toggled(bool)), unitAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(unitAllProductsCheckBox, SIGNAL(toggled(bool)), unitAllProductsLineEdit, SLOT(setEnabled(bool)));
+
+    schemaAllProductsLabel = new QLabel(tr("Schema: "), allProductsFilterPanel);
+    schemaAllProductsComboBox = new QComboBox(allProductsFilterPanel);
+    schemaAllProductsComboBox->setEditable(false);
+    populateSchemaComboBox(schemaAllProductsComboBox);
+    schemaAllProductsLabel->setEnabled(false);
+    schemaAllProductsComboBox->setEnabled(false);
+    schemaAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(schemaAllProductsCheckBox, SIGNAL(toggled(bool)), schemaAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(schemaAllProductsCheckBox, SIGNAL(toggled(bool)), schemaAllProductsComboBox, SLOT(setEnabled(bool)));
+
+    oldPurchasePriceAllProductsLabel = new QLabel(tr("Old Purchase Price: "), allProductsFilterPanel);
+    oldPurchasePriceAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
+    oldPurchasePriceAllProductsLabel->setEnabled(false);
+    oldPurchasePriceAllProductsLineEdit->setEnabled(false);
+    oldPurchasePriceAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(oldPurchasePriceAllProductsCheckBox, SIGNAL(toggled(bool)), oldPurchasePriceAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(oldPurchasePriceAllProductsCheckBox, SIGNAL(toggled(bool)), oldPurchasePriceAllProductsLineEdit, SLOT(setEnabled(bool)));
+
+    purchasePriceAllProductsLabel = new QLabel(tr("Purchase Price: "), allProductsFilterPanel);
+    purchasePriceAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
+    purchasePriceAllProductsLabel->setEnabled(false);
+    purchasePriceAllProductsLineEdit->setEnabled(false);
+    purchasePriceAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(purchasePriceAllProductsCheckBox, SIGNAL(toggled(bool)), purchasePriceAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(purchasePriceAllProductsCheckBox, SIGNAL(toggled(bool)), purchasePriceAllProductsLineEdit, SLOT(setEnabled(bool)));
+
+    sellingPriceAllProductsLabel = new QLabel(tr("Selling Price: "), allProductsFilterPanel);
+    sellingPriceAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
+    sellingPriceAllProductsLabel->setEnabled(false);
+    sellingPriceAllProductsLineEdit->setEnabled(false);
+    sellingPriceAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(sellingPriceAllProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(sellingPriceAllProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceAllProductsLineEdit, SLOT(setEnabled(bool)));
+
+    commentsAllProductsLabel = new QLabel(tr("Comments*: "), allProductsFilterPanel);
+    commentsAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
+    commentsAllProductsLabel->setEnabled(false);
+    commentsAllProductsLineEdit->setEnabled(false);
+    commentsAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(commentsAllProductsCheckBox, SIGNAL(toggled(bool)), commentsAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(commentsAllProductsCheckBox, SIGNAL(toggled(bool)), commentsAllProductsLineEdit, SLOT(setEnabled(bool)));
+
+    startTimeAllProductsLabel = new QLabel(tr("Start Time: "), allProductsFilterPanel);
+    startTimeAllProductsDateEdit = new QDateEdit();
+    startTimeAllProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
+    startTimeAllProductsDateEdit->setDateTime(QDateTime::currentDateTime());
+    startTimeAllProductsDateEdit->setCalendarPopup(true);
+    startTimeAllProductsLabel->setEnabled(false);
+    startTimeAllProductsDateEdit->setEnabled(false);
+    startTimeAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(startTimeAllProductsCheckBox, SIGNAL(toggled(bool)), startTimeAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(startTimeAllProductsCheckBox, SIGNAL(toggled(bool)), startTimeAllProductsDateEdit, SLOT(setEnabled(bool)));
+
+    endTimeAllProductsLabel = new QLabel(tr("End Time: "), allProductsFilterPanel);
+    endTimeAllProductsDateEdit = new QDateEdit();
+    endTimeAllProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
+    endTimeAllProductsDateEdit->setDateTime(QDateTime::currentDateTime());
+    endTimeAllProductsDateEdit->setCalendarPopup(true);
+    endTimeAllProductsLabel->setEnabled(false);
+    endTimeAllProductsDateEdit->setEnabled(false);
+    endTimeAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
+    connect(endTimeAllProductsCheckBox, SIGNAL(toggled(bool)), endTimeAllProductsLabel, SLOT(setEnabled(bool)));
+    connect(endTimeAllProductsCheckBox, SIGNAL(toggled(bool)), endTimeAllProductsDateEdit, SLOT(setEnabled(bool)));
+
+    allProductsFilterButton = new QPushButton(tr("Filter Result"), allProductsFilterPanel);
+    QFont f;
+    f.setBold(true);
+    allProductsFilterButton->setFont(f);
+    connect(allProductsFilterButton, SIGNAL(clicked()), this, SLOT(onAllProductsFilter()));
+
+    QGridLayout *allProductsFilterLayout = new QGridLayout(allProductsFilterPanel);
+    allProductsFilterLayout->addWidget(serialNumberAllProductsLabel, 0, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(serialNumberAllProductsLineEdit, 0, 1);
+    allProductsFilterLayout->addWidget(serialNumberAllProductsCheckBox, 0, 2);
+    allProductsFilterLayout->addWidget(allProductsFilterButton, 0, 20, 1, 3);
+
+    allProductsFilterLayout->addWidget(productTypeAllProductsLabel, 10, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(productTypeAllProductsComboBox, 10, 1);
+    allProductsFilterLayout->addWidget(productTypeAllProductsCheckBox, 10, 2);
+    allProductsFilterLayout->addWidget(brandNameAllProductsLabel, 10, 10, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(brandNameAllProductsComboBox, 10, 11);
+    allProductsFilterLayout->addWidget(brandNameAllProductsCheckBox, 10, 12);
+    allProductsFilterLayout->addWidget(productModelAllProductsLabel, 10, 20, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(productModelAllProductsComboBox, 10, 21);
+    allProductsFilterLayout->addWidget(productModelAllProductsCheckBox, 10, 22);
+
+    allProductsFilterLayout->addWidget(productColorAllProductsLabel, 15, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(productColorAllProductsComboBox, 15, 1);
+    allProductsFilterLayout->addWidget(productColorAllProductsCheckBox, 15, 2);
+    allProductsFilterLayout->addWidget(productVendorAllProductsLabel, 15, 10, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(productVendorAllProductsComboBox, 15, 11);
+    allProductsFilterLayout->addWidget(productVendorAllProductsCheckBox, 15, 12);
+    allProductsFilterLayout->addWidget(replacementInfoAllProductsLabel, 15, 20, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(replacementInfoAllProductsComboBox, 15, 21);
+    allProductsFilterLayout->addWidget(replacementInfoAllProductsCheckBox, 15, 22);
+
+    allProductsFilterLayout->addWidget(quantityAllProductsLabel, 20, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(quantityAllProductsSpinBox, 20, 1);
+    allProductsFilterLayout->addWidget(quantityAllProductsCheckBox, 20, 2);
+    allProductsFilterLayout->addWidget(unitAllProductsLabel, 20, 10, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(unitAllProductsLineEdit, 20, 11);
+    allProductsFilterLayout->addWidget(unitAllProductsCheckBox, 20, 12);
+    allProductsFilterLayout->addWidget(schemaAllProductsLabel, 20, 20, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(schemaAllProductsComboBox, 20, 21);
+    allProductsFilterLayout->addWidget(schemaAllProductsCheckBox, 20, 22);
+
+    allProductsFilterLayout->addWidget(barInfoAllProductsLabel, 23, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(barInfoAllProductsLineEdit, 23, 1);
+    allProductsFilterLayout->addWidget(barInfoAllProductsCheckBox, 23, 2);
+    allProductsFilterLayout->addWidget(sellerAllProductsLabel, 23, 10, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(sellerAllProductsComboBox, 23, 11);
+    allProductsFilterLayout->addWidget(sellerAllProductsCheckBox, 23, 12);
+    allProductsFilterLayout->addWidget(productStatusAllProductsLabel, 23, 20, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(productStatusAllProductsComboBox, 23, 21);
+    allProductsFilterLayout->addWidget(productStatusAllProductsCheckBox, 23, 22);
+
+    allProductsFilterLayout->addWidget(oldPurchasePriceAllProductsLabel, 30, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(oldPurchasePriceAllProductsLineEdit, 30, 1);
+    allProductsFilterLayout->addWidget(oldPurchasePriceAllProductsCheckBox, 30, 2);
+    allProductsFilterLayout->addWidget(purchasePriceAllProductsLabel, 30, 10, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(purchasePriceAllProductsLineEdit, 30, 11);
+    allProductsFilterLayout->addWidget(purchasePriceAllProductsCheckBox, 30, 12);
+    allProductsFilterLayout->addWidget(sellingPriceAllProductsLabel, 30, 20, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(sellingPriceAllProductsLineEdit, 30, 21);
+    allProductsFilterLayout->addWidget(sellingPriceAllProductsCheckBox, 30, 22);
+
+    allProductsFilterLayout->addWidget(commentsAllProductsLabel, 36, 0, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(commentsAllProductsLineEdit, 36, 1);
+    allProductsFilterLayout->addWidget(commentsAllProductsCheckBox, 36, 2);
+    allProductsFilterLayout->addWidget(startTimeAllProductsLabel, 36, 10, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(startTimeAllProductsDateEdit, 36, 11);
+    allProductsFilterLayout->addWidget(startTimeAllProductsCheckBox, 36, 12);
+    allProductsFilterLayout->addWidget(endTimeAllProductsLabel, 36, 20, Qt::AlignRight);
+    allProductsFilterLayout->addWidget(endTimeAllProductsDateEdit, 36, 21);
+    allProductsFilterLayout->addWidget(endTimeAllProductsCheckBox, 36, 22);
+
+    QFrame *line1 = new QFrame();
+    line1->setAttribute(Qt::WA_MouseNoMask);
+    line1->setFrameStyle(QFrame::Sunken);
+    line1->setFrameShape(QFrame::HLine);
+    allProductsFilterLayout->addWidget(line1, 5, 0, 1, allProductsFilterLayout->columnCount());
+
+    QFrame *line2 = new QFrame();
+    line2->setAttribute(Qt::WA_MouseNoMask);
+    line2->setFrameStyle(QFrame::Sunken);
+    line2->setFrameShape(QFrame::HLine);
+    allProductsFilterLayout->addWidget(line2, 25, 0, 1, allProductsFilterLayout->columnCount());
+
+    QFrame *line3 = new QFrame();
+    line3->setAttribute(Qt::WA_MouseNoMask);
+    line3->setFrameStyle(QFrame::Sunken);
+    line3->setFrameShape(QFrame::HLine);
+    allProductsFilterLayout->addWidget(line3, 35, 0, 1, allProductsFilterLayout->columnCount());
+
+    createAllProductsPanel();
+    allProductsFilterLayout->addWidget(allProductsPanel, 45, 0, 1, allProductsFilterLayout->columnCount());
+
+    allProductsFilterPanel->setLayout(allProductsFilterLayout);
+}
+
+void Statistic_Invoicing::createFilterPanel()
+{
+    filterPanel = new QTabWidget();
+    createUnsellProductsFilterPanel();
+    createAllProductsFilterPanel();
+    createBarChartPanel();
+
+    filterPanel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+    filterPanel->addTab(unsellProductsFilterPanel, tr("Unsell Products Query"));
+    filterPanel->addTab(allProductsFilterPanel, tr("All Products Info Query"));
     filterPanel->addTab(salesStatisticContainer, tr("Sales Statistic"));
 }
 
 void Statistic_Invoicing::updateDBTableModel()
 {
-    if(productManagementInterface->isModelOutdate(statisticModel, timeStamp)) {
-        QModelIndex index = statisticView->currentIndex();
+    if(productManagementInterface->isModelOutdate(allProductsModel, timeStamp)) {
+        QModelIndex index = allProductsView->currentIndex();
         static QModelIndex outViewPortindex;
-        statisticModel->select();
-        statisticView->resizeColumnsToContents();
+        allProductsModel->select();
+        allProductsView->resizeColumnsToContents();
         if(index.isValid()) {
-            int rowPosition = statisticView->rowViewportPosition(index.row());
-            if(rowPosition>=0 && rowPosition<statisticView->height()) {
-                statisticView->setCurrentIndex(index);
+            int rowPosition = allProductsView->rowViewportPosition(index.row());
+            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
+                allProductsView->setCurrentIndex(index);
             }
             else {
                 outViewPortindex = index;
             }
         }
         else if(outViewPortindex.isValid()) {
-            int rowPosition = statisticView->rowViewportPosition(outViewPortindex.row());
-            if(rowPosition>=0 && rowPosition<statisticView->height()) {
-                statisticView->setCurrentIndex(outViewPortindex);
+            int rowPosition = allProductsView->rowViewportPosition(outViewPortindex.row());
+            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
+                allProductsView->setCurrentIndex(outViewPortindex);
             }
         }
-        statisticView->resizeColumnsToContents();
+        allProductsView->resizeColumnsToContents();
     }
 }
 
 void Statistic_Invoicing::setProductModelFilter()
 {
     //we want to make all model avaliable, so no filter on table productmodel
-    productModelModel->select();
+    productModelAllProductsModel->select();
 }
 
-void Statistic_Invoicing::populateSchemaComboBox() const
+void Statistic_Invoicing::populateSchemaComboBox(QComboBox *schemaComboBox) const
 {
     QSet<QString> schemaNameSet = userManagementInterface->getAllSchemaName();;
 
@@ -521,137 +1141,493 @@ void Statistic_Invoicing::populateSchemaComboBox() const
     schemaComboBox->addItems(schemaNameSet.toList());
 }
 
-void Statistic_Invoicing::onBasicFilter()
+void Statistic_Invoicing::onAllProductsFilter()
 {
-    QString basicFilter("");
-    if(serialNumberCheckBox->isChecked()) {
-        QString serialNumber = serialNumberLineEdit->text().simplified();
+    QString allProductsFilter("");
+    if(serialNumberAllProductsCheckBox->isChecked()) {
+        QString serialNumber = serialNumberAllProductsLineEdit->text().simplified();
         if(!serialNumber.isEmpty()) {
-            QString filter = QString("serialNumber = '%1'").arg(serialNumber);
-            if(basicFilter.isEmpty()) {
-                basicFilter += filter;
+            QString filter = QString("serialNumber like '%%1%'").arg(serialNumber);
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
             }
             else {
-                basicFilter +=  " and " + filter;
+                allProductsFilter +=  " and " + filter;
             }
         }
     }
 
-    if(productTypeCheckBox->isChecked()) {
-        QString productType = productTypeComboBox->currentText().simplified();
+    if(productTypeAllProductsCheckBox->isChecked()) {
+        QString productType = productTypeAllProductsComboBox->currentText().simplified();
         //Qt bug, refer to
         //qt.onyou.ch/2010/06/20/filtering-relational-tables-in-qsqlrelationaltablemodel/
-        QString filter = QString("relTblAl_2.name = '%1'").arg(productType);
-        if(basicFilter.isEmpty()) {
-            basicFilter += filter;
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(ProductTypeID).arg(productType);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
         }
         else {
-            basicFilter +=  " and " + filter;
+            allProductsFilter +=  " and " + filter;
         }
     }
 
-    if(brandNameCheckBox->isChecked()) {
-        QString brandName = brandNameComboBox->currentText().simplified();
-        QString filter = QString("relTblAl_3.name = '%1'").arg(brandName);
-        if(basicFilter.isEmpty()) {
-            basicFilter += filter;
+    if(brandNameAllProductsCheckBox->isChecked()) {
+        QString brandName = brandNameAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(BrandNameID).arg(brandName);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
         }
         else {
-            basicFilter += " and " + filter;
+            allProductsFilter += " and " + filter;
         }
     }
 
-    if(productModelCheckBox->isChecked()) {
-        QString productModel = productModelComboBox->currentText().simplified();
-        QString filter = QString("relTblAl_4.model = '%1'").arg(productModel);
-        if(basicFilter.isEmpty()) {
-            basicFilter += filter;
+    if(productModelAllProductsCheckBox->isChecked()) {
+        QString productModel = productModelAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.model = '%2'").arg(ProductModelID).arg(productModel);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
         }
         else {
-            basicFilter += " and " + filter;
+            allProductsFilter += " and " + filter;
         }
     }
 
-    if(quantityCheckBox->isChecked()) {
-        int quantity = quantitySpinBox->value();
+    if(productColorAllProductsCheckBox->isChecked()) {
+        QString productColor = productColorAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.color = '%2'").arg(ColorID).arg(productColor);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
+        }
+        else {
+            allProductsFilter += " and " + filter;
+        }
+    }
+
+    if(productVendorAllProductsCheckBox->isChecked()) {
+        QString productVendor = productVendorAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(VendorID).arg(productVendor);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
+        }
+        else {
+            allProductsFilter += " and " + filter;
+        }
+    }
+
+    if(replacementInfoAllProductsCheckBox->isChecked()) {
+        QString replacmentInof = replacementInfoAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.status = '%2'").arg(ReplacementStatusID).arg(replacmentInof);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
+        }
+        else {
+            allProductsFilter += " and " + filter;
+        }
+    }
+
+    if(quantityAllProductsCheckBox->isChecked()) {
+        int quantity = quantityAllProductsSpinBox->value();
         QString filter = QString("quantity = %1").arg(quantity);
-        if(basicFilter.isEmpty()) {
-            basicFilter += filter;
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
         }
         else {
-            basicFilter +=  " and " + filter;
+            allProductsFilter +=  " and " + filter;
         }
     }
 
-    if(unitCheckBox->isChecked()) {
-        QString unit = unitLineEdit->text().simplified();
+    if(unitAllProductsCheckBox->isChecked()) {
+        QString unit = unitAllProductsLineEdit->text().simplified();
         if(!unit.isEmpty()) {
             QString filter = QString("unit = '%1'").arg(unit);
-            if(basicFilter.isEmpty()) {
-                basicFilter += filter;
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
             }
             else {
-                basicFilter +=  " and " + filter;
+                allProductsFilter +=  " and " + filter;
             }
         }
     }
 
-    if(schemaCheckBox->isChecked()) {
-        QString schema = schemaComboBox->currentText().simplified();
-        QString filter = QString("relTblAl_5.name = '%1'").arg(schema);
-        if(basicFilter.isEmpty()) {
-            basicFilter += filter;
+    if(schemaAllProductsCheckBox->isChecked()) {
+        QString schema = schemaAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(SchemaNameID).arg(schema);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
         }
         else {
-            basicFilter += " and " + filter;
+            allProductsFilter += " and " + filter;
         }
     }
 
-    if(oldPurchasePriceCheckBox->isChecked()) {
-        QString oldPurchasePrice = oldPurchasePriceLineEdit->text().simplified();
+    if(barInfoAllProductsCheckBox->isChecked()) {
+        QString barInfo = barInfoAllProductsLineEdit->text().simplified();
+        if(!barInfo.isEmpty()) {
+            QString filter = QString("barInfo like '%%1%'").arg(barInfo);
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
+            }
+            else {
+                allProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(sellerAllProductsCheckBox->isChecked()) {
+        QString seller = sellerAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(SellerID).arg(seller);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
+        }
+        else {
+            allProductsFilter += " and " + filter;
+        }
+    }
+
+    if(productStatusAllProductsCheckBox->isChecked()) {
+        QString productStatus = productStatusAllProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.status = '%2'").arg(ProductStatusID).arg(productStatus);
+        if(allProductsFilter.isEmpty()) {
+            allProductsFilter += filter;
+        }
+        else {
+            allProductsFilter += " and " + filter;
+        }
+    }
+
+    if(oldPurchasePriceAllProductsCheckBox->isChecked()) {
+        QString oldPurchasePrice = oldPurchasePriceAllProductsLineEdit->text().simplified();
         if(!oldPurchasePrice.isEmpty()) {
             QString filter = QString("oldPurchasePrice = '%1'").arg(oldPurchasePrice);
-            if(basicFilter.isEmpty()) {
-                basicFilter += filter;
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
             }
             else {
-                basicFilter +=  " and " + filter;
+                allProductsFilter +=  " and " + filter;
             }
         }
     }
 
-    if(purchasePriceCheckBox->isChecked()) {
-        QString purchasePrice = purchasePriceLineEdit->text().simplified();
+    if(purchasePriceAllProductsCheckBox->isChecked()) {
+        QString purchasePrice = purchasePriceAllProductsLineEdit->text().simplified();
         if(!purchasePrice.isEmpty()) {
             QString filter = QString("purchasePrice = '%1'").arg(purchasePrice);
-            if(basicFilter.isEmpty()) {
-                basicFilter += filter;
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
             }
             else {
-                basicFilter +=  " and " + filter;
+                allProductsFilter +=  " and " + filter;
             }
         }
     }
 
 
-    if(sellingPriceCheckBox->isChecked()) {
-        QString sellingPrice = sellingPriceLineEdit->text().simplified();
+    if(sellingPriceAllProductsCheckBox->isChecked()) {
+        QString sellingPrice = sellingPriceAllProductsLineEdit->text().simplified();
         if(!sellingPrice.isEmpty()) {
             QString filter = QString("sellingPrice = '%1'").arg(sellingPrice);
-            if(basicFilter.isEmpty()) {
-                basicFilter += filter;
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
             }
             else {
-                basicFilter +=  " and " + filter;
+                allProductsFilter +=  " and " + filter;
             }
         }
     }
 
-    statisticModel->setFilter(basicFilter);
-    statisticModel->select();
+    if(commentsAllProductsCheckBox->isChecked()) {
+        QString comments = commentsAllProductsLineEdit->text().simplified();
+        if(!comments.isEmpty()) {
+            QString filter = QString("comments like '%%1%'").arg(comments);
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
+            }
+            else {
+                allProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(startTimeAllProductsCheckBox->isChecked()) {
+        QDateTime startTime = startTimeAllProductsDateEdit->dateTime();
+        QString start = startTime.toString("yyyy-MM-dd hh:mm:ss");
+        if(!start.isEmpty()) {
+            QString filter = QString("timeStamp >= '%1'").arg(start);
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
+            }
+            else {
+                allProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(endTimeAllProductsCheckBox->isChecked()) {
+        QDateTime endTime = endTimeAllProductsDateEdit->dateTime();
+        QString end = endTime.toString("yyyy-MM-dd hh:mm:ss");
+        if(!end.isEmpty()) {
+            QString filter = QString("timeStamp <= '%1'").arg(end);
+            if(allProductsFilter.isEmpty()) {
+                allProductsFilter += filter;
+            }
+            else {
+                allProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    mainWidget->setCursor(Qt::BusyCursor);
+    allProductsModel->setFilter(allProductsFilter);
+    allProductsModel->select();
 //    qDebug()<<statisticModel->filter();
 //    qDebug()<<statisticModel->query().lastQuery();
-    statisticView->resizeColumnsToContents();
+    allProductsView->resizeColumnsToContents();
+    mainWidget->unsetCursor();
+}
+
+void Statistic_Invoicing::onUnsellProductsFilter()
+{
+    QString unsellProductsFilter("");
+    if(serialNumberUnsellProductsCheckBox->isChecked()) {
+        QString serialNumber = serialNumberUnsellProductsLineEdit->text().simplified();
+        if(!serialNumber.isEmpty()) {
+            QString filter = QString("serialNumber like '%%1%'").arg(serialNumber);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(productTypeUnsellProductsCheckBox->isChecked()) {
+        QString productType = productTypeUnsellProductsComboBox->currentText().simplified();
+        //Qt bug, refer to
+        //qt.onyou.ch/2010/06/20/filtering-relational-tables-in-qsqlrelationaltablemodel/
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(ProductTypeID).arg(productType);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter +=  " and " + filter;
+        }
+    }
+
+    if(brandNameUnsellProductsCheckBox->isChecked()) {
+        QString brandName = brandNameUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(BrandNameID).arg(brandName);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(productModelUnsellProductsCheckBox->isChecked()) {
+        QString productModel = productModelUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.model = '%2'").arg(ProductModelID).arg(productModel);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(productColorUnsellProductsCheckBox->isChecked()) {
+        QString productColor = productColorUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.color = '%2'").arg(ColorID).arg(productColor);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(productVendorUnsellProductsCheckBox->isChecked()) {
+        QString productVendor = productVendorUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(VendorID).arg(productVendor);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(replacementInfoUnsellProductsCheckBox->isChecked()) {
+        QString replacmentInof = replacementInfoUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.status = '%2'").arg(ReplacementStatusID).arg(replacmentInof);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(quantityUnsellProductsCheckBox->isChecked()) {
+        int quantity = quantityUnsellProductsSpinBox->value();
+        QString filter = QString("quantity = %1").arg(quantity);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter +=  " and " + filter;
+        }
+    }
+
+    if(unitUnsellProductsCheckBox->isChecked()) {
+        QString unit = unitUnsellProductsLineEdit->text().simplified();
+        if(!unit.isEmpty()) {
+            QString filter = QString("unit = '%1'").arg(unit);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(schemaUnsellProductsCheckBox->isChecked()) {
+        QString schema = schemaUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(SchemaNameID).arg(schema);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(barInfoUnsellProductsCheckBox->isChecked()) {
+        QString barInfo = barInfoUnsellProductsLineEdit->text().simplified();
+        if(!barInfo.isEmpty()) {
+            QString filter = QString("barInfo like '%%1%'").arg(barInfo);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(sellerUnsellProductsCheckBox->isChecked()) {
+        QString seller = sellerUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.name = '%2'").arg(SellerID).arg(seller);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(productStatusUnsellProductsCheckBox->isChecked()) {
+        QString productStatus = productStatusUnsellProductsComboBox->currentText().simplified();
+        QString filter = QString("relTblAl_%1.status = '%2'").arg(ProductStatusID).arg(productStatus);
+        if(unsellProductsFilter.isEmpty()) {
+            unsellProductsFilter += filter;
+        }
+        else {
+            unsellProductsFilter += " and " + filter;
+        }
+    }
+
+    if(oldPurchasePriceUnsellProductsCheckBox->isChecked()) {
+        QString oldPurchasePrice = oldPurchasePriceUnsellProductsLineEdit->text().simplified();
+        if(!oldPurchasePrice.isEmpty()) {
+            QString filter = QString("oldPurchasePrice = '%1'").arg(oldPurchasePrice);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(purchasePriceUnsellProductsCheckBox->isChecked()) {
+        QString purchasePrice = purchasePriceUnsellProductsLineEdit->text().simplified();
+        if(!purchasePrice.isEmpty()) {
+            QString filter = QString("purchasePrice = '%1'").arg(purchasePrice);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+
+    if(sellingPriceUnsellProductsCheckBox->isChecked()) {
+        QString sellingPrice = sellingPriceUnsellProductsLineEdit->text().simplified();
+        if(!sellingPrice.isEmpty()) {
+            QString filter = QString("sellingPrice = '%1'").arg(sellingPrice);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(commentsUnsellProductsCheckBox->isChecked()) {
+        QString comments = commentsUnsellProductsLineEdit->text().simplified();
+        if(!comments.isEmpty()) {
+            QString filter = QString("comments like '%%1%'").arg(comments);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(startTimeUnsellProductsCheckBox->isChecked()) {
+        QDateTime startTime = startTimeUnsellProductsDateEdit->dateTime();
+        QString start = startTime.toString("yyyy-MM-dd hh:mm:ss");
+        if(!start.isEmpty()) {
+            QString filter = QString("timeStamp >= '%1'").arg(start);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    if(endTimeUnsellProductsCheckBox->isChecked()) {
+        QDateTime endTime = endTimeUnsellProductsDateEdit->dateTime();
+        QString end = endTime.toString("yyyy-MM-dd hh:mm:ss");
+        if(!end.isEmpty()) {
+            QString filter = QString("timeStamp <= '%1'").arg(end);
+            if(unsellProductsFilter.isEmpty()) {
+                unsellProductsFilter += filter;
+            }
+            else {
+                unsellProductsFilter +=  " and " + filter;
+            }
+        }
+    }
+
+    mainWidget->setCursor(Qt::BusyCursor);
+    unsellProductsModel->setFilter(unsellProductsFilter);
+    unsellProductsModel->select();
+//    qDebug()<<statisticModel->filter();
+//    qDebug()<<statisticModel->query().lastQuery();
+    unsellProductsView->resizeColumnsToContents();
+    mainWidget->unsetCursor();
+
 }
 
 void Statistic_Invoicing::updateSalesStatisticPlot()
@@ -681,6 +1657,23 @@ void Statistic_Invoicing::updateSalesStatisticPlot()
         sArg.peopleRange = peopleRange->value();
 
         salesStatisticPlot->updatePlot(data, sArg);
+    }
+}
+
+void Statistic_Invoicing::populateSellerNameComboBox(QComboBox *sellerNameComboBox) const
+{
+    int sellerRoleID = userManagementInterface->getRoleIDByRoleName("销售");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
+    QSet<int> sellers = userManagementInterface->getUserIDSetByRoleID(sellerRoleID);
+    QSet<int> admins = userManagementInterface->getUserIDSetByRoleID(adminRoleID);
+    sellerNameComboBox->clear();
+    //sellerComboBox->addItem(userManagementInterface->getUserNameByUserID(1));
+    sellerNameComboBox->addItem("未指定");
+    foreach(int admin, admins) {
+        sellerNameComboBox->addItem(userManagementInterface->getUserNameByUserID(admin));
+    }
+    foreach(int seller, sellers) {
+        sellerNameComboBox->addItem(userManagementInterface->getUserNameByUserID(seller));
     }
 }
 

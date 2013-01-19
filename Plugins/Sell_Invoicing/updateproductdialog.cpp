@@ -256,12 +256,12 @@ void UpdateProductDialog::updateProductInfo()
     QString serialNumber = serialNumberLineEdit->text();
     serialNumber.simplified();
     if(serialNumber.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Serial Number can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Serial Number can't be empty !"));
         serialNumberLineEdit->setFocus();
         return;
     }
 //    if(productManagementInterface->checkSerialNumber(serialNumber)) {
-//        QMessageBox::critical(this, tr("Update Product Error"), tr("Serial Number has exist !"));
+//        QMessageBox::critical(this, tr("Submit Order Error"), tr("Serial Number has exist !"));
 //        serialNumberLineEdit->setFocus();
 //        return;
 //    }
@@ -269,7 +269,7 @@ void UpdateProductDialog::updateProductInfo()
     QString unit = unitLineEdit->text();
     unit.simplified();
     if(unit.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Unit can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Unit can't be empty !"));
         unitLineEdit->setFocus();
         return;
     }
@@ -277,7 +277,7 @@ void UpdateProductDialog::updateProductInfo()
     QString productType = productTypeComboBox->currentText();
     productType.simplified();
     if(productType.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Type can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Product Type can't be empty !"));
         productTypeComboBox->setFocus();
         return;
     }
@@ -293,7 +293,7 @@ void UpdateProductDialog::updateProductInfo()
     QString brandName = brandNameComboBox->currentText();
     brandName.simplified();
     if(brandName.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Brand Name can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Brand Name can't be empty !"));
         brandNameComboBox->setFocus();
         return;
     }
@@ -310,7 +310,7 @@ void UpdateProductDialog::updateProductInfo()
     QString productModel = productModelComboBox->currentText();
     productModel.simplified();
     if(productModel.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Model can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Product Model can't be empty !"));
         productModelComboBox->setFocus();
         return;
     }
@@ -326,7 +326,7 @@ void UpdateProductDialog::updateProductInfo()
     QString productColor = productColorComboBox->currentText();
     productColor.simplified();
     if(productColor.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Color can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Product Color can't be empty !"));
         productColorComboBox->setFocus();
         return;
     }
@@ -342,7 +342,7 @@ void UpdateProductDialog::updateProductInfo()
     QString productVendor = productVendorComboBox->currentText();
     productVendor.simplified();
     if(productVendor.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Product Vendor can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Product Vendor can't be empty !"));
         productVendorComboBox->setFocus();
         return;
     }
@@ -358,13 +358,19 @@ void UpdateProductDialog::updateProductInfo()
     QString replacementInfo = replacementInfoComboBox->currentText();
     replacementInfo.simplified();
     if(replacementInfo.isEmpty()) {
-        QMessageBox::critical(this, tr("Update Product Error"), tr("Replacement Info can't be empty !"));
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Replacement Info can't be empty !"));
         replacementInfoComboBox->setFocus();
         return;
     }
     int replacementInfoID = productManagementInterface->getReplacementStatusIDByReplacementStatusName(replacementInfo);
 
     int sellerID = userManagementInterface->getUserIDByUserName(sellerComboBox->currentText());
+    if(sellerID == userManagementInterface->getUserIDByUserName("Î´Ö¸¶¨")) {
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Please select the correct seller !"));
+        sellerComboBox->setFocus();
+        return;
+    }
+
     QString barInfo = barInfoLineEdit->text();
 
     QString oldPurchasePrice = oldPurchasePriceLineEdit->text().simplified();
