@@ -73,60 +73,60 @@
         <translation>上次进货价格：</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="155"/>
+        <location filename="../addproductdialog.cpp" line="156"/>
         <source>Purchase Price: </source>
         <translation>进货价格：</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="158"/>
+        <location filename="../addproductdialog.cpp" line="160"/>
         <source>Selling Price: </source>
         <translation>销售价格：</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="161"/>
+        <location filename="../addproductdialog.cpp" line="164"/>
         <source>Comments: </source>
         <translation>备注：</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="222"/>
-        <location filename="../addproductdialog.cpp" line="232"/>
+        <location filename="../addproductdialog.cpp" line="225"/>
+        <location filename="../addproductdialog.cpp" line="235"/>
         <source>Add Product</source>
         <translation>添加产品</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="224"/>
+        <location filename="../addproductdialog.cpp" line="227"/>
         <source>Clear Info</source>
         <translation>清除信息</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="249"/>
-        <location filename="../addproductdialog.cpp" line="262"/>
-        <location filename="../addproductdialog.cpp" line="270"/>
-        <location filename="../addproductdialog.cpp" line="286"/>
-        <location filename="../addproductdialog.cpp" line="303"/>
-        <location filename="../addproductdialog.cpp" line="319"/>
-        <location filename="../addproductdialog.cpp" line="335"/>
-        <location filename="../addproductdialog.cpp" line="351"/>
+        <location filename="../addproductdialog.cpp" line="252"/>
+        <location filename="../addproductdialog.cpp" line="265"/>
+        <location filename="../addproductdialog.cpp" line="273"/>
+        <location filename="../addproductdialog.cpp" line="289"/>
+        <location filename="../addproductdialog.cpp" line="306"/>
+        <location filename="../addproductdialog.cpp" line="322"/>
+        <location filename="../addproductdialog.cpp" line="338"/>
+        <location filename="../addproductdialog.cpp" line="354"/>
         <source>Add Product Error</source>
         <translation>添加产品失败</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="249"/>
+        <location filename="../addproductdialog.cpp" line="252"/>
         <source>Serial Number can&apos;t be empty !</source>
         <translation>序列号不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="319"/>
+        <location filename="../addproductdialog.cpp" line="322"/>
         <source>Product Color can&apos;t be empty !</source>
         <translation>产品颜色不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="335"/>
+        <location filename="../addproductdialog.cpp" line="338"/>
         <source>Product Vendor can&apos;t be empty !</source>
         <translation>产品供应商不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="351"/>
+        <location filename="../addproductdialog.cpp" line="354"/>
         <source>Replacement Info can&apos;t be empty !</source>
         <translation>换机状态不能为空！</translation>
     </message>
@@ -135,22 +135,22 @@
         <translation type="obsolete">序列号已存在！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="262"/>
+        <location filename="../addproductdialog.cpp" line="265"/>
         <source>Unit can&apos;t be empty !</source>
         <translation>单位不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="270"/>
+        <location filename="../addproductdialog.cpp" line="273"/>
         <source>Product Type can&apos;t be empty !</source>
         <translation>产品类型不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="286"/>
+        <location filename="../addproductdialog.cpp" line="289"/>
         <source>Brand Name can&apos;t be empty !</source>
         <translation>品牌名称不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="303"/>
+        <location filename="../addproductdialog.cpp" line="306"/>
         <source>Product Model can&apos;t be empty !</source>
         <translation>产品型号不能为空！</translation>
     </message>
@@ -410,23 +410,23 @@
         <translation>上次进货价格：</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="156"/>
+        <location filename="../updateproductdialog.cpp" line="157"/>
         <source>Purchase Price: </source>
         <translation>进货价格：</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="159"/>
+        <location filename="../updateproductdialog.cpp" line="161"/>
         <source>Selling Price: </source>
         <translation>销售价格：</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="162"/>
+        <location filename="../updateproductdialog.cpp" line="165"/>
         <source>Comments: </source>
         <translation>备注：</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="223"/>
-        <location filename="../updateproductdialog.cpp" line="234"/>
+        <location filename="../updateproductdialog.cpp" line="226"/>
+        <location filename="../updateproductdialog.cpp" line="237"/>
         <source>Update Product</source>
         <translation>更新产品</translation>
     </message>
@@ -435,54 +435,54 @@
         <translation type="obsolete">添加产品失败</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="251"/>
+        <location filename="../updateproductdialog.cpp" line="254"/>
         <source>Serial Number can&apos;t be empty !</source>
         <translation>序列号不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="251"/>
-        <location filename="../updateproductdialog.cpp" line="264"/>
-        <location filename="../updateproductdialog.cpp" line="272"/>
-        <location filename="../updateproductdialog.cpp" line="288"/>
-        <location filename="../updateproductdialog.cpp" line="305"/>
-        <location filename="../updateproductdialog.cpp" line="321"/>
-        <location filename="../updateproductdialog.cpp" line="337"/>
-        <location filename="../updateproductdialog.cpp" line="353"/>
+        <location filename="../updateproductdialog.cpp" line="254"/>
+        <location filename="../updateproductdialog.cpp" line="267"/>
+        <location filename="../updateproductdialog.cpp" line="275"/>
+        <location filename="../updateproductdialog.cpp" line="291"/>
+        <location filename="../updateproductdialog.cpp" line="308"/>
+        <location filename="../updateproductdialog.cpp" line="324"/>
+        <location filename="../updateproductdialog.cpp" line="340"/>
+        <location filename="../updateproductdialog.cpp" line="356"/>
         <source>Update Product Error</source>
         <translation>更新产品错误</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="264"/>
+        <location filename="../updateproductdialog.cpp" line="267"/>
         <source>Unit can&apos;t be empty !</source>
         <translation>单位不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="272"/>
+        <location filename="../updateproductdialog.cpp" line="275"/>
         <source>Product Type can&apos;t be empty !</source>
         <translation>产品类型不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="288"/>
+        <location filename="../updateproductdialog.cpp" line="291"/>
         <source>Brand Name can&apos;t be empty !</source>
         <translation>品牌名称不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="305"/>
+        <location filename="../updateproductdialog.cpp" line="308"/>
         <source>Product Model can&apos;t be empty !</source>
         <translation>产品型号不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="321"/>
+        <location filename="../updateproductdialog.cpp" line="324"/>
         <source>Product Color can&apos;t be empty !</source>
         <translation>产品颜色不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="337"/>
+        <location filename="../updateproductdialog.cpp" line="340"/>
         <source>Product Vendor can&apos;t be empty !</source>
         <translation>产品供应商不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="353"/>
+        <location filename="../updateproductdialog.cpp" line="356"/>
         <source>Replacement Info can&apos;t be empty !</source>
         <translation>换机状态不能为空！</translation>
     </message>

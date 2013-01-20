@@ -1,5 +1,5 @@
 TARGET = Invoicing
-TRANSLATIONS = ./Translations/$${TARGET}_zh_CN.ts
+TRANSLATIONS = ./Translations/Invoicing_zh_CN.ts
 
 SOURCES += \
     main.cpp \
@@ -16,8 +16,8 @@ OTHER_FILES += \
     Icon/plugin_icon.png \
     Icon/quit_icon.png \
     Icon/about_icon.png \
-    Translations/$${TARGET}_zh_CN.ts \
-    Translations/$${TARGET}_zh_CN.qm
+    Translations/Invoicing_zh_CN.ts \
+    Translations/Invoicing_zh_CN.qm
 
 RESOURCES += \
     icon.qrc

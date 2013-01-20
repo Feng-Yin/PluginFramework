@@ -21,11 +21,13 @@ CONFIG(release, debug|release) {
 }
 
 SOURCES += statistic_invoicing.cpp\
-        barchart.cpp
+        barchart.cpp \
+    updateproductdialog.cpp
 
 HEADERS += statistic_invoicing.h\
         Statistic_Invoicing_global.h\
-        barchart.h
+        barchart.h \
+    updateproductdialog.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN

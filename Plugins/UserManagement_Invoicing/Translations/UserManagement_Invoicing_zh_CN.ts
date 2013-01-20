@@ -42,7 +42,7 @@
         <location filename="../logindialog.cpp" line="84"/>
         <location filename="../logindialog.cpp" line="100"/>
         <source>Login</source>
-        <translation>登陆</translation>
+        <translation type="unfinished">登录系统</translation>
     </message>
     <message>
         <location filename="../logindialog.cpp" line="87"/>

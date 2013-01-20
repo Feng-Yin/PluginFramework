@@ -4,7 +4,7 @@
         <file>Icon/quit_icon.png</file>
         <file>Icon/about_icon.png</file>
         <file>Icon/update_icon.png</file>
-        <file>Translations/Invoicing</file>
-        <file>Translations/Invoicing.qm</file>
+        <file>Translations/Invoicing_zh_CN.qm</file>
+        <file>Translations/Invoicing_zh_CN.ts</file>
     </qresource>
 </RCC>

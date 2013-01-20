@@ -24,6 +24,7 @@ QT_END_NAMESPACE
 class UserManagementInterface;
 class ProductManagementInterface;
 class BarChart;
+class UpdateProductDialog;
 
 class STATISTIC_INVOICINGSHARED_EXPORT Statistic_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
@@ -64,6 +65,8 @@ private slots:
     void onAllProductsFilter();
     void onUnsellProductsFilter();
     void updateSalesStatisticPlot();
+    void updateUnsellProductinfo();
+    void updateAllProductinfo();
 
 private:
     MainWindow *parentWindow;
@@ -270,6 +273,9 @@ private:
     QPushButton *unsellProductsFilterButton;
     QLabel *unsellProductsSummaryLabel;
     QLineEdit *unsellProductsSummaryLineEdit;
+
+    UpdateProductDialog *updateAllProductDialog;
+    UpdateProductDialog *updateUnsellProductDialog;
 };
 
 #endif // STATISTIC_INVOICING_H

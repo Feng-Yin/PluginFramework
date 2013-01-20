@@ -19,7 +19,8 @@ Sell_Invoicing::Sell_Invoicing():
     orderModel(NULL),
     orderView(NULL),
     backToStoragePushButton(NULL),
-    updateProductDialog(NULL),
+    updateStorageProductDialog(NULL),
+    updateOrderProductDialog(NULL),
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 {
@@ -255,8 +256,7 @@ void Sell_Invoicing::createOrderPanel()
     orderView->horizontalHeader()->setStretchLastSection(true);
     orderView->setColumnHidden(ProductID, true);
     orderView->horizontalHeader()->setVisible(true);
-//    connect(orderView, SIGNAL(doubleClicked(QModelIndex)),
-//            this, SLOT(updateProductinfo(QModelIndex)));
+    connect(orderView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(updateProductInfoOrder()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(orderView);
@@ -318,6 +318,7 @@ void Sell_Invoicing::createStoragePanel()
     storageView->horizontalHeader()->setStretchLastSection(true);
     storageView->setColumnHidden(ProductID, true);
     storageView->horizontalHeader()->setVisible(true);
+    connect(storageView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(updateProductinfo()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(storageView);
@@ -419,18 +420,33 @@ void Sell_Invoicing::updateDBTableModel()
     }
 }
 
+int Sell_Invoicing::updateProductInfoOrder()
+{
+    if(!updateOrderProductDialog) {
+        updateOrderProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+        //connect(updateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+    }
+    updateOrderProductDialog->hideForOrderInfo();
+    updateOrderProductDialog->updateDBTableModel();
+    QModelIndex storageIndex = orderView->currentIndex();
+    QSqlRecord record = orderModel->record(storageIndex.row());
+    updateOrderProductDialog->updateRecord(record);
+    return updateOrderProductDialog->exec();
+}
+
 int Sell_Invoicing::updateProductinfo()
 {
-    if(!updateProductDialog) {
-        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!updateStorageProductDialog) {
+        updateStorageProductDialog = new UpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
-        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+        connect(updateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateProductDialog->updateDBTableModel();
+    updateStorageProductDialog->updateDBTableModel();
     QModelIndex storageIndex = storageView->currentIndex();
     QSqlRecord record = storageModel->record(storageIndex.row());
-    updateProductDialog->updateRecord(record);
-    return updateProductDialog->exec();
+    updateStorageProductDialog->updateRecord(record);
+    return updateStorageProductDialog->exec();
 }
 
 void Sell_Invoicing::productUpdated()
@@ -439,7 +455,7 @@ void Sell_Invoicing::productUpdated()
     storageView->resizeColumnsToContents();
     orderModel->select();
     orderView->resizeColumnsToContents();
-    updateProductDialog->hide();
+    updateStorageProductDialog->hide();
 }
 
 void Sell_Invoicing::onFilter()
@@ -511,6 +527,7 @@ void Sell_Invoicing::updateOrderFilter()
 
     orderModel->setFilter(filter);
 }
+
 
 QT_BEGIN_NAMESPACE
 Q_EXPORT_PLUGIN2(Sell_Invoicing, Sell_Invoicing)

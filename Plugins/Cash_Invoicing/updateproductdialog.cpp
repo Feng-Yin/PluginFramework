@@ -168,14 +168,18 @@ void UpdateProductDialog::init()
     oldPurchasePriceLineEdit = new QLineEdit(this);
     oldPurchasePriceLabel->setEnabled(false);
     oldPurchasePriceLineEdit->setEnabled(false);
+    oldPurchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
     purchasePriceLabel = new QLabel(tr("Purchase Price: "), this);
     purchasePriceLineEdit = new QLineEdit(this);
     purchasePriceLabel->setEnabled(false);
     purchasePriceLineEdit->setEnabled(false);
+    purchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
-    sellingPriceLabel = new QLabel(tr("Selling Price: "), this);
+    sellingPriceLabel = new QLabel(tr("Selling Price")+"<b style=\"COLOR: #ff0000\">*</b>: ", this);
     sellingPriceLineEdit = new QLineEdit(this);
+    sellingPriceLineEdit->setReadOnly(true);
+    purchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
     commentsLabel = new QLabel(tr("Comments: "), this);
     commentsTextEdit = new QTextEdit(this);
@@ -511,7 +515,7 @@ void UpdateProductDialog::updateRecord(const QSqlRecord &record)
     unitLineEdit->setText(record.value(Unit).toString());
     schemaComboBox->setCurrentIndex(schemaComboBox->findText(record.value(SchemaNameID).toString()));
     barInfoLineEdit->setText(record.value(BarInfo).toString());
-    sellerComboBox->setEditText(record.value(SellerID).toString());
+    sellerComboBox->setCurrentIndex(sellerComboBox->findText(record.value(SellerID).toString()));
     oldPurchasePriceLineEdit->setText(record.value(OldPurchasePrice).toString());
     purchasePriceLineEdit->setText(record.value(PurchasePrice).toString());
     sellingPriceLineEdit->setText(record.value(SellingPrice).toString());

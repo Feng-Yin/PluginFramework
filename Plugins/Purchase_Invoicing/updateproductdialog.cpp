@@ -152,12 +152,15 @@ void UpdateProductDialog::init()
 
     oldPurchasePriceLabel = new QLabel(tr("Old Purchase Price: "), this);
     oldPurchasePriceLineEdit = new QLineEdit(this);
+    oldPurchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
     purchasePriceLabel = new QLabel(tr("Purchase Price: "), this);
     purchasePriceLineEdit = new QLineEdit(this);
+    purchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
     sellingPriceLabel = new QLabel(tr("Selling Price: "), this);
     sellingPriceLineEdit = new QLineEdit(this);
+    sellingPriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
     commentsLabel = new QLabel(tr("Comments: "), this);
     commentsTextEdit = new QTextEdit(this);

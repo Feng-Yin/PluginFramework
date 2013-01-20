@@ -5,6 +5,7 @@
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
 #include "barchart.h"
+#include "updateproductdialog.h"
 
 const char *sortTypeProperty = "SortType";
 
@@ -168,7 +169,9 @@ Statistic_Invoicing::Statistic_Invoicing():
     endTimeUnsellProductsCheckBox(NULL),
     unsellProductsFilterButton(NULL),
     unsellProductsSummaryLabel(NULL),
-    unsellProductsSummaryLineEdit(NULL)
+    unsellProductsSummaryLineEdit(NULL),
+    updateAllProductDialog(NULL),
+    updateUnsellProductDialog(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -349,6 +352,7 @@ void Statistic_Invoicing::createAllProductsPanel()
     allProductsView->setColumnHidden(ProductID, true);
     allProductsView->horizontalHeader()->setVisible(true);
     allProductsView->resizeColumnsToContents();
+    connect(allProductsView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(updateAllProductinfo()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(allProductsView);
@@ -407,6 +411,7 @@ void Statistic_Invoicing::createUnsellProductsPanel()
     unsellProductsView->setColumnHidden(ProductID, true);
     unsellProductsView->horizontalHeader()->setVisible(true);
     unsellProductsView->resizeColumnsToContents();
+    connect(unsellProductsView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(updateUnsellProductinfo()));
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(unsellProductsView);
@@ -1415,7 +1420,7 @@ void Statistic_Invoicing::onAllProductsFilter()
 
     int rows = allProductsModel->rowCount();
     int totalQuantity = 0;
-    qulonglong totalSelling = 0;
+    double totalSelling = 0;
     QSqlRecord record;
     for(int i=0; i<rows; i++) {
         record = allProductsModel->record(i);
@@ -1423,11 +1428,11 @@ void Statistic_Invoicing::onAllProductsFilter()
         QString selling = record.value(SellingPrice).toString().simplified();
         //qDebug()<<selling<<selling.toULongLong();
         if(!selling.isEmpty()) {
-            totalSelling += selling.toULongLong();
+            totalSelling += selling.toDouble();
         }
     }
     allProductsSummaryLineEdit->setText(QString("Numbers of Total Products: %1  Numbers of Total Selling: %2")
-                                        .arg(totalQuantity).arg(totalSelling));
+                                        .arg(totalQuantity).arg((qulonglong)totalSelling));
 
     mainWidget->unsetCursor();
 }
@@ -1678,7 +1683,7 @@ void Statistic_Invoicing::onUnsellProductsFilter()
 
     int rows = unsellProductsModel->rowCount();
     int totalQuantity = 0;
-    int totalSelling = 0;
+    double totalSelling = 0;
     QSqlRecord record;
     for(int i=0; i<rows; i++) {
         record = unsellProductsModel->record(i);
@@ -1686,11 +1691,11 @@ void Statistic_Invoicing::onUnsellProductsFilter()
         QString selling = record.value(SellingPrice).toString().simplified();
         //qDebug()<<selling<<selling.toULongLong();
         if(!selling.isEmpty()) {
-            totalSelling += selling.toULongLong();
+            totalSelling += selling.toDouble();
         }
     }
     unsellProductsSummaryLineEdit->setText(QString("Numbers of Total Products: %1  Numbers of Total Selling: %2")
-                                           .arg(totalQuantity).arg(totalSelling));
+                                           .arg(totalQuantity).arg((qulonglong)totalSelling));
 
     mainWidget->unsetCursor();
 
@@ -1743,6 +1748,32 @@ void Statistic_Invoicing::populateSellerNameComboBox(QComboBox *sellerNameComboB
     foreach(int seller, sellers) {
         sellerNameComboBox->addItem(userManagementInterface->getUserNameByUserID(seller));
     }
+}
+
+void Statistic_Invoicing::updateAllProductinfo()
+{
+    if(!updateAllProductDialog) {
+        updateAllProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+    }
+    updateAllProductDialog->updateDBTableModel();
+    QModelIndex storageIndex = allProductsView->currentIndex();
+    QSqlRecord record = allProductsModel->record(storageIndex.row());
+    updateAllProductDialog->updateRecord(record);
+    updateAllProductDialog->exec();
+}
+
+void Statistic_Invoicing::updateUnsellProductinfo()
+{
+    if(!updateUnsellProductDialog) {
+        updateUnsellProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+    }
+    updateUnsellProductDialog->updateDBTableModel();
+    QModelIndex storageIndex = unsellProductsView->currentIndex();
+    QSqlRecord record = unsellProductsModel->record(storageIndex.row());
+    updateUnsellProductDialog->updateRecord(record);
+    updateUnsellProductDialog->exec();
 }
 
 QT_BEGIN_NAMESPACE

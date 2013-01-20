@@ -160,12 +160,15 @@ void UpdateProductDialog::init()
 
     oldPurchasePriceLabel = new QLabel(tr("Old Purchase Price: "), this);
     oldPurchasePriceLineEdit = new QLineEdit(this);
+    oldPurchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
     purchasePriceLabel = new QLabel(tr("Purchase Price: "), this);
     purchasePriceLineEdit = new QLineEdit(this);
+    purchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
-    sellingPriceLabel = new QLabel(tr("Selling Price: "), this);
+    sellingPriceLabel = new QLabel(tr("Selling Price")+ "<b style=\"COLOR: #ff0000\">*</b>: ", this);
     sellingPriceLineEdit = new QLineEdit(this);
+    sellingPriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
 
     commentsLabel = new QLabel(tr("Comments: "), this);
     commentsTextEdit = new QTextEdit(this);
@@ -376,6 +379,19 @@ void UpdateProductDialog::updateProductInfo()
     QString oldPurchasePrice = oldPurchasePriceLineEdit->text().simplified();
     QString purchasePrice = purchasePriceLineEdit->text().simplified();
     QString sellingPrice = sellingPriceLineEdit->text().simplified();
+    sellingPrice.simplified();
+    if(sellingPrice.isEmpty()) {
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Selling Price can't be empty !"));
+        sellingPriceLineEdit->setFocus();
+        return;
+    }
+    bool ok = false;
+    sellingPrice.toDouble(&ok);
+    if(!ok) {
+        QMessageBox::critical(this, tr("Submit Order Error"), tr("Selling Price error !"));
+        sellingPriceLineEdit->setFocus();
+        return;
+    }
 
     int schemaID = userManagementInterface->getSchemaIDBySchemaName(schemaComboBox->currentText());
     int quantity = quantitySpinBox->value();
@@ -518,7 +534,7 @@ void UpdateProductDialog::updateRecord(const QSqlRecord &record)
     unitLineEdit->setText(record.value(Unit).toString());
     schemaComboBox->setCurrentIndex(schemaComboBox->findText(record.value(SchemaNameID).toString()));
     barInfoLineEdit->setText(record.value(BarInfo).toString());
-    sellerComboBox->setEditText(record.value(SellerID).toString());
+    sellerComboBox->setCurrentIndex(sellerComboBox->findText(record.value(SellerID).toString()));
     oldPurchasePriceLineEdit->setText(record.value(OldPurchasePrice).toString());
     purchasePriceLineEdit->setText(record.value(PurchasePrice).toString());
     sellingPriceLineEdit->setText(record.value(SellingPrice).toString());
@@ -530,4 +546,27 @@ void UpdateProductDialog::userChanged()
 {
     populateSchemaComboBox();
     populateSellerNameComboBox();
+}
+
+
+void UpdateProductDialog::hideForOrderInfo()
+{
+    quantityLabel->setEnabled(false);
+    quantitySpinBox->setEnabled(false);
+    schemaLabel->setEnabled(false);
+    schemaComboBox->setEnabled(false);
+    barInfoLabel->setEnabled(false);
+    barInfoLineEdit->setEnabled(false);
+    sellerLabel->setEnabled(false);
+    sellerComboBox->setEnabled(false);
+    updateProductButton->hide();
+    oldPurchasePriceLabel->setEnabled(false);
+    oldPurchasePriceLineEdit->setReadOnly(true);
+    purchasePriceLabel->setEnabled(false);
+    purchasePriceLineEdit->setReadOnly(true);
+    sellingPriceLabel->setEnabled(false);
+    sellingPriceLineEdit->setReadOnly(true);
+
+    commentsLabel->setEnabled(false);
+    commentsTextEdit->setReadOnly(true);
 }

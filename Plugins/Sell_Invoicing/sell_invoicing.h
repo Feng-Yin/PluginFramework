@@ -44,11 +44,12 @@ private:
     void initMainWidget();
     void createOrderPanel();
     void createStoragePanel();
-    int updateProductinfo();
     void updateStorageFilter();
     void updateOrderFilter();
 
 private slots:
+    int updateProductinfo();
+    int updateProductInfoOrder();
     void submitOrder();
     void backToStorage();
     void updateDBTableModel();
@@ -72,7 +73,8 @@ private:
     QTableView *orderView;
     QPushButton *backToStoragePushButton;
 
-    UpdateProductDialog *updateProductDialog;
+    UpdateProductDialog *updateStorageProductDialog;
+    UpdateProductDialog *updateOrderProductDialog;
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;
