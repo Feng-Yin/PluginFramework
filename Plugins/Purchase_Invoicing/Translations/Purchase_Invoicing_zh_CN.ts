@@ -318,22 +318,22 @@
         <translation>采购功能模块</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="583"/>
+        <location filename="../purchase_invoicing.cpp" line="585"/>
         <source>Open Inventory</source>
         <translation>打开进货清单</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="583"/>
+        <location filename="../purchase_invoicing.cpp" line="585"/>
         <source>Inventory files (*.xls *.xlsx)</source>
         <translation>进货清单文件 (*.xls *.xlsx)</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="662"/>
+        <location filename="../purchase_invoicing.cpp" line="665"/>
         <source>Import</source>
         <translation>导入进货清单</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="662"/>
+        <location filename="../purchase_invoicing.cpp" line="665"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>

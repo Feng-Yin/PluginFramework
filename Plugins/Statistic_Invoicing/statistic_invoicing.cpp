@@ -1722,7 +1722,9 @@ void Statistic_Invoicing::updateSalesStatisticPlot()
         sArg.sortType = sortType;
         sArg.peopleRange = peopleRange->value();
 
-        salesStatisticPlot->updatePlot(data, sArg);
+        if(salesStatisticPlot) {
+            salesStatisticPlot->updatePlot(data, sArg);
+        }
     }
 }
 

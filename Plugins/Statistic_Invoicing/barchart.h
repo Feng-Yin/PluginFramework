@@ -125,9 +125,17 @@ public:
         default:
             qSort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
         }
-        QString key = keys.at(value);
-        SalesResult result = salesData.value(key);
-        return QwtText(QString("%1(%2, %3)").arg(key).arg((ulong)result.volume).arg((ulong)result.quantity));
+        if(value<keys.size()) {
+            QString key = keys.at(value);
+            //return QwtText(key);
+            SalesResult result = salesData.value(key);
+            //return QwtText(QString("%1").arg(key));
+            //qDebug()<<QString("%1(%2, %3)").arg(key).arg((qulonglong)result.volume).arg((qulonglong)result.quantity);
+            return QwtText(QString("%1(%2, %3)").arg(key).arg((qulonglong)result.volume).arg((qulonglong)result.quantity));
+        }
+        else {
+            return QwtText(QString("%1").arg(value));
+        }
     }
 private:
     QMap<QString, SalesResult> &salesData;

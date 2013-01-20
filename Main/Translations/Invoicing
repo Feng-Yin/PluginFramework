@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="zh_CN">
+<context>
+    <name>MainWindow</name>
+    <message>
+        <location filename="../mainwindow.cpp" line="53"/>
+        <source>PluginFramework</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="88"/>
+        <source>&amp;Exit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="91"/>
+        <source>Quit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="95"/>
+        <source>A&amp;bout</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="100"/>
+        <source>P&amp;lugin List</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="105"/>
+        <source>&amp;Refresh DB</source>
+        <translation>刷新数据库（&amp;R）</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="113"/>
+        <source>&amp;File</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="116"/>
+        <source>&amp;Help</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="175"/>
+        <source>About Invoicing</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="176"/>
+        <source>&lt;b&gt;Invoicing&lt;/b&gt; use the plugin framework</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="278"/>
+        <source>Init Error</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="279"/>
+        <source>plugin </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="279"/>
+        <source> init error!</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="310"/>
+        <source>Invoicing : %1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="322"/>
+        <source>Plugin Name</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="323"/>
+        <source>Plugin Description</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="339"/>
+        <source>Plugins List</source>
+        <translation></translation>
+    </message>
+</context>
+</TS>

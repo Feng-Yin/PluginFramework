@@ -1,5 +1,4 @@
 TARGET = Invoicing
-
 TRANSLATIONS = ./Translations/$${TARGET}_zh_CN.ts
 
 SOURCES += \

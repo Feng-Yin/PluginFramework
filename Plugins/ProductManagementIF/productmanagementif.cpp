@@ -522,9 +522,9 @@ QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int ye
         endYear++;
     }
     timeRange += QString("'%1-%2-31'").arg(endYear).arg(endMonth);
-    QString queryString = QString("select u1.name, sum(p1.sellingprice), count(p1.sellingprice) from user u1, productsinfo p1 where p1.productstatusID = 7 and u1.id = p1.responserUserID %1 group by u1.name")
-            .arg(timeRange);
-    //qDebug()<<queryString;
+    QString queryString = QString("select u1.name, sum(p1.sellingprice), sum(p1.quantity) from user u1, productsinfo p1 where p1.productstatusID = %1 and u1.id = p1.sellerID %2 group by u1.name")
+            .arg(getStatusIDByStatusName("ÒÑÏúÊÛ")).arg(timeRange);
+    qDebug()<<queryString;
     QSqlQuery query(userManagementInterface->getSqlQuery());
     query.exec(queryString);
     while(query.next()) {
