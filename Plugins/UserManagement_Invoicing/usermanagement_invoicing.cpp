@@ -13,7 +13,8 @@ UserManagement_Invoicing::UserManagement_Invoicing() :
     switchUserAction(NULL),
     logOutAction(NULL),
     toolBar(NULL),
-    userManagementInterface(NULL)
+    userManagementInterface(NULL),
+    parent(NULL)
 {
     QTranslator *qtTranslator = new QTranslator(this);
     qtTranslator->load("UserManagement_Invoicing_zh_CN", ":/Translations");
@@ -94,6 +95,7 @@ bool UserManagement_Invoicing::init(MainWindow *parent)
     }
     userManagement();
     userChanged();
+    this->parent = parent;
     return true;
 }
 
@@ -153,9 +155,14 @@ QSet<QString> UserManagement_Invoicing::getDependencySet() const
 
 void UserManagement_Invoicing::logout()
 {
+    parent->hide();
     if(!showLoginWindow()) {
         exit(0);
     }
+    else {
+        parent->show();
+    }
+
 }
 
 bool UserManagement_Invoicing::showLoginWindow()

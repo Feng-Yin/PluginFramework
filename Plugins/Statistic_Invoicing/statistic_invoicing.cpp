@@ -1431,8 +1431,10 @@ void Statistic_Invoicing::onAllProductsFilter()
             totalSelling += selling.toDouble();
         }
     }
-    allProductsSummaryLineEdit->setText(QString("Numbers of Total Products: %1  Numbers of Total Selling: %2")
-                                        .arg(totalQuantity).arg((qulonglong)totalSelling));
+    allProductsSummaryLineEdit->setText(QString(tr("Numbers of Total Products: "))
+                                        + QString("%1  ").arg(totalQuantity)
+                                        + QString(tr("Numbers of Total Selling: "))
+                                        + QString("%1").arg((qulonglong)totalSelling));
 
     mainWidget->unsetCursor();
 }
@@ -1694,8 +1696,10 @@ void Statistic_Invoicing::onUnsellProductsFilter()
             totalSelling += selling.toDouble();
         }
     }
-    unsellProductsSummaryLineEdit->setText(QString("Numbers of Total Products: %1  Numbers of Total Selling: %2")
-                                           .arg(totalQuantity).arg((qulonglong)totalSelling));
+    unsellProductsSummaryLineEdit->setText(QString(tr("Numbers of Total Products: "))
+                                           + QString("%1  ").arg(totalQuantity)
+                                           + QString(tr("Numbers of Total Selling: "))
+                                           + QString("%1").arg((qulonglong)totalSelling));
 
     mainWidget->unsetCursor();
 

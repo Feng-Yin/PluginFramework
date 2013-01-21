@@ -179,6 +179,18 @@
         <translation>序列号*：</translation>
     </message>
     <message>
+        <location filename="../statistic_invoicing.cpp" line="1434"/>
+        <location filename="../statistic_invoicing.cpp" line="1699"/>
+        <source>Numbers of Total Products: </source>
+        <translation>商品总件数： </translation>
+    </message>
+    <message>
+        <location filename="../statistic_invoicing.cpp" line="1436"/>
+        <location filename="../statistic_invoicing.cpp" line="1701"/>
+        <source>Numbers of Total Selling: </source>
+        <translation>商品总售价： </translation>
+    </message>
+    <message>
         <source>Serial Number: </source>
         <translation type="obsolete">序列号：</translation>
     </message>

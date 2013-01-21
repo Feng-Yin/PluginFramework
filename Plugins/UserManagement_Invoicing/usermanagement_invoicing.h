@@ -10,6 +10,7 @@
 
 class LoginDialog;
 class UserManagementDialog;
+class MainWindow;
 
 QT_BEGIN_NAMESPACE
 class QToolBar;
@@ -66,6 +67,7 @@ private:
     QToolBar *toolBar;
 
     UserManagementInterface *userManagementInterface;
+    MainWindow *parent;
 };
 
 
