@@ -18,7 +18,11 @@ OTHER_FILES += \
     Icon/about_icon.png \
     Translations/Invoicing_zh_CN.ts \
     Translations/Invoicing_zh_CN.qm \
-    Icon/update_icon.png
+    Icon/update_icon.png \
+    invoices.ico \
+    logo.rc
 
 RESOURCES += \
     icon.qrc
+
+RC_FILE = logo.rc
