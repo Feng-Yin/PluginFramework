@@ -52,11 +52,13 @@ isEmpty(QT_MAJOR_VERSION) {
 contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
 CONFIG(release, debug|release) {
  TARGET = $$qtLibraryTarget($$SYSZUX)
- DESTDIR=$$[QT_INSTALL_PLUGINS]/sqldrivers
+ #DESTDIR=$$[QT_INSTALL_PLUGINS]/sqldrivers
+DLLDESTDIR = ../../Main/release/sqldrivers/
 }
 CONFIG(debug, debug|release) {
  TARGET = $$qtLibraryTarget($$SYSZUX)
- DESTDIR=$$[QT_INSTALL_PLUGINS]/sqldrivers
+ #DESTDIR=$$[QT_INSTALL_PLUGINS]/sqldrivers
+DLLDESTDIR = ../../Main/debug/sqldrivers/
 }
 
 QMAKE_TARGET_COMPANY = SYSZUX

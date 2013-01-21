@@ -17,7 +17,8 @@ OTHER_FILES += \
     Icon/quit_icon.png \
     Icon/about_icon.png \
     Translations/Invoicing_zh_CN.ts \
-    Translations/Invoicing_zh_CN.qm
+    Translations/Invoicing_zh_CN.qm \
+    Icon/update_icon.png
 
 RESOURCES += \
     icon.qrc

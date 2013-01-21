@@ -151,6 +151,12 @@ void LoginDialog::onAuthenticate()
     QString username = userNameComboBox->currentText();
     QString password = passwordLineEdit->text();
     QString ipaddress = ipAddressLineEdit->text();
+    int ad0 = ipaddress.split(".").at(0).toInt();
+    int ad1 = ipaddress.split(".").at(1).toInt();
+    int ad2 = ipaddress.split(".").at(2).toInt();
+    int ad3 = ipaddress.split(".").at(3).toInt();
+    ipaddress = QString("%1.%2.%3.%4").arg(ad0).arg(ad1).arg(ad2).arg(ad3);
+    qDebug()<<ipaddress;
     if(!reAuthenticate) {
         if (!userManagementInterface->openDatabase(username, password, ipaddress)) {
             QMessageBox::critical(0, tr("Database Authenticate Error"),
@@ -285,6 +291,11 @@ void LoginDialog::onLogin()
     QString username = userNameComboBox->currentText();
     QString password = passwordLineEdit->text();
     QString ipaddress = ipAddressLineEdit->text();
+    int ad0 = ipaddress.split(".").at(0).toInt();
+    int ad1 = ipaddress.split(".").at(1).toInt();
+    int ad2 = ipaddress.split(".").at(2).toInt();
+    int ad3 = ipaddress.split(".").at(3).toInt();
+    ipaddress = QString("%1.%2.%3.%4").arg(ad0).arg(ad1).arg(ad2).arg(ad3);
     if (!userManagementInterface->openDatabase(username, password, ipaddress)) {
         QMessageBox::critical(0, tr("Database Authenticate Error"),
                               tr("Check your <b>Username</b>, <b>Password</b> & DB <b>IP</b>"));
