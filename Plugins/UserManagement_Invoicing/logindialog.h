@@ -40,6 +40,7 @@ private slots:
     void saveRegSetting();
     void populateRegSetting();
     void enableLogin(QSet<QString> dbSchemas);
+    void updateIPAddress();
 
 private:
 
@@ -51,6 +52,8 @@ private:
     QCheckBox *rememberPassword;
     QLineEdit *ipAddressLineEdit;
     QCheckBox *rememberIPAddress;
+    QLineEdit *domainNameLineEdit;
+    QCheckBox *rememberDomainName;
     QPushButton *authenticateButton;
     QLabel *dbSchemaLabel;
     QComboBox *dbSchemaComboBox;

@@ -46,6 +46,7 @@ private:
     void createStoragePanel();
     void updateStorageFilter();
     void updateOrderFilter();
+    void hidePurchasePrice();
 
 private slots:
     int updateProductinfo();

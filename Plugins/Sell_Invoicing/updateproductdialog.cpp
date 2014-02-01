@@ -570,3 +570,11 @@ void UpdateProductDialog::hideForOrderInfo()
     commentsLabel->setEnabled(false);
     commentsTextEdit->setReadOnly(true);
 }
+
+void UpdateProductDialog::hidePurchasePrice(bool hide)
+{
+    oldPurchasePriceLabel->setHidden(hide);
+    oldPurchasePriceLineEdit->setHidden(hide);
+    purchasePriceLabel->setHidden(hide);
+    purchasePriceLineEdit->setHidden(hide);
+}

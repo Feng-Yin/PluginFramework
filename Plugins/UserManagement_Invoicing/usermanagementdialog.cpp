@@ -115,6 +115,8 @@ void UserManagementDialog::createUserPanel()
                 this, SLOT(selectedUserChanged()));
 
     userLabel = new QLabel(tr("User"));
+    QString username = userManagementInterface->getCurrentUserName();
+    userLabel->setText(tr("User:(%1)").arg(username));
     userLabel->setBuddy(userView);
     addUserButton = new QPushButton(this);
     addUserButton->setAutoDefault(false);
@@ -630,6 +632,8 @@ void UserManagementDialog::addUserAccess()
 
 void UserManagementDialog::updateDBTableModel()
 {
+    QString username = userManagementInterface->getCurrentUserName();
+    userLabel->setText(tr("User:(%1)").arg(username));
     QModelIndex index = userView->currentIndex();
     userModel->select();
     if(index.isValid()) {
@@ -652,7 +656,7 @@ void UserManagementDialog::updateDBTableModel()
     userRoleModel->select();
     if(index.isValid()) {
         userRoleView->setCurrentIndex(index);
-    }
+    };
 
     index = userSchemaView->currentIndex();
     userSchemaModel->select();

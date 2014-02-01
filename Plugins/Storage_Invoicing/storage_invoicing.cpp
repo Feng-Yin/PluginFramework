@@ -115,9 +115,30 @@ void Storage_Invoicing::userChanged()
             }
         }
     }
+
+    hidePurchasePrice();
     updatePurchaseFilter();
     updateStorageFilter();
     updateDBTableModel();
+}
+
+void Storage_Invoicing::hidePurchasePrice()
+{
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
+    int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    foreach(int i, roleset) {
+        if(i == adminRoleID || i == storagerRoleID) {
+            hide = false;
+        }
+    }
+    purchaseView->setColumnHidden(OldPurchasePrice, hide);
+    purchaseView->setColumnHidden(PurchasePrice, hide);
+    storageView->setColumnHidden(OldPurchasePrice, hide);
+    storageView->setColumnHidden(PurchasePrice, hide);
 }
 
 QString Storage_Invoicing::moduleName() const

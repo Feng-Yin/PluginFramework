@@ -57,6 +57,7 @@ public:
     //for access checking
     virtual bool checkAccess(QSet<QString> accessRoleNameSet) const;
     virtual bool isAdmin(QString username) const;
+	virtual bool isStatistic(QString username) const;
     //for table schemaname
     virtual QSet<QString> getAllSchemaName() const;
     virtual QSet<int> getAllSchemaID() const;
@@ -90,12 +91,14 @@ private:
     void setDataBaseName(QString dbName) const;
     QSqlDatabase addDatabase(QString username) const;
     void removeDatabase(QString username="") const;
+    bool reopenDatabase() const;
 
 private:
 
     QString currentUser;
     QString currentDBSchema;
     QString currentIP;
+    QString currentPassword;
     QSet<UserChangeNotifyInterface *> observerSet;
 };
 

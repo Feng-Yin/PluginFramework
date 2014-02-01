@@ -23,6 +23,7 @@ class UserManagementDialog : public QWidget
     Q_OBJECT
 public:
     explicit UserManagementDialog(UserManagementInterface *userManagementInterface, QWidget *parent = 0);
+    void update() { updateDBTableModel(); }
     
 signals:
     void trigerChangePassword(QString username);

@@ -1,5 +1,7 @@
 #include <QtGui>
 #include <QChar>
+#include <QHostInfo>
+#include <QHostAddress>
 #include "logindialog.h"
 #include "usermanagement_interface.h"
 
@@ -11,6 +13,8 @@ LoginDialog::LoginDialog(UserManagementInterface *userManagementInterface, QDial
     rememberPassword(NULL),
     ipAddressLineEdit(NULL),
     rememberIPAddress(NULL),
+    domainNameLineEdit(NULL),
+    rememberDomainName(NULL),
     authenticateButton(NULL),
     dbSchemaLabel(NULL),
     dbSchemaComboBox(NULL),
@@ -64,6 +68,19 @@ void LoginDialog::init()
     mainLayout->addWidget(ipAddressLabel, 2,0, Qt::AlignRight);
     mainLayout->addWidget(ipAddressLineEdit, 2, 1);
     mainLayout->addWidget(rememberIPAddress, 2, 2);
+    //hide the ipaddress, use domain name
+    ipAddressLabel->hide();
+    ipAddressLineEdit->hide();
+    rememberIPAddress->hide();
+
+    QLabel *domainNameLabel = new QLabel(tr("DB Domain Name: "),this);
+    domainNameLineEdit = new QLineEdit(this);
+    rememberDomainName = new QCheckBox(this);
+    rememberDomainName->setToolTip(tr("Remember Domain Name"));
+    mainLayout->addWidget(domainNameLabel, 3,0, Qt::AlignRight);
+    mainLayout->addWidget(domainNameLineEdit, 3, 1);
+    mainLayout->addWidget(rememberDomainName, 3, 2);
+    //connect(domainNameLineEdit, SIGNAL(textChanged(const QString)), this, SLOT(updateIPAddress()));
 
     populateRegSetting();
 
@@ -100,6 +117,19 @@ void LoginDialog::init()
     setWindowTitle(tr("Login"));
     //QPixmap image(":/images/floodfill.png");
     setWindowIcon(QIcon(":/Icon/login_icon.png"));
+}
+
+void LoginDialog::updateIPAddress()
+{
+    QString domainname = domainNameLineEdit->text();
+    QString ipaddressFromDomainname;
+    QHostInfo host = QHostInfo::fromName(domainname);
+    if (!host.addresses().isEmpty()) {
+         QHostAddress address = host.addresses().first();
+         ipaddressFromDomainname = address.toString();
+         // use the first IP address
+     }
+    ipAddressLineEdit->setText(ipaddressFromDomainname);
 }
 
 void LoginDialog::enableLogin(QSet<QString> dbSchemas)
@@ -222,6 +252,8 @@ QStringList LoginDialog::initRegSetting()
         setting.setValue("root/rememberPassword", Qt::Unchecked);
         setting.setValue("root/ipAddress", "127.0.0.1");
         setting.setValue("root/rememberIPAddress", Qt::Unchecked);
+        setting.setValue("root/domainName", "");
+        setting.setValue("root/rememberDomainName", Qt::Unchecked);
     }
     return setting.childGroups();;
 }
@@ -260,6 +292,15 @@ void LoginDialog::saveRegSetting()
         setting.setValue("ipAddress", "");
         setting.setValue("rememberIPAddress", Qt::Unchecked);
     }
+
+    if(rememberDomainName->isChecked()) {
+        setting.setValue("domainName", domainNameLineEdit->text());
+        setting.setValue("rememberDomainName", Qt::Checked);
+    }
+    else {
+        setting.setValue("domainName", "");
+        setting.setValue("rememberDomainName", Qt::Unchecked);
+    }
     setting.endGroup();
 }
 
@@ -276,6 +317,9 @@ void LoginDialog::populateRegSetting()
         ipAddressLineEdit->setText(setting.value(QString("%1/ipAddress").arg(userNameComboBox->currentText())).toString());
         rememberIPAddress->setCheckState((Qt::CheckState)setting
                                          .value(QString("%1/rememberIPAddress").arg(userNameComboBox->currentText())).toInt());
+        domainNameLineEdit->setText(setting.value(QString("%1/domainName").arg(userNameComboBox->currentText())).toString());
+        rememberDomainName->setCheckState((Qt::CheckState)setting
+                                         .value(QString("%1/rememberDomainName").arg(userNameComboBox->currentText())).toInt());
     }
     else {
         rememberUsername->setCheckState(Qt::Checked);
@@ -283,6 +327,8 @@ void LoginDialog::populateRegSetting()
         rememberPassword->setCheckState(Qt::Unchecked);
         ipAddressLineEdit->setText("127.0.0.1");
         rememberIPAddress->setCheckState(Qt::Checked);
+        domainNameLineEdit->setText("");
+        rememberDomainName->setCheckState(Qt::Checked);
     }
 }
 
@@ -291,15 +337,26 @@ void LoginDialog::onLogin()
     QString username = userNameComboBox->currentText();
     QString password = passwordLineEdit->text();
     QString ipaddress = ipAddressLineEdit->text();
+    QString domainname = domainNameLineEdit->text();
+    QString ipaddressFromDomainname;
+    QHostInfo host = QHostInfo::fromName(domainname);
+    if (!host.addresses().isEmpty()) {
+         QHostAddress address = host.addresses().first();
+         ipaddressFromDomainname = address.toString();
+         // use the first IP address
+     }
+    QMessageBox::information(0, tr("Login"), ipaddressFromDomainname);
     int ad0 = ipaddress.split(".").at(0).toInt();
     int ad1 = ipaddress.split(".").at(1).toInt();
     int ad2 = ipaddress.split(".").at(2).toInt();
     int ad3 = ipaddress.split(".").at(3).toInt();
     ipaddress = QString("%1.%2.%3.%4").arg(ad0).arg(ad1).arg(ad2).arg(ad3);
-    if (!userManagementInterface->openDatabase(username, password, ipaddress)) {
+    if (!userManagementInterface->openDatabase(username, password, ipaddressFromDomainname)) {
         QMessageBox::critical(0, tr("Database Authenticate Error"),
                               tr("Check your <b>Username</b>, <b>Password</b> & DB <b>IP</b>"));
         return;
+//        if (!userManagementInterface->openDatabase(username, password, ipaddressFromDomainname)) {
+//        }
     }
     else {
         int userID = userManagementInterface->getUserIDByUserName(username);
@@ -310,7 +367,7 @@ void LoginDialog::onLogin()
                                          tr("Haven't create DB Schema. Pls create the DB Schema first!"));
                 createInvoicingSchema();
             }
-            else {
+            else if(!userManagementInterface->isStatistic(username)){
                 QMessageBox::information(0, tr("Setup"),
                                          tr("Haven't DB Schema access. Pls contact admin!"));
                 return;

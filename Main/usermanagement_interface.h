@@ -74,6 +74,7 @@ public:
     //for access checking
     virtual bool checkAccess(QSet<QString> accessRoleNameSet) const = 0;
     virtual bool isAdmin(QString username) const = 0;
+	virtual bool isStatistic(QString username) const  = 0;
     //for table schemaname
     virtual QSet<QString> getAllSchemaName() const = 0;
     virtual QSet<int> getAllSchemaID() const = 0;

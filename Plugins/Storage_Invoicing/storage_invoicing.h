@@ -47,6 +47,7 @@ private:
     void createStoragePanel();
     void updatePurchaseFilter();
     void updateStorageFilter();
+    void hidePurchasePrice();
 
 private slots:
     void inStorage();

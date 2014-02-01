@@ -13,6 +13,7 @@ class QToolBox;
 class QStackedWidget;
 class QTableWidget;
 class QDialog;
+class QLabel;
 QT_END_NAMESPACE
 
 class PluginInterface;
@@ -51,6 +52,7 @@ private:
     void createPluginToolBox(QWidget *toolbox, PluginInterface *plugin);
     void loadPlugins();
     PluginInterface* loadPlugin(QString filename);
+    void updateCurrentUserInfo();
 
 private:
 

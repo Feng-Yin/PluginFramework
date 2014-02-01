@@ -43,6 +43,7 @@ private:
     void initMainWidget();
     void createCashPanel();
     void updateCashFilter();
+    void hidePurchasePrice();
 
 private slots:
     void updateDBTableModel();

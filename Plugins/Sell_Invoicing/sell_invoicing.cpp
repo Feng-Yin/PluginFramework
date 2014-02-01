@@ -114,9 +114,41 @@ void Sell_Invoicing::userChanged()
             }
         }
     }
+    hidePurchasePrice();
     updateStorageFilter();
     updateOrderFilter();
     updateDBTableModel();
+}
+
+void Sell_Invoicing::hidePurchasePrice()
+{
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
+    int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    foreach(int i, roleset) {
+        if(i == adminRoleID || i == storagerRoleID) {
+            hide = false;
+        }
+    }
+    orderView->setColumnHidden(OldPurchasePrice, hide);
+    orderView->setColumnHidden(PurchasePrice, hide);
+    storageView->setColumnHidden(OldPurchasePrice, hide);
+    storageView->setColumnHidden(PurchasePrice, hide);
+
+    if(!updateOrderProductDialog) {
+        updateOrderProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+    }
+    updateOrderProductDialog->hidePurchasePrice(hide);
+    if(!updateStorageProductDialog) {
+        updateStorageProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+        connect(updateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+    }
+    updateStorageProductDialog->hidePurchasePrice(hide);
 }
 
 QString Sell_Invoicing::moduleName() const

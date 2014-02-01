@@ -106,8 +106,33 @@ void Cash_Invoicing::userChanged()
             }
         }
     }
+    hidePurchasePrice();
     updateCashFilter();
     updateDBTableModel();
+}
+
+void Cash_Invoicing::hidePurchasePrice()
+{
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
+    int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    foreach(int i, roleset) {
+        if(i == adminRoleID || i == storagerRoleID) {
+            hide = false;
+        }
+    }
+    cashView->setColumnHidden(OldPurchasePrice, hide);
+    cashView->setColumnHidden(PurchasePrice, hide);
+
+    if(!updateProductDialog) {
+        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+    }
+    updateProductDialog->hidePurchasePrice(hide);
 }
 
 QString Cash_Invoicing::moduleName() const

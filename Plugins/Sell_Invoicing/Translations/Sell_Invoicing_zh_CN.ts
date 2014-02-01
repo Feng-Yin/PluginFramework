@@ -4,168 +4,168 @@
 <context>
     <name>Sell_Invoicing</name>
     <message>
-        <location filename="../sell_invoicing.cpp" line="129"/>
+        <location filename="../sell_invoicing.cpp" line="161"/>
         <source>Sell Function</source>
         <translation>销售功能模块</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="146"/>
+        <location filename="../sell_invoicing.cpp" line="178"/>
         <source>Sell</source>
         <translation>销售</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="152"/>
+        <location filename="../sell_invoicing.cpp" line="184"/>
         <source>Submit Order</source>
         <translation>提交订单</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="159"/>
+        <location filename="../sell_invoicing.cpp" line="191"/>
         <source>Back To Storage</source>
         <translation>返回仓库</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="164"/>
+        <location filename="../sell_invoicing.cpp" line="196"/>
         <source>Available For Order :</source>
         <translation>可供销售产品：</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="165"/>
+        <location filename="../sell_invoicing.cpp" line="197"/>
         <source>Ordered :</source>
         <translation>已下单：</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="184"/>
+        <location filename="../sell_invoicing.cpp" line="216"/>
         <source>Serial Number : </source>
         <translation>序列号：</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="186"/>
+        <location filename="../sell_invoicing.cpp" line="218"/>
         <source>Filter</source>
         <translation>过滤</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="224"/>
-        <location filename="../sell_invoicing.cpp" line="286"/>
+        <location filename="../sell_invoicing.cpp" line="256"/>
+        <location filename="../sell_invoicing.cpp" line="318"/>
         <source>ID</source>
         <translation>产品ID</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="225"/>
-        <location filename="../sell_invoicing.cpp" line="287"/>
+        <location filename="../sell_invoicing.cpp" line="257"/>
+        <location filename="../sell_invoicing.cpp" line="319"/>
         <source>Serial Number</source>
         <translation>序列号</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="226"/>
-        <location filename="../sell_invoicing.cpp" line="288"/>
+        <location filename="../sell_invoicing.cpp" line="258"/>
+        <location filename="../sell_invoicing.cpp" line="320"/>
         <source>Product Type</source>
         <translation>产品类型</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="227"/>
-        <location filename="../sell_invoicing.cpp" line="289"/>
+        <location filename="../sell_invoicing.cpp" line="259"/>
+        <location filename="../sell_invoicing.cpp" line="321"/>
         <source>Brand Name</source>
         <translation>品牌名称</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="228"/>
-        <location filename="../sell_invoicing.cpp" line="290"/>
+        <location filename="../sell_invoicing.cpp" line="260"/>
+        <location filename="../sell_invoicing.cpp" line="322"/>
         <source>Model Name</source>
         <translation>产品型号</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="229"/>
-        <location filename="../sell_invoicing.cpp" line="291"/>
+        <location filename="../sell_invoicing.cpp" line="261"/>
+        <location filename="../sell_invoicing.cpp" line="323"/>
         <source>Color</source>
         <translation>产品颜色</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="230"/>
-        <location filename="../sell_invoicing.cpp" line="292"/>
+        <location filename="../sell_invoicing.cpp" line="262"/>
+        <location filename="../sell_invoicing.cpp" line="324"/>
         <source>Vendor</source>
         <translation>供应商</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="231"/>
-        <location filename="../sell_invoicing.cpp" line="293"/>
+        <location filename="../sell_invoicing.cpp" line="263"/>
+        <location filename="../sell_invoicing.cpp" line="325"/>
         <source>Schema Name</source>
         <translation>店铺名称</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="232"/>
-        <location filename="../sell_invoicing.cpp" line="294"/>
+        <location filename="../sell_invoicing.cpp" line="264"/>
+        <location filename="../sell_invoicing.cpp" line="326"/>
         <source>Quantity</source>
         <translation>数量</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="233"/>
-        <location filename="../sell_invoicing.cpp" line="295"/>
+        <location filename="../sell_invoicing.cpp" line="265"/>
+        <location filename="../sell_invoicing.cpp" line="327"/>
         <source>Unit</source>
         <translation>单位</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="234"/>
-        <location filename="../sell_invoicing.cpp" line="296"/>
+        <location filename="../sell_invoicing.cpp" line="266"/>
+        <location filename="../sell_invoicing.cpp" line="328"/>
         <source>Old Purchase Price</source>
         <translation>上次进货价格</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="235"/>
-        <location filename="../sell_invoicing.cpp" line="297"/>
+        <location filename="../sell_invoicing.cpp" line="267"/>
+        <location filename="../sell_invoicing.cpp" line="329"/>
         <source>Purchase Price</source>
         <translation>进货价格</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="236"/>
-        <location filename="../sell_invoicing.cpp" line="298"/>
+        <location filename="../sell_invoicing.cpp" line="268"/>
+        <location filename="../sell_invoicing.cpp" line="330"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="237"/>
-        <location filename="../sell_invoicing.cpp" line="299"/>
+        <location filename="../sell_invoicing.cpp" line="269"/>
+        <location filename="../sell_invoicing.cpp" line="331"/>
         <source>Operator</source>
         <translation>操作员</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="238"/>
-        <location filename="../sell_invoicing.cpp" line="300"/>
+        <location filename="../sell_invoicing.cpp" line="270"/>
+        <location filename="../sell_invoicing.cpp" line="332"/>
         <source>Responser</source>
         <translation>负责人</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="239"/>
-        <location filename="../sell_invoicing.cpp" line="301"/>
+        <location filename="../sell_invoicing.cpp" line="271"/>
+        <location filename="../sell_invoicing.cpp" line="333"/>
         <source>Seller</source>
         <translation>销售人员</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="240"/>
-        <location filename="../sell_invoicing.cpp" line="302"/>
+        <location filename="../sell_invoicing.cpp" line="272"/>
+        <location filename="../sell_invoicing.cpp" line="334"/>
         <source>BarInfo</source>
         <translation>柜台信息</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="241"/>
-        <location filename="../sell_invoicing.cpp" line="303"/>
+        <location filename="../sell_invoicing.cpp" line="273"/>
+        <location filename="../sell_invoicing.cpp" line="335"/>
         <source>Product Status</source>
         <translation>产品状态</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="242"/>
-        <location filename="../sell_invoicing.cpp" line="304"/>
+        <location filename="../sell_invoicing.cpp" line="274"/>
+        <location filename="../sell_invoicing.cpp" line="336"/>
         <source>Replacement Status</source>
         <translation>换机状态</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="243"/>
-        <location filename="../sell_invoicing.cpp" line="305"/>
+        <location filename="../sell_invoicing.cpp" line="275"/>
+        <location filename="../sell_invoicing.cpp" line="337"/>
         <source>TimeStamp</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../sell_invoicing.cpp" line="244"/>
-        <location filename="../sell_invoicing.cpp" line="306"/>
+        <location filename="../sell_invoicing.cpp" line="276"/>
+        <location filename="../sell_invoicing.cpp" line="338"/>
         <source>Comments</source>
         <translation>备注</translation>
     </message>

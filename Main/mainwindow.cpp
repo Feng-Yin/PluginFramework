@@ -2,6 +2,7 @@
 #include <typeinfo>
 #include "mainwindow.h"
 #include "plugin_interface.h"
+#include "usermanagement_interface.h"
 
 MainWindow* MainWindow::instance = NULL;
 const char *indexProperty = "widgetIndex";
@@ -56,6 +57,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setCursor(Qt::BusyCursor);
     loadPlugins();
+    currentPlugin = getPlugin("UserManagement_Invoicing");
+    //Set current user
+    updateCurrentUserInfo();
+    //end of Set current user
+
     unsetCursor();
 
     QTimer *timer = new QTimer(this);
@@ -122,7 +128,6 @@ void MainWindow::createMenus()
     toolbar->addAction(pluginAction);
     toolbar->addAction(exitAction);
     addToolBar(toolbar);
-
 }
 
 void MainWindow::createPluginToolBars()
@@ -354,6 +359,12 @@ void MainWindow::update()
 //    static int i = 0;
 //    i = i % pluginVector.size();
 //    pluginVector.at(i++)->update();
+//    qDebug()<<"currentPlugin"<<endl;
+//    qDebug()<<currentPlugin<<endl;
+    PluginInterface *plugin = getPlugin("UserManagementIF");
+    UserManagementInterface * userManagementInterface = dynamic_cast<UserManagementInterface *>(plugin);
+    updateCurrentUserInfo();
+    userManagementInterface->getDatabase();
     if(currentPlugin) {
         setCursor(Qt::BusyCursor);
         currentPlugin->update();
@@ -369,4 +380,21 @@ void MainWindow::updateAll()
 //    }
 //    unsetCursor();
     update();
+}
+
+void MainWindow::updateCurrentUserInfo()
+{
+    PluginInterface *plugin = getPlugin("UserManagementIF");
+    UserManagementInterface * userManagementInterface = dynamic_cast<UserManagementInterface *>(plugin);
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName()));
+    QString roles;
+    foreach(int i, roleset) {
+//        qDebug()<<i<<endl;
+//        qDebug()<<userManagementInterface->getRoleNameByRoleID(i)<<endl;
+        roles += userManagementInterface->getRoleNameByRoleID(i);
+        roles += " ";
+    }
+    setWindowTitle(tr("Invocing System. Current User: %1 <--> Roles: %2")
+                   .arg(userManagementInterface->getCurrentUserName()).arg(roles));
 }

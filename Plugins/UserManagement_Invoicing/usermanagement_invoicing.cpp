@@ -264,6 +264,13 @@ void UserManagement_Invoicing::changePassword(QString username)
 void UserManagement_Invoicing::switchUser()
 {
     showLoginWindow();
+    update();
+}
+
+void UserManagement_Invoicing::update()
+{
+    //qDebug()<<"UserManagement_Invoicing::update()"<<endl;
+    mainWidget->update();
 }
 
 QT_BEGIN_NAMESPACE

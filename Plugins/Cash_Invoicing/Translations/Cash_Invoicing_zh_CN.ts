@@ -4,132 +4,132 @@
 <context>
     <name>Cash_Invoicing</name>
     <message>
-        <location filename="../cash_invoicing.cpp" line="120"/>
+        <location filename="../cash_invoicing.cpp" line="145"/>
         <source>Cash Function</source>
         <translation>收银台功能模块</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="137"/>
+        <location filename="../cash_invoicing.cpp" line="162"/>
         <source>Cash</source>
         <translation>收银台</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="139"/>
+        <location filename="../cash_invoicing.cpp" line="164"/>
         <source>Serial Number : </source>
         <translation>序列号：</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="141"/>
+        <location filename="../cash_invoicing.cpp" line="166"/>
         <source>Filter</source>
         <translation>过滤</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="152"/>
+        <location filename="../cash_invoicing.cpp" line="177"/>
         <source>Waiting For Cash :</source>
         <translation>等待付款：</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="185"/>
+        <location filename="../cash_invoicing.cpp" line="210"/>
         <source>ID</source>
         <translation>产品ID</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="186"/>
+        <location filename="../cash_invoicing.cpp" line="211"/>
         <source>Serial Number</source>
         <translation>序列号</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="187"/>
+        <location filename="../cash_invoicing.cpp" line="212"/>
         <source>Product Type</source>
         <translation>产品类型</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="188"/>
+        <location filename="../cash_invoicing.cpp" line="213"/>
         <source>Brand Name</source>
         <translation>品牌名称</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="189"/>
+        <location filename="../cash_invoicing.cpp" line="214"/>
         <source>Model Name</source>
         <translation>型号</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="190"/>
+        <location filename="../cash_invoicing.cpp" line="215"/>
         <source>Color</source>
         <translation>产品颜色</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="191"/>
+        <location filename="../cash_invoicing.cpp" line="216"/>
         <source>Vendor</source>
         <translation>供应商</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="192"/>
+        <location filename="../cash_invoicing.cpp" line="217"/>
         <source>Schema Name</source>
         <translation>店铺名称</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="193"/>
+        <location filename="../cash_invoicing.cpp" line="218"/>
         <source>Quantity</source>
         <translation>数量</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="194"/>
+        <location filename="../cash_invoicing.cpp" line="219"/>
         <source>Unit</source>
         <translation>单位</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="195"/>
+        <location filename="../cash_invoicing.cpp" line="220"/>
         <source>Old Purchase Price</source>
         <translation>上次进货价格</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="196"/>
+        <location filename="../cash_invoicing.cpp" line="221"/>
         <source>Purchase Price</source>
         <translation>进货价格</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="197"/>
+        <location filename="../cash_invoicing.cpp" line="222"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="198"/>
+        <location filename="../cash_invoicing.cpp" line="223"/>
         <source>Operator</source>
         <translation>操作员</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="199"/>
+        <location filename="../cash_invoicing.cpp" line="224"/>
         <source>Responser</source>
         <translation>负责人</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="200"/>
+        <location filename="../cash_invoicing.cpp" line="225"/>
         <source>Seller</source>
         <translation>销售人员</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="201"/>
+        <location filename="../cash_invoicing.cpp" line="226"/>
         <source>BarInfo</source>
         <translation>柜台信息</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="202"/>
+        <location filename="../cash_invoicing.cpp" line="227"/>
         <source>Product Status</source>
         <translation>产品状态</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="203"/>
+        <location filename="../cash_invoicing.cpp" line="228"/>
         <source>Replacement Status</source>
         <translation>换机状态</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="204"/>
+        <location filename="../cash_invoicing.cpp" line="229"/>
         <source>TimeStamp</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../cash_invoicing.cpp" line="205"/>
+        <location filename="../cash_invoicing.cpp" line="230"/>
         <source>Comments</source>
         <translation>备注</translation>
     </message>

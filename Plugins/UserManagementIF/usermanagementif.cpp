@@ -1,5 +1,6 @@
 #include <QtSql>
 #include <QApplication>
+#include <QtGui>
 #include "usermanagementif.h"
 
 
@@ -11,6 +12,7 @@ UserManagementIF::UserManagementIF() :
     currentUser(""),
     currentDBSchema(""),
     currentIP(""),
+    currentPassword(""),
     observerSet(QSet<UserChangeNotifyInterface *>())
 {
     QDir qmdir(":/Translations");
@@ -114,7 +116,12 @@ QSqlQuery UserManagementIF::getSqlQuery() const
 
 QSqlDatabase UserManagementIF::getDatabase() const
 {
-    return QSqlDatabase::database(getDBLoginUserName("default"));
+    QSqlDatabase db = QSqlDatabase::database(getDBLoginUserName("default"));
+    QSqlQuery query(db);
+    if(db.isOpen() && !query.exec("SHOW DATABASES")) {
+        QMessageBox::critical(0, tr("Error"), tr("DB connection lost! Restart the program to try again"));
+    }
+    return db;
 }
 
 void UserManagementIF::setDataBaseName(QString dbName) const
@@ -124,6 +131,30 @@ void UserManagementIF::setDataBaseName(QString dbName) const
         QSqlQuery query(getSqlQuery());
         query.exec(QString("use %1").arg(dbName));
     }
+}
+
+bool UserManagementIF::reopenDatabase() const
+{
+    removeDatabase(currentUser);
+    {
+        QSqlDatabase db(addDatabase(currentUser));
+        db.setHostName(currentIP);
+        db.setUserName(getDBLoginUserName(currentUser));
+        db.setPassword(currentPassword);
+        if(db.open()) {
+            //qDebug()<<"QSqlDriver::Transactions "<<db.driver()->hasFeature(QSqlDriver::Transactions);
+            //create default db
+            if(!getDatabase().isValid()) {
+                QSqlDatabase defaultDB(addDatabase("default"));
+                defaultDB.setHostName(currentIP);
+                defaultDB.setUserName(getDBLoginUserName(currentUser));
+                defaultDB.setPassword(currentPassword);
+                defaultDB.open();
+            }
+        }
+    }
+    removeDatabase(currentUser);
+    return false;
 }
 
 bool UserManagementIF::openDatabase(QString username, QString password, QString ipaddress)
@@ -137,6 +168,7 @@ bool UserManagementIF::openDatabase(QString username, QString password, QString 
         if(db.open()) {
             currentUser = username;
             currentIP = ipaddress;
+            currentPassword = password;
             //qDebug()<<"QSqlDriver::Transactions "<<db.driver()->hasFeature(QSqlDriver::Transactions);
             //create default db
             if(!getDatabase().isValid()) {
@@ -221,6 +253,13 @@ bool UserManagementIF::checkAccess(QSet<QString> accessRoleNameSet) const
 bool UserManagementIF::isAdmin(QString username) const
 {
     int adminRoleID = getRoleIDByRoleName("管理员");
+    QSet<int> roleIDSet = getRoleIDSetByUserID(getUserIDByUserName(username));
+    return roleIDSet.contains(adminRoleID);
+}
+
+bool UserManagementIF::isStatistic(QString username) const
+{
+    int adminRoleID = getRoleIDByRoleName("审计");
     QSet<int> roleIDSet = getRoleIDSetByUserID(getUserIDByUserName(username));
     return roleIDSet.contains(adminRoleID);
 }

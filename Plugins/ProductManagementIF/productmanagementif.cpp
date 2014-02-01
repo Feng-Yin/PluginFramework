@@ -507,6 +507,7 @@ bool ProductManagementIF::isModelOutdate(QSqlRelationalTableModel* model, QStrin
             }
         }
     }
+
     return outDate;
 }
 

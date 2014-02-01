@@ -32,6 +32,7 @@ public:
     ~UpdateProductDialog();
     virtual void userChanged();
     void hideForOrderInfo();
+    void hidePurchasePrice(bool hide);
 
 signals:
     void productUpdated();

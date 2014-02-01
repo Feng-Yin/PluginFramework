@@ -670,3 +670,11 @@ QString UpdateProductDialog::getPrintContent()
 
 //    return ret;
 }
+
+void UpdateProductDialog::hidePurchasePrice(bool hide)
+{
+    oldPurchasePriceLabel->setHidden(hide);
+    oldPurchasePriceLineEdit->setHidden(hide);
+    purchasePriceLabel->setHidden(hide);
+    purchasePriceLineEdit->setHidden(hide);
+}
