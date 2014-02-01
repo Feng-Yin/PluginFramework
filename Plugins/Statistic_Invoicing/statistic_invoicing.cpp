@@ -94,10 +94,10 @@ Statistic_Invoicing::Statistic_Invoicing():
     commentsAllProductsLineEdit(NULL),
     commentsAllProductsCheckBox(NULL),
     startTimeAllProductsLabel(NULL),
-    startTimeAllProductsDateEdit(NULL),
+    startTimeAllProductsDateTimeEdit(NULL),
     startTimeAllProductsCheckBox(NULL),
     endTimeAllProductsLabel(NULL),
-    endTimeAllProductsDateEdit(NULL),
+    endTimeAllProductsDateTimeEdit(NULL),
     endTimeAllProductsCheckBox(NULL),
     allProductsFilterButton(NULL),
     allProductsSummaryLabel(NULL),
@@ -162,10 +162,10 @@ Statistic_Invoicing::Statistic_Invoicing():
     commentsUnsellProductsLineEdit(NULL),
     commentsUnsellProductsCheckBox(NULL),
     startTimeUnsellProductsLabel(NULL),
-    startTimeUnsellProductsDateEdit(NULL),
+    startTimeUnsellProductsDateTimeEdit(NULL),
     startTimeUnsellProductsCheckBox(NULL),
     endTimeUnsellProductsLabel(NULL),
-    endTimeUnsellProductsDateEdit(NULL),
+    endTimeUnsellProductsDateTimeEdit(NULL),
     endTimeUnsellProductsCheckBox(NULL),
     unsellProductsFilterButton(NULL),
     unsellProductsSummaryLabel(NULL),
@@ -608,26 +608,26 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     connect(commentsUnsellProductsCheckBox, SIGNAL(toggled(bool)), commentsUnsellProductsLineEdit, SLOT(setEnabled(bool)));
 
     startTimeUnsellProductsLabel = new QLabel(tr("Start Time: "), unsellProductsFilterPanel);
-    startTimeUnsellProductsDateEdit = new QDateEdit();
-    startTimeUnsellProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
-    startTimeUnsellProductsDateEdit->setDateTime(QDateTime::currentDateTime());
-    startTimeUnsellProductsDateEdit->setCalendarPopup(true);
+    startTimeUnsellProductsDateTimeEdit = new QDateTimeEdit();
+    startTimeUnsellProductsDateTimeEdit->setDisplayFormat("yyyy-MM-dd hh:mm:ss");
+    startTimeUnsellProductsDateTimeEdit->setDateTime(QDateTime::currentDateTime());
+    startTimeUnsellProductsDateTimeEdit->setCalendarPopup(true);
     startTimeUnsellProductsLabel->setEnabled(false);
-    startTimeUnsellProductsDateEdit->setEnabled(false);
+    startTimeUnsellProductsDateTimeEdit->setEnabled(false);
     startTimeUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
     connect(startTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), startTimeUnsellProductsLabel, SLOT(setEnabled(bool)));
-    connect(startTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), startTimeUnsellProductsDateEdit, SLOT(setEnabled(bool)));
+    connect(startTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), startTimeUnsellProductsDateTimeEdit, SLOT(setEnabled(bool)));
 
     endTimeUnsellProductsLabel = new QLabel(tr("End Time: "), unsellProductsFilterPanel);
-    endTimeUnsellProductsDateEdit = new QDateEdit();
-    endTimeUnsellProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
-    endTimeUnsellProductsDateEdit->setDateTime(QDateTime::currentDateTime());
-    endTimeUnsellProductsDateEdit->setCalendarPopup(true);
+    endTimeUnsellProductsDateTimeEdit = new QDateTimeEdit();
+    endTimeUnsellProductsDateTimeEdit->setDisplayFormat("yyyy-MM-dd hh:mm:ss");
+    endTimeUnsellProductsDateTimeEdit->setDateTime(QDateTime::currentDateTime());
+    endTimeUnsellProductsDateTimeEdit->setCalendarPopup(true);
     endTimeUnsellProductsLabel->setEnabled(false);
-    endTimeUnsellProductsDateEdit->setEnabled(false);
+    endTimeUnsellProductsDateTimeEdit->setEnabled(false);
     endTimeUnsellProductsCheckBox = new QCheckBox(unsellProductsFilterPanel);
     connect(endTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), endTimeUnsellProductsLabel, SLOT(setEnabled(bool)));
-    connect(endTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), endTimeUnsellProductsDateEdit, SLOT(setEnabled(bool)));
+    connect(endTimeUnsellProductsCheckBox, SIGNAL(toggled(bool)), endTimeUnsellProductsDateTimeEdit, SLOT(setEnabled(bool)));
 
     unsellProductsSummaryLabel = new QLabel(tr("Summary: "), unsellProductsFilterPanel);
     unsellProductsSummaryLineEdit = new QLineEdit(unsellProductsFilterPanel);
@@ -699,10 +699,10 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     unsellProductsFilterLayout->addWidget(commentsUnsellProductsLineEdit, 36, 1);
     unsellProductsFilterLayout->addWidget(commentsUnsellProductsCheckBox, 36, 2);
     unsellProductsFilterLayout->addWidget(startTimeUnsellProductsLabel, 36, 10, Qt::AlignRight);
-    unsellProductsFilterLayout->addWidget(startTimeUnsellProductsDateEdit, 36, 11);
+    unsellProductsFilterLayout->addWidget(startTimeUnsellProductsDateTimeEdit, 36, 11);
     unsellProductsFilterLayout->addWidget(startTimeUnsellProductsCheckBox, 36, 12);
     unsellProductsFilterLayout->addWidget(endTimeUnsellProductsLabel, 36, 20, Qt::AlignRight);
-    unsellProductsFilterLayout->addWidget(endTimeUnsellProductsDateEdit, 36, 21);
+    unsellProductsFilterLayout->addWidget(endTimeUnsellProductsDateTimeEdit, 36, 21);
     unsellProductsFilterLayout->addWidget(endTimeUnsellProductsCheckBox, 36, 22);
 
     unsellProductsFilterLayout->addWidget(unsellProductsSummaryLabel, 50, 0, Qt::AlignRight);
@@ -990,26 +990,26 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     connect(commentsAllProductsCheckBox, SIGNAL(toggled(bool)), commentsAllProductsLineEdit, SLOT(setEnabled(bool)));
 
     startTimeAllProductsLabel = new QLabel(tr("Start Time: "), allProductsFilterPanel);
-    startTimeAllProductsDateEdit = new QDateEdit();
-    startTimeAllProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
-    startTimeAllProductsDateEdit->setDateTime(QDateTime::currentDateTime());
-    startTimeAllProductsDateEdit->setCalendarPopup(true);
+    startTimeAllProductsDateTimeEdit = new QDateTimeEdit();
+    startTimeAllProductsDateTimeEdit->setDisplayFormat("yyyy-MM-dd hh:mm:ss");
+    startTimeAllProductsDateTimeEdit->setDateTime(QDateTime::currentDateTime());
+    startTimeAllProductsDateTimeEdit->setCalendarPopup(true);
     startTimeAllProductsLabel->setEnabled(false);
-    startTimeAllProductsDateEdit->setEnabled(false);
+    startTimeAllProductsDateTimeEdit->setEnabled(false);
     startTimeAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
     connect(startTimeAllProductsCheckBox, SIGNAL(toggled(bool)), startTimeAllProductsLabel, SLOT(setEnabled(bool)));
-    connect(startTimeAllProductsCheckBox, SIGNAL(toggled(bool)), startTimeAllProductsDateEdit, SLOT(setEnabled(bool)));
+    connect(startTimeAllProductsCheckBox, SIGNAL(toggled(bool)), startTimeAllProductsDateTimeEdit, SLOT(setEnabled(bool)));
 
     endTimeAllProductsLabel = new QLabel(tr("End Time: "), allProductsFilterPanel);
-    endTimeAllProductsDateEdit = new QDateEdit();
-    endTimeAllProductsDateEdit->setDisplayFormat("yyyy-MM-dd");
-    endTimeAllProductsDateEdit->setDateTime(QDateTime::currentDateTime());
-    endTimeAllProductsDateEdit->setCalendarPopup(true);
+    endTimeAllProductsDateTimeEdit = new QDateTimeEdit();
+    endTimeAllProductsDateTimeEdit->setDisplayFormat("yyyy-MM-dd hh:mm:ss");
+    endTimeAllProductsDateTimeEdit->setDateTime(QDateTime::currentDateTime());
+    endTimeAllProductsDateTimeEdit->setCalendarPopup(true);
     endTimeAllProductsLabel->setEnabled(false);
-    endTimeAllProductsDateEdit->setEnabled(false);
+    endTimeAllProductsDateTimeEdit->setEnabled(false);
     endTimeAllProductsCheckBox = new QCheckBox(allProductsFilterPanel);
     connect(endTimeAllProductsCheckBox, SIGNAL(toggled(bool)), endTimeAllProductsLabel, SLOT(setEnabled(bool)));
-    connect(endTimeAllProductsCheckBox, SIGNAL(toggled(bool)), endTimeAllProductsDateEdit, SLOT(setEnabled(bool)));
+    connect(endTimeAllProductsCheckBox, SIGNAL(toggled(bool)), endTimeAllProductsDateTimeEdit, SLOT(setEnabled(bool)));
 
     allProductsSummaryLabel = new QLabel(tr("Summary: "), allProductsFilterPanel);
     allProductsSummaryLineEdit = new QLineEdit(allProductsFilterPanel);
@@ -1081,10 +1081,10 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     allProductsFilterLayout->addWidget(commentsAllProductsLineEdit, 36, 1);
     allProductsFilterLayout->addWidget(commentsAllProductsCheckBox, 36, 2);
     allProductsFilterLayout->addWidget(startTimeAllProductsLabel, 36, 10, Qt::AlignRight);
-    allProductsFilterLayout->addWidget(startTimeAllProductsDateEdit, 36, 11);
+    allProductsFilterLayout->addWidget(startTimeAllProductsDateTimeEdit, 36, 11);
     allProductsFilterLayout->addWidget(startTimeAllProductsCheckBox, 36, 12);
     allProductsFilterLayout->addWidget(endTimeAllProductsLabel, 36, 20, Qt::AlignRight);
-    allProductsFilterLayout->addWidget(endTimeAllProductsDateEdit, 36, 21);
+    allProductsFilterLayout->addWidget(endTimeAllProductsDateTimeEdit, 36, 21);
     allProductsFilterLayout->addWidget(endTimeAllProductsCheckBox, 36, 22);
 
     allProductsFilterLayout->addWidget(allProductsSummaryLabel, 50, 0, Qt::AlignRight);
@@ -1384,7 +1384,7 @@ void Statistic_Invoicing::onAllProductsFilter()
     }
 
     if(startTimeAllProductsCheckBox->isChecked()) {
-        QDateTime startTime = startTimeAllProductsDateEdit->dateTime();
+        QDateTime startTime = startTimeAllProductsDateTimeEdit->dateTime();
         QString start = startTime.toString("yyyy-MM-dd hh:mm:ss");
         if(!start.isEmpty()) {
             QString filter = QString("timeStamp >= '%1'").arg(start);
@@ -1398,7 +1398,7 @@ void Statistic_Invoicing::onAllProductsFilter()
     }
 
     if(endTimeAllProductsCheckBox->isChecked()) {
-        QDateTime endTime = endTimeAllProductsDateEdit->dateTime();
+        QDateTime endTime = endTimeAllProductsDateTimeEdit->dateTime();
         QString end = endTime.toString("yyyy-MM-dd hh:mm:ss");
         if(!end.isEmpty()) {
             QString filter = QString("timeStamp <= '%1'").arg(end);
@@ -1649,7 +1649,7 @@ void Statistic_Invoicing::onUnsellProductsFilter()
     }
 
     if(startTimeUnsellProductsCheckBox->isChecked()) {
-        QDateTime startTime = startTimeUnsellProductsDateEdit->dateTime();
+        QDateTime startTime = startTimeUnsellProductsDateTimeEdit->dateTime();
         QString start = startTime.toString("yyyy-MM-dd hh:mm:ss");
         if(!start.isEmpty()) {
             QString filter = QString("timeStamp >= '%1'").arg(start);
@@ -1663,7 +1663,7 @@ void Statistic_Invoicing::onUnsellProductsFilter()
     }
 
     if(endTimeUnsellProductsCheckBox->isChecked()) {
-        QDateTime endTime = endTimeUnsellProductsDateEdit->dateTime();
+        QDateTime endTime = endTimeUnsellProductsDateTimeEdit->dateTime();
         QString end = endTime.toString("yyyy-MM-dd hh:mm:ss");
         if(!end.isEmpty()) {
             QString filter = QString("timeStamp <= '%1'").arg(end);

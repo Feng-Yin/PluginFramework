@@ -19,6 +19,7 @@ class QTabWidget;
 class QPushButton;
 class QRadioButton;
 class QDateEdit;
+class QDateTimeEdit;
 QT_END_NAMESPACE
 
 class UserManagementInterface;
@@ -175,11 +176,11 @@ private:
     QCheckBox *commentsAllProductsCheckBox;
 
     QLabel *startTimeAllProductsLabel;
-    QDateEdit *startTimeAllProductsDateEdit;
+    QDateTimeEdit *startTimeAllProductsDateTimeEdit;
     QCheckBox *startTimeAllProductsCheckBox;
 
     QLabel *endTimeAllProductsLabel;
-    QDateEdit *endTimeAllProductsDateEdit;
+    QDateTimeEdit *endTimeAllProductsDateTimeEdit;
     QCheckBox *endTimeAllProductsCheckBox;
 
     QPushButton *allProductsFilterButton;
@@ -263,11 +264,11 @@ private:
     QCheckBox *commentsUnsellProductsCheckBox;
 
     QLabel *startTimeUnsellProductsLabel;
-    QDateEdit *startTimeUnsellProductsDateEdit;
+    QDateTimeEdit *startTimeUnsellProductsDateTimeEdit;
     QCheckBox *startTimeUnsellProductsCheckBox;
 
     QLabel *endTimeUnsellProductsLabel;
-    QDateEdit *endTimeUnsellProductsDateEdit;
+    QDateTimeEdit *endTimeUnsellProductsDateTimeEdit;
     QCheckBox *endTimeUnsellProductsCheckBox;
 
     QPushButton *unsellProductsFilterButton;
