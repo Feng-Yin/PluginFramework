@@ -59,4 +59,5 @@ OTHER_FILES += \
     Icon/logout_icon.png \
     Icon/switchuser_icon.png \
     Translations/$${TARGET}_zh_CN.qm \
-    Translations/$${TARGET}_zh_CN.ts
+    Translations/$${TARGET}_zh_CN.ts \
+    Icon/cleanlogininfo_icon.png

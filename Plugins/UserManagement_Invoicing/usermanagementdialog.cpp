@@ -14,6 +14,7 @@ UserManagementDialog::UserManagementDialog(UserManagementInterface *userManageme
     addUserButton(NULL),
     delUserButton(NULL),
     changeUserPasswordButton(NULL),
+    cleanLoginInfoButton(NULL),
     rolePanel(NULL),
     roleModel(NULL),
     roleView(NULL),
@@ -119,22 +120,31 @@ void UserManagementDialog::createUserPanel()
     userLabel->setText(tr("User:(%1)").arg(username));
     userLabel->setBuddy(userView);
     addUserButton = new QPushButton(this);
+    addUserButton->setToolTip(tr("Add User"));
     addUserButton->setAutoDefault(false);
     addUserButton->setIcon(QIcon(":/Icon/add_icon.png"));
     connect(addUserButton, SIGNAL(clicked()), this, SLOT(addUser()));
     delUserButton = new QPushButton(this);
+    delUserButton->setToolTip(tr("Delete User"));
     delUserButton->setAutoDefault(false);
     delUserButton->setIcon(QIcon(":/Icon/delete_icon.png"));
     connect(delUserButton, SIGNAL(clicked()), this, SLOT(deleteUser()));
     changeUserPasswordButton = new QPushButton(this);
+    changeUserPasswordButton->setToolTip(tr("Change Password"));
     changeUserPasswordButton->setAutoDefault(false);
     changeUserPasswordButton->setIcon(QIcon(":/Icon/changepassword_icon.png"));
     connect(changeUserPasswordButton, SIGNAL(clicked()), this, SLOT(changeUserPassword()));
+    cleanLoginInfoButton = new QPushButton(this);
+    cleanLoginInfoButton->setToolTip(tr("Clean Login Info"));
+    cleanLoginInfoButton->setAutoDefault(false);
+    cleanLoginInfoButton->setIcon(QIcon(":/Icon/cleanlogininfo_icon.png"));
+    connect(cleanLoginInfoButton, SIGNAL(clicked()), this, SLOT(cleanLoginInfo()));
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(userLabel);
     hlayout->addWidget(addUserButton);
     hlayout->addWidget(delUserButton);
     hlayout->addWidget(changeUserPasswordButton);
+    hlayout->addWidget(cleanLoginInfoButton);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(hlayout);
@@ -166,11 +176,13 @@ void UserManagementDialog::createRolePanel()
     roleLabel = new QLabel(tr("Role"));
     roleLabel->setBuddy(roleView);
     addRoleButton = new QPushButton(this);
+    addRoleButton->setToolTip(tr("Add Roles"));
     addRoleButton->setAutoDefault(false);
     addRoleButton->setIcon(QIcon(":/Icon/add_icon.png"));
     connect(addRoleButton, SIGNAL(clicked()), this, SLOT(addRole()));
     addRoleButton->setEnabled(false);
     delRoleButton = new QPushButton(this);
+    delRoleButton->setToolTip(tr("Delete Roles"));
     delRoleButton->setAutoDefault(false);
     delRoleButton->setIcon(QIcon(":/Icon/delete_icon.png"));
     connect(delRoleButton, SIGNAL(clicked()), this, SLOT(deleteRole()));
@@ -210,10 +222,12 @@ void UserManagementDialog::createSchemaPanel()
     schemaLabel = new QLabel(tr("Schema"));
     schemaLabel->setBuddy(schemaView);
     addSchemaButton = new QPushButton(this);
+    addSchemaButton->setToolTip(tr("Add Schema"));
     addSchemaButton->setAutoDefault(false);
     addSchemaButton->setIcon(QIcon(":/Icon/add_icon.png"));
     connect(addSchemaButton, SIGNAL(clicked()), this, SLOT(addSchema()));
     delSchemaButton = new QPushButton(this);
+    delSchemaButton->setToolTip(tr("Delete Schema"));
     delSchemaButton->setAutoDefault(false);
     delSchemaButton->setIcon(QIcon(":/Icon/delete_icon.png"));
     connect(delSchemaButton, SIGNAL(clicked()), this, SLOT(deleteSchema()));
@@ -257,10 +271,12 @@ void UserManagementDialog::createUserRolePanel()
     userRoleLabel = new QLabel(tr("User-Role"));
     userRoleLabel->setBuddy(userRoleView);
     addUserRoleButton = new QPushButton(this);
+    addUserRoleButton->setToolTip(tr("Add Rolse for User"));
     addUserRoleButton->setAutoDefault(false);
     addUserRoleButton->setIcon(QIcon(":/Icon/add_icon.png"));
     connect(addUserRoleButton, SIGNAL(clicked()), this, SLOT(addUserRole()));
     delUserRoleButton = new QPushButton(this);
+    delUserRoleButton->setToolTip(tr("Delete Rolse for User"));
     delUserRoleButton->setAutoDefault(false);
     delUserRoleButton->setIcon(QIcon(":/Icon/delete_icon.png"));
     connect(delUserRoleButton, SIGNAL(clicked()), this, SLOT(deleteUserRole()));
@@ -303,10 +319,12 @@ void UserManagementDialog::createUserSchemaPanel()
     userSchemaLabel = new QLabel(tr("User-Schema"));
     userSchemaLabel->setBuddy(userSchemaView);
     addUserSchemaButton = new QPushButton(this);
+    addUserSchemaButton->setToolTip(tr("Add Schema for User"));
     addUserSchemaButton->setAutoDefault(false);
     addUserSchemaButton->setIcon(QIcon(":/Icon/add_icon.png"));
     connect(addUserSchemaButton, SIGNAL(clicked()), this, SLOT(addUserSchema()));
     delUserSchemaButton = new QPushButton(this);
+    delUserSchemaButton->setToolTip(tr("Delete Schema for User"));
     delUserSchemaButton->setAutoDefault(false);
     delUserSchemaButton->setIcon(QIcon(":/Icon/delete_icon.png"));
     connect(delUserSchemaButton, SIGNAL(clicked()), this, SLOT(deleteUserSchema()));
@@ -590,6 +608,18 @@ void UserManagementDialog::changeUserPassword()
     if(!username.isEmpty()) {
         emit(trigerChangePassword(username));
     }
+}
+
+void UserManagementDialog::cleanLoginInfo()
+{
+    QSettings setting("BenYin", "LoginWindow");
+    QModelIndex index = userView->currentIndex();
+    if(!index.isValid()) {
+        return;
+    }
+    QString username = userModel->record(index.row()).value("name").toString();
+    qDebug()<<"cleanLoginInfo "<<username<<endl;
+    setting.remove(username);
 }
 
 void UserManagementDialog::addUserAccess()

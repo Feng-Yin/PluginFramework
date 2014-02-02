@@ -8,5 +8,6 @@
         <file>Icon/logout_icon.png</file>
         <file>Icon/switchuser_icon.png</file>
         <file>Translations/UserManagement_Invoicing_zh_CN.qm</file>
+        <file>Icon/cleanlogininfo_icon.png</file>
     </qresource>
 </RCC>

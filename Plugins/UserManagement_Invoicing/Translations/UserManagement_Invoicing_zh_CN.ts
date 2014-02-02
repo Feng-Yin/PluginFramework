@@ -116,259 +116,315 @@
 <context>
     <name>UserManagementDialog</name>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="76"/>
-        <location filename="../usermanagementdialog.cpp" line="78"/>
+        <location filename="../usermanagementdialog.cpp" line="77"/>
+        <location filename="../usermanagementdialog.cpp" line="79"/>
         <source>User Management</source>
         <translation>用户管理</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="100"/>
-        <location filename="../usermanagementdialog.cpp" line="152"/>
-        <location filename="../usermanagementdialog.cpp" line="196"/>
-        <location filename="../usermanagementdialog.cpp" line="241"/>
-        <location filename="../usermanagementdialog.cpp" line="287"/>
+        <location filename="../usermanagementdialog.cpp" line="101"/>
+        <location filename="../usermanagementdialog.cpp" line="162"/>
+        <location filename="../usermanagementdialog.cpp" line="208"/>
+        <location filename="../usermanagementdialog.cpp" line="255"/>
+        <location filename="../usermanagementdialog.cpp" line="303"/>
         <source>ID</source>
         <translation>用户ID</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="101"/>
-        <location filename="../usermanagementdialog.cpp" line="242"/>
-        <location filename="../usermanagementdialog.cpp" line="288"/>
+        <location filename="../usermanagementdialog.cpp" line="102"/>
+        <location filename="../usermanagementdialog.cpp" line="256"/>
+        <location filename="../usermanagementdialog.cpp" line="304"/>
         <source>User Name</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="117"/>
+        <location filename="../usermanagementdialog.cpp" line="118"/>
         <source>User</source>
         <translation>用户</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="119"/>
-        <location filename="../usermanagementdialog.cpp" line="636"/>
+        <location filename="../usermanagementdialog.cpp" line="120"/>
+        <location filename="../usermanagementdialog.cpp" line="666"/>
         <source>User:(%1)</source>
         <translation>用户:(%1)</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="153"/>
-        <location filename="../usermanagementdialog.cpp" line="166"/>
-        <location filename="../usermanagementdialog.cpp" line="243"/>
+        <location filename="../usermanagementdialog.cpp" line="123"/>
+        <source>Add User</source>
+        <translation>添加用户</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="128"/>
+        <source>Delete User</source>
+        <translation>删除用户</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="133"/>
+        <source>Change Password</source>
+        <translation>修改密码</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="138"/>
+        <source>Clean Login Info</source>
+        <translation>清除登陆信息</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="163"/>
+        <location filename="../usermanagementdialog.cpp" line="176"/>
+        <location filename="../usermanagementdialog.cpp" line="257"/>
         <source>Role</source>
         <translation>角色</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="197"/>
-        <location filename="../usermanagementdialog.cpp" line="210"/>
-        <location filename="../usermanagementdialog.cpp" line="289"/>
+        <location filename="../usermanagementdialog.cpp" line="179"/>
+        <source>Add Roles</source>
+        <translation>添加角色</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="185"/>
+        <source>Delete Roles</source>
+        <translation>删除角色</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="209"/>
+        <location filename="../usermanagementdialog.cpp" line="222"/>
+        <location filename="../usermanagementdialog.cpp" line="305"/>
         <source>Schema</source>
         <translation>店铺</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="257"/>
+        <location filename="../usermanagementdialog.cpp" line="230"/>
+        <source>Delete Schema</source>
+        <translation>删除店铺</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="271"/>
         <source>User-Role</source>
         <translation>用户角色关系</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="303"/>
+        <location filename="../usermanagementdialog.cpp" line="274"/>
+        <source>Add Rolse for User</source>
+        <translation>给用户添加角色</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="279"/>
+        <source>Delete Rolse for User</source>
+        <translation>删除用户的角色</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="319"/>
         <source>User-Schema</source>
         <translation>用户可访问店铺</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="329"/>
+        <location filename="../usermanagementdialog.cpp" line="322"/>
+        <source>Add Schema for User</source>
+        <translation>给用户添加店铺访问权限</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="327"/>
+        <source>Delete Schema for User</source>
+        <translation>删除用户的店铺访问权限</translation>
+    </message>
+    <message>
+        <location filename="../usermanagementdialog.cpp" line="347"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="331"/>
+        <location filename="../usermanagementdialog.cpp" line="349"/>
         <source>Add User Role and Schema Access</source>
         <translation>添加用户角色及店铺访问权限</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="355"/>
+        <location filename="../usermanagementdialog.cpp" line="373"/>
         <source>Role Assign to User: %1</source>
         <translation>赋予用户“%1”角色</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="358"/>
+        <location filename="../usermanagementdialog.cpp" line="376"/>
         <source>Schema Assign to User: %1</source>
         <translation>赋予用户“%1”店铺访问权限</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="368"/>
-        <location filename="../usermanagementdialog.cpp" line="383"/>
-        <location filename="../usermanagementdialog.cpp" line="398"/>
+        <location filename="../usermanagementdialog.cpp" line="386"/>
+        <location filename="../usermanagementdialog.cpp" line="401"/>
+        <location filename="../usermanagementdialog.cpp" line="416"/>
         <source>Create User</source>
         <translation>创建用户</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="368"/>
+        <location filename="../usermanagementdialog.cpp" line="386"/>
         <source>User Name: </source>
         <translation>用户名：</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="384"/>
+        <location filename="../usermanagementdialog.cpp" line="402"/>
         <source>Password for user &apos;%1&apos;: </source>
         <translation>输入用户“%1”的密码：</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="391"/>
-        <location filename="../usermanagementdialog.cpp" line="394"/>
-        <location filename="../usermanagementdialog.cpp" line="408"/>
+        <location filename="../usermanagementdialog.cpp" line="409"/>
+        <location filename="../usermanagementdialog.cpp" line="412"/>
+        <location filename="../usermanagementdialog.cpp" line="426"/>
         <source>Create User Error</source>
         <translation>创建用户失败</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="391"/>
+        <location filename="../usermanagementdialog.cpp" line="409"/>
         <source>Password can&apos;t be empty !</source>
         <translation>密码不能为空！</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="394"/>
+        <location filename="../usermanagementdialog.cpp" line="412"/>
         <source>Password illegal !</source>
         <translation>密码非法！</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="399"/>
+        <location filename="../usermanagementdialog.cpp" line="417"/>
         <source>Re-confirm Password for user &apos;%1&apos;: </source>
         <translation>再次输入用户“%1”的密码：</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="409"/>
+        <location filename="../usermanagementdialog.cpp" line="427"/>
         <source>The two entries of the new password don&apos;t match , Retry !</source>
         <translation>两次输入的密码不一致，请重新输入！</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="435"/>
         <location filename="../usermanagementdialog.cpp" line="453"/>
+        <location filename="../usermanagementdialog.cpp" line="471"/>
         <source>Delete User Error</source>
         <translation>删除用户失败</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="436"/>
+        <location filename="../usermanagementdialog.cpp" line="454"/>
         <source>The default user &apos;%1&apos; can&apos;t be delete !</source>
         <translation>不允许删除默认用户“%1”！</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="454"/>
+        <location filename="../usermanagementdialog.cpp" line="472"/>
         <source>Delete user %1 error! it&apos;s in using</source>
         <translation>删除用户失败，用户“%1”正在使用</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="471"/>
+        <location filename="../usermanagementdialog.cpp" line="489"/>
         <source>Create DB Schema</source>
         <translation>创建店铺</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="471"/>
+        <location filename="../usermanagementdialog.cpp" line="489"/>
         <source>DB Schema Name: </source>
         <translation>店铺名称：</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="501"/>
+        <location filename="../usermanagementdialog.cpp" line="519"/>
         <source>Delete Schema Error</source>
         <translation>删除店铺失败</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="502"/>
+        <location filename="../usermanagementdialog.cpp" line="520"/>
         <source>Delete schema %1 error! it&apos;s in using</source>
         <translation>删除店铺失败，店铺“%1”正在使用</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="511"/>
-        <location filename="../usermanagementdialog.cpp" line="516"/>
-        <location filename="../usermanagementdialog.cpp" line="619"/>
-        <location filename="../usermanagementdialog.cpp" line="623"/>
+        <location filename="../usermanagementdialog.cpp" line="529"/>
+        <location filename="../usermanagementdialog.cpp" line="534"/>
+        <location filename="../usermanagementdialog.cpp" line="649"/>
+        <location filename="../usermanagementdialog.cpp" line="653"/>
         <source>Add User Role Error</source>
         <translation>添加用户角色失败</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="512"/>
-        <location filename="../usermanagementdialog.cpp" line="532"/>
+        <location filename="../usermanagementdialog.cpp" line="530"/>
+        <location filename="../usermanagementdialog.cpp" line="550"/>
         <source>The role of default user &apos;%1&apos; can&apos;t be changed</source>
         <translation>不允许改变默认用户“%1”的角色</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="517"/>
-        <location filename="../usermanagementdialog.cpp" line="620"/>
+        <location filename="../usermanagementdialog.cpp" line="535"/>
+        <location filename="../usermanagementdialog.cpp" line="650"/>
         <source>The admin user &apos;%1&apos; has all role access</source>
         <translation>管理员“%1”已拥有所有角色的访问权限</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="531"/>
+        <location filename="../usermanagementdialog.cpp" line="549"/>
         <source>Delete User Role Error</source>
         <translation>删除用户角色失败</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="551"/>
-        <location filename="../usermanagementdialog.cpp" line="556"/>
-        <location filename="../usermanagementdialog.cpp" line="607"/>
+        <location filename="../usermanagementdialog.cpp" line="569"/>
+        <location filename="../usermanagementdialog.cpp" line="574"/>
+        <location filename="../usermanagementdialog.cpp" line="637"/>
         <source>Add User Schema Error</source>
         <translation>添加用户店铺访问权限失败</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="552"/>
-        <location filename="../usermanagementdialog.cpp" line="572"/>
+        <location filename="../usermanagementdialog.cpp" line="570"/>
+        <location filename="../usermanagementdialog.cpp" line="590"/>
         <source>The schema of default user &apos;%1&apos; can&apos;t be changed</source>
         <translation>不允许改变默认用户“%1”的店铺访问权限</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="557"/>
+        <location filename="../usermanagementdialog.cpp" line="575"/>
         <source>The admin user &apos;%1&apos; has all schema access</source>
         <translation>管理员“%1”已拥有所有店铺的访问权限</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="571"/>
+        <location filename="../usermanagementdialog.cpp" line="589"/>
         <source>Delete User Schema Error</source>
         <translation>删除用户可访问店铺权限失败</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="608"/>
+        <location filename="../usermanagementdialog.cpp" line="638"/>
         <source>The user &apos;%1&apos; has schema &apos;%2&apos; access already</source>
         <translation>用户“%1”已拥有店铺“%2”的访问权限</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="624"/>
+        <location filename="../usermanagementdialog.cpp" line="654"/>
         <source>The user &apos;%1&apos; has role &apos;%2&apos; access already</source>
         <translation>用户“%1”已拥有角色“%2”的访问权限</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="676"/>
+        <location filename="../usermanagementdialog.cpp" line="706"/>
         <source>Add Role</source>
         <translation>添加角色</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="677"/>
+        <location filename="../usermanagementdialog.cpp" line="707"/>
         <source>Add role for user &apos;%1&apos; :</source>
         <translation>给用户“%1”赋予角色：</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="682"/>
+        <location filename="../usermanagementdialog.cpp" line="225"/>
+        <location filename="../usermanagementdialog.cpp" line="712"/>
         <source>Add Schema</source>
         <translation>添加店铺</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="683"/>
+        <location filename="../usermanagementdialog.cpp" line="713"/>
         <source>Add schema for user &apos;%1&apos; :</source>
         <translation>给用户“%1”添加店铺访问权限：</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="693"/>
-        <location filename="../usermanagementdialog.cpp" line="698"/>
-        <location filename="../usermanagementdialog.cpp" line="717"/>
+        <location filename="../usermanagementdialog.cpp" line="723"/>
+        <location filename="../usermanagementdialog.cpp" line="728"/>
+        <location filename="../usermanagementdialog.cpp" line="747"/>
         <source>Username Error</source>
         <translation>用户名错误</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="693"/>
+        <location filename="../usermanagementdialog.cpp" line="723"/>
         <source>User can&apos;t be empty, Try another !</source>
         <translation>用户名不能为空，请重试！</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="698"/>
+        <location filename="../usermanagementdialog.cpp" line="728"/>
         <source>User has existed, Try another !</source>
         <translation>用户名已存在，请重试！</translation>
     </message>
     <message>
-        <location filename="../usermanagementdialog.cpp" line="717"/>
+        <location filename="../usermanagementdialog.cpp" line="747"/>
         <source>User name too long, Try another !</source>
         <translation>用户名太长，请重试！</translation>
     </message>

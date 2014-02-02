@@ -44,6 +44,7 @@ private slots:
     void addUserSchema();
     void deleteUserSchema();
     void changeUserPassword();
+    void cleanLoginInfo();
     void addUserAccess();
     void updateDBTableModel();
 
@@ -69,6 +70,7 @@ private:
     QPushButton *addUserButton;
     QPushButton *delUserButton;
     QPushButton *changeUserPasswordButton;
+    QPushButton *cleanLoginInfoButton;
 
     QWidget *rolePanel;
     QSqlRelationalTableModel *roleModel;
