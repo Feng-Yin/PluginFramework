@@ -50,6 +50,8 @@ private:
     void hidePurchasePrice();
 
 private slots:
+    void returnToVendor();
+    void deleteProduct();
     void inStorage();
     void allInStorage();
     void outStorage();
@@ -71,6 +73,8 @@ private:
     QTableView *purchaseView;
     QPushButton *inStoragePushButton;
     QPushButton *inAllStoragePushButton;
+    QPushButton *returnToVendorPushButton;
+    QPushButton *deleteProductPushButton;
 
     QWidget *storagePanel;
     QSqlRelationalTableModel *storageModel;

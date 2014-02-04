@@ -49,6 +49,7 @@ private:
     void initMainWidget();
     void createPurchasePanel();
     void updatePurchaseFilter();
+    void hidePurchasePrice();
 
 
 private slots:

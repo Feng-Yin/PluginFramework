@@ -51,7 +51,9 @@ OTHER_FILES += \
     Icon/down_icon.png \
     Icon/update_icon.png \
     Translations/$${TARGET}_zh_CN.ts \
-    Translations/$${TARGET}_zh_CN.qm
+    Translations/$${TARGET}_zh_CN.qm \
+    Icon/deleteproduct_icon.png \
+    Icon/return_icon.png
 
 RESOURCES += \
     icon.qrc

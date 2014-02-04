@@ -151,18 +151,43 @@ void AddProductDialog::init()
 
     oldPurchasePriceLabel = new QLabel(tr("Old Purchase Price: "), this);
     oldPurchasePriceLineEdit = new QLineEdit(this);
-    oldPurchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
+    oldPurchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
 
     purchasePriceLabel = new QLabel(tr("Purchase Price: "), this);
     purchasePriceLineEdit = new QLineEdit(this);
-    purchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
+    purchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
 
     sellingPriceLabel = new QLabel(tr("Selling Price: "), this);
     sellingPriceLineEdit = new QLineEdit(this);
-    sellingPriceLineEdit->setValidator(new QRegExpValidator(QRegExp("[1-9][0-9]*\\.?[0-9]*"), this));
+    sellingPriceLineEdit->setValidator(new QRegExpValidator(QRegExp("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
 
     commentsLabel = new QLabel(tr("Comments: "), this);
     commentsTextEdit = new QTextEdit(this);
+
+
+    productTypeComboBox->setCurrentIndex(
+                productTypeComboBox->findText("其它"));
+
+    brandNameComboBox->setCurrentIndex(
+                brandNameComboBox->findText("其它"));
+
+    productModelComboBox->setCurrentIndex(
+                productModelComboBox->findText("其它"));
+
+    productColorComboBox->setCurrentIndex(
+                productColorComboBox->findText("其它"));
+
+    productVendorComboBox->setCurrentIndex(
+                productVendorComboBox->findText("其它"));
+
+    replacementInfoComboBox->setCurrentIndex(
+                replacementInfoComboBox->findText("否"));
+
+    schemaComboBox->setCurrentIndex(
+                schemaComboBox->findText("未指定"));
+
+    sellerComboBox->setCurrentIndex(
+                sellerComboBox->findText("未指定"));
 
     QGridLayout *mainLayout = new QGridLayout(this);
     mainLayout->addWidget(serialNumberLabel, 0, 0, Qt::AlignRight);
@@ -268,6 +293,9 @@ void AddProductDialog::addProduct()
     }
 
     QString productType = productTypeComboBox->currentText();
+    QString brandName = brandNameComboBox->currentText();
+    QString productModel = productModelComboBox->currentText();
+
     productType.simplified();
     if(productType.isEmpty()) {
         QMessageBox::critical(this, tr("Add Product Error"), tr("Product Type can't be empty !"));
@@ -277,13 +305,10 @@ void AddProductDialog::addProduct()
     int productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
     if(!productTypeID) {
         productManagementInterface->addProductType(productType);
-        productTypeModel->select();
-        productTypeComboBox->setCurrentIndex(
-                    productTypeComboBox->findText(productType));
         productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
     }
 
-    QString brandName = brandNameComboBox->currentText();
+
     brandName.simplified();
     if(brandName.isEmpty()) {
         QMessageBox::critical(this, tr("Add Product Error"), tr("Brand Name can't be empty !"));
@@ -293,14 +318,10 @@ void AddProductDialog::addProduct()
     int brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
     if(!brandNameID) {
         productManagementInterface->addBrandName(brandName);
-        //brandNameModel->select();
-        populateBrandNameComboBox();
-        brandNameComboBox->setCurrentIndex(
-                    brandNameComboBox->findText(brandName));
         brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
     }
 
-    QString productModel = productModelComboBox->currentText();
+
     productModel.simplified();
     if(productModel.isEmpty()) {
         QMessageBox::critical(this, tr("Add Product Error"), tr("Product Model can't be empty !"));
@@ -310,9 +331,6 @@ void AddProductDialog::addProduct()
     int productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, productModel);
     if(!productModelID) {
         productManagementInterface->addProductModel(productTypeID, brandNameID, productModel);
-        productModelModel->select();
-        productModelComboBox->setCurrentIndex(
-                    productModelComboBox->findText(productModel));
         productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, productModel);
     }
 
@@ -326,9 +344,6 @@ void AddProductDialog::addProduct()
     int productColorID = productManagementInterface->getColorIDByColorName(productColor);
     if(!productColorID) {
         productManagementInterface->addColorName(productColor);
-        productColorModel->select();
-        productColorComboBox->setCurrentIndex(
-                    productColorComboBox->findText(productColor));
         productColorID = productManagementInterface->getColorIDByColorName(productColor);
     }
 
@@ -342,9 +357,6 @@ void AddProductDialog::addProduct()
     int productVendorID = productManagementInterface->getVendorIDByVendorName(productVendor);
     if(!productVendorID) {
         productManagementInterface->addVendorName(productVendor);
-        productVendorModel->select();
-        productVendorComboBox->setCurrentIndex(
-                    productVendorComboBox->findText(productVendor));
         productVendorID = productManagementInterface->getVendorIDByVendorName(productVendor);
     }
 
@@ -364,7 +376,8 @@ void AddProductDialog::addProduct()
     QString purchasePrice = purchasePriceLineEdit->text().simplified();
     QString sellingPrice = sellingPriceLineEdit->text().simplified();
 
-    int schemaID = userManagementInterface->getSchemaIDBySchemaName(schemaComboBox->currentText());
+    QString schemaInfo = schemaComboBox->currentText();
+    int schemaID = userManagementInterface->getSchemaIDBySchemaName(schemaInfo);
     int quantity = quantitySpinBox->value();
     int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
     int statusID = productManagementInterface->getStatusIDByStatusName("录入");
@@ -382,6 +395,7 @@ void AddProductDialog::addProduct()
                                                    sellingPrice, userID, userID, sellerID, "未指定", statusID,
                                                    replacementInfoID, timeStamp, comments);
     emit(productAdded());
+    updateDBTableModel();
     serialNumberLineEdit->clear();
     serialNumberLineEdit->setFocus();
 }
@@ -485,42 +499,69 @@ void AddProductDialog::populateSellerNameComboBox() const
 
 void AddProductDialog::updateDBTableModel()
 {
-//    QString tmp = productTypeComboBox->currentText();
-//    QModelIndex index = productTypeComboBox->view()->currentIndex();
-//    productTypeModel->select();
-//    qDebug()<<tmp;
-//    if(productTypeComboBox->findText(tmp)==-1) {
-//        productTypeComboBox->setEditText(tmp);
-//    }
-//    else if(index.isValid()) {
-//        productTypeComboBox->view()->setCurrentIndex(index);
-//    }
-//    else {
-//        productTypeComboBox->setEditText(tmp);
-//    }
-//    QString tmp = productTypeComboBox->currentText();
-//    productTypeModel->select();
-//    productTypeComboBox->setEditText(tmp);
-
-
-//    tmp = brandNameComboBox->currentText();
-//    brandNameModel->select();
-//    brandNameComboBox->setEditText(tmp);
-
-//    tmp = productModelComboBox->currentText();
-//    productModelModel->select();
-//    productModelComboBox->setEditText(tmp);
+    QString productType = productTypeComboBox->currentText();
+    QString brandName = brandNameComboBox->currentText();
+    QString productModel = productModelComboBox->currentText();
+    QString productColor = productColorComboBox->currentText();
+    QString productVendor = productVendorComboBox->currentText();
+    QString replacementInfo = replacementInfoComboBox->currentText();
+    QString schemaInfo = schemaComboBox->currentText();
+    QString sellerName = sellerComboBox->currentText();
 
     productTypeModel->select();
     //brandNameModel->select();
     populateBrandNameComboBox();
     productModelModel->select();
+    productColorModel->select();
+    productVendorModel->select();
+    replacementInfoModel->select();
     populateSchemaComboBox();
     populateSellerNameComboBox();
+
+    if(!productType.simplified().isEmpty()) {
+        productTypeComboBox->setCurrentIndex(
+                    productTypeComboBox->findText(productType));
+    }
+    if(!brandName.simplified().isEmpty()) {
+        brandNameComboBox->setCurrentIndex(
+                    brandNameComboBox->findText(brandName));
+    }
+    if(!productModel.simplified().isEmpty()) {
+        productModelComboBox->setCurrentIndex(
+                    productModelComboBox->findText(productModel));
+    }
+    if(!productColor.simplified().isEmpty()) {
+        productColorComboBox->setCurrentIndex(
+                    productColorComboBox->findText(productColor));
+    }
+    if(!productVendor.simplified().isEmpty()) {
+        productVendorComboBox->setCurrentIndex(
+                    productVendorComboBox->findText(productVendor));
+    }
+    if(!replacementInfo.simplified().isEmpty()) {
+        replacementInfoComboBox->setCurrentIndex(
+                    replacementInfoComboBox->findText(replacementInfo));
+    }
+    if(!schemaInfo.simplified().isEmpty()) {
+        schemaComboBox->setCurrentIndex(
+                    schemaComboBox->findText(schemaInfo));
+    }
+    if(!sellerName.simplified().isEmpty()) {
+        sellerComboBox->setCurrentIndex(
+                    sellerComboBox->findText(sellerName));
+    }
 }
 
 void AddProductDialog::userChanged()
 {
     populateSchemaComboBox();
     populateSellerNameComboBox();
+}
+
+void AddProductDialog::hidePurchasePrice(bool hide)
+{
+    oldPurchasePriceLabel->setHidden(hide);
+    oldPurchasePriceLineEdit->setHidden(hide);
+    purchasePriceLabel->setHidden(hide);
+    purchasePriceLineEdit->setHidden(hide);
 }

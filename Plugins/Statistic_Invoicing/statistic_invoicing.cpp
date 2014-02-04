@@ -264,6 +264,7 @@ void Statistic_Invoicing::userChanged()
             }
         }
     }
+    hidePurchasePrice();
 }
 
 QString Statistic_Invoicing::moduleName() const
@@ -357,6 +358,33 @@ void Statistic_Invoicing::createAllProductsPanel()
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(allProductsView);
     allProductsPanel->setLayout(layout);
+
+    productTypeAllProductsComboBox->setCurrentIndex(
+                productTypeAllProductsComboBox->findText("其它"));
+
+    brandNameAllProductsComboBox->setCurrentIndex(
+                brandNameAllProductsComboBox->findText("其它"));
+
+    productModelAllProductsComboBox->setCurrentIndex(
+                productModelAllProductsComboBox->findText("其它"));
+
+    productColorAllProductsComboBox->setCurrentIndex(
+                productColorAllProductsComboBox->findText("其它"));
+
+    productVendorAllProductsComboBox->setCurrentIndex(
+                productVendorAllProductsComboBox->findText("其它"));
+
+    replacementInfoAllProductsComboBox->setCurrentIndex(
+                replacementInfoAllProductsComboBox->findText("否"));
+
+    productStatusAllProductsComboBox->setCurrentIndex(
+                productStatusAllProductsComboBox->findText("已删除"));
+
+    sellerAllProductsComboBox->setCurrentIndex(
+                sellerAllProductsComboBox->findText("未指定"));
+
+    schemaAllProductsComboBox->setCurrentIndex(
+                schemaAllProductsComboBox->findText("未指定"));
 }
 
 void Statistic_Invoicing::createUnsellProductsPanel()
@@ -422,7 +450,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
 {
     unsellProductsFilterPanel = new QWidget();
 
-    serialNumberUnsellProductsLabel = new QLabel(tr("Serial Number*: "), unsellProductsFilterPanel);
+    serialNumberUnsellProductsLabel = new QLabel(tr("Serial Number: "), unsellProductsFilterPanel);
     serialNumberUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
     serialNumberUnsellProductsLabel->setEnabled(false);
     serialNumberUnsellProductsLineEdit->setEnabled(false);
@@ -515,7 +543,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     connect(replacementInfoUnsellProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoUnsellProductsLabel, SLOT(setEnabled(bool)));
     connect(replacementInfoUnsellProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoUnsellProductsComboBox, SLOT(setEnabled(bool)));
 
-    barInfoUnsellProductsLabel = new QLabel(tr("Bar Info*: "), unsellProductsFilterPanel);
+    barInfoUnsellProductsLabel = new QLabel(tr("Bar Info: "), unsellProductsFilterPanel);
     barInfoUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
     barInfoUnsellProductsLabel->setEnabled(false);
     barInfoUnsellProductsLineEdit->setEnabled(false);
@@ -599,7 +627,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     connect(sellingPriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceUnsellProductsLabel, SLOT(setEnabled(bool)));
     connect(sellingPriceUnsellProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceUnsellProductsLineEdit, SLOT(setEnabled(bool)));
 
-    commentsUnsellProductsLabel = new QLabel(tr("Comments*: "), unsellProductsFilterPanel);
+    commentsUnsellProductsLabel = new QLabel(tr("Comments: "), unsellProductsFilterPanel);
     commentsUnsellProductsLineEdit = new QLineEdit(unsellProductsFilterPanel);
     commentsUnsellProductsLabel->setEnabled(false);
     commentsUnsellProductsLineEdit->setEnabled(false);
@@ -736,6 +764,33 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     unsellProductsFilterLayout->addWidget(unsellProductsPanel, 55, 0, 1, unsellProductsFilterLayout->columnCount());
 
     unsellProductsFilterPanel->setLayout(unsellProductsFilterLayout);
+
+    productTypeUnsellProductsComboBox->setCurrentIndex(
+                productTypeUnsellProductsComboBox->findText("其它"));
+
+    brandNameUnsellProductsComboBox->setCurrentIndex(
+                brandNameUnsellProductsComboBox->findText("其它"));
+
+    productModelUnsellProductsComboBox->setCurrentIndex(
+                productModelUnsellProductsComboBox->findText("其它"));
+
+    productColorUnsellProductsComboBox->setCurrentIndex(
+                productColorUnsellProductsComboBox->findText("其它"));
+
+    productVendorUnsellProductsComboBox->setCurrentIndex(
+                productVendorUnsellProductsComboBox->findText("其它"));
+
+    replacementInfoUnsellProductsComboBox->setCurrentIndex(
+                replacementInfoUnsellProductsComboBox->findText("否"));
+
+    productStatusUnsellProductsComboBox->setCurrentIndex(
+                productStatusUnsellProductsComboBox->findText("已删除"));
+
+    sellerUnsellProductsComboBox->setCurrentIndex(
+                sellerUnsellProductsComboBox->findText("未指定"));
+
+    schemaUnsellProductsComboBox->setCurrentIndex(
+                schemaUnsellProductsComboBox->findText("未指定"));
 }
 
 void Statistic_Invoicing::createBarChartPanel()
@@ -804,7 +859,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
 {
     allProductsFilterPanel = new QWidget();
 
-    serialNumberAllProductsLabel = new QLabel(tr("Serial Number*: "), allProductsFilterPanel);
+    serialNumberAllProductsLabel = new QLabel(tr("Serial Number: "), allProductsFilterPanel);
     serialNumberAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
     serialNumberAllProductsLabel->setEnabled(false);
     serialNumberAllProductsLineEdit->setEnabled(false);
@@ -897,7 +952,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     connect(replacementInfoAllProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoAllProductsLabel, SLOT(setEnabled(bool)));
     connect(replacementInfoAllProductsCheckBox, SIGNAL(toggled(bool)), replacementInfoAllProductsComboBox, SLOT(setEnabled(bool)));
 
-    barInfoAllProductsLabel = new QLabel(tr("Bar Info*: "), allProductsFilterPanel);
+    barInfoAllProductsLabel = new QLabel(tr("Bar Info: "), allProductsFilterPanel);
     barInfoAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
     barInfoAllProductsLabel->setEnabled(false);
     barInfoAllProductsLineEdit->setEnabled(false);
@@ -981,7 +1036,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     connect(sellingPriceAllProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceAllProductsLabel, SLOT(setEnabled(bool)));
     connect(sellingPriceAllProductsCheckBox, SIGNAL(toggled(bool)), sellingPriceAllProductsLineEdit, SLOT(setEnabled(bool)));
 
-    commentsAllProductsLabel = new QLabel(tr("Comments*: "), allProductsFilterPanel);
+    commentsAllProductsLabel = new QLabel(tr("Comments: "), allProductsFilterPanel);
     commentsAllProductsLineEdit = new QLineEdit(allProductsFilterPanel);
     commentsAllProductsLabel->setEnabled(false);
     commentsAllProductsLineEdit->setEnabled(false);
@@ -1136,27 +1191,207 @@ void Statistic_Invoicing::createFilterPanel()
 
 void Statistic_Invoicing::updateDBTableModel()
 {
-    if(productManagementInterface->isModelOutdate(allProductsModel, timeStamp)) {
-        QModelIndex index = allProductsView->currentIndex();
-        static QModelIndex outViewPortindex;
-        allProductsModel->select();
-        allProductsView->resizeColumnsToContents();
-        if(index.isValid()) {
-            int rowPosition = allProductsView->rowViewportPosition(index.row());
-            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
-                allProductsView->setCurrentIndex(index);
-            }
-            else {
-                outViewPortindex = index;
-            }
+//    if(productManagementInterface->isModelOutdate(allProductsModel, timeStamp)) {
+//        QModelIndex index = allProductsView->currentIndex();
+//        static QModelIndex outViewPortindex;
+//        allProductsModel->select();
+//        allProductsView->resizeColumnsToContents();
+//        if(index.isValid()) {
+//            int rowPosition = allProductsView->rowViewportPosition(index.row());
+//            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
+//                allProductsView->setCurrentIndex(index);
+//            }
+//            else {
+//                outViewPortindex = index;
+//            }
+//        }
+//        else if(outViewPortindex.isValid()) {
+//            int rowPosition = allProductsView->rowViewportPosition(outViewPortindex.row());
+//            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
+//                allProductsView->setCurrentIndex(outViewPortindex);
+//            }
+//        }
+//        allProductsView->resizeColumnsToContents();
+//    }
+
+//    static QString unsellProductTimeStamp("");
+//    if(productManagementInterface->isModelOutdate(unsellProductsModel, unsellProductTimeStamp)) {
+//        QModelIndex index = unsellProductsView->currentIndex();
+//        static QModelIndex outViewPortindex;
+//        unsellProductsModel->select();
+//        unsellProductsView->resizeColumnsToContents();
+//        if(index.isValid()) {
+//            int rowPosition = unsellProductsView->rowViewportPosition(index.row());
+//            if(rowPosition>=0 && rowPosition<unsellProductsView->height()) {
+//                unsellProductsView->setCurrentIndex(index);
+//            }
+//            else {
+//                outViewPortindex = index;
+//            }
+//        }
+//        else if(outViewPortindex.isValid()) {
+//            int rowPosition = unsellProductsView->rowViewportPosition(outViewPortindex.row());
+//            if(rowPosition>=0 && rowPosition<unsellProductsView->height()) {
+//                unsellProductsView->setCurrentIndex(outViewPortindex);
+//            }
+//        }
+//        unsellProductsView->resizeColumnsToContents();
+//    }
+    QString productTypeUnsell = productTypeUnsellProductsComboBox->currentText();
+    QString brandNameUnsell = brandNameUnsellProductsComboBox->currentText();
+    QString productModelUnsell = productModelUnsellProductsComboBox->currentText();
+    QString productColorUnsell = productColorUnsellProductsComboBox->currentText();
+    QString productVendorUnsell = productVendorUnsellProductsComboBox->currentText();
+    QString replacementInfoUnsell = replacementInfoUnsellProductsComboBox->currentText();
+    QString productStatusUnsell = productStatusUnsellProductsComboBox->currentText();
+    QString sellerUnsell = sellerUnsellProductsComboBox->currentText();
+    QString schemaUnsell = schemaUnsellProductsComboBox->currentText();
+    QString productTypeAll = productTypeAllProductsComboBox->currentText();
+    QString brandNameAll = brandNameAllProductsComboBox->currentText();
+    QString productModelAll = productModelAllProductsComboBox->currentText();
+    QString productColorAll = productColorAllProductsComboBox->currentText();
+    QString productVendorAll = productVendorAllProductsComboBox->currentText();
+    QString replacementInfoAll = replacementInfoAllProductsComboBox->currentText();
+    QString productStatusAll = productStatusAllProductsComboBox->currentText();
+    QString sellerAll = sellerAllProductsComboBox->currentText();
+    QString schemaAll = schemaAllProductsComboBox->currentText();
+
+    productTypeUnsellProductsModel->select();
+    brandNameUnsellProductsModel->select();
+    productModelUnsellProductsModel->select();
+    productColorUnsellProductsModel->select();
+    productVendorUnsellProductsModel->select();
+    replacementInfoUnsellProductsModel->select();
+    productStatusUnsellProductsModel->select();
+    productTypeAllProductsModel->select();
+    brandNameAllProductsModel->select();
+    productModelAllProductsModel->select();
+    productColorAllProductsModel->select();
+    productVendorAllProductsModel->select();
+    replacementInfoAllProductsModel->select();
+    productStatusAllProductsModel->select();
+    populateSellerNameComboBox(sellerUnsellProductsComboBox);
+    populateSchemaComboBox(schemaUnsellProductsComboBox);
+    populateSellerNameComboBox(sellerAllProductsComboBox);
+    populateSchemaComboBox(schemaAllProductsComboBox);
+
+    if(!productTypeUnsell.simplified().isEmpty()) {
+        productTypeUnsellProductsComboBox->setCurrentIndex(
+                    productTypeUnsellProductsComboBox->findText(productTypeUnsell));
+    }
+    if(!brandNameUnsell.simplified().isEmpty()) {
+        brandNameUnsellProductsComboBox->setCurrentIndex(
+                    brandNameUnsellProductsComboBox->findText(brandNameUnsell));
+    }
+    if(!productModelUnsell.simplified().isEmpty()) {
+        productModelUnsellProductsComboBox->setCurrentIndex(
+                    productModelUnsellProductsComboBox->findText(productModelUnsell));
+    }
+    if(!productColorUnsell.simplified().isEmpty()) {
+        productColorUnsellProductsComboBox->setCurrentIndex(
+                    productColorUnsellProductsComboBox->findText(productColorUnsell));
+    }
+    if(!productVendorUnsell.simplified().isEmpty()) {
+        productVendorUnsellProductsComboBox->setCurrentIndex(
+                    productVendorUnsellProductsComboBox->findText(productVendorUnsell));
+    }
+    if(!replacementInfoUnsell.simplified().isEmpty()) {
+        replacementInfoUnsellProductsComboBox->setCurrentIndex(
+                    replacementInfoUnsellProductsComboBox->findText(replacementInfoUnsell));
+    }
+    if(!productStatusUnsell.simplified().isEmpty()) {
+        productStatusUnsellProductsComboBox->setCurrentIndex(
+                    productStatusUnsellProductsComboBox->findText(productStatusUnsell));
+    }
+    if(!sellerUnsell.simplified().isEmpty()) {
+        sellerUnsellProductsComboBox->setCurrentIndex(
+                    sellerUnsellProductsComboBox->findText(sellerUnsell));
+    }
+    if(!schemaUnsell.simplified().isEmpty()) {
+        schemaUnsellProductsComboBox->setCurrentIndex(
+                    schemaUnsellProductsComboBox->findText(schemaUnsell));
+    }
+    if(!productTypeAll.simplified().isEmpty()) {
+        productTypeAllProductsComboBox->setCurrentIndex(
+                    productTypeAllProductsComboBox->findText(productTypeAll));
+    }
+    if(!brandNameAll.simplified().isEmpty()) {
+        brandNameAllProductsComboBox->setCurrentIndex(
+                    brandNameAllProductsComboBox->findText(brandNameAll));
+    }
+    if(!productModelAll.simplified().isEmpty()) {
+        productModelAllProductsComboBox->setCurrentIndex(
+                    productModelAllProductsComboBox->findText(productModelAll));
+    }
+    if(!productColorAll.simplified().isEmpty()) {
+        productColorAllProductsComboBox->setCurrentIndex(
+                    productColorAllProductsComboBox->findText(productColorAll));
+    }
+    if(!productVendorAll.simplified().isEmpty()) {
+        productVendorAllProductsComboBox->setCurrentIndex(
+                    productVendorAllProductsComboBox->findText(productVendorAll));
+    }
+    if(!replacementInfoAll.simplified().isEmpty()) {
+        replacementInfoAllProductsComboBox->setCurrentIndex(
+                    replacementInfoAllProductsComboBox->findText(replacementInfoAll));
+    }
+    if(!productStatusAll.simplified().isEmpty()) {
+        productStatusAllProductsComboBox->setCurrentIndex(
+                    productStatusAllProductsComboBox->findText(productStatusAll));
+    }
+    if(!sellerAll.simplified().isEmpty()) {
+        sellerAllProductsComboBox->setCurrentIndex(
+                    sellerAllProductsComboBox->findText(sellerAll));
+    }
+    if(!schemaAll.simplified().isEmpty()) {
+        schemaAllProductsComboBox->setCurrentIndex(
+                    schemaAllProductsComboBox->findText(schemaAll));
+    }
+}
+
+void Statistic_Invoicing::hidePurchasePrice()
+{
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    foreach(int i, roleset) {
+        //if(i == adminRoleID || i == storagerRoleID) {
+        if(i == adminRoleID) {
+            hide = false;
         }
-        else if(outViewPortindex.isValid()) {
-            int rowPosition = allProductsView->rowViewportPosition(outViewPortindex.row());
-            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
-                allProductsView->setCurrentIndex(outViewPortindex);
-            }
-        }
-        allProductsView->resizeColumnsToContents();
+    }
+    unsellProductsView->setColumnHidden(OldPurchasePrice, hide);
+    unsellProductsView->setColumnHidden(PurchasePrice, hide);
+    allProductsView->setColumnHidden(OldPurchasePrice, hide);
+    allProductsView->setColumnHidden(PurchasePrice, hide);
+
+    if(!updateUnsellProductDialog) {
+        updateUnsellProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+    }
+    updateUnsellProductDialog->hidePurchasePrice(hide);
+    if(!updateAllProductDialog) {
+        updateAllProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+    }
+    updateAllProductDialog->hidePurchasePrice(hide);
+
+    if(hide) {
+        oldPurchasePriceAllProductsLabel->hide();
+        oldPurchasePriceAllProductsLineEdit->hide();
+        oldPurchasePriceAllProductsCheckBox->hide();
+        purchasePriceAllProductsLabel->hide();
+        purchasePriceAllProductsLineEdit->hide();
+        purchasePriceAllProductsCheckBox->hide();
+        oldPurchasePriceUnsellProductsLabel->hide();
+        oldPurchasePriceUnsellProductsLineEdit->hide();
+        oldPurchasePriceUnsellProductsCheckBox->hide();
+        purchasePriceUnsellProductsLabel->hide();
+        purchasePriceUnsellProductsLineEdit->hide();
+        purchasePriceUnsellProductsCheckBox->hide();
     }
 }
 

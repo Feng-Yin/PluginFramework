@@ -44,7 +44,7 @@ public:
     virtual QString moduleDescription() const;
     virtual QSet<QString> getAccessRoleNameSet() const;
     virtual QSet<QString> getDependencySet() const;
-    virtual void update() { /*updateDBTableModel();*/ }
+    virtual void update() { updateDBTableModel(); }
 
     virtual void userChanged();
 
@@ -56,6 +56,7 @@ private:
     void createBarChartPanel();
     void createAllProductsFilterPanel();
     void createUnsellProductsFilterPanel();
+    void hidePurchasePrice();
 
 
 private slots:

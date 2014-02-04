@@ -16,6 +16,8 @@ Storage_Invoicing::Storage_Invoicing():
     purchaseView(NULL),
     inStoragePushButton(NULL),
     inAllStoragePushButton(NULL),
+	returnToVendorPushButton(NULL),
+	deleteProductPushButton(NULL),
     storagePanel(NULL),
     storageModel(NULL),
     storageView(NULL),
@@ -129,9 +131,10 @@ void Storage_Invoicing::hidePurchasePrice()
                 userManagementInterface->getUserIDByUserName(
                     userManagementInterface->getCurrentUserName()));
     int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
-    int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
     foreach(int i, roleset) {
-        if(i == adminRoleID || i == storagerRoleID) {
+        //if(i == adminRoleID || i == storagerRoleID) {
+        if(i == adminRoleID) {
             hide = false;
         }
     }
@@ -139,6 +142,15 @@ void Storage_Invoicing::hidePurchasePrice()
     purchaseView->setColumnHidden(PurchasePrice, hide);
     storageView->setColumnHidden(OldPurchasePrice, hide);
     storageView->setColumnHidden(PurchasePrice, hide);
+    returnToVendorPushButton->setEnabled(!hide);
+    deleteProductPushButton->setEnabled(!hide);
+
+    if(!updateProductDialog) {
+        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+                                                      productManagementInterface);
+        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+    }
+    updateProductDialog->hidePurchasePrice(hide);
 }
 
 QString Storage_Invoicing::moduleName() const
@@ -181,6 +193,18 @@ void Storage_Invoicing::initMainWidget()
     inAllStoragePushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     inAllStoragePushButton->setIcon(QIcon(":/Icon/downall_icon.png"));
     inAllStoragePushButton->setIconSize(inAllStoragePushButton->sizeHint());
+	returnToVendorPushButton = new QPushButton();
+    connect(returnToVendorPushButton, SIGNAL(clicked()), this, SLOT(returnToVendor()));
+    returnToVendorPushButton->setToolTip(tr("Return to Vendor"));
+    returnToVendorPushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    returnToVendorPushButton->setIcon(QIcon(":/Icon/return_icon.png"));
+    returnToVendorPushButton->setIconSize(returnToVendorPushButton->sizeHint());
+    deleteProductPushButton = new QPushButton();
+    connect(deleteProductPushButton, SIGNAL(clicked()), this, SLOT(deleteProduct()));
+    deleteProductPushButton->setToolTip(tr("Delete The Product"));
+    deleteProductPushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    deleteProductPushButton->setIcon(QIcon(":/Icon/deleteproduct_icon.png"));
+    deleteProductPushButton->setIconSize(deleteProductPushButton->sizeHint());
 
     outStoragePushButton = new QPushButton();
     connect(outStoragePushButton, SIGNAL(clicked()), this, SLOT(outStorage()));
@@ -208,6 +232,8 @@ void Storage_Invoicing::initMainWidget()
     QVBoxLayout *inStorageVLayout = new QVBoxLayout();
     inStorageVLayout->addWidget(inStoragePushButton);
     inStorageVLayout->addWidget(inAllStoragePushButton);
+    inStorageVLayout->addWidget(returnToVendorPushButton);
+    inStorageVLayout->addWidget(deleteProductPushButton);
     purchaseHLayout->addLayout(inStorageVLayout);
 
 
@@ -378,6 +404,56 @@ void Storage_Invoicing::createStoragePanel()
     storagePanel->setLayout(layout);
 }
 
+void Storage_Invoicing::returnToVendor()
+{
+    QModelIndex purchaseIndex = purchaseView->currentIndex();
+    if(purchaseIndex.isValid()) {
+        QSqlRecord record = purchaseModel->record(purchaseIndex.row());
+        int productID = record.value(ProductID).toInt();
+        int statusID = productManagementInterface->getStatusIDByStatusName("已退货");
+        productManagementInterface->updateStatusIDByProductID(productID, statusID);
+        purchaseModel->select();
+        storageModel->select();
+
+        if(purchaseIndex.row()<purchaseModel->rowCount()) {
+            purchaseView->selectRow(purchaseIndex.row());
+        }
+        else {
+            purchaseView->selectRow(purchaseModel->rowCount()-1);
+        }
+        //purchaseView->resizeColumnsToContents();
+        //purchaseView->resizeRowsToContents();
+        storageView->resizeColumnsToContents();
+        //storageView->resizeRowsToContents();
+        purchaseView->setFocus();
+    }
+}
+
+void Storage_Invoicing::deleteProduct()
+{
+    QModelIndex purchaseIndex = purchaseView->currentIndex();
+    if(purchaseIndex.isValid()) {
+        QSqlRecord record = purchaseModel->record(purchaseIndex.row());
+        int productID = record.value(ProductID).toInt();
+        int statusID = productManagementInterface->getStatusIDByStatusName("已删除");
+        productManagementInterface->updateStatusIDByProductID(productID, statusID);
+        purchaseModel->select();
+        storageModel->select();
+
+        if(purchaseIndex.row()<purchaseModel->rowCount()) {
+            purchaseView->selectRow(purchaseIndex.row());
+        }
+        else {
+            purchaseView->selectRow(purchaseModel->rowCount()-1);
+        }
+        //purchaseView->resizeColumnsToContents();
+        //purchaseView->resizeRowsToContents();
+        storageView->resizeColumnsToContents();
+        //storageView->resizeRowsToContents();
+        purchaseView->setFocus();
+    }
+}
+
 void Storage_Invoicing::inStorage()
 {
     QModelIndex purchaseIndex = purchaseView->currentIndex();
@@ -402,6 +478,7 @@ void Storage_Invoicing::inStorage()
         purchaseView->setFocus();
     }
 }
+
 void Storage_Invoicing::allInStorage()
 {
     int statusID = productManagementInterface->getStatusIDByStatusName("待入库");

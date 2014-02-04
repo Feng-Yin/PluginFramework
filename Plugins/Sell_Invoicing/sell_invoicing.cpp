@@ -127,9 +127,10 @@ void Sell_Invoicing::hidePurchasePrice()
                 userManagementInterface->getUserIDByUserName(
                     userManagementInterface->getCurrentUserName()));
     int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
-    int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
     foreach(int i, roleset) {
-        if(i == adminRoleID || i == storagerRoleID) {
+        //if(i == adminRoleID || i == storagerRoleID) {
+        if(i == adminRoleID) {
             hide = false;
         }
     }

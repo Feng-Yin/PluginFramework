@@ -31,6 +31,7 @@ public:
                                  QWidget *parent = 0);
     ~UpdateProductDialog();
     virtual void userChanged();
+    void hidePurchasePrice(bool hide);
 signals:
     void productUpdated();
 

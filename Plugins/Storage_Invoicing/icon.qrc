@@ -7,5 +7,7 @@
         <file>Translations/Storage_Invoicing_zh_CN.qm</file>
         <file>Icon/downall_icon.png</file>
         <file>Icon/upall_icon.png</file>
+        <file>Icon/deleteproduct_icon.png</file>
+        <file>Icon/return_icon.png</file>
     </qresource>
 </RCC>

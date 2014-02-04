@@ -226,12 +226,12 @@ void LoginDialog::onAuthenticate()
 bool LoginDialog::createInvoicingSchema()
 {
     bool ret = false;
+    userManagementInterface->addSchema("未指定");
+    userManagementInterface->addUser("未指定", "test");
     QString dbSchema = QInputDialog::getText(0, tr("Create DB Schema"), tr("DB Schema Name: "),
                                              QLineEdit::Normal, "", &ret);
     dbSchema.simplified();
     if(ret && !dbSchema.isEmpty()) {
-        userManagementInterface->addSchema("未指定");
-        userManagementInterface->addUser("未指定", "test");
         userManagementInterface->addSchema(dbSchema);
         ret = true;
     }
@@ -342,9 +342,10 @@ void LoginDialog::onLogin()
     QHostInfo host = QHostInfo::fromName(domainname);
     if (!host.addresses().isEmpty()) {
          QHostAddress address = host.addresses().first();
-         ipaddressFromDomainname = address.toString();
+         QHostAddress addressIPV4(address.toIPv4Address());
+         ipaddressFromDomainname = addressIPV4.toString();
          // use the first IP address
-     }
+    }
     QMessageBox::information(0, tr("Login"), ipaddressFromDomainname);
     int ad0 = ipaddress.split(".").at(0).toInt();
     int ad1 = ipaddress.split(".").at(1).toInt();

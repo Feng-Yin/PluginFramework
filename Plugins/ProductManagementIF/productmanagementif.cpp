@@ -10,7 +10,7 @@ const QStringList ProductManagementInterface::defaultProductType
 const QStringList ProductManagementInterface::defaultBrandName
                                         = QStringList() <<"其它"<<"诺基亚"<<"摩托罗拉"<<"三星"<<"HTC"<<"苹果";
 const QStringList ProductManagementInterface::defaultProductModel = QStringList() <<"其它";
-const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList() <<"已删除"<<"待进货"<<"录入"<<"待入库"<<"已入库"<<"已下单"<<"已销售";
+const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList() <<"已删除"<<"待进货"<<"录入"<<"待入库"<<"已入库"<<"已下单"<<"已销售"<<"已退货";
 const QStringList ProductManagementInterface::defaultVendorInfo = QStringList() <<"其它";
 const QStringList ProductManagementInterface::defaultColor = QStringList() <<"其它";
 const QStringList ProductManagementInterface::replacementStatus = QStringList() <<"否"<<"是";
