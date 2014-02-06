@@ -4,7 +4,7 @@
 #include "mainwindow.h"
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
-#include "updateproductdialog.h"
+#include "sellupdateproductdialog.h"
 
 Sell_Invoicing::Sell_Invoicing():
     parentWindow(NULL),
@@ -19,8 +19,8 @@ Sell_Invoicing::Sell_Invoicing():
     orderModel(NULL),
     orderView(NULL),
     backToStoragePushButton(NULL),
-    updateStorageProductDialog(NULL),
-    updateOrderProductDialog(NULL),
+    sellUpdateStorageProductDialog(NULL),
+    sellUpdateOrderProductDialog(NULL),
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 {
@@ -139,17 +139,17 @@ void Sell_Invoicing::hidePurchasePrice()
     storageView->setColumnHidden(OldPurchasePrice, hide);
     storageView->setColumnHidden(PurchasePrice, hide);
 
-    if(!updateOrderProductDialog) {
-        updateOrderProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!sellUpdateOrderProductDialog) {
+        sellUpdateOrderProductDialog = new SellUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
     }
-    updateOrderProductDialog->hidePurchasePrice(hide);
-    if(!updateStorageProductDialog) {
-        updateStorageProductDialog = new UpdateProductDialog(userManagementInterface,
+    sellUpdateOrderProductDialog->hidePurchasePrice(hide);
+    if(!sellUpdateStorageProductDialog) {
+        sellUpdateStorageProductDialog = new SellUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
-        connect(updateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+        connect(sellUpdateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateStorageProductDialog->hidePurchasePrice(hide);
+    sellUpdateStorageProductDialog->hidePurchasePrice(hide);
 }
 
 QString Sell_Invoicing::moduleName() const
@@ -455,31 +455,31 @@ void Sell_Invoicing::updateDBTableModel()
 
 int Sell_Invoicing::updateProductInfoOrder()
 {
-    if(!updateOrderProductDialog) {
-        updateOrderProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!sellUpdateOrderProductDialog) {
+        sellUpdateOrderProductDialog = new SellUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
         //connect(updateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateOrderProductDialog->hideForOrderInfo();
-    updateOrderProductDialog->updateDBTableModel();
+    sellUpdateOrderProductDialog->hideForOrderInfo();
+    sellUpdateOrderProductDialog->updateDBTableModel();
     QModelIndex storageIndex = orderView->currentIndex();
     QSqlRecord record = orderModel->record(storageIndex.row());
-    updateOrderProductDialog->updateRecord(record);
-    return updateOrderProductDialog->exec();
+    sellUpdateOrderProductDialog->updateRecord(record);
+    return sellUpdateOrderProductDialog->exec();
 }
 
 int Sell_Invoicing::updateProductinfo()
 {
-    if(!updateStorageProductDialog) {
-        updateStorageProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!sellUpdateStorageProductDialog) {
+        sellUpdateStorageProductDialog = new SellUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
-        connect(updateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+        connect(sellUpdateStorageProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateStorageProductDialog->updateDBTableModel();
+    sellUpdateStorageProductDialog->updateDBTableModel();
     QModelIndex storageIndex = storageView->currentIndex();
     QSqlRecord record = storageModel->record(storageIndex.row());
-    updateStorageProductDialog->updateRecord(record);
-    return updateStorageProductDialog->exec();
+    sellUpdateStorageProductDialog->updateRecord(record);
+    return sellUpdateStorageProductDialog->exec();
 }
 
 void Sell_Invoicing::productUpdated()
@@ -488,7 +488,7 @@ void Sell_Invoicing::productUpdated()
     storageView->resizeColumnsToContents();
     orderModel->select();
     orderView->resizeColumnsToContents();
-    updateStorageProductDialog->hide();
+    sellUpdateStorageProductDialog->hide();
 }
 
 void Sell_Invoicing::onFilter()

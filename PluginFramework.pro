@@ -2,10 +2,11 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     Main \
-    Plugins/UserManagement_Invoicing \
-    Plugins/Purchase_Invoicing \
     Plugins/UserManagementIF \
     Plugins/ProductManagementIF \
+    Plugins/UserManagement_Invoicing \
+    Plugins/UpdateProductDialog \
+    Plugins/Purchase_Invoicing \
     Plugins/Storage_Invoicing \
     Plugins/Sell_Invoicing \
     Plugins/Cash_Invoicing \

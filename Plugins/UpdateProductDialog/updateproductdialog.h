@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QSqlRecord>
 #include "usermanagement_interface.h"
+#include "productmanagement_interface.h"
 
 QT_BEGIN_NAMESPACE
 class QLineEdit;
@@ -31,8 +32,8 @@ public:
                                  QWidget *parent = 0);
     ~UpdateProductDialog();
     virtual void userChanged();
-    void hideForOrderInfo();
     void hidePurchasePrice(bool hide);
+    bool checkInput();
 
 signals:
     void productUpdated();
@@ -51,7 +52,7 @@ private slots:
 private:
     void init();
 
-private:
+public:
     UserManagementInterface * userManagementInterface;
     ProductManagementInterface *productManagementInterface;
 
@@ -111,9 +112,31 @@ private:
     QTextEdit *commentsTextEdit;
 
     QPushButton *updateProductButton;
-    QPushButton *clearInfoButton;
+    QPushButton *leftButton;
+    QPushButton *rightButton;
 
     QSqlRecord record;
+
+    QString serialNumber;
+    QString unit;
+    int productTypeID;
+    int brandNameID;
+    int productModelID;
+    int productColorID;
+    int productVendorID;
+    int replacementInfoID;
+    int sellerID;
+    QString barInfo;
+    QString oldPurchasePrice;
+    QString purchasePrice;
+    QString sellingPrice;
+    int schemaID;
+    int quantity;
+    int userID;
+    int statusID;
+    QString comments;
+    QString timeStamp;
+    int productID;
 };
 
 #endif // UPDATEPRODUCTDIALOG_H

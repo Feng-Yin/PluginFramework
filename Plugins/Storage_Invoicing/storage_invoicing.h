@@ -15,7 +15,7 @@ class QLineEdit;
 class QProgressBar;
 QT_END_NAMESPACE
 
-class UpdateProductDialog;
+class StorageUpdateProductDialog;
 class UserManagementInterface;
 class ProductManagementInterface;
 
@@ -82,7 +82,7 @@ private:
     QPushButton *outStoragePushButton;
     QPushButton *outAllStoragePushButton;
 
-    UpdateProductDialog *updateProductDialog;
+    StorageUpdateProductDialog *storageUpdateProductDialog;
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;

@@ -10,21 +10,24 @@ TARGET = Sell_Invoicing
 TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 INCLUDEPATH += ../../main
+INCLUDEPATH += ../UpdateProductDialog
 DEFINES += SELL_INVOICING_LIBRARY
 TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
+    LIBS += ../../Main/debug/updateproductdialog.dll
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
 CONFIG(release, debug|release) {
+    LIBS += ../../Main/release/updateproductdialog.dll
     DLLDESTDIR = ../../Main/release/plugins/Invoicing/
 }
 
 SOURCES += sell_invoicing.cpp \
-    updateproductdialog.cpp
+    sellupdateproductdialog.cpp
 
 HEADERS += sell_invoicing.h\
         Sell_Invoicing_global.h \
-    updateproductdialog.h
+    sellupdateproductdialog.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN

@@ -13,7 +13,7 @@ class QLineEdit;
 class QPushButton;
 QT_END_NAMESPACE
 
-class UpdateProductDialog;
+class CashUpdateProductDialog;
 class UserManagementInterface;
 class ProductManagementInterface;
 
@@ -62,7 +62,7 @@ private:
     QSqlRelationalTableModel *cashModel;
     QTableView *cashView;
 
-    UpdateProductDialog *updateProductDialog;
+    CashUpdateProductDialog *cashUpdateProductDialog;
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;

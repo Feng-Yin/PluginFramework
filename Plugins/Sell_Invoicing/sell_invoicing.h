@@ -14,7 +14,7 @@ class QModelIndex;
 class QLineEdit;
 QT_END_NAMESPACE
 
-class UpdateProductDialog;
+class SellUpdateProductDialog;
 class UserManagementInterface;
 class ProductManagementInterface;
 
@@ -74,8 +74,8 @@ private:
     QTableView *orderView;
     QPushButton *backToStoragePushButton;
 
-    UpdateProductDialog *updateStorageProductDialog;
-    UpdateProductDialog *updateOrderProductDialog;
+    SellUpdateProductDialog *sellUpdateStorageProductDialog;
+    SellUpdateProductDialog *sellUpdateOrderProductDialog;
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;

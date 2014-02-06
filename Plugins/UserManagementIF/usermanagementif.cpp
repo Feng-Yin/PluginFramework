@@ -354,6 +354,7 @@ QString UserManagementIF::getRoleNameByRoleID(int roleID) const
 int UserManagementIF::getUserIDByUserName(QString username) const
 {
     QSqlQuery query(getSqlQuery());
+    qDebug()<<QString("select id from user where name = '%1'").arg(username);
     query.exec(QString("select id from user where name = '%1'").arg(username));
     if(query.first()) {
         return query.record().value("id").toInt();

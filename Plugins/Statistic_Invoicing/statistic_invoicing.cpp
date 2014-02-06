@@ -5,7 +5,7 @@
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
 #include "barchart.h"
-#include "updateproductdialog.h"
+#include "statisticupdateproductdialog.h"
 
 const char *sortTypeProperty = "SortType";
 
@@ -170,8 +170,8 @@ Statistic_Invoicing::Statistic_Invoicing():
     unsellProductsFilterButton(NULL),
     unsellProductsSummaryLabel(NULL),
     unsellProductsSummaryLineEdit(NULL),
-    updateAllProductDialog(NULL),
-    updateUnsellProductDialog(NULL)
+    statisticUpdateAllProductDialog(NULL),
+    statisticUpdateUnsellProductDialog(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -1368,16 +1368,16 @@ void Statistic_Invoicing::hidePurchasePrice()
     allProductsView->setColumnHidden(OldPurchasePrice, hide);
     allProductsView->setColumnHidden(PurchasePrice, hide);
 
-    if(!updateUnsellProductDialog) {
-        updateUnsellProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!statisticUpdateUnsellProductDialog) {
+        statisticUpdateUnsellProductDialog = new StatisticUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
     }
-    updateUnsellProductDialog->hidePurchasePrice(hide);
-    if(!updateAllProductDialog) {
-        updateAllProductDialog = new UpdateProductDialog(userManagementInterface,
+    statisticUpdateUnsellProductDialog->hidePurchasePrice(hide);
+    if(!statisticUpdateAllProductDialog) {
+        statisticUpdateAllProductDialog = new StatisticUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
     }
-    updateAllProductDialog->hidePurchasePrice(hide);
+    statisticUpdateAllProductDialog->hidePurchasePrice(hide);
 
     if(hide) {
         oldPurchasePriceAllProductsLabel->hide();
@@ -1991,28 +1991,28 @@ void Statistic_Invoicing::populateSellerNameComboBox(QComboBox *sellerNameComboB
 
 void Statistic_Invoicing::updateAllProductinfo()
 {
-    if(!updateAllProductDialog) {
-        updateAllProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!statisticUpdateAllProductDialog) {
+        statisticUpdateAllProductDialog = new StatisticUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
     }
-    updateAllProductDialog->updateDBTableModel();
+    statisticUpdateAllProductDialog->updateDBTableModel();
     QModelIndex storageIndex = allProductsView->currentIndex();
     QSqlRecord record = allProductsModel->record(storageIndex.row());
-    updateAllProductDialog->updateRecord(record);
-    updateAllProductDialog->exec();
+    statisticUpdateAllProductDialog->updateRecord(record);
+    statisticUpdateAllProductDialog->exec();
 }
 
 void Statistic_Invoicing::updateUnsellProductinfo()
 {
-    if(!updateUnsellProductDialog) {
-        updateUnsellProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!statisticUpdateUnsellProductDialog) {
+        statisticUpdateUnsellProductDialog = new StatisticUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
     }
-    updateUnsellProductDialog->updateDBTableModel();
+    statisticUpdateUnsellProductDialog->updateDBTableModel();
     QModelIndex storageIndex = unsellProductsView->currentIndex();
     QSqlRecord record = unsellProductsModel->record(storageIndex.row());
-    updateUnsellProductDialog->updateRecord(record);
-    updateUnsellProductDialog->exec();
+    statisticUpdateUnsellProductDialog->updateRecord(record);
+    statisticUpdateUnsellProductDialog->exec();
 }
 
 QT_BEGIN_NAMESPACE

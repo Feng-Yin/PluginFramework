@@ -4,7 +4,7 @@
 #include "mainwindow.h"
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
-#include "updateproductdialog.h"
+#include "storageupdateproductdialog.h"
 
 Storage_Invoicing::Storage_Invoicing():
     parentWindow(NULL),
@@ -23,7 +23,7 @@ Storage_Invoicing::Storage_Invoicing():
     storageView(NULL),
     outStoragePushButton(NULL),
     outAllStoragePushButton(NULL),
-    updateProductDialog(NULL),
+    storageUpdateProductDialog(NULL),
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 
@@ -145,12 +145,12 @@ void Storage_Invoicing::hidePurchasePrice()
     returnToVendorPushButton->setEnabled(!hide);
     deleteProductPushButton->setEnabled(!hide);
 
-    if(!updateProductDialog) {
-        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!storageUpdateProductDialog) {
+        storageUpdateProductDialog = new StorageUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
-        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+        connect(storageUpdateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateProductDialog->hidePurchasePrice(hide);
+    storageUpdateProductDialog->hidePurchasePrice(hide);
 }
 
 QString Storage_Invoicing::moduleName() const
@@ -548,23 +548,23 @@ void Storage_Invoicing::allOutStorage()
 
 void Storage_Invoicing::updateProductinfo()
 {
-    if(!updateProductDialog) {
-        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!storageUpdateProductDialog) {
+        storageUpdateProductDialog = new StorageUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
-        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+        connect(storageUpdateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateProductDialog->updateDBTableModel();
+    storageUpdateProductDialog->updateDBTableModel();
     if(QObject::sender()==purchaseView) {
         QModelIndex storageIndex = purchaseView->currentIndex();
         QSqlRecord record = purchaseModel->record(storageIndex.row());
-        updateProductDialog->updateRecord(record);
-        updateProductDialog->exec();
+        storageUpdateProductDialog->updateRecord(record);
+        storageUpdateProductDialog->exec();
     }
     else {
         QModelIndex storageIndex = storageView->currentIndex();
         QSqlRecord record = storageModel->record(storageIndex.row());
-        updateProductDialog->updateRecord(record);
-        updateProductDialog->exec();
+        storageUpdateProductDialog->updateRecord(record);
+        storageUpdateProductDialog->exec();
     }
 }
 

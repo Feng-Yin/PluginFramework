@@ -4,14 +4,14 @@
 #include "mainwindow.h"
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
-#include "updateproductdialog.h"
+#include "cashupdateproductdialog.h"
 
 Cash_Invoicing::Cash_Invoicing():
     parentWindow(NULL),
     userManagementInterface(NULL),
     productManagementInterface(NULL),
     mainWidget(NULL),
-    updateProductDialog(NULL),
+    cashUpdateProductDialog(NULL),
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 {
@@ -128,12 +128,12 @@ void Cash_Invoicing::hidePurchasePrice()
     cashView->setColumnHidden(OldPurchasePrice, hide);
     cashView->setColumnHidden(PurchasePrice, hide);
 
-    if(!updateProductDialog) {
-        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!cashUpdateProductDialog) {
+        cashUpdateProductDialog = new CashUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
-        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+        connect(cashUpdateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateProductDialog->hidePurchasePrice(hide);
+    cashUpdateProductDialog->hidePurchasePrice(hide);
 }
 
 QString Cash_Invoicing::moduleName() const
@@ -318,16 +318,16 @@ void Cash_Invoicing::updateCashFilter()
 
 void Cash_Invoicing::updateProductinfo()
 {
-    if(!updateProductDialog) {
-        updateProductDialog = new UpdateProductDialog(userManagementInterface,
+    if(!cashUpdateProductDialog) {
+        cashUpdateProductDialog = new CashUpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);
-        connect(updateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
+        connect(cashUpdateProductDialog, SIGNAL(productUpdated()), this, SLOT(productUpdated()));
     }
-    updateProductDialog->updateDBTableModel();
+    cashUpdateProductDialog->updateDBTableModel();
     QModelIndex storageIndex = cashView->currentIndex();
     QSqlRecord record = cashModel->record(storageIndex.row());
-    updateProductDialog->updateRecord(record);
-    updateProductDialog->exec();
+    cashUpdateProductDialog->updateRecord(record);
+    cashUpdateProductDialog->exec();
 }
 
 void Cash_Invoicing::productUpdated()

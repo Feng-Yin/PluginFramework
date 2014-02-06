@@ -10,21 +10,24 @@ TARGET = Cash_Invoicing
 TEMPLATE = lib
 CONFIG += plugin  copy_dir_files
 INCLUDEPATH += ../../main
+INCLUDEPATH += ../UpdateProductDialog
 DEFINES += CASH_INVOICING_LIBRARY
 TRANSLATIONS = ./Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
+    LIBS += ../../Main/debug/updateproductdialog.dll
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
 CONFIG(release, debug|release) {
+    LIBS += ../../Main/release/updateproductdialog.dll
     DLLDESTDIR = ../../Main/release/plugins/Invoicing/
 }
 
 SOURCES += cash_invoicing.cpp \
-    updateproductdialog.cpp
+    cashupdateproductdialog.cpp
 
 HEADERS += cash_invoicing.h\
         Cash_Invoicing_global.h \
-    updateproductdialog.h
+    cashupdateproductdialog.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN

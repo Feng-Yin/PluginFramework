@@ -35,6 +35,19 @@
     </message>
 </context>
 <context>
+    <name>StatisticUpdateProductDialog</name>
+    <message>
+        <location filename="../statisticupdateproductdialog.cpp" line="38"/>
+        <source>Selling Price</source>
+        <translation>销售价格</translation>
+    </message>
+    <message>
+        <location filename="../statisticupdateproductdialog.cpp" line="44"/>
+        <source>Product Info</source>
+        <translation>产品信息</translation>
+    </message>
+</context>
+<context>
     <name>Statistic_Invoicing</name>
     <message>
         <location filename="../statistic_invoicing.cpp" line="277"/>
@@ -400,152 +413,116 @@
 <context>
     <name>UpdateProductDialog</name>
     <message>
-        <location filename="../updateproductdialog.cpp" line="65"/>
         <source>Serial Number</source>
-        <translation>序列号</translation>
+        <translation type="obsolete">序列号</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="70"/>
         <source>Product Type</source>
-        <translation>产品类型</translation>
+        <translation type="obsolete">产品类型</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="84"/>
         <source>Brand Name</source>
-        <translation>品牌名称</translation>
+        <translation type="obsolete">品牌名称</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="92"/>
         <source>Product Model</source>
-        <translation>产品型号</translation>
+        <translation type="obsolete">产品型号</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="103"/>
         <source>Product Color</source>
-        <translation>产品颜色</translation>
+        <translation type="obsolete">产品颜色</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="114"/>
         <source>Vendor</source>
-        <translation>供应商</translation>
+        <translation type="obsolete">供应商</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="125"/>
         <source>Replacement Info</source>
-        <translation>换机状态</translation>
+        <translation type="obsolete">换机状态</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="136"/>
         <source>Bar Info</source>
-        <translation>柜台信息</translation>
+        <translation type="obsolete">柜台信息</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="141"/>
         <source>Seller</source>
-        <translation>销售人员</translation>
+        <translation type="obsolete">销售人员</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="148"/>
         <source>Quantity</source>
-        <translation>数量</translation>
+        <translation type="obsolete">数量</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="155"/>
         <source>Unit</source>
-        <translation>单位</translation>
+        <translation type="obsolete">单位</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="160"/>
         <source>Schema</source>
-        <translation>店铺名称</translation>
+        <translation type="obsolete">店铺名称</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="167"/>
         <source>Old Purchase Price: </source>
-        <translation>上次进货价格：</translation>
+        <translation type="obsolete">上次进货价格：</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="173"/>
         <source>Purchase Price: </source>
-        <translation>进货价格：</translation>
+        <translation type="obsolete">进货价格：</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="179"/>
         <source>Selling Price</source>
-        <translation>销售价格</translation>
+        <translation type="obsolete">销售价格</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="185"/>
         <source>Comments: </source>
-        <translation>备注：</translation>
+        <translation type="obsolete">备注：</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="248"/>
         <source>Paid</source>
-        <translation>已付款</translation>
+        <translation type="obsolete">已付款</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="251"/>
-        <location filename="../updateproductdialog.cpp" line="579"/>
         <source>Print Bill</source>
-        <translation>付款</translation>
+        <translation type="obsolete">付款</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="262"/>
         <source>Product Info</source>
-        <translation>产品信息</translation>
+        <translation type="obsolete">产品信息</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="279"/>
-        <location filename="../updateproductdialog.cpp" line="292"/>
-        <location filename="../updateproductdialog.cpp" line="303"/>
-        <location filename="../updateproductdialog.cpp" line="316"/>
-        <location filename="../updateproductdialog.cpp" line="329"/>
-        <location filename="../updateproductdialog.cpp" line="342"/>
-        <location filename="../updateproductdialog.cpp" line="355"/>
-        <location filename="../updateproductdialog.cpp" line="368"/>
         <source>Update Product Error</source>
-        <translation>更新产品信息出错</translation>
+        <translation type="obsolete">更新产品信息出错</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="279"/>
         <source>Serial Number can&apos;t be empty !</source>
-        <translation>序列号不能为空！</translation>
+        <translation type="obsolete">序列号不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="292"/>
         <source>Unit can&apos;t be empty !</source>
-        <translation>单位不能为空！</translation>
+        <translation type="obsolete">单位不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="303"/>
         <source>Product Type can&apos;t be empty !</source>
-        <translation>产品类型不能为空！</translation>
+        <translation type="obsolete">产品类型不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="316"/>
         <source>Brand Name can&apos;t be empty !</source>
-        <translation>品牌名称不能为空！</translation>
+        <translation type="obsolete">品牌名称不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="329"/>
         <source>Product Model can&apos;t be empty !</source>
-        <translation>产品型号不能为空！</translation>
+        <translation type="obsolete">产品型号不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="342"/>
         <source>Product Color can&apos;t be empty !</source>
-        <translation>产品颜色不能为空！</translation>
+        <translation type="obsolete">产品颜色不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="355"/>
         <source>Product Vendor can&apos;t be empty !</source>
-        <translation>供应商不能为空！</translation>
+        <translation type="obsolete">供应商不能为空！</translation>
     </message>
     <message>
-        <location filename="../updateproductdialog.cpp" line="368"/>
         <source>Replacement Info can&apos;t be empty !</source>
-        <translation>换机状态不能为空！</translation>
+        <translation type="obsolete">换机状态不能为空！</translation>
     </message>
 </context>
 </TS>

@@ -25,7 +25,7 @@ QT_END_NAMESPACE
 class UserManagementInterface;
 class ProductManagementInterface;
 class BarChart;
-class UpdateProductDialog;
+class StatisticUpdateProductDialog;
 
 class STATISTIC_INVOICINGSHARED_EXPORT Statistic_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
@@ -276,8 +276,8 @@ private:
     QLabel *unsellProductsSummaryLabel;
     QLineEdit *unsellProductsSummaryLineEdit;
 
-    UpdateProductDialog *updateAllProductDialog;
-    UpdateProductDialog *updateUnsellProductDialog;
+    StatisticUpdateProductDialog *statisticUpdateAllProductDialog;
+    StatisticUpdateProductDialog *statisticUpdateUnsellProductDialog;
 };
 
 #endif // STATISTIC_INVOICING_H

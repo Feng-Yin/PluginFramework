@@ -11,23 +11,26 @@ TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 CONFIG += qwt
 INCLUDEPATH += ../../main
+INCLUDEPATH += ../UpdateProductDialog
 DEFINES += STATISTIC_INVOICING_LIBRARY
 TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
+    LIBS += ../../Main/debug/updateproductdialog.dll
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
 CONFIG(release, debug|release) {
+    LIBS += ../../Main/release/updateproductdialog.dll
     DLLDESTDIR = ../../Main/release/plugins/Invoicing/
 }
 
 SOURCES += statistic_invoicing.cpp\
         barchart.cpp \
-    updateproductdialog.cpp
+    statisticupdateproductdialog.cpp
 
 HEADERS += statistic_invoicing.h\
         Statistic_Invoicing_global.h\
         barchart.h \
-    updateproductdialog.h
+    statisticupdateproductdialog.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN

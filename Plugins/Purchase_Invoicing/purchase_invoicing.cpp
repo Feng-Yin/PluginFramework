@@ -343,6 +343,7 @@ void Purchase_Invoicing::hidePurchasePrice()
     purchaseView->setColumnHidden(OldPurchasePrice, hide);
     purchaseView->setColumnHidden(PurchasePrice, hide);
 
+    //QMessageBox::critical(NULL, "test", "test1");
     if(!updateProductDialog) {
         updateProductDialog = new UpdateProductDialog(userManagementInterface,
                                                       productManagementInterface);

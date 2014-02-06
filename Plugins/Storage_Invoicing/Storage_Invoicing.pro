@@ -10,21 +10,24 @@ TARGET = Storage_Invoicing
 TEMPLATE = lib
 CONFIG += plugin copy_dir_files
 INCLUDEPATH += ../../main
+INCLUDEPATH += ../UpdateProductDialog
 DEFINES += STORAGE_INVOICING_LIBRARY
 TRANSLATIONS = Translations/$${TARGET}_zh_CN.ts
 CONFIG(debug, debug|release) {
+    LIBS += ../../Main/debug/updateproductdialog.dll
     DLLDESTDIR = ../../Main/debug/plugins/Invoicing/
 }
 CONFIG(release, debug|release) {
+    LIBS += ../../Main/release/updateproductdialog.dll
     DLLDESTDIR = ../../Main/release/plugins/Invoicing/
 }
 
 SOURCES += storage_invoicing.cpp \
-    updateproductdialog.cpp
+    storageupdateproductdialog.cpp
 
 HEADERS += storage_invoicing.h\
         Storage_Invoicing_global.h \
-    updateproductdialog.h
+    storageupdateproductdialog.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN
