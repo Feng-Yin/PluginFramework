@@ -16,3 +16,8 @@ void StorageUpdateProductDialog::init()
     barInfoLabel->setEnabled(true);
     barInfoLineEdit->setEnabled(true);
 }
+
+void StorageUpdateProductDialog::serialNumberEditable(bool edit)
+{
+    serialNumberLineEdit->setReadOnly(!edit);
+}

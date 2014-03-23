@@ -4,77 +4,57 @@
 <context>
     <name>CashUpdateProductDialog</name>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="39"/>
+        <location filename="../cashupdateproductdialog.cpp" line="41"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="41"/>
+        <location filename="../cashupdateproductdialog.cpp" line="43"/>
         <source>Paid</source>
         <translation>已付款</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="46"/>
-        <location filename="../cashupdateproductdialog.cpp" line="201"/>
+        <location filename="../cashupdateproductdialog.cpp" line="48"/>
+        <location filename="../cashupdateproductdialog.cpp" line="103"/>
         <source>Print Bill</source>
         <translation>打印账单</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="48"/>
+        <location filename="../cashupdateproductdialog.cpp" line="50"/>
         <source>Check Out</source>
         <translation>付款</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="57"/>
-        <location filename="../cashupdateproductdialog.cpp" line="70"/>
-        <location filename="../cashupdateproductdialog.cpp" line="81"/>
-        <location filename="../cashupdateproductdialog.cpp" line="94"/>
-        <location filename="../cashupdateproductdialog.cpp" line="107"/>
-        <location filename="../cashupdateproductdialog.cpp" line="120"/>
-        <location filename="../cashupdateproductdialog.cpp" line="133"/>
-        <location filename="../cashupdateproductdialog.cpp" line="146"/>
         <source>Update Product Error</source>
-        <translation>更新产品出错</translation>
+        <translation type="obsolete">更新产品出错</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="57"/>
-        <source>Serial Number can&apos;t be empty !</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../cashupdateproductdialog.cpp" line="70"/>
         <source>Unit can&apos;t be empty !</source>
-        <translation>单位不能为空！</translation>
+        <translation type="obsolete">单位不能为空！</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="81"/>
         <source>Product Type can&apos;t be empty !</source>
-        <translation>产品类型不能为空！</translation>
+        <translation type="obsolete">产品类型不能为空！</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="94"/>
         <source>Brand Name can&apos;t be empty !</source>
-        <translation>品牌名称不能为空！</translation>
+        <translation type="obsolete">品牌名称不能为空！</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="107"/>
         <source>Product Model can&apos;t be empty !</source>
-        <translation>产品型号不能为空！</translation>
+        <translation type="obsolete">产品型号不能为空！</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="120"/>
         <source>Product Color can&apos;t be empty !</source>
-        <translation>产品颜色不能为空！</translation>
+        <translation type="obsolete">产品颜色不能为空！</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="133"/>
         <source>Product Vendor can&apos;t be empty !</source>
-        <translation>产品供应商不能为空！</translation>
+        <translation type="obsolete">产品供应商不能为空！</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="146"/>
         <source>Replacement Info can&apos;t be empty !</source>
-        <translation>换机状态不能为空！</translation>
+        <translation type="obsolete">换机状态不能为空！</translation>
     </message>
 </context>
 <context>

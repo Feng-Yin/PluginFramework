@@ -11,4 +11,5 @@ SUBDIRS += \
     Plugins/Sell_Invoicing \
     Plugins/Cash_Invoicing \
     Plugins/Statistic_Invoicing \
-    MySQLDriver/SYSZUXmysql
+    MySQLDriver/SYSZUXmysql \
+    RegisterTool

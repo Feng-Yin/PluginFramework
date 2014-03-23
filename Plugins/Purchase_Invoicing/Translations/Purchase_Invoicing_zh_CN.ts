@@ -83,60 +83,44 @@
         <translation>清除信息</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="56"/>
-        <location filename="../addproductdialog.cpp" line="69"/>
-        <location filename="../addproductdialog.cpp" line="80"/>
-        <location filename="../addproductdialog.cpp" line="93"/>
-        <location filename="../addproductdialog.cpp" line="106"/>
-        <location filename="../addproductdialog.cpp" line="119"/>
-        <location filename="../addproductdialog.cpp" line="132"/>
-        <location filename="../addproductdialog.cpp" line="145"/>
         <source>Add Product Error</source>
-        <translation>添加产品失败</translation>
+        <translation type="obsolete">添加产品失败</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="56"/>
         <source>Serial Number can&apos;t be empty !</source>
-        <translation>序列号不能为空！</translation>
+        <translation type="obsolete">序列号不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="119"/>
         <source>Product Color can&apos;t be empty !</source>
-        <translation>产品颜色不能为空！</translation>
+        <translation type="obsolete">产品颜色不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="132"/>
         <source>Product Vendor can&apos;t be empty !</source>
-        <translation>产品供应商不能为空！</translation>
+        <translation type="obsolete">产品供应商不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="145"/>
         <source>Replacement Info can&apos;t be empty !</source>
-        <translation>换机状态不能为空！</translation>
+        <translation type="obsolete">换机状态不能为空！</translation>
     </message>
     <message>
         <source>Serial Number has exist !</source>
         <translation type="obsolete">序列号已存在！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="69"/>
         <source>Unit can&apos;t be empty !</source>
-        <translation>单位不能为空！</translation>
+        <translation type="obsolete">单位不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="80"/>
         <source>Product Type can&apos;t be empty !</source>
-        <translation>产品类型不能为空！</translation>
+        <translation type="obsolete">产品类型不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="93"/>
         <source>Brand Name can&apos;t be empty !</source>
-        <translation>品牌名称不能为空！</translation>
+        <translation type="obsolete">品牌名称不能为空！</translation>
     </message>
     <message>
-        <location filename="../addproductdialog.cpp" line="106"/>
         <source>Product Model can&apos;t be empty !</source>
-        <translation>产品型号不能为空！</translation>
+        <translation type="obsolete">产品型号不能为空！</translation>
     </message>
 </context>
 <context>
@@ -297,27 +281,27 @@
         <translation>备注</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="366"/>
+        <location filename="../purchase_invoicing.cpp" line="367"/>
         <source>Purchase Function</source>
         <translation>采购功能模块</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="616"/>
+        <location filename="../purchase_invoicing.cpp" line="617"/>
         <source>Open Inventory</source>
         <translation>打开进货清单</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="616"/>
+        <location filename="../purchase_invoicing.cpp" line="617"/>
         <source>Inventory files (*.xls *.xlsx)</source>
         <translation>进货清单文件 (*.xls *.xlsx)</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="696"/>
+        <location filename="../purchase_invoicing.cpp" line="697"/>
         <source>Import</source>
         <translation>导入进货清单</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="696"/>
+        <location filename="../purchase_invoicing.cpp" line="697"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>

@@ -1,13 +1,6 @@
 #include <QtGui>
-
 #include "mainwindow.h"
 #include "qtsingleapplication.h"
-
-bool isRegistration()
-{
-    QSettings setting("BenYin", "Registration");
-    return setting.value(QString("Registration")).toString()=="13980575406";
-}
 
 int main(int argv, char *args[])
 {
@@ -26,9 +19,12 @@ int main(int argv, char *args[])
         QApplication::instance()->installTranslator(qtTranslator);
     }
 
-    if(!isRegistration()) {
+    //QMessageBox::information(0, QObject::tr("Error"), getHDLogicalID());
+    //QMessageBox::information(0, QObject::tr("Error"), calActiveCode(getHDLogicalID()));
+
+    if(!MainWindow::isRegistration()) {
         QMessageBox::information(0, QObject::tr("Error"), QObject::tr("This software has not been registered!"));
-        return 0;
+        //return 0;
     }
 
     if(app.isRunning()) {

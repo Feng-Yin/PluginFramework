@@ -558,7 +558,10 @@ void Storage_Invoicing::updateProductinfo()
         QModelIndex storageIndex = purchaseView->currentIndex();
         QSqlRecord record = purchaseModel->record(storageIndex.row());
         storageUpdateProductDialog->updateRecord(record);
+        storageUpdateProductDialog->serialNumberEditable(
+                    userManagementInterface->isAdmin(userManagementInterface->getCurrentUserName()));
         storageUpdateProductDialog->exec();
+        storageUpdateProductDialog->serialNumberEditable(false);
     }
     else {
         QModelIndex storageIndex = storageView->currentIndex();

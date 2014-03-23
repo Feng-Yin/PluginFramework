@@ -6,5 +6,6 @@
         <file>Icon/update_icon.png</file>
         <file>Translations/Invoicing_zh_CN.qm</file>
         <file>Translations/Invoicing_zh_CN.ts</file>
+        <file>Icon/register_icon.png</file>
     </qresource>
 </RCC>

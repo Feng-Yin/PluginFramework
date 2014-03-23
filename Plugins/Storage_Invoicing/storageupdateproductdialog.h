@@ -11,6 +11,7 @@ public:
                                ProductManagementInterface *productManagementInterface,
                                QWidget *parent = 0);
 
+    void serialNumberEditable(bool edit);
 private:
     void init();
 };

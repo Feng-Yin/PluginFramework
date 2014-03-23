@@ -15,72 +15,60 @@
         <translation>提交订单</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="76"/>
-        <location filename="../sellupdateproductdialog.cpp" line="89"/>
-        <location filename="../sellupdateproductdialog.cpp" line="100"/>
-        <location filename="../sellupdateproductdialog.cpp" line="113"/>
-        <location filename="../sellupdateproductdialog.cpp" line="126"/>
-        <location filename="../sellupdateproductdialog.cpp" line="139"/>
-        <location filename="../sellupdateproductdialog.cpp" line="152"/>
-        <location filename="../sellupdateproductdialog.cpp" line="165"/>
-        <location filename="../sellupdateproductdialog.cpp" line="173"/>
-        <location filename="../sellupdateproductdialog.cpp" line="185"/>
-        <location filename="../sellupdateproductdialog.cpp" line="192"/>
         <source>Submit Order Error</source>
-        <translation>提交订单失败</translation>
+        <translation type="obsolete">提交订单失败</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="76"/>
         <source>Serial Number can&apos;t be empty !</source>
-        <translation>序列号不能为空！</translation>
+        <translation type="obsolete">序列号不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="89"/>
         <source>Unit can&apos;t be empty !</source>
-        <translation>单位不能为空！</translation>
+        <translation type="obsolete">单位不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="100"/>
         <source>Product Type can&apos;t be empty !</source>
-        <translation>产品类型不能为空！</translation>
+        <translation type="obsolete">产品类型不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="113"/>
         <source>Brand Name can&apos;t be empty !</source>
-        <translation>品牌名称不能为空！</translation>
+        <translation type="obsolete">品牌名称不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="126"/>
         <source>Product Model can&apos;t be empty !</source>
-        <translation>产品型号不能为空！</translation>
+        <translation type="obsolete">产品型号不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="139"/>
         <source>Product Color can&apos;t be empty !</source>
-        <translation>产品颜色不能为空！</translation>
+        <translation type="obsolete">产品颜色不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="152"/>
         <source>Product Vendor can&apos;t be empty !</source>
-        <translation>供应商不能为空！</translation>
+        <translation type="obsolete">供应商不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="165"/>
         <source>Replacement Info can&apos;t be empty !</source>
-        <translation>换机状态不能为空！</translation>
+        <translation type="obsolete">换机状态不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="173"/>
+        <location filename="../sellupdateproductdialog.cpp" line="79"/>
         <source>Please select the correct seller !</source>
         <translation>请选择正确的销售人员！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="185"/>
+        <location filename="../sellupdateproductdialog.cpp" line="79"/>
+        <location filename="../sellupdateproductdialog.cpp" line="84"/>
+        <location filename="../sellupdateproductdialog.cpp" line="91"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../sellupdateproductdialog.cpp" line="84"/>
         <source>Selling Price can&apos;t be empty !</source>
         <translation>销售价格不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="192"/>
+        <location filename="../sellupdateproductdialog.cpp" line="91"/>
         <source>Selling Price error !</source>
         <translation>销售价格错误！</translation>
     </message>

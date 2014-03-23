@@ -1,5 +1,6 @@
 #include <QtGui>
 #include <typeinfo>
+#include <windows.h>
 #include "mainwindow.h"
 #include "plugin_interface.h"
 #include "usermanagement_interface.h"
@@ -16,11 +17,17 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutAction(NULL),
     pluginAction(NULL),
     updateAction(NULL),
+    registerAction(NULL),
     toolBox(NULL),
     stackedWidget(NULL),
     currentPlugin(NULL),
     pluginTable(NULL),
-    containerDialog(NULL)
+    containerDialog(NULL),
+    registerDialog(NULL),
+    machineCodeLabel(NULL),
+    machineCodeLineEdit(NULL),
+    registerCodeLabel(NULL),
+    registerCodeLineEdit(NULL)
 
 {
     QDir qmdir(":/Translations");
@@ -32,42 +39,45 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     createActions();
-    createToolBox();
     createMenus();
 
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(toolBox);
+    if(isRegistration())
+    {
+        createToolBox();
 
-    QFrame *line = new QFrame(this);
-    line->setAttribute(Qt::WA_MouseNoMask);
-    line->setFrameStyle(QFrame::Sunken);
-    line->setFrameShape(QFrame::VLine);
-    layout->addWidget(line);
+        QHBoxLayout *layout = new QHBoxLayout;
+        layout->addWidget(toolBox);
 
-    stackedWidget = new QStackedWidget();
-    layout->addWidget(stackedWidget);
+        QFrame *line = new QFrame(this);
+        line->setAttribute(Qt::WA_MouseNoMask);
+        line->setFrameStyle(QFrame::Sunken);
+        line->setFrameShape(QFrame::VLine);
+        layout->addWidget(line);
 
-    QWidget *widget = new QWidget;
-    widget->setLayout(layout);
+        stackedWidget = new QStackedWidget();
+        layout->addWidget(stackedWidget);
 
-    setCentralWidget(widget);
-    setWindowTitle(tr("PluginFramework"));
-    setWindowIcon(QIcon(":/Icon/plugin_icon.png"));
-    setUnifiedTitleAndToolBarOnMac(true);
+        QWidget *widget = new QWidget;
+        widget->setLayout(layout);
 
-    setCursor(Qt::BusyCursor);
-    loadPlugins();
-    currentPlugin = getPlugin("UserManagement_Invoicing");
-    //Set current user
-    updateCurrentUserInfo();
-    //end of Set current user
+        setCentralWidget(widget);
+        setWindowTitle(tr("PluginFramework"));
+        setWindowIcon(QIcon(":/Icon/plugin_icon.png"));
+        setUnifiedTitleAndToolBarOnMac(true);
+        setCursor(Qt::BusyCursor);
+        loadPlugins();
+        currentPlugin = getPlugin("UserManagement_Invoicing");
+        //Set current user
+        updateCurrentUserInfo();
+        //end of Set current user
 
-    unsetCursor();
+        unsetCursor();
 
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->setInterval(1000*10);
-    timer->start();
+        QTimer *timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+        timer->setInterval(1000*10);
+        timer->start();
+    }
 }
 
 MainWindow::~MainWindow()
@@ -112,6 +122,19 @@ void MainWindow::createActions()
     updateAction->setShortcut(QString("Ctrl+R"));
     updateAction->setIcon(QIcon(":/Icon/update_icon.png"));
     connect(updateAction, SIGNAL(triggered()), this, SLOT(updateAll()));
+
+    registerAction = new QAction(tr("Reg&ister Software"), this);
+    registerAction->setShortcut(QString("Ctrl+G"));
+    registerAction->setIcon(QIcon(":/Icon/register_icon.png"));
+    connect(registerAction, SIGNAL(triggered()), this, SLOT(registerSoftware()));
+    if(isRegistration())
+    {
+        registerAction->setEnabled(false);
+    }
+    else
+    {
+        updateAction->setEnabled(false);
+    }
 }
 
 void MainWindow::createMenus()
@@ -121,9 +144,11 @@ void MainWindow::createMenus()
 
     aboutMenu = menuBar()->addMenu(tr("&Help"));
     aboutMenu->addAction(pluginAction);
+    aboutMenu->addAction(registerAction);
     aboutMenu->addAction(aboutAction);
 
     QToolBar *toolbar = new QToolBar(this);
+    toolbar->addAction(registerAction);
     toolbar->addAction(updateAction);
     toolbar->addAction(pluginAction);
     toolbar->addAction(exitAction);
@@ -382,6 +407,62 @@ void MainWindow::updateAll()
     update();
 }
 
+void MainWindow::registerSoftware()
+{
+    if(!registerDialog)
+    {
+        registerDialog = new QDialog(this);
+        registerDialog->setWindowTitle(tr("Register Softeware"));
+        registerDialog->setWindowIcon(QIcon(":/Icon/register_icon.png"));
+
+        machineCodeLabel = new QLabel(tr("Machine Code: "));
+        machineCodeLineEdit = new QLineEdit();
+        machineCodeLineEdit->setText(getHDLogicalID());
+        machineCodeLineEdit->setReadOnly(true);
+
+        registerCodeLabel = new QLabel(tr("Register Code: "));
+        registerCodeLineEdit = new QLineEdit();
+
+        QDialogButtonBox *buttons = new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                                         Qt::Horizontal,
+                                                         registerDialog);
+        connect(buttons, SIGNAL(accepted()), registerDialog, SLOT(accept()));
+        connect(buttons, SIGNAL(rejected()), registerDialog, SLOT(reject()));
+
+
+        QHBoxLayout *machineCodeLayout = new QHBoxLayout();
+        machineCodeLayout->addWidget(machineCodeLabel);
+        machineCodeLayout->addWidget(machineCodeLineEdit);
+
+        QHBoxLayout *registerCodeLayout = new QHBoxLayout();
+        registerCodeLayout->addWidget(registerCodeLabel);
+        registerCodeLayout->addWidget(registerCodeLineEdit);
+
+        QVBoxLayout *containerLayout = new QVBoxLayout();
+
+        containerLayout->addLayout(machineCodeLayout);
+        containerLayout->addLayout(registerCodeLayout);
+        containerLayout->addWidget(buttons);
+
+        registerDialog->setLayout(containerLayout);
+        registerDialog->resize(registerDialog->sizeHint().width()*2, registerDialog->sizeHint().height());
+    }
+    if(registerDialog->exec()==QDialog::Accepted)
+    {
+        if(registerCodeLineEdit->text() == calActiveCode(machineCodeLineEdit->text()))
+        {
+            QSettings setting("BenYin", "Registration");
+            setting.setValue(QString("Registration"), registerCodeLineEdit->text());
+            QMessageBox::information(0, tr("Register Softeware"), tr("Register Successful. Please restart the program"));
+            exit(0);
+        }
+        else
+        {
+            QMessageBox::critical(0, tr("Register Softeware"), tr("Invalid Register Code !"));
+        }
+    }
+}
+
 void MainWindow::updateCurrentUserInfo()
 {
     PluginInterface *plugin = getPlugin("UserManagementIF");
@@ -397,4 +478,44 @@ void MainWindow::updateCurrentUserInfo()
     }
     setWindowTitle(tr("Invocing System. Current User: %1 <--> Roles: %2")
                    .arg(userManagementInterface->getCurrentUserName()).arg(roles));
+}
+
+bool MainWindow::isRegistration()
+{
+    QSettings setting("BenYin", "Registration");
+    bool ret = setting.value(QString("Registration")).toString()=="13980575406";
+    if(!ret)
+    {
+        return setting.value(QString("Registration")).toString()==calActiveCode(getHDLogicalID());
+    }
+    return ret;
+}
+
+QString MainWindow::getHDLogicalID()
+{
+    DWORD VolumeSerialNumber;
+    GetVolumeInformation(L"C:\\",NULL,0,&VolumeSerialNumber,NULL,NULL,NULL,0);
+    return calActiveCode(QString("%1").arg(QString::number(VolumeSerialNumber,16).toUpper()));
+}
+
+QString MainWindow::calActiveCode(QString machineCode)
+{
+    const QString parm1("!@#");
+    const QString parm2("$%^");
+    const QString parm3("&*(");
+    const QString parm4(")_+");
+
+    QString seed = parm1 + machineCode + parm2 + parm3 + parm4;
+
+    QCryptographicHash sha1(QCryptographicHash::Sha1);
+
+    QByteArray datagram(seed.toAscii());
+    const char* tempConstChar = datagram.data();
+    sha1.addData(tempConstChar);
+    QString  activeCode=sha1.result().toHex();
+
+    //QClipboard *board = QApplication::clipboard();
+    //board->setText(activeCode);
+
+    return activeCode;
 }

@@ -14,6 +14,7 @@ class QStackedWidget;
 class QTableWidget;
 class QDialog;
 class QLabel;
+class QLineEdit;
 QT_END_NAMESPACE
 
 class PluginInterface;
@@ -25,6 +26,9 @@ class MainWindow : public QMainWindow
 public:
     static MainWindow* getInstance();
     static void release();
+    static QString calActiveCode(QString machineCode);
+    static QString getHDLogicalID();
+    static bool isRegistration();
     void updateUserNameTitle(QString userName);
     virtual PluginInterface* getPlugin(QString pluginName);
 
@@ -43,6 +47,7 @@ private slots:
     void pluginDialog();
     void update();
     void updateAll();
+    void registerSoftware();
 
 private:
     void createToolBox();
@@ -65,6 +70,7 @@ private:
     QAction *aboutAction;
     QAction *pluginAction;
     QAction *updateAction;
+    QAction *registerAction;
 
     QToolBox *toolBox;
     QStackedWidget *stackedWidget;
@@ -75,6 +81,11 @@ private:
     QSet<QString> deferLoadingFile;
     QTableWidget *pluginTable;
     QDialog *containerDialog;
+    QDialog *registerDialog;
+    QLabel *machineCodeLabel;
+    QLineEdit *machineCodeLineEdit;
+    QLabel *registerCodeLabel;
+    QLineEdit *registerCodeLineEdit;
 };
 
 #endif // MAINWINDOW_H
