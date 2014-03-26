@@ -1,4 +1,4 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include <QtSql>
 #include "cash_invoicing.h"
 #include "mainwindow.h"
@@ -117,8 +117,8 @@ void Cash_Invoicing::hidePurchasePrice()
     QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
                 userManagementInterface->getUserIDByUserName(
                     userManagementInterface->getCurrentUserName()));
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("¹ÜÀíÔ±");
-    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("¿â¹Ü");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ç®¡ç†å‘˜");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("åº“ç®¡");
     foreach(int i, roleset) {
         //if(i == adminRoleID || i == storagerRoleID) {
         if(i == adminRoleID) {
@@ -148,7 +148,7 @@ QString Cash_Invoicing::moduleDescription() const
 
 QSet<QString> Cash_Invoicing::getAccessRoleNameSet() const
 {
-    return QSet<QString>()<<"¹ÜÀíÔ±"<<"ÊÕÒøÔ±";
+    return QSet<QString>()<<"ç®¡ç†å‘˜"<<"æ”¶é“¶å‘˜";
 }
 
 QSet<QString> Cash_Invoicing::getDependencySet() const
@@ -293,7 +293,7 @@ void Cash_Invoicing::updateDBTableModel()
 
 void Cash_Invoicing::updateCashFilter()
 {
-    int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÏÂµ¥");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å·²ä¸‹å•");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
     QSet<int> schemaSet = userManagementInterface->getSchemaIDSetByUserID(userID);
@@ -337,5 +337,7 @@ void Cash_Invoicing::productUpdated()
 }
 
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(Cash_Invoicing, Cash_Invoicing)
+#endif
 QT_END_NAMESPACE

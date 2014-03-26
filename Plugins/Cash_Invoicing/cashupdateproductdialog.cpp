@@ -1,5 +1,21 @@
-#include "cashupdateproductdialog.h"
+ï»¿#include "cashupdateproductdialog.h"
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#else
 #include <QtGui>
+#endif
 
 CashUpdateProductDialog::CashUpdateProductDialog(UserManagementInterface *userManagementInterface,
                                                  ProductManagementInterface *productManagementInterface,
@@ -57,7 +73,7 @@ bool CashUpdateProductDialog::checkInput()
         return false;
     }
 
-    statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÏúÊÛ");
+    statusID = productManagementInterface->getStatusIDByStatusName("å·²é”€å”®");
 
     return true;
 }
@@ -112,7 +128,7 @@ void CashUpdateProductDialog::printBill()
 
 //        updateProductButtonBox->hide();
 //        QString originalText = commentsTextEdit->toPlainText();
-//        QString declearText = "\n\n\n=========================\n´Ëµ¥¾İÎªÏúÊÛ¼°±£ĞŞÆ¾Ö¤£¬¸ÇÕÂºóÉúĞ§\n=========================";
+//        QString declearText = "\n\n\n=========================\næ­¤å•æ®ä¸ºé”€å”®åŠä¿ä¿®å‡­è¯ï¼Œç›–ç« åç”Ÿæ•ˆ\n=========================";
 //        commentsTextEdit->setPlainText(originalText + declearText);
 //        double xscale = printer->pageRect().width()/double(this->width());
 //        double yscale = printer->pageRect().height()/double(this->height());
@@ -142,7 +158,7 @@ void CashUpdateProductDialog::printBill()
 //            painter.drawText(QPointF(x, y), output);
 //        }
 //        y += rect.height();
-//        painter.drawText(QPointF(x, y), "´Ëµ¥¾İÎªÏúÊÛ¼°±£ĞŞÆ¾Ö¤£¬¸ÇÕÂºóÉúĞ§\n");
+//        painter.drawText(QPointF(x, y), "æ­¤å•æ®ä¸ºé”€å”®åŠä¿ä¿®å‡­è¯ï¼Œç›–ç« åç”Ÿæ•ˆ\n");
 
 //        painter.end();
     }
@@ -150,53 +166,53 @@ void CashUpdateProductDialog::printBill()
 
 QString CashUpdateProductDialog::getPrintContent()
 {
-    QString declearText = "´Ëµ¥¾İÎªÏúÊÛ¼°±£ĞŞÆ¾Ö¤£¬¸ÇÕÂºóÉúĞ§";
+    QString declearText = "æ­¤å•æ®ä¸ºé”€å”®åŠä¿ä¿®å‡­è¯ï¼Œç›–ç« åç”Ÿæ•ˆ";
     QString datetime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     QString table = QString("\
                     <html> \
                     <body> \
                     <table align=\"center\" border=\"5\" cellpadding=\"20\"> \
-                    <caption align=\"center\"><h1>Ïú ÊÛ Æ¾ Ö¤</h1></caption><br/> \
+                    <caption align=\"center\"><h1>é”€ å”® å‡­ è¯</h1></caption><br/> \
                     <tr> \
-                        <th align=\"right\">²úÆ·ĞòÁĞºÅ: </th> \
+                        <th align=\"right\">äº§å“åºåˆ—å·: </th> \
                         <td align=\"right\" colspan=\"5\"> %1</td> \
                     </tr> \
                     <tr> \
-                        <th align=\"right\">²úÆ·ÀàĞÍ: </th> \
+                        <th align=\"right\">äº§å“ç±»å‹: </th> \
                         <td align=\"right\"> %2</td> \
-                        <th align=\"right\">²úÆ·Æ·ÅÆ: </th> \
+                        <th align=\"right\">äº§å“å“ç‰Œ: </th> \
                         <td align=\"right\"> %3</td> \
-                        <th align=\"right\">²úÆ·ĞÍºÅ: </th> \
+                        <th align=\"right\">äº§å“å‹å·: </th> \
                         <td align=\"right\"> %4</td> \
                     </tr> \
                     <tr> \
-                        <th align=\"right\">²úÆ·ÑÕÉ«: </th> \
+                        <th align=\"right\">äº§å“é¢œè‰²: </th> \
                         <td align=\"right\"> %5</td> \
-                        <th align=\"right\">¹©Ó¦ÉÌ: </th> \
+                        <th align=\"right\">ä¾›åº”å•†: </th> \
                         <td align=\"right\"> %6</td> \
-                        <th align=\"right\">¹ñÌ¨ĞÅÏ¢: </th> \
+                        <th align=\"right\">æŸœå°ä¿¡æ¯: </th> \
                         <td align=\"right\"> %7</td> \
                     </tr> \
                     <tr> \
-                        <th align=\"right\">²úÆ·ÊıÁ¿: </th> \
+                        <th align=\"right\">äº§å“æ•°é‡: </th> \
                         <td align=\"right\"> %8</td> \
-                        <th align=\"right\">µ¥Î»: </th> \
+                        <th align=\"right\">å•ä½: </th> \
                         <td align=\"right\"> %9</td> \
-                        <th align=\"right\">ÏúÊÛ²Ö¿â: </th> \
+                        <th align=\"right\">é”€å”®ä»“åº“: </th> \
                         <td align=\"right\"> %10</td> \
                     </tr> \
                     <tr> \
-                        <th align=\"right\">ÏúÊÛ¼Û¸ñ: </th> \
+                        <th align=\"right\">é”€å”®ä»·æ ¼: </th> \
                         <td align=\"center\" colspan=\"3\"> %11</td> \
-                        <th align=\"right\">ÏúÊÛÈËÔ±: </th> \
+                        <th align=\"right\">é”€å”®äººå‘˜: </th> \
                         <td align=\"right\"> %12</td> \
                     </tr> \
                     <tr> \
-                        <th align=\"right\">±¸×¢: </th> \
+                        <th align=\"right\">å¤‡æ³¨: </th> \
                         <td align=\"left\" colspan=\"5\"> %13</br> \
                                     <h4 align=\"right\"> %14</h4></br> \
                                     <h4 align=\"right\"> %15</h4></br> \
-                                    <h4 align=\"right\">²Ù×÷Ô±: %16</h4></td> \
+                                    <h4 align=\"right\">æ“ä½œå‘˜: %16</h4></td> \
                     </tr> \
                     </table> \
                     </body> \

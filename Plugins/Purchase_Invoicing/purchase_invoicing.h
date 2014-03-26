@@ -1,4 +1,4 @@
-#ifndef PURCHASE_INVOICING_H
+﻿#ifndef PURCHASE_INVOICING_H
 #define PURCHASE_INVOICING_H
 
 #include <QObject>
@@ -27,6 +27,9 @@ class PURCHASE_INVOICINGSHARED_EXPORT Purchase_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
 {
     Q_OBJECT
+#if QT_VERSION >= 0x050000
+    Q_PLUGIN_METADATA(IID "Purchase_Invoicing")
+#endif
     Q_INTERFACES(PluginInterface UserChangeNotifyInterface)
 public:
     Purchase_Invoicing();

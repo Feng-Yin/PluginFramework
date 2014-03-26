@@ -1,4 +1,4 @@
-#ifndef SELLUPDATEPRODUCTDIALOG_H
+﻿#ifndef SELLUPDATEPRODUCTDIALOG_H
 #define SELLUPDATEPRODUCTDIALOG_H
 
 #include "updateproductdialog.h"

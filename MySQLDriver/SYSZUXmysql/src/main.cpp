@@ -76,7 +76,8 @@ QStringList QMYSQLDriverPlugin::keys() const
     return l;
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_STATIC_PLUGIN(QMYSQLDriverPlugin)
 Q_EXPORT_PLUGIN2(qsqlmysql, QMYSQLDriverPlugin)
-
+#endif
 QT_END_NAMESPACE

@@ -1,4 +1,4 @@
-QT       += network sql
+QT       += network sql widgets
 TARGET = Invoicing
 TRANSLATIONS = ./Translations/Invoicing_zh_CN.ts
 

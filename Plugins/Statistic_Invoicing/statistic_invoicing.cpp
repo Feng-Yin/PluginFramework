@@ -1,4 +1,4 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include <QtSql>
 #include "statistic_invoicing.h"
 #include "mainwindow.h"
@@ -279,7 +279,7 @@ QString Statistic_Invoicing::moduleDescription() const
 
 QSet<QString> Statistic_Invoicing::getAccessRoleNameSet() const
 {
-    return QSet<QString>()<<"¹ÜÀíÔ±"<<"Éó¼Æ";
+    return QSet<QString>()<<"ç®¡ç†å‘˜"<<"å®¡è®¡";
 }
 
 QSet<QString> Statistic_Invoicing::getDependencySet() const
@@ -360,31 +360,31 @@ void Statistic_Invoicing::createAllProductsPanel()
     allProductsPanel->setLayout(layout);
 
     productTypeAllProductsComboBox->setCurrentIndex(
-                productTypeAllProductsComboBox->findText("ÆäËü"));
+                productTypeAllProductsComboBox->findText("å…¶å®ƒ"));
 
     brandNameAllProductsComboBox->setCurrentIndex(
-                brandNameAllProductsComboBox->findText("ÆäËü"));
+                brandNameAllProductsComboBox->findText("å…¶å®ƒ"));
 
     productModelAllProductsComboBox->setCurrentIndex(
-                productModelAllProductsComboBox->findText("ÆäËü"));
+                productModelAllProductsComboBox->findText("å…¶å®ƒ"));
 
     productColorAllProductsComboBox->setCurrentIndex(
-                productColorAllProductsComboBox->findText("ÆäËü"));
+                productColorAllProductsComboBox->findText("å…¶å®ƒ"));
 
     productVendorAllProductsComboBox->setCurrentIndex(
-                productVendorAllProductsComboBox->findText("ÆäËü"));
+                productVendorAllProductsComboBox->findText("å…¶å®ƒ"));
 
     replacementInfoAllProductsComboBox->setCurrentIndex(
-                replacementInfoAllProductsComboBox->findText("·ñ"));
+                replacementInfoAllProductsComboBox->findText("å¦"));
 
     productStatusAllProductsComboBox->setCurrentIndex(
-                productStatusAllProductsComboBox->findText("ÒÑÉ¾³ı"));
+                productStatusAllProductsComboBox->findText("å·²åˆ é™¤"));
 
     sellerAllProductsComboBox->setCurrentIndex(
-                sellerAllProductsComboBox->findText("Î´Ö¸¶¨"));
+                sellerAllProductsComboBox->findText("æœªæŒ‡å®š"));
 
     schemaAllProductsComboBox->setCurrentIndex(
-                schemaAllProductsComboBox->findText("Î´Ö¸¶¨"));
+                schemaAllProductsComboBox->findText("æœªæŒ‡å®š"));
 }
 
 void Statistic_Invoicing::createUnsellProductsPanel()
@@ -766,31 +766,31 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     unsellProductsFilterPanel->setLayout(unsellProductsFilterLayout);
 
     productTypeUnsellProductsComboBox->setCurrentIndex(
-                productTypeUnsellProductsComboBox->findText("ÆäËü"));
+                productTypeUnsellProductsComboBox->findText("å…¶å®ƒ"));
 
     brandNameUnsellProductsComboBox->setCurrentIndex(
-                brandNameUnsellProductsComboBox->findText("ÆäËü"));
+                brandNameUnsellProductsComboBox->findText("å…¶å®ƒ"));
 
     productModelUnsellProductsComboBox->setCurrentIndex(
-                productModelUnsellProductsComboBox->findText("ÆäËü"));
+                productModelUnsellProductsComboBox->findText("å…¶å®ƒ"));
 
     productColorUnsellProductsComboBox->setCurrentIndex(
-                productColorUnsellProductsComboBox->findText("ÆäËü"));
+                productColorUnsellProductsComboBox->findText("å…¶å®ƒ"));
 
     productVendorUnsellProductsComboBox->setCurrentIndex(
-                productVendorUnsellProductsComboBox->findText("ÆäËü"));
+                productVendorUnsellProductsComboBox->findText("å…¶å®ƒ"));
 
     replacementInfoUnsellProductsComboBox->setCurrentIndex(
-                replacementInfoUnsellProductsComboBox->findText("·ñ"));
+                replacementInfoUnsellProductsComboBox->findText("å¦"));
 
     productStatusUnsellProductsComboBox->setCurrentIndex(
-                productStatusUnsellProductsComboBox->findText("ÒÑÉ¾³ı"));
+                productStatusUnsellProductsComboBox->findText("å·²åˆ é™¤"));
 
     sellerUnsellProductsComboBox->setCurrentIndex(
-                sellerUnsellProductsComboBox->findText("Î´Ö¸¶¨"));
+                sellerUnsellProductsComboBox->findText("æœªæŒ‡å®š"));
 
     schemaUnsellProductsComboBox->setCurrentIndex(
-                schemaUnsellProductsComboBox->findText("Î´Ö¸¶¨"));
+                schemaUnsellProductsComboBox->findText("æœªæŒ‡å®š"));
 }
 
 void Statistic_Invoicing::createBarChartPanel()
@@ -1355,8 +1355,8 @@ void Statistic_Invoicing::hidePurchasePrice()
     QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
                 userManagementInterface->getUserIDByUserName(
                     userManagementInterface->getCurrentUserName()));
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("¹ÜÀíÔ±");
-    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("¿â¹Ü");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ç®¡ç†å‘˜");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("åº“ç®¡");
     foreach(int i, roleset) {
         //if(i == adminRoleID || i == storagerRoleID) {
         if(i == adminRoleID) {
@@ -1974,13 +1974,13 @@ void Statistic_Invoicing::updateSalesStatisticPlot()
 
 void Statistic_Invoicing::populateSellerNameComboBox(QComboBox *sellerNameComboBox) const
 {
-    int sellerRoleID = userManagementInterface->getRoleIDByRoleName("ÏúÊÛ");
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("¹ÜÀíÔ±");
+    int sellerRoleID = userManagementInterface->getRoleIDByRoleName("é”€å”®");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ç®¡ç†å‘˜");
     QSet<int> sellers = userManagementInterface->getUserIDSetByRoleID(sellerRoleID);
     QSet<int> admins = userManagementInterface->getUserIDSetByRoleID(adminRoleID);
     sellerNameComboBox->clear();
     //sellerComboBox->addItem(userManagementInterface->getUserNameByUserID(1));
-    sellerNameComboBox->addItem("Î´Ö¸¶¨");
+    sellerNameComboBox->addItem("æœªæŒ‡å®š");
     foreach(int admin, admins) {
         sellerNameComboBox->addItem(userManagementInterface->getUserNameByUserID(admin));
     }
@@ -2016,5 +2016,7 @@ void Statistic_Invoicing::updateUnsellProductinfo()
 }
 
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(Statistic_Invoicing, Statistic_Invoicing)
+#endif
 QT_END_NAMESPACE

@@ -1,5 +1,19 @@
-#include "sellupdateproductdialog.h"
+ï»¿#include "sellupdateproductdialog.h"
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#else
 #include <QtGui>
+#endif
 
 SellUpdateProductDialog::SellUpdateProductDialog(UserManagementInterface *userManagementInterface,
                                                  ProductManagementInterface *productManagementInterface,
@@ -75,7 +89,7 @@ bool SellUpdateProductDialog::checkInput()
     }
 
     sellerID = userManagementInterface->getUserIDByUserName(sellerComboBox->currentText());
-    if(sellerID == userManagementInterface->getUserIDByUserName("Î´Ö¸¶¨")) {
+    if(sellerID == userManagementInterface->getUserIDByUserName("æœªæŒ‡å®š")) {
         QMessageBox::critical(this, tr("Error"), tr("Please select the correct seller !"));
         sellerComboBox->setFocus();
         return false;
@@ -92,7 +106,7 @@ bool SellUpdateProductDialog::checkInput()
         sellingPriceLineEdit->setFocus();
         return false;
     }
-    statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÏÂµ¥");
+    statusID = productManagementInterface->getStatusIDByStatusName("å·²ä¸‹å•");
 
     return true;
 }
@@ -119,7 +133,7 @@ void SellUpdateProductDialog::updateOrderProductInfo()
                                                        userManagementInterface->getUserIDByUserName(record.value(ResponserUserID).toString()),
                                                        userManagementInterface->getUserIDByUserName(record.value(SellerID).toString()),
                                                        record.value(BarInfo).toString(),
-                                                       productManagementInterface->getStatusIDByStatusName("ÒÑÈë¿â"),
+                                                       productManagementInterface->getStatusIDByStatusName("å·²å…¥åº“"),
                                                        productManagementInterface->getReplacementStatusIDByReplacementStatusName(record.value(ReplacementStatusID).toString()),
                                                        record.value(TimeStamp).toString(),
                                                        record.value(Comments).toString());

@@ -1,4 +1,17 @@
-#include <QtGui>
+﻿#include <QtGui>
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#endif
 #include <QtSql>
 #include <limits>
 #include "usermanagementdialog.h"

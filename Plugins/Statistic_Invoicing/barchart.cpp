@@ -1,4 +1,4 @@
-#include "barchart.h"
+﻿#include "barchart.h"
 #include <qwt_plot_renderer.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_multi_barchart.h>
@@ -6,7 +6,23 @@
 #include <qwt_plot_layout.h>
 #include <qwt_legend.h>
 #include <QtGlobal>
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#include <QtPrintSupport/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#else
 #include <QtGui>
+#endif
 
 BarChart::BarChart(QWidget *parent):
     QwtPlot(parent),

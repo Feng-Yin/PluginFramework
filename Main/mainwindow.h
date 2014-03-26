@@ -1,7 +1,11 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#if QT_VERSION < 0x050000
 #include <QMainWindow>
+#else
+#include <QtWidgets>
+#endif
 #include <QMap>
 #include <Qset>
 #include <QVector>

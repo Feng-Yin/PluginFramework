@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += sql
+QT       += sql widgets printsupport
 
 TARGET = Statistic_Invoicing
 TEMPLATE = lib

@@ -1,5 +1,19 @@
-#include "statisticupdateproductdialog.h"
+﻿#include "statisticupdateproductdialog.h"
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#else
 #include <QtGui>
+#endif
 
 StatisticUpdateProductDialog::StatisticUpdateProductDialog(UserManagementInterface *userManagementInterface,
                                                            ProductManagementInterface *productManagementInterface,

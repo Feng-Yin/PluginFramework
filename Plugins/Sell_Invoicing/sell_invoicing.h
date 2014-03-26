@@ -1,4 +1,4 @@
-#ifndef SELL_INVOICING_H
+﻿#ifndef SELL_INVOICING_H
 #define SELL_INVOICING_H
 
 #include <QObject>
@@ -22,6 +22,9 @@ class SELL_INVOICINGSHARED_EXPORT Sell_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
 {
     Q_OBJECT
+#if QT_VERSION >= 0x050000
+    Q_PLUGIN_METADATA(IID "Sell_Invoicing")
+#endif
     Q_INTERFACES(PluginInterface UserChangeNotifyInterface)
 public:
     Sell_Invoicing();

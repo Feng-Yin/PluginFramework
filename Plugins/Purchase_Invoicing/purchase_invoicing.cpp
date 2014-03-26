@@ -1,4 +1,4 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include <QtSql>
 #include <QAxObject>
 #include "purchase_invoicing.h"
@@ -255,7 +255,7 @@ void Purchase_Invoicing::createPurchasePanel()
     purchaseModel->setHeaderData(TimeStamp, Qt::Horizontal, tr("TimeStamp"));
     purchaseModel->setHeaderData(Comments, Qt::Horizontal, tr("Comments"));
 
-//    int statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
+//    int statusID = productManagementInterface->getStatusIDByStatusName("å½•å…¥");
 //    int userID = userManagementInterface->getUserIDByUserName(
 //                userManagementInterface->getCurrentUserName());
 //    QSet<int> schemaSet = userManagementInterface->getSchemaIDSetByUserID(userID);
@@ -332,8 +332,8 @@ void Purchase_Invoicing::hidePurchasePrice()
     QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
                 userManagementInterface->getUserIDByUserName(
                     userManagementInterface->getCurrentUserName()));
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("¹ÜÀíÔ±");
-    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("¿â¹Ü");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ç®¡ç†å‘˜");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("åº“ç®¡");
     foreach(int i, roleset) {
         //if(i == adminRoleID || i == storagerRoleID) {
         if(i == adminRoleID) {
@@ -369,7 +369,7 @@ QString Purchase_Invoicing::moduleDescription() const
 
 QSet<QString> Purchase_Invoicing::getAccessRoleNameSet() const
 {
-    return QSet<QString>()<<"¹ÜÀíÔ±"<<"²É¹º";
+    return QSet<QString>()<<"ç®¡ç†å‘˜"<<"é‡‡è´­";
 }
 
 QSet<QString> Purchase_Invoicing::getDependencySet() const
@@ -389,7 +389,7 @@ void Purchase_Invoicing::addProduct()
 
 bool Purchase_Invoicing::addProduct(QStringList &product)
 {
-    //½ø»õÈÕÆÚ ¹©»õÉÌ Æ·ÅÆ »úĞÍ ´®ºÅ ÑÕÉ« ÊıÁ¿ ±¸×¢
+    //è¿›è´§æ—¥æœŸ ä¾›è´§å•† å“ç‰Œ æœºå‹ ä¸²å· é¢œè‰² æ•°é‡ å¤‡æ³¨
     QString productType;
     QString time;
     QString vendorName;
@@ -410,7 +410,7 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
     comments = product.at(8).simplified();
     int productTypeID;
     if(productType.isEmpty()) {
-        productTypeID = productManagementInterface->getTypeIDByTypeName("ÆäËü");
+        productTypeID = productManagementInterface->getTypeIDByTypeName("å…¶å®ƒ");
     } else {
         productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
         if(!productTypeID) {
@@ -421,7 +421,7 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
 
     int vendorID;
     if(vendorName.isEmpty()) {
-        vendorID = productManagementInterface->getVendorIDByVendorName("ÆäËü");
+        vendorID = productManagementInterface->getVendorIDByVendorName("å…¶å®ƒ");
     } else {
         vendorID = productManagementInterface->getVendorIDByVendorName(vendorName);
         if(!vendorID) {
@@ -432,7 +432,7 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
 
     int brandNameID;
     if(brandName.isEmpty()) {
-        brandNameID = productManagementInterface->getBrandIDByBrandName("ÆäËü");
+        brandNameID = productManagementInterface->getBrandIDByBrandName("å…¶å®ƒ");
     } else {
         brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
         if(!brandNameID) {
@@ -442,10 +442,10 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
     }
     int productModelID;
     if(modelName.isEmpty()) {
-        productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "ÆäËü");
+        productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "å…¶å®ƒ");
         if(!productModelID) {
-            productManagementInterface->addProductModel(productTypeID, brandNameID, "ÆäËü");
-            productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "ÆäËü");
+            productManagementInterface->addProductModel(productTypeID, brandNameID, "å…¶å®ƒ");
+            productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "å…¶å®ƒ");
         }
     } else {
         productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, modelName);
@@ -457,7 +457,7 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
 
     int colorID;
     if(colorName.isEmpty()) {
-        colorID = productManagementInterface->getColorIDByColorName("ÆäËü");
+        colorID = productManagementInterface->getColorIDByColorName("å…¶å®ƒ");
     } else {
         colorID = productManagementInterface->getColorIDByColorName(colorName);
         if(!colorID) {
@@ -466,12 +466,12 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
         }
     }
 
-    int schemaID = userManagementInterface->getSchemaIDBySchemaName("Î´Ö¸¶¨");
+    int schemaID = userManagementInterface->getSchemaIDBySchemaName("æœªæŒ‡å®š");
     //int schemaID = 1;
     int quantity = quatityString.toInt();
     int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
-    int sellerID = userManagementInterface->getUserIDByUserName("Î´Ö¸¶¨");
-    int statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
+    int sellerID = userManagementInterface->getUserIDByUserName("æœªæŒ‡å®š");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å½•å…¥");
     QString timeStamp("");
     if(!time.isEmpty()) {
         time.replace("T", " ", Qt::CaseInsensitive);
@@ -486,10 +486,10 @@ bool Purchase_Invoicing::addProduct(QStringList &product)
         QDateTime tmpTime = QDateTime::currentDateTime();
         timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
     }
-    int replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("·ñ");
+    int replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("å¦");
     int ret = productManagementInterface->addProductByDetail(serialNumber.simplified(), productTypeID, brandNameID,
-                                                   productModelID, colorID, vendorID, schemaID, quantity, /*unit*/"¸ö",
-                                                   "", "", "", userID, userID, sellerID, "Î´Ö¸¶¨", statusID, replacementStatusID,
+                                                   productModelID, colorID, vendorID, schemaID, quantity, /*unit*/"ä¸ª",
+                                                   "", "", "", userID, userID, sellerID, "æœªæŒ‡å®š", statusID, replacementStatusID,
                                                    timeStamp.simplified(), comments.simplified());
     if(!ret) {
         //QMessageBox::warning(0, "Error", QString("Insert %1 Error").arg(serialNumber));
@@ -507,7 +507,7 @@ void Purchase_Invoicing::addProduct(QMap<QString, QList<QStringList> > &products
             productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
         }
 
-        //½ø»õÈÕÆÚ ¹©»õÉÌ Æ·ÅÆ »úĞÍ ´®ºÅ ÑÕÉ« ÊıÁ¿ ±¸×¢
+        //è¿›è´§æ—¥æœŸ ä¾›è´§å•† å“ç‰Œ æœºå‹ ä¸²å· é¢œè‰² æ•°é‡ å¤‡æ³¨
         QString time;
         QString vendorName;
         QString brandName;
@@ -548,21 +548,21 @@ void Purchase_Invoicing::addProduct(QMap<QString, QList<QStringList> > &products
             }
             colorID = productManagementInterface->getColorIDByColorName(colorName);
 
-            //int schemaID = userManagementInterface->getSchemaIDBySchemaName("Î´Ö¸¶¨");
+            //int schemaID = userManagementInterface->getSchemaIDBySchemaName("æœªæŒ‡å®š");
             int schemaID = 1;
             int quantity = quatityString.toInt();
             int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
-            int statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
+            int statusID = productManagementInterface->getStatusIDByStatusName("å½•å…¥");
             time.replace("T", " ", Qt::CaseInsensitive);
             QDateTime tmpTime = QDateTime::fromString(time, "yyyy-MM-dd hh:mm:ss");
             QString timeStamp("");
             if(tmpTime.isValid()) {
                 timeStamp = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
             }
-            int replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("·ñ");
+            int replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("å¦");
             productManagementInterface->addProductByDetail(serialNumber.simplified(), productTypeID, brandNameID,
-                                                           productModelID, colorID, vendorID, schemaID, quantity, /*unit*/"¸ö",
-                                                           "", "", "", userID, userID, userID, "Î´Ö¸¶¨", statusID, replacementStatusID,
+                                                           productModelID, colorID, vendorID, schemaID, quantity, /*unit*/"ä¸ª",
+                                                           "", "", "", userID, userID, userID, "æœªæŒ‡å®š", statusID, replacementStatusID,
                                                            timeStamp.simplified(), comments.simplified());
         }
     }
@@ -579,7 +579,7 @@ void Purchase_Invoicing::delProduct()
     QModelIndex index = purchaseView->currentIndex();
     QSqlRecord record = purchaseModel->record(index.row());
     int id = record.value(ProductID).toInt();
-    int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÉ¾³ı");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å·²åˆ é™¤");
     productManagementInterface->updateStatusIDByProductID(id, statusID);
 
     purchaseModel->removeRow(index.row());
@@ -593,10 +593,10 @@ void Purchase_Invoicing::delProduct()
 
 void Purchase_Invoicing::emptyProducts()
 {
-    int statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å½•å…¥");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
-    int deleteID = productManagementInterface->getStatusIDByStatusName("ÒÑÉ¾³ı");
+    int deleteID = productManagementInterface->getStatusIDByStatusName("å·²åˆ é™¤");
     QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
     bar->setRange(0, productIDSet.count());
     bar->setValue(0);
@@ -653,7 +653,7 @@ void Purchase_Invoicing::importProducts()
 //                QMessageBox::about(0, "testing", QString("%1 %2 %3 %4 %5").arg(name).arg(intRowStart).arg(intColStart).arg(intRows).arg(intCols));
                 //////////////////////////////////////////////////////////////////
                 if(sheet) {
-                    //½ø»õÈÕÆÚ ¹©»õÉÌ Æ·ÅÆ »úĞÍ ´®ºÅ ÑÕÉ« ÊıÁ¿ ±¸×¢
+                    //è¿›è´§æ—¥æœŸ ä¾›è´§å•† å“ç‰Œ æœºå‹ ä¸²å· é¢œè‰² æ•°é‡ å¤‡æ³¨
                     QList<QStringList> products;
                     bool done = false;
                     for(int row=1; ; row++) {
@@ -683,7 +683,7 @@ void Purchase_Invoicing::importProducts()
                         }
                     }
     //                foreach(QStringList product, products) {
-    //                    QMessageBox::about(0, product.at(0), QString("½ø»õÈÕÆÚ:%1 ¹©»õÉÌ:%2 Æ·ÅÆ:%3 »úĞÍ:%4 ´®ºÅ:%5 ÑÕÉ«:%6 ÊıÁ¿:%7 ±¸×¢:%8")
+    //                    QMessageBox::about(0, product.at(0), QString("è¿›è´§æ—¥æœŸ:%1 ä¾›è´§å•†:%2 å“ç‰Œ:%3 æœºå‹:%4 ä¸²å·:%5 é¢œè‰²:%6 æ•°é‡:%7 å¤‡æ³¨:%8")
     //                                       .arg(product.at(1)).arg(product.at(2)).arg(product.at(3)).arg(product.at(4))
     //                                       .arg(product.at(5)).arg(product.at(6)).arg(product.at(7)).arg(product.at(8)));
     //                }
@@ -713,7 +713,7 @@ void Purchase_Invoicing::commitProduct()
     QModelIndex purchaseIndex = purchaseView->currentIndex();
     QSqlRecord record = purchaseModel->record(purchaseIndex.row());
     int productID = record.value(ProductID).toInt();
-    int statusID = productManagementInterface->getStatusIDByStatusName("´ıÈë¿â");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å¾…å…¥åº“");
     productManagementInterface->updateStatusIDByProductID(productID, statusID);
     purchaseModel->select();
     purchaseView->resizeColumnsToContents();
@@ -734,16 +734,16 @@ void Purchase_Invoicing::commitAllProducts()
     while(purchaseModel->rowCount()>0) {
         QSqlRecord record = purchaseModel->record(0);
         int productID = record.value(ProductID).toInt();
-        int statusID = productManagementInterface->getStatusIDByStatusName("´ıÈë¿â");
+        int statusID = productManagementInterface->getStatusIDByStatusName("å¾…å…¥åº“");
         productManagementInterface->updateStatusIDByProductID(productID, statusID);
         bar->setValue(++i);
     }
     purchaseModel->select();
     */
-    int statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å½•å…¥");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
-    int deleteID = productManagementInterface->getStatusIDByStatusName("´ıÈë¿â");
+    int deleteID = productManagementInterface->getStatusIDByStatusName("å¾…å…¥åº“");
     QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
     bar->setRange(0, productIDSet.count());
     bar->setValue(0);
@@ -802,7 +802,7 @@ void Purchase_Invoicing::onFilter()
 
 void Purchase_Invoicing::updatePurchaseFilter()
 {
-    int statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å½•å…¥");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
     QSet<int> schemaSet = userManagementInterface->getSchemaIDSetByUserID(userID);
@@ -841,5 +841,7 @@ void Purchase_Invoicing::updateProductinfo()
 }
 
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(Purchase_Invoicing, Purchase_Invoicing)
+#endif
 QT_END_NAMESPACE

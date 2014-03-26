@@ -1,4 +1,4 @@
-#include <QtGui>
+﻿#include <QtGui>
 #include <typeinfo>
 #include <windows.h>
 #include "mainwindow.h"
@@ -509,7 +509,11 @@ QString MainWindow::calActiveCode(QString machineCode)
 
     QCryptographicHash sha1(QCryptographicHash::Sha1);
 
+#if QT_VERSION < 0x050000
     QByteArray datagram(seed.toAscii());
+#else
+    QByteArray datagram(seed.toLatin1());
+#endif
     const char* tempConstChar = datagram.data();
     sha1.addData(tempConstChar);
     QString  activeCode=sha1.result().toHex();

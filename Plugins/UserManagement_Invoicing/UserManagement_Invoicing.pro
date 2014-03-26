@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += sql network
+QT       += sql network widgets
 
 TARGET = UserManagement_Invoicing
 TEMPLATE = lib

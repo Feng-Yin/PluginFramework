@@ -1,4 +1,4 @@
-#ifndef CASH_INVOICING_H
+﻿#ifndef CASH_INVOICING_H
 #define CASH_INVOICING_H
 
 #include <QObject>
@@ -21,6 +21,9 @@ class CASH_INVOICINGSHARED_EXPORT Cash_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
 {
     Q_OBJECT
+#if QT_VERSION >= 0x050000
+    Q_PLUGIN_METADATA(IID "Cash_Invoicing")
+#endif
     Q_INTERFACES(PluginInterface UserChangeNotifyInterface)
 public:
     Cash_Invoicing();

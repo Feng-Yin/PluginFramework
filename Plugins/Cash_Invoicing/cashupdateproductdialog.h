@@ -1,4 +1,4 @@
-#ifndef CASHUPDATEPRODUCTDIALOG_H
+﻿#ifndef CASHUPDATEPRODUCTDIALOG_H
 #define CASHUPDATEPRODUCTDIALOG_H
 
 #include "updateproductdialog.h"

@@ -1,4 +1,4 @@
-#ifndef PURCHASE_INVOICING_GLOBAL_H
+﻿#ifndef PURCHASE_INVOICING_GLOBAL_H
 #define PURCHASE_INVOICING_GLOBAL_H
 
 #include <QtCore/qglobal.h>

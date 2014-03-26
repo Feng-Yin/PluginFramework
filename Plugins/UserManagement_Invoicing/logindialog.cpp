@@ -1,4 +1,18 @@
-#include <QtGui>
+﻿#include <QtGui>
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#endif
+
 #include <QChar>
 #include <QHostInfo>
 #include <QHostAddress>
@@ -226,8 +240,8 @@ void LoginDialog::onAuthenticate()
 bool LoginDialog::createInvoicingSchema()
 {
     bool ret = false;
-    userManagementInterface->addSchema("δָ��");
-    userManagementInterface->addUser("δָ��", "test");
+    userManagementInterface->addSchema("未指定");
+    userManagementInterface->addUser("未指定", "test");
     QString dbSchema = QInputDialog::getText(0, tr("Create DB Schema"), tr("DB Schema Name: "),
                                              QLineEdit::Normal, "", &ret);
     dbSchema.simplified();
@@ -276,7 +290,11 @@ void LoginDialog::saveRegSetting()
     }
 
     if(rememberPassword->isChecked()) {
+#if QT_VERSION < 0x050000
         setting.setValue("passWord", passwordLineEdit->text().toAscii().toBase64());
+#else
+        setting.setValue("passWord", passwordLineEdit->text().toLatin1().toBase64());
+#endif
         setting.setValue("rememberPassword", Qt::Checked);
     }
     else {
@@ -310,8 +328,13 @@ void LoginDialog::populateRegSetting()
     if(setting.childGroups().contains(userNameComboBox->currentText())) {
         rememberUsername->setCheckState((Qt::CheckState)setting
                                         .value(QString("%1/rememberUsername").arg(userNameComboBox->currentText())).toInt());
+#if QT_VERSION < 0x050000
         passwordLineEdit->setText(QByteArray::fromBase64(setting.value(QString("%1/passWord")
                                                                        .arg(userNameComboBox->currentText())).toString().toAscii()));
+#else
+        passwordLineEdit->setText(QByteArray::fromBase64(setting.value(QString("%1/passWord")
+                                                                       .arg(userNameComboBox->currentText())).toString().toLatin1()));
+#endif
         rememberPassword->setCheckState((Qt::CheckState)setting
                                         .value(QString("%1/rememberPassword").arg(userNameComboBox->currentText())).toInt());
         ipAddressLineEdit->setText(setting.value(QString("%1/ipAddress").arg(userNameComboBox->currentText())).toString());

@@ -1,19 +1,23 @@
-#include <QtSql>
+ï»¿#include <QtSql>
+#if QT_VERSION < 0x050000
 #include <QApplication>
+#else
+#include <QtWidgets>
+#endif
 #include "mainwindow.h"
 #include <usermanagement_interface.h>
 #include <productmanagement_interface.h>
 #include "productmanagementif.h"
 
 const QStringList ProductManagementInterface::defaultProductType
-                                        = QStringList() <<"ÆäËü"<<"ÊÖ»ú"<<"ÊÖ»ú¿¨"<<"ÊÖ»úÅä¼þ"<<"Æ½°åµçÄÔ";
+                                        = QStringList() <<"å…¶å®ƒ"<<"æ‰‹æœº"<<"æ‰‹æœºå¡"<<"æ‰‹æœºé…ä»¶"<<"å¹³æ¿ç”µè„‘";
 const QStringList ProductManagementInterface::defaultBrandName
-                                        = QStringList() <<"ÆäËü"<<"Åµ»ùÑÇ"<<"Ä¦ÍÐÂÞÀ­"<<"ÈýÐÇ"<<"HTC"<<"Æ»¹û";
-const QStringList ProductManagementInterface::defaultProductModel = QStringList() <<"ÆäËü";
-const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList() <<"ÒÑÉ¾³ý"<<"´ý½ø»õ"<<"Â¼Èë"<<"´ýÈë¿â"<<"ÒÑÈë¿â"<<"ÒÑÏÂµ¥"<<"ÒÑÏúÊÛ"<<"ÒÑÍË»õ";
-const QStringList ProductManagementInterface::defaultVendorInfo = QStringList() <<"ÆäËü";
-const QStringList ProductManagementInterface::defaultColor = QStringList() <<"ÆäËü";
-const QStringList ProductManagementInterface::replacementStatus = QStringList() <<"·ñ"<<"ÊÇ";
+                                        = QStringList() <<"å…¶å®ƒ"<<"è¯ºåŸºäºš"<<"æ‘©æ‰˜ç½—æ‹‰"<<"ä¸‰æ˜Ÿ"<<"HTC"<<"è‹¹æžœ";
+const QStringList ProductManagementInterface::defaultProductModel = QStringList() <<"å…¶å®ƒ";
+const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList() <<"å·²åˆ é™¤"<<"å¾…è¿›è´§"<<"å½•å…¥"<<"å¾…å…¥åº“"<<"å·²å…¥åº“"<<"å·²ä¸‹å•"<<"å·²é”€å”®"<<"å·²é€€è´§";
+const QStringList ProductManagementInterface::defaultVendorInfo = QStringList() <<"å…¶å®ƒ";
+const QStringList ProductManagementInterface::defaultColor = QStringList() <<"å…¶å®ƒ";
+const QStringList ProductManagementInterface::replacementStatus = QStringList() <<"å¦"<<"æ˜¯";
 
 ProductManagementIF::ProductManagementIF():
     userManagementInterface(NULL)
@@ -524,7 +528,7 @@ QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int ye
     }
     timeRange += QString("'%1-%2-31'").arg(endYear).arg(endMonth);
     QString queryString = QString("select u1.name, sum(p1.sellingprice), sum(p1.quantity) from user u1, productsinfo p1 where p1.productstatusID = %1 and u1.id = p1.sellerID %2 group by u1.name")
-            .arg(getStatusIDByStatusName("ÒÑÏúÊÛ")).arg(timeRange);
+            .arg(getStatusIDByStatusName("å·²é”€å”®")).arg(timeRange);
     qDebug()<<queryString;
     QSqlQuery query(userManagementInterface->getSqlQuery());
     query.exec(queryString);
@@ -906,7 +910,8 @@ bool ProductManagementIF::createProductManagementTables() const
 	}
     return true;
 }
-
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(ProductManagementIF, ProductManagementIF)
+#endif
 QT_END_NAMESPACE

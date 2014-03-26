@@ -1,4 +1,4 @@
-#ifndef PRODUCTMANAGEMENTIF_H
+﻿#ifndef PRODUCTMANAGEMENTIF_H
 #define PRODUCTMANAGEMENTIF_H
 
 #include <QObject>
@@ -13,6 +13,9 @@ class PRODUCTMANAGEMENTIFSHARED_EXPORT ProductManagementIF  :
         public QObject, public PluginInterface, public ProductManagementInterface
 {
     Q_OBJECT
+#if QT_VERSION >= 0x050000
+    Q_PLUGIN_METADATA(IID "ProductManagementIF")
+#endif
     Q_INTERFACES(PluginInterface ProductManagementInterface)
 public:
     ProductManagementIF();

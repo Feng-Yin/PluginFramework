@@ -1,4 +1,4 @@
-#ifndef USERMANAGEMENTIF_GLOBAL_H
+﻿#ifndef USERMANAGEMENTIF_GLOBAL_H
 #define USERMANAGEMENTIF_GLOBAL_H
 
 #include <QtCore/qglobal.h>
