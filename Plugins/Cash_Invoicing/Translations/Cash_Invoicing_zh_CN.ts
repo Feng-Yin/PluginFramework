@@ -4,23 +4,23 @@
 <context>
     <name>CashUpdateProductDialog</name>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="41"/>
+        <location filename="../cashupdateproductdialog.cpp" line="57"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="43"/>
+        <location filename="../cashupdateproductdialog.cpp" line="59"/>
         <source>Paid</source>
         <translation>已付款</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="48"/>
-        <location filename="../cashupdateproductdialog.cpp" line="103"/>
+        <location filename="../cashupdateproductdialog.cpp" line="64"/>
+        <location filename="../cashupdateproductdialog.cpp" line="119"/>
         <source>Print Bill</source>
         <translation>打印账单</translation>
     </message>
     <message>
-        <location filename="../cashupdateproductdialog.cpp" line="50"/>
+        <location filename="../cashupdateproductdialog.cpp" line="66"/>
         <source>Check Out</source>
         <translation>付款</translation>
     </message>

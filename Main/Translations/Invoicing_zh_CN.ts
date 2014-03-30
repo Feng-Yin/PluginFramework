@@ -108,7 +108,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="423"/>
         <source>Register Code: </source>
-        <translation type="unfinished">    注册码:</translation>
+        <translation>    注册码:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="456"/>
@@ -129,18 +129,18 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="26"/>
-        <location filename="../main.cpp" line="31"/>
+        <location filename="../main.cpp" line="32"/>
+        <location filename="../main.cpp" line="37"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="26"/>
+        <location filename="../main.cpp" line="32"/>
         <source>This software has not been registered!</source>
         <translation>软件还未注册，请联系供应商！</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="31"/>
+        <location filename="../main.cpp" line="37"/>
         <source>Application is alreay running!</source>
         <translation>程序已经在运行！</translation>
     </message>

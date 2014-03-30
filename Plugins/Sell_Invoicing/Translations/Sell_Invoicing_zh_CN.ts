@@ -4,13 +4,13 @@
 <context>
     <name>SellUpdateProductDialog</name>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="32"/>
+        <location filename="../sellupdateproductdialog.cpp" line="46"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="33"/>
-        <location filename="../sellupdateproductdialog.cpp" line="36"/>
+        <location filename="../sellupdateproductdialog.cpp" line="47"/>
+        <location filename="../sellupdateproductdialog.cpp" line="50"/>
         <source>Submit Order</source>
         <translation>提交订单</translation>
     </message>
@@ -51,24 +51,24 @@
         <translation type="obsolete">换机状态不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="79"/>
+        <location filename="../sellupdateproductdialog.cpp" line="93"/>
         <source>Please select the correct seller !</source>
         <translation>请选择正确的销售人员！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="79"/>
-        <location filename="../sellupdateproductdialog.cpp" line="84"/>
-        <location filename="../sellupdateproductdialog.cpp" line="91"/>
+        <location filename="../sellupdateproductdialog.cpp" line="93"/>
+        <location filename="../sellupdateproductdialog.cpp" line="98"/>
+        <location filename="../sellupdateproductdialog.cpp" line="105"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="84"/>
+        <location filename="../sellupdateproductdialog.cpp" line="98"/>
         <source>Selling Price can&apos;t be empty !</source>
         <translation>销售价格不能为空！</translation>
     </message>
     <message>
-        <location filename="../sellupdateproductdialog.cpp" line="91"/>
+        <location filename="../sellupdateproductdialog.cpp" line="105"/>
         <source>Selling Price error !</source>
         <translation>销售价格错误！</translation>
     </message>

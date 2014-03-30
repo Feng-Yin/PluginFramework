@@ -18,6 +18,7 @@ class QLineEdit;
 class QProgressBar;
 class QDialog;
 class QComboBox;
+class QCheckBox;
 QT_END_NAMESPACE
 
 class AddProductDialog;
@@ -123,6 +124,7 @@ private:
     QComboBox *replacementStatusComboBox;
     QComboBox *timeStampComboBox;
     QComboBox *commentsComboBox;
+    QCheckBox *skip1stRowCheckBox;
 };
 
 #endif // PURCHASE_INVOICING_H

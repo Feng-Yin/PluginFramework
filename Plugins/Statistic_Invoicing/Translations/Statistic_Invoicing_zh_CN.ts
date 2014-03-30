@@ -4,32 +4,32 @@
 <context>
     <name>BarChart</name>
     <message>
-        <location filename="../barchart.cpp" line="29"/>
+        <location filename="../barchart.cpp" line="45"/>
         <source>Sales Statistic</source>
         <translation>销售统计</translation>
     </message>
     <message>
-        <location filename="../barchart.cpp" line="61"/>
-        <location filename="../barchart.cpp" line="138"/>
-        <location filename="../barchart.cpp" line="156"/>
+        <location filename="../barchart.cpp" line="77"/>
+        <location filename="../barchart.cpp" line="154"/>
+        <location filename="../barchart.cpp" line="172"/>
         <source>Sales Volume</source>
         <translation>销售额</translation>
     </message>
     <message>
-        <location filename="../barchart.cpp" line="62"/>
-        <location filename="../barchart.cpp" line="139"/>
-        <location filename="../barchart.cpp" line="157"/>
+        <location filename="../barchart.cpp" line="78"/>
+        <location filename="../barchart.cpp" line="155"/>
+        <location filename="../barchart.cpp" line="173"/>
         <source>Sales Quantity</source>
         <translation>销售量</translation>
     </message>
     <message>
-        <location filename="../barchart.cpp" line="140"/>
-        <location filename="../barchart.cpp" line="155"/>
+        <location filename="../barchart.cpp" line="156"/>
+        <location filename="../barchart.cpp" line="171"/>
         <source>Shop Assistant(Volume, Quantity)</source>
         <translation>售货员（销售额，销售量）</translation>
     </message>
     <message>
-        <location filename="../barchart.cpp" line="204"/>
+        <location filename="../barchart.cpp" line="220"/>
         <source>Print Statistic Chart</source>
         <translation>打印统计图表</translation>
     </message>
@@ -37,12 +37,12 @@
 <context>
     <name>StatisticUpdateProductDialog</name>
     <message>
-        <location filename="../statisticupdateproductdialog.cpp" line="38"/>
+        <location filename="../statisticupdateproductdialog.cpp" line="52"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../statisticupdateproductdialog.cpp" line="44"/>
+        <location filename="../statisticupdateproductdialog.cpp" line="58"/>
         <source>Product Info</source>
         <translation>产品信息</translation>
     </message>

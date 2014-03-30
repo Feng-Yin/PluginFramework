@@ -46,7 +46,8 @@ Purchase_Invoicing::Purchase_Invoicing() :
     productStatusComboBox(NULL),
     replacementStatusComboBox(NULL),
     timeStampComboBox(NULL),
-    commentsComboBox(NULL)
+    commentsComboBox(NULL),
+    skip1stRowCheckBox(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -815,6 +816,7 @@ void Purchase_Invoicing::importProducts()
         }
     }
     columnsMap[0] = ProductTypeID;
+    int skip1stRow = importConfig.value("config/Skip1stRow").toBool()?1:0;
     QString fileName = QFileDialog::getOpenFileName(0, tr("Open Inventory"), ".", tr("Inventory files (*.xls *.xlsx)"));
     if (!fileName.isEmpty())
     {
@@ -861,7 +863,7 @@ void Purchase_Invoicing::importProducts()
                     //进货日期 供货商 品牌 机型 串号 颜色 数量 备注
                     QList<QStringList> products;
                     bool done = false;
-                    for(int row=1; ; row++) {
+                    for(int row=skip1stRow; ; row++) {
                         QStringList data;
                         columnsValue.clear();
                         columnsValue[0] = name;
@@ -1006,18 +1008,24 @@ void Purchase_Invoicing::configImporting()
         operatorUserComboBox->addItems(items);
         layout->addWidget(operatorUserLabel, 20, 20, 1, 1, Qt::AlignRight);
         layout->addWidget(operatorUserComboBox, 20, 30, 1, 1, Qt::AlignLeft);
+        operatorUserLabel->setEnabled(false);
+        operatorUserComboBox->setEnabled(false);
 
         QLabel *responserUserLabel = new QLabel(tr("responserUser:"));
         responserUserComboBox = new QComboBox();
         responserUserComboBox->addItems(items);
         layout->addWidget(responserUserLabel, 20, 40, 1, 1, Qt::AlignRight);
         layout->addWidget(responserUserComboBox, 20, 50, 1, 1, Qt::AlignLeft);
+        responserUserLabel->setEnabled(false);
+        responserUserComboBox->setEnabled(false);
 
         QLabel *sellerLabel = new QLabel(tr("seller:"));
         sellerComboBox = new QComboBox();
         sellerComboBox->addItems(items);
         layout->addWidget(sellerLabel, 20, 60, 1, 1, Qt::AlignRight);
         layout->addWidget(sellerComboBox, 20, 70, 1, 1, Qt::AlignLeft);
+        sellerLabel->setEnabled(false);
+        sellerComboBox->setEnabled(false);
 
         QLabel *barInfoLabel = new QLabel(tr("barInfo:"));
         barInfoComboBox = new QComboBox();
@@ -1030,6 +1038,8 @@ void Purchase_Invoicing::configImporting()
         productStatusComboBox->addItems(items);
         layout->addWidget(productStatusLabel, 30, 1, 1, 1, Qt::AlignRight);
         layout->addWidget(productStatusComboBox, 30, 10, 1, 1, Qt::AlignLeft);
+        productStatusLabel->setEnabled(false);
+        productStatusComboBox->setEnabled(false);
 
         QLabel *replacementStatusLabel = new QLabel(tr("replacementStatus:"));
         replacementStatusComboBox = new QComboBox();
@@ -1048,6 +1058,11 @@ void Purchase_Invoicing::configImporting()
         commentsComboBox->addItems(items);
         layout->addWidget(commentsLabel, 30, 60, 1, 1, Qt::AlignRight);
         layout->addWidget(commentsComboBox, 30, 70, 1, 1, Qt::AlignLeft);
+
+        QLabel *skip1stRowLabel = new QLabel(tr("skip1stRow:"));
+        skip1stRowCheckBox = new QCheckBox();
+        layout->addWidget(skip1stRowLabel, 30, 80, 1, 1, Qt::AlignRight);
+        layout->addWidget(skip1stRowCheckBox, 30, 90, 1, 1, Qt::AlignLeft);
 
         QLabel *title = new QLabel(tr("config the colunm position of product info"));
 
@@ -1085,6 +1100,7 @@ void Purchase_Invoicing::configImporting()
     replacementStatusComboBox->setCurrentIndex(importConfig.value("config/ReplacementStatus").toInt());
     timeStampComboBox->setCurrentIndex(importConfig.value("config/TimeStamp").toInt());
     commentsComboBox->setCurrentIndex(importConfig.value("config/Comments").toInt());
+    skip1stRowCheckBox->setChecked(importConfig.value("config/Skip1stRow").toBool());
 
     if(importConfigDialog->exec()==QDialog::Accepted)
     {
@@ -1107,6 +1123,7 @@ void Purchase_Invoicing::configImporting()
         importConfig.setValue("config/ReplacementStatus", replacementStatusComboBox->currentIndex());
         importConfig.setValue("config/TimeStamp", timeStampComboBox->currentIndex());
         importConfig.setValue("config/Comments", commentsComboBox->currentIndex());
+        importConfig.setValue("config/Skip1stRow", skip1stRowCheckBox->isChecked());
     }
 
     //QMessageBox::critical(NULL, "configImporting", "Hasn't been implemented!");

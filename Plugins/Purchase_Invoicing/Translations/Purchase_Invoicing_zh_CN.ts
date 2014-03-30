@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<TS version="2.1" language="zh_CN">
 <context>
     <name>AddProductDialog</name>
     <message>
@@ -126,184 +126,295 @@
 <context>
     <name>Purchase_Invoicing</name>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="44"/>
+        <location filename="../purchase_invoicing.cpp" line="65"/>
         <source>Purchase</source>
         <translation>采购</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="50"/>
+        <location filename="../purchase_invoicing.cpp" line="71"/>
         <source>Add Products</source>
         <translation>添加产品</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="57"/>
+        <location filename="../purchase_invoicing.cpp" line="78"/>
         <source>Delete Products</source>
         <translation>删除产品</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="64"/>
+        <location filename="../purchase_invoicing.cpp" line="85"/>
         <source>Empty Products</source>
         <translation>清空产品</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="71"/>
+        <location filename="../purchase_invoicing.cpp" line="92"/>
+        <location filename="../purchase_invoicing.cpp" line="94"/>
         <source>Import Products</source>
         <translation>导入产品</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="78"/>
+        <location filename="../purchase_invoicing.cpp" line="95"/>
+        <source>Config Importing</source>
+        <translation>导入配置</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="106"/>
         <source>Commit Product</source>
         <translation>提交产品</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="85"/>
+        <location filename="../purchase_invoicing.cpp" line="113"/>
         <source>Commit All Products</source>
         <translation>提交所有产品</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="92"/>
+        <location filename="../purchase_invoicing.cpp" line="120"/>
         <source>Print Products</source>
         <translation>打印产品</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="136"/>
+        <location filename="../purchase_invoicing.cpp" line="164"/>
         <source>Serial Number : </source>
         <translation>序列号：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="138"/>
+        <location filename="../purchase_invoicing.cpp" line="166"/>
         <source>Filter</source>
         <translation>过滤</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="236"/>
+        <location filename="../purchase_invoicing.cpp" line="264"/>
         <source>ID</source>
         <translation>品牌ID</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="237"/>
+        <location filename="../purchase_invoicing.cpp" line="265"/>
         <source>Serial Number</source>
         <translation>序列号</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="238"/>
+        <location filename="../purchase_invoicing.cpp" line="266"/>
         <source>Product Type</source>
         <translation>产品类型</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="239"/>
+        <location filename="../purchase_invoicing.cpp" line="267"/>
         <source>Brand Name</source>
         <translation>品牌名称</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="240"/>
+        <location filename="../purchase_invoicing.cpp" line="268"/>
         <source>Model Name</source>
         <translation>产品型号</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="241"/>
+        <location filename="../purchase_invoicing.cpp" line="269"/>
         <source>Color</source>
         <translation>颜色</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="242"/>
+        <location filename="../purchase_invoicing.cpp" line="270"/>
         <source>Vendor</source>
         <translation>供应商</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="243"/>
+        <location filename="../purchase_invoicing.cpp" line="271"/>
         <source>Schema Name</source>
         <translation>店铺名称</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="244"/>
+        <location filename="../purchase_invoicing.cpp" line="272"/>
         <source>Quantity</source>
         <translation>数量</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="245"/>
+        <location filename="../purchase_invoicing.cpp" line="273"/>
         <source>Unit</source>
         <translation>单位</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="246"/>
+        <location filename="../purchase_invoicing.cpp" line="274"/>
         <source>Old Purchase Price</source>
         <translation>上次进货价格</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="247"/>
+        <location filename="../purchase_invoicing.cpp" line="275"/>
         <source>Purchase Price</source>
         <translation>进货价格</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="248"/>
+        <location filename="../purchase_invoicing.cpp" line="276"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="249"/>
+        <location filename="../purchase_invoicing.cpp" line="277"/>
         <source>Operator</source>
         <translation>操作员</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="250"/>
+        <location filename="../purchase_invoicing.cpp" line="278"/>
         <source>Responser</source>
         <translation>负责人</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="251"/>
+        <location filename="../purchase_invoicing.cpp" line="279"/>
         <source>Seller</source>
         <translation>销售人员</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="252"/>
+        <location filename="../purchase_invoicing.cpp" line="280"/>
         <source>BarInfo</source>
         <translation>柜台信息</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="253"/>
+        <location filename="../purchase_invoicing.cpp" line="281"/>
         <source>Product Status</source>
         <translation>产品状态</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="254"/>
+        <location filename="../purchase_invoicing.cpp" line="282"/>
         <source>Replacement Status</source>
         <translation>换机状态</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="255"/>
+        <location filename="../purchase_invoicing.cpp" line="283"/>
         <source>TimeStamp</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="256"/>
+        <location filename="../purchase_invoicing.cpp" line="284"/>
         <source>Comments</source>
         <translation>备注</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="367"/>
+        <location filename="../purchase_invoicing.cpp" line="395"/>
         <source>Purchase Function</source>
         <translation>采购功能模块</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="617"/>
+        <location filename="../purchase_invoicing.cpp" line="820"/>
         <source>Open Inventory</source>
         <translation>打开进货清单</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="617"/>
+        <location filename="../purchase_invoicing.cpp" line="820"/>
         <source>Inventory files (*.xls *.xlsx)</source>
         <translation>进货清单文件 (*.xls *.xlsx)</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="697"/>
+        <location filename="../purchase_invoicing.cpp" line="909"/>
         <source>Import</source>
         <translation>导入进货清单</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="697"/>
+        <location filename="../purchase_invoicing.cpp" line="909"/>
         <source>Error</source>
         <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="938"/>
+        <source>serialNumber:</source>
+        <translation>序列号：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="946"/>
+        <source>brandName:</source>
+        <translation>品牌名称：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="952"/>
+        <source>productModel:</source>
+        <translation>产品型号：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="958"/>
+        <source>color:</source>
+        <translation>颜色：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="964"/>
+        <source>vendor:</source>
+        <translation>供应商：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="970"/>
+        <source>schemaName:</source>
+        <translation>店铺名称：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="976"/>
+        <source>quantity:</source>
+        <translation>数量：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="982"/>
+        <source>unit:</source>
+        <translation>单位：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="988"/>
+        <source>oldPurchasePrice:</source>
+        <translation>上次进货价格：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="994"/>
+        <source>purchasePrice:</source>
+        <translation>进货价格：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1000"/>
+        <source>sellingPrice:</source>
+        <translation>销售价格：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1006"/>
+        <source>operatorUser:</source>
+        <translation>操作员：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1012"/>
+        <source>responserUser:</source>
+        <translation>负责人：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1018"/>
+        <source>seller:</source>
+        <translation>销售人员：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1024"/>
+        <source>barInfo:</source>
+        <translation>柜台信息：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1030"/>
+        <source>productStatus:</source>
+        <translation>产品状态：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1036"/>
+        <source>replacementStatus:</source>
+        <translation>换机状态：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1042"/>
+        <source>timeStamp:</source>
+        <translation>时间：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1048"/>
+        <source>comments:</source>
+        <translation>备注：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1054"/>
+        <source>skip1stRow:</source>
+        <translation>跳过第一行：</translation>
+    </message>
+    <message>
+        <location filename="../purchase_invoicing.cpp" line="1059"/>
+        <source>config the colunm position of product info</source>
+        <translation>配置产品信息在EXCEL中的列号</translation>
     </message>
 </context>
 <context>
