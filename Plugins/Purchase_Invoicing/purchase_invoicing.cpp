@@ -26,7 +26,27 @@ Purchase_Invoicing::Purchase_Invoicing() :
     addProductDialog(NULL),
     updateProductDialog(NULL),
     serialNumberLineEdit(NULL),
-    filterPushButton(NULL)
+    filterPushButton(NULL),
+    importConfigDialog(NULL),
+    serialNumberComboBox(NULL),
+    brandNameComboBox(NULL),
+    productModelComboBox(NULL),
+    colorComboBox(NULL),
+    vendorComboBox(NULL),
+    schemaNameComboBox(NULL),
+    quantityComboBox(NULL),
+    unitComboBox(NULL),
+    oldPurchasePriceComboBox(NULL),
+    purchasePriceComboBox(NULL),
+    sellingPriceComboBox(NULL),
+    operatorUserComboBox(NULL),
+    responserUserComboBox(NULL),
+    sellerComboBox(NULL),
+    barInfoComboBox(NULL),
+    productStatusComboBox(NULL),
+    replacementStatusComboBox(NULL),
+    timeStampComboBox(NULL),
+    commentsComboBox(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -69,7 +89,14 @@ void Purchase_Invoicing::initMainWidget()
     importProductsButton->setIconSize(QSize(25, 25));
     importProductsButton->setFlat(true);
     importProductsButton->setToolTip(QString(tr("Import Products")));
-    connect(importProductsButton, SIGNAL(clicked()), this, SLOT(importProducts()));
+    QMenu *menu = new QMenu();
+    QAction *importAction = menu->addAction(QString(tr("Import Products")));
+    QAction *configAction = menu->addAction(QString(tr("Config Importing")));
+
+    importProductsButton->setMenu(menu);
+    //connect(importProductsButton, SIGNAL(clicked()), this, SLOT(importProducts()));
+    connect(importAction, SIGNAL(triggered()), this, SLOT(importProducts()));
+    connect(configAction, SIGNAL(triggered()), this, SLOT(configImporting()));
 
     commitProductsButton = new QPushButton();
     commitProductsButton->setIcon(QIcon(":/Icon/commit_icon.png"));
@@ -387,6 +414,166 @@ void Purchase_Invoicing::addProduct()
     addProductDialog->exec();
 }
 
+bool Purchase_Invoicing::addProduct(QMap<int, int> &columnsMap, QMap<int, QString> &columnsValue)
+{
+    QMap<int, QString> allInfo;
+    for(int i=0; i<MaxFieldID; i++)
+    {
+        allInfo[i] = "";
+    }
+
+    //0 is the product type
+    int size = columnsValue.size();
+    for(int i=0; i<size; i++)
+    {
+        allInfo[columnsMap[i]] = columnsValue[i];
+        //QMessageBox::critical(NULL, "addProduct", QString("%1 %2").arg(columnsMap[i]).arg(columnsValue[i]));
+    }
+
+    QString serialNumber = allInfo[SerialNumber].simplified();
+    QString productType = allInfo[ProductTypeID].simplified();
+
+    QString brandName = allInfo[BrandNameID].simplified();
+    QString productModel = allInfo[ProductModelID].simplified();
+    QString color = allInfo[ColorID].simplified();
+    QString vendor = allInfo[VendorID].simplified();
+    QString schemaName = allInfo[SchemaNameID].simplified();
+    QString quantity = allInfo[Quantity].simplified();
+    QString unit = allInfo[Unit].simplified();
+    QString oldPurchasePrice = allInfo[OldPurchasePrice].simplified();
+    QString purchasePrice = allInfo[PurchasePrice].simplified();
+    QString sellingPrice = allInfo[SellingPrice].simplified();
+    QString operatorUser = allInfo[OperatorUserID].simplified();
+    QString responserUser = allInfo[ResponserUserID].simplified();
+    QString seller = allInfo[SellerID].simplified();
+    QString barInfo = allInfo[BarInfo].simplified();
+    QString productStatus = allInfo[ProductStatusID].simplified();
+    QString replacementStatus = allInfo[ReplacementStatusID].simplified();
+    QString timeStamp = allInfo[TimeStamp].simplified();
+    QString comments = allInfo[Comments].simplified();
+
+//    QMessageBox::critical(NULL, "configImporting", QString("%1 %2").arg(size).arg(sellingPrice));
+//    QMessageBox::critical(NULL, "configImporting", QString("%1 %2").arg(size).arg(columnsValue[10]));
+//    QMessageBox::critical(NULL, "configImporting", QString("%1 %2").arg(size).arg(columnsValue[10]));
+
+    int productTypeID;
+    if(productType.isEmpty()) {
+        productTypeID = productManagementInterface->getTypeIDByTypeName("其它");
+    } else {
+        productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
+        if(!productTypeID) {
+            productManagementInterface->addProductType(productType);
+            productTypeID = productManagementInterface->getTypeIDByTypeName(productType);
+        }
+    }
+
+    int brandNameID;
+    if(brandName.isEmpty()) {
+        brandNameID = productManagementInterface->getBrandIDByBrandName("其它");
+    } else {
+        brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
+        if(!brandNameID) {
+            productManagementInterface->addBrandName(brandName);
+            brandNameID = productManagementInterface->getBrandIDByBrandName(brandName);
+        }
+    }
+
+    int productModelID;
+    if(productModel.isEmpty()) {
+        productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "其它");
+        if(!productModelID) {
+            productManagementInterface->addProductModel(productTypeID, brandNameID, "其它");
+            productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, "其它");
+        }
+    } else {
+        productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, productModel);
+        if(!productModelID) {
+            productManagementInterface->addProductModel(productTypeID, brandNameID, productModel);
+            productModelID = productManagementInterface->getModelIDByTypeIDBrandIDModelName(productTypeID, brandNameID, productModel);
+        }
+    }
+
+    int colorID;
+    if(color.isEmpty()) {
+        colorID = productManagementInterface->getColorIDByColorName("其它");
+    } else {
+        colorID = productManagementInterface->getColorIDByColorName(color);
+        if(!colorID) {
+            productManagementInterface->addColorName(color);
+            colorID = productManagementInterface->getColorIDByColorName(color);
+        }
+    }
+
+    int vendorID;
+    if(vendor.isEmpty()) {
+        vendorID = productManagementInterface->getVendorIDByVendorName("其它");
+    } else {
+        vendorID = productManagementInterface->getVendorIDByVendorName(vendor);
+        if(!vendorID) {
+            productManagementInterface->addVendorName(vendor);
+            vendorID = productManagementInterface->getVendorIDByVendorName(vendor);
+        }
+    }
+
+    int schemaID;
+    if(schemaName.isEmpty()) {
+        schemaID = userManagementInterface->getSchemaIDBySchemaName("未指定");
+    } else {
+        schemaID = userManagementInterface->getSchemaIDBySchemaName(schemaName);
+        if(!schemaID) {
+            userManagementInterface->addSchema(schemaName);
+            schemaID = userManagementInterface->getSchemaIDBySchemaName(schemaName);
+        }
+    }
+
+    int quantityNum = quantity.toInt();
+    if(unit.isEmpty())
+    {
+        unit = "个";
+    }
+    int userID = userManagementInterface->getUserIDByUserName(userManagementInterface->getCurrentUserName());
+    int sellerID = userManagementInterface->getUserIDByUserName("未指定");
+    if(barInfo.isEmpty())
+    {
+        barInfo = "未指定";
+    }
+    int statusID = productManagementInterface->getStatusIDByStatusName("录入");
+
+    int replacementStatusID;
+    if(replacementStatus.isEmpty()) {
+        replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("否");
+    } else {
+        replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName(replacementStatus);
+        if(!replacementStatusID) {
+            replacementStatusID = productManagementInterface->getReplacementStatusIDByReplacementStatusName("否");
+        }
+    }
+
+    QString timeStamp1("");
+    if(!timeStamp.isEmpty()) {
+        timeStamp.replace("T", " ", Qt::CaseInsensitive);
+        QDateTime tmpTime = QDateTime::fromString(timeStamp, "yyyy-MM-dd hh:mm:ss");
+        if(tmpTime.isValid()) {
+            timeStamp1 = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
+        } else {
+            QDateTime tmpTime = QDateTime::currentDateTime();
+            timeStamp1 = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
+        }
+    } else {
+        QDateTime tmpTime = QDateTime::currentDateTime();
+        timeStamp1 = tmpTime.toString("yyyy-MM-dd hh:mm:ss");
+    }
+
+    int ret = productManagementInterface->addProductByDetail(serialNumber, productTypeID, brandNameID, productModelID,
+                                                             colorID, vendorID, schemaID, quantityNum, unit, oldPurchasePrice,
+                                                             purchasePrice, sellingPrice, userID, userID, sellerID, barInfo,
+                                                             statusID, replacementStatusID, timeStamp1, comments);
+    if(!ret) {
+        //QMessageBox::warning(0, "Error", QString("Insert %1 Error").arg(serialNumber));
+    }
+    return ret;
+}
+
 bool Purchase_Invoicing::addProduct(QStringList &product)
 {
     //进货日期 供货商 品牌 机型 串号 颜色 数量 备注
@@ -614,6 +801,20 @@ void Purchase_Invoicing::emptyProducts()
 
 void Purchase_Invoicing::importProducts()
 {
+    QMap<int, int> filedsMap;
+    QMap<int, int> columnsMap;
+    QMap<int, QString> columnsValue;
+    QSettings importConfig(qApp->applicationDirPath()+"/importconfig.ini", QSettings::IniFormat);
+    for(int i=0; i<MaxFieldID; i++)
+    {
+        filedsMap[i] = importConfig.value("config/"+filedsName[i]).toInt();
+        //QMessageBox::critical(NULL, "importProducts", QString("%1 %2").arg(i).arg(filedsMap[i]));
+        if(filedsMap[i] != 0)
+        {
+            columnsMap[filedsMap[i]] = i;
+        }
+    }
+    columnsMap[0] = ProductTypeID;
     QString fileName = QFileDialog::getOpenFileName(0, tr("Open Inventory"), ".", tr("Inventory files (*.xls *.xlsx)"));
     if (!fileName.isEmpty())
     {
@@ -627,13 +828,17 @@ void Purchase_Invoicing::importProducts()
             int count=sheets->dynamicCall("Count()").toInt();
             int totalRows = 0;
             int rowCount = 0;
+            int colsCount = 0;
             for(int i=1; i<count+1; i++) {
                 QAxObject* sheet = sheets->querySubObject( "Item( int )", i );
                 //////////////////////////////////////////////////////////////////
                 QAxObject* usedrange = sheet->querySubObject("UsedRange");
                 QAxObject* rows = usedrange->querySubObject("Rows");
-                int intRows = rows->property("Count").toInt();
+                QAxObject* cols = usedrange->querySubObject("Columns");
+                //QMessageBox::critical(NULL, "configImporting", QString("%1").arg(cols->property("Count").toInt()));
+                int intRows = rows->property("Count").toInt();                
                 totalRows += (intRows - 1);
+                colsCount = cols->property("Count").toInt();
             }
             bar->setRange(0, totalRows);
             bar->setValue(0);
@@ -658,22 +863,27 @@ void Purchase_Invoicing::importProducts()
                     bool done = false;
                     for(int row=1; ; row++) {
                         QStringList data;
+                        columnsValue.clear();
+                        columnsValue[0] = name;
                         data.append(name);
-                        for(int col=1; col<9; col++) {
+                        for(int col=1; col<=colsCount; col++) {
                             QAxObject* cell = sheet->querySubObject( "Cells( int, int )", row+1, col );
                             QVariant value = cell->dynamicCall( "Value()" );
+                            //QMessageBox::critical(NULL, "configImporting", QString("%1 %2").arg(col).arg(value.toString()));
                             if(value.toString().isEmpty() && col==1 && row>=intRows) {
                                 done = true;
                                 break;
                             } else {
                                 data.append(value.toString());
+                                columnsValue[col]=value.toString();
                             }
                         }
                         if(done) {
                             break;
                         } else {
                             //products.append(data);
-                            int ret = addProduct(data);
+                            //int ret = addProduct(data);
+                            int ret = addProduct(columnsMap, columnsValue);
                             bar->setValue(++rowCount);
                             //bar->update();
                             //qApp->processEvents();
@@ -706,6 +916,202 @@ void Purchase_Invoicing::importProducts()
         productAdded();
         //addProduct(productsMap);
     }
+}
+
+void Purchase_Invoicing::configImporting()
+{
+    if(!importConfigDialog)
+    {
+        importConfigDialog = new QDialog();
+
+        QStringList items;
+        items.append("NULL");
+        for(char a='A'; a<='Z'; a++)
+        {
+            items.append(QString(a));
+        }
+
+        QGridLayout *layout = new QGridLayout();
+
+        QLabel *serialNumberLable = new QLabel(tr("serialNumber:"));
+        serialNumberComboBox = new QComboBox();
+        serialNumberComboBox->addItems(items);
+        layout->addWidget(serialNumberLable, 1, 1, 1, 1, Qt::AlignRight);
+        layout->addWidget(serialNumberComboBox, 1, 10, 1, 1, Qt::AlignLeft);
+
+        //QMessageBox::critical(NULL, "configImporting", importConfig.value("config/SerialNumber").toString());
+
+        QLabel *brandNameLabel = new QLabel(tr("brandName:"));
+        brandNameComboBox = new QComboBox();
+        brandNameComboBox->addItems(items);
+        layout->addWidget(brandNameLabel, 1, 20, 1, 1, Qt::AlignRight);
+        layout->addWidget(brandNameComboBox, 1, 30, 1, 1, Qt::AlignLeft);
+
+        QLabel *productModelLabel = new QLabel(tr("productModel:"));
+        productModelComboBox = new QComboBox();
+        productModelComboBox->addItems(items);
+        layout->addWidget(productModelLabel, 1, 40, 1, 1, Qt::AlignRight);
+        layout->addWidget(productModelComboBox, 1, 50, 1, 1, Qt::AlignLeft);
+
+        QLabel *colorLabel = new QLabel(tr("color:"));
+        colorComboBox = new QComboBox();
+        colorComboBox->addItems(items);
+        layout->addWidget(colorLabel, 1, 60, 1, 1, Qt::AlignRight);
+        layout->addWidget(colorComboBox, 1, 70, 1, 1, Qt::AlignLeft);
+
+        QLabel *vendorLabel = new QLabel(tr("vendor:"));
+        vendorComboBox = new QComboBox();
+        vendorComboBox->addItems(items);
+        layout->addWidget(vendorLabel, 1, 80, 1, 1, Qt::AlignRight);
+        layout->addWidget(vendorComboBox, 1, 90, 1, 1, Qt::AlignLeft);
+
+        QLabel *schemaNameLabel = new QLabel(tr("schemaName:"));
+        schemaNameComboBox = new QComboBox();
+        schemaNameComboBox->addItems(items);
+        layout->addWidget(schemaNameLabel, 10, 1, 1, 1, Qt::AlignRight);
+        layout->addWidget(schemaNameComboBox, 10, 10, 1, 1, Qt::AlignLeft);
+
+        QLabel *quantityLabel = new QLabel(tr("quantity:"));
+        quantityComboBox = new QComboBox();
+        quantityComboBox->addItems(items);
+        layout->addWidget(quantityLabel, 10, 20, 1, 1, Qt::AlignRight);
+        layout->addWidget(quantityComboBox, 10, 30, 1, 1, Qt::AlignLeft);
+
+        QLabel *unitLabel = new QLabel(tr("unit:"));
+        unitComboBox = new QComboBox();
+        unitComboBox->addItems(items);
+        layout->addWidget(unitLabel, 10, 40, 1, 1, Qt::AlignRight);
+        layout->addWidget(unitComboBox, 10, 50, 1, 1, Qt::AlignLeft);
+
+        QLabel *oldPurchasePriceLabel = new QLabel(tr("oldPurchasePrice:"));
+        oldPurchasePriceComboBox = new QComboBox();
+        oldPurchasePriceComboBox->addItems(items);
+        layout->addWidget(oldPurchasePriceLabel, 10, 60, 1, 1, Qt::AlignRight);
+        layout->addWidget(oldPurchasePriceComboBox, 10, 70, 1, 1, Qt::AlignLeft);
+
+        QLabel *purchasePriceLabel = new QLabel(tr("purchasePrice:"));
+        purchasePriceComboBox = new QComboBox();
+        purchasePriceComboBox->addItems(items);
+        layout->addWidget(purchasePriceLabel, 10, 80, 1, 1, Qt::AlignRight);
+        layout->addWidget(purchasePriceComboBox, 10, 90, 1, 1, Qt::AlignLeft);
+
+        QLabel *sellingPriceLabel = new QLabel(tr("sellingPrice:"));
+        sellingPriceComboBox = new QComboBox();
+        sellingPriceComboBox->addItems(items);
+        layout->addWidget(sellingPriceLabel, 20, 1, 1, 1, Qt::AlignRight);
+        layout->addWidget(sellingPriceComboBox, 20, 10, 1, 1, Qt::AlignLeft);
+
+        QLabel *operatorUserLabel = new QLabel(tr("operatorUser:"));
+        operatorUserComboBox = new QComboBox();
+        operatorUserComboBox->addItems(items);
+        layout->addWidget(operatorUserLabel, 20, 20, 1, 1, Qt::AlignRight);
+        layout->addWidget(operatorUserComboBox, 20, 30, 1, 1, Qt::AlignLeft);
+
+        QLabel *responserUserLabel = new QLabel(tr("responserUser:"));
+        responserUserComboBox = new QComboBox();
+        responserUserComboBox->addItems(items);
+        layout->addWidget(responserUserLabel, 20, 40, 1, 1, Qt::AlignRight);
+        layout->addWidget(responserUserComboBox, 20, 50, 1, 1, Qt::AlignLeft);
+
+        QLabel *sellerLabel = new QLabel(tr("seller:"));
+        sellerComboBox = new QComboBox();
+        sellerComboBox->addItems(items);
+        layout->addWidget(sellerLabel, 20, 60, 1, 1, Qt::AlignRight);
+        layout->addWidget(sellerComboBox, 20, 70, 1, 1, Qt::AlignLeft);
+
+        QLabel *barInfoLabel = new QLabel(tr("barInfo:"));
+        barInfoComboBox = new QComboBox();
+        barInfoComboBox->addItems(items);
+        layout->addWidget(barInfoLabel, 20, 80, 1, 1, Qt::AlignRight);
+        layout->addWidget(barInfoComboBox, 20, 90, 1, 1, Qt::AlignLeft);
+
+        QLabel *productStatusLabel = new QLabel(tr("productStatus:"));
+        productStatusComboBox = new QComboBox();
+        productStatusComboBox->addItems(items);
+        layout->addWidget(productStatusLabel, 30, 1, 1, 1, Qt::AlignRight);
+        layout->addWidget(productStatusComboBox, 30, 10, 1, 1, Qt::AlignLeft);
+
+        QLabel *replacementStatusLabel = new QLabel(tr("replacementStatus:"));
+        replacementStatusComboBox = new QComboBox();
+        replacementStatusComboBox->addItems(items);
+        layout->addWidget(replacementStatusLabel, 30, 20, 1, 1, Qt::AlignRight);
+        layout->addWidget(replacementStatusComboBox, 30, 30, 1, 1, Qt::AlignLeft);
+
+        QLabel *timeStampLabel = new QLabel(tr("timeStamp:"));
+        timeStampComboBox = new QComboBox();
+        timeStampComboBox->addItems(items);
+        layout->addWidget(timeStampLabel, 30, 40, 1, 1, Qt::AlignRight);
+        layout->addWidget(timeStampComboBox, 30, 50, 1, 1, Qt::AlignLeft);
+
+        QLabel *commentsLabel = new QLabel(tr("comments:"));
+        commentsComboBox = new QComboBox();
+        commentsComboBox->addItems(items);
+        layout->addWidget(commentsLabel, 30, 60, 1, 1, Qt::AlignRight);
+        layout->addWidget(commentsComboBox, 30, 70, 1, 1, Qt::AlignLeft);
+
+        QLabel *title = new QLabel(tr("config the colunm position of product info"));
+
+        QDialogButtonBox *buttons = new QDialogButtonBox((QDialogButtonBox::Ok | QDialogButtonBox::Cancel),
+                                                         Qt::Horizontal,
+                                                         importConfigDialog);
+        connect(buttons, SIGNAL(accepted()), importConfigDialog, SLOT(accept()));
+        connect(buttons, SIGNAL(rejected()), importConfigDialog, SLOT(reject()));
+
+        QVBoxLayout *vlayout = new QVBoxLayout();
+        vlayout->addWidget(title, 0,  Qt::AlignCenter);
+        vlayout->addLayout(layout);
+        vlayout->addWidget(buttons, 0,  Qt::AlignCenter);
+
+        importConfigDialog->setLayout(vlayout);
+    }
+
+    QSettings importConfig(qApp->applicationDirPath()+"/importconfig.ini", QSettings::IniFormat);
+    serialNumberComboBox->setCurrentIndex(importConfig.value("config/SerialNumber").toInt());
+    brandNameComboBox->setCurrentIndex(importConfig.value("config/BrandName").toInt());
+    productModelComboBox->setCurrentIndex(importConfig.value("config/ProductModel").toInt());
+    colorComboBox->setCurrentIndex(importConfig.value("config/Color").toInt());
+    vendorComboBox->setCurrentIndex(importConfig.value("config/Vendor").toInt());
+    schemaNameComboBox->setCurrentIndex(importConfig.value("config/SchemaName").toInt());
+    quantityComboBox->setCurrentIndex(importConfig.value("config/Quantity").toInt());
+    unitComboBox->setCurrentIndex(importConfig.value("config/Unit").toInt());
+    oldPurchasePriceComboBox->setCurrentIndex(importConfig.value("config/OldPurchasePrice").toInt());
+    purchasePriceComboBox->setCurrentIndex(importConfig.value("config/PurchasePrice").toInt());
+    sellingPriceComboBox->setCurrentIndex(importConfig.value("config/SellingPrice").toInt());
+    operatorUserComboBox->setCurrentIndex(importConfig.value("config/OperatorUser").toInt());
+    responserUserComboBox->setCurrentIndex(importConfig.value("config/ResponserUser").toInt());
+    sellerComboBox->setCurrentIndex(importConfig.value("config/Seller").toInt());
+    barInfoComboBox->setCurrentIndex(importConfig.value("config/BarInfo").toInt());
+    productStatusComboBox->setCurrentIndex(importConfig.value("config/ProductStatus").toInt());
+    replacementStatusComboBox->setCurrentIndex(importConfig.value("config/ReplacementStatus").toInt());
+    timeStampComboBox->setCurrentIndex(importConfig.value("config/TimeStamp").toInt());
+    commentsComboBox->setCurrentIndex(importConfig.value("config/Comments").toInt());
+
+    if(importConfigDialog->exec()==QDialog::Accepted)
+    {
+        importConfig.setValue("config/SerialNumber", serialNumberComboBox->currentIndex());
+        importConfig.setValue("config/BrandName", brandNameComboBox->currentIndex());
+        importConfig.setValue("config/ProductModel", productModelComboBox->currentIndex());
+        importConfig.setValue("config/Color", colorComboBox->currentIndex());
+        importConfig.setValue("config/Vendor", vendorComboBox->currentIndex());
+        importConfig.setValue("config/SchemaName", schemaNameComboBox->currentIndex());
+        importConfig.setValue("config/Quantity", quantityComboBox->currentIndex());
+        importConfig.setValue("config/Unit", unitComboBox->currentIndex());
+        importConfig.setValue("config/OldPurchasePrice", oldPurchasePriceComboBox->currentIndex());
+        importConfig.setValue("config/PurchasePrice", purchasePriceComboBox->currentIndex());
+        importConfig.setValue("config/SellingPrice", sellingPriceComboBox->currentIndex());
+        importConfig.setValue("config/OperatorUser", operatorUserComboBox->currentIndex());
+        importConfig.setValue("config/ResponserUser", responserUserComboBox->currentIndex());
+        importConfig.setValue("config/Seller", sellerComboBox->currentIndex());
+        importConfig.setValue("config/BarInfo", barInfoComboBox->currentIndex());
+        importConfig.setValue("config/ProductStatus", productStatusComboBox->currentIndex());
+        importConfig.setValue("config/ReplacementStatus", replacementStatusComboBox->currentIndex());
+        importConfig.setValue("config/TimeStamp", timeStampComboBox->currentIndex());
+        importConfig.setValue("config/Comments", commentsComboBox->currentIndex());
+    }
+
+    //QMessageBox::critical(NULL, "configImporting", "Hasn't been implemented!");
+    return;
+
 }
 
 void Purchase_Invoicing::commitProduct()

@@ -16,6 +16,8 @@ class QLabel;
 class QPushButton;
 class QLineEdit;
 class QProgressBar;
+class QDialog;
+class QComboBox;
 QT_END_NAMESPACE
 
 class AddProductDialog;
@@ -59,10 +61,12 @@ private slots:
     void addProduct();
     bool addProduct(QStringList &product);
     void addProduct(QMap<QString, QList<QStringList> > &productsMap);
+    bool addProduct(QMap<int, int> &columnsMap, QMap<int, QString> &columnsValue);
     void productAdded();
     void delProduct();
     void emptyProducts();
     void importProducts();
+    void configImporting();
     void commitProduct();
     void commitAllProducts();
     void updateDBTableModel();
@@ -98,6 +102,27 @@ private:
 
     QLineEdit *serialNumberLineEdit;
     QPushButton *filterPushButton;
+
+    QDialog *importConfigDialog;
+    QComboBox *serialNumberComboBox;
+    QComboBox *brandNameComboBox;
+    QComboBox *productModelComboBox;
+    QComboBox *colorComboBox;
+    QComboBox *vendorComboBox;
+    QComboBox *schemaNameComboBox;
+    QComboBox *quantityComboBox;
+    QComboBox *unitComboBox;
+    QComboBox *oldPurchasePriceComboBox;
+    QComboBox *purchasePriceComboBox;
+    QComboBox *sellingPriceComboBox;
+    QComboBox *operatorUserComboBox;
+    QComboBox *responserUserComboBox;
+    QComboBox *sellerComboBox;
+    QComboBox *barInfoComboBox;
+    QComboBox *productStatusComboBox;
+    QComboBox *replacementStatusComboBox;
+    QComboBox *timeStampComboBox;
+    QComboBox *commentsComboBox;
 };
 
 #endif // PURCHASE_INVOICING_H
