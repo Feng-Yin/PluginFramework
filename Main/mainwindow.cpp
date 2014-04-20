@@ -39,6 +39,11 @@ MainWindow::MainWindow(QWidget *parent) :
         QApplication::instance()->installTranslator(qtTranslator);
     }
 
+    QTimer *eventTimer = new QTimer(this);
+    connect(eventTimer, SIGNAL(timeout()), this, SLOT(eventUpdate()));
+    eventTimer->setInterval(1000);
+    eventTimer->start();
+
     if(!splash)
     {
         QPixmap pixmap(":/Icon/invoicing_icon.png");
@@ -89,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
         QTimer *timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-        timer->setInterval(1000*10);
+        timer->setInterval(1000*60);
         timer->start();
     }
     splash->finish(this);
@@ -402,20 +407,22 @@ void MainWindow::pluginDialog()
 
 void MainWindow::update()
 {
-//    static int i = 0;
-//    i = i % pluginVector.size();
-//    pluginVector.at(i++)->update();
-//    qDebug()<<"currentPlugin"<<endl;
-//    qDebug()<<currentPlugin<<endl;
     PluginInterface *plugin = getPlugin("UserManagementIF");
     UserManagementInterface * userManagementInterface = dynamic_cast<UserManagementInterface *>(plugin);
     updateCurrentUserInfo();
     userManagementInterface->getDatabase();
     if(currentPlugin) {
         setCursor(Qt::BusyCursor);
+        qApp->processEvents();
         currentPlugin->update();
         unsetCursor();
+        qApp->processEvents();
     }
+}
+
+void MainWindow::eventUpdate()
+{
+    qApp->processEvents();
 }
 
 void MainWindow::updateAll()

@@ -56,6 +56,7 @@ Purchase_Invoicing::Purchase_Invoicing() :
         qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
         QApplication::instance()->installTranslator(qtTranslator);
     }
+    initImportConfigFile();
 }
 
 void Purchase_Invoicing::initMainWidget()
@@ -1261,6 +1262,35 @@ void Purchase_Invoicing::updateProductinfo()
     QSqlRecord record = purchaseModel->record(storageIndex.row());
     updateProductDialog->updateRecord(record);
     updateProductDialog->exec();
+}
+
+void Purchase_Invoicing::initImportConfigFile()
+{
+    QFile file(qApp->applicationDirPath()+"/importconfig.ini");
+    if(!file.exists())
+    {
+        QSettings importConfig(qApp->applicationDirPath()+"/importconfig.ini", QSettings::IniFormat);
+        importConfig.setValue("config/SerialNumber", 5);
+        importConfig.setValue("config/BrandName", 3 );
+        importConfig.setValue("config/ProductModel", 4);
+        importConfig.setValue("config/Color", 6);
+        importConfig.setValue("config/Vendor", 2);
+        importConfig.setValue("config/SchemaName", 0);
+        importConfig.setValue("config/Quantity", 8);
+        importConfig.setValue("config/Unit", 0);
+        importConfig.setValue("config/OldPurchasePrice", 0);
+        importConfig.setValue("config/PurchasePrice", 0);
+        importConfig.setValue("config/SellingPrice", 0);
+        importConfig.setValue("config/OperatorUser", 0);
+        importConfig.setValue("config/ResponserUser", 0);
+        importConfig.setValue("config/Seller", 0);
+        importConfig.setValue("config/BarInfo", 7);
+        importConfig.setValue("config/ProductStatus", 0);
+        importConfig.setValue("config/ReplacementStatus", 0);
+        importConfig.setValue("config/TimeStamp", 1);
+        importConfig.setValue("config/Comments", 9);
+        importConfig.setValue("config/Skip1stRow", true);
+    }
 }
 
 QT_BEGIN_NAMESPACE

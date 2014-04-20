@@ -51,6 +51,7 @@ private slots:
     void widgetChange();
     void pluginDialog();
     void update();
+    void eventUpdate();
     void updateAll();
     void registerSoftware();
 

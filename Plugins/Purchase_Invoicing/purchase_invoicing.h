@@ -56,6 +56,7 @@ private:
     void createPurchasePanel();
     void updatePurchaseFilter();
     void hidePurchasePrice();
+    void initImportConfigFile();
 
 
 private slots:
