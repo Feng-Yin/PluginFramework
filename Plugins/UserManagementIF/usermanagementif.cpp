@@ -123,6 +123,7 @@ QSqlDatabase UserManagementIF::getDatabase() const
     QSqlQuery query(db);
     if(db.isOpen() && !query.exec("SHOW DATABASES")) {
         QMessageBox::critical(0, tr("Error"), tr("DB connection lost! Restart the program to try again"));
+        exit(0);
     }
     return db;
 }

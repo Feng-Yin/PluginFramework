@@ -51,7 +51,6 @@
     <message>
         <location filename="../logindialog.cpp" line="115"/>
         <location filename="../logindialog.cpp" line="131"/>
-        <location filename="../logindialog.cpp" line="372"/>
         <source>Login</source>
         <translation>登录系统</translation>
     </message>

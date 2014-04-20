@@ -20,7 +20,7 @@
 #include "usermanagement_interface.h"
 
 LoginDialog::LoginDialog(UserManagementInterface *userManagementInterface, QDialog *parent) :
-    QDialog(parent),
+    QDialog(parent, Qt::WindowStaysOnTopHint),
     userNameComboBox(NULL),
     rememberUsername(NULL),
     passwordLineEdit(NULL),
@@ -369,7 +369,7 @@ void LoginDialog::onLogin()
          ipaddressFromDomainname = addressIPV4.toString();
          // use the first IP address
     }
-    QMessageBox::information(0, tr("Login"), ipaddressFromDomainname);
+    //QMessageBox::information(0, tr("Login"), ipaddressFromDomainname);
     int ad0 = ipaddress.split(".").at(0).toInt();
     int ad1 = ipaddress.split(".").at(1).toInt();
     int ad2 = ipaddress.split(".").at(2).toInt();

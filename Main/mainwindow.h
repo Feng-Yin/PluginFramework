@@ -19,6 +19,7 @@ class QTableWidget;
 class QDialog;
 class QLabel;
 class QLineEdit;
+class QSplashScreen;
 QT_END_NAMESPACE
 
 class PluginInterface;
@@ -90,6 +91,8 @@ private:
     QLineEdit *machineCodeLineEdit;
     QLabel *registerCodeLabel;
     QLineEdit *registerCodeLineEdit;
+
+    QSplashScreen *splash;
 };
 
 #endif // MAINWINDOW_H

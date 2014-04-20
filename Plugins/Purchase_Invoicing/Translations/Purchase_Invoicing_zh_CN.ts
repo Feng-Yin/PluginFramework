@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<TS version="2.0" language="zh_CN">
 <context>
     <name>AddProductDialog</name>
     <message>
@@ -372,47 +372,47 @@
         <translation>操作员：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1012"/>
+        <location filename="../purchase_invoicing.cpp" line="1014"/>
         <source>responserUser:</source>
         <translation>负责人：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1018"/>
+        <location filename="../purchase_invoicing.cpp" line="1022"/>
         <source>seller:</source>
         <translation>销售人员：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1024"/>
+        <location filename="../purchase_invoicing.cpp" line="1030"/>
         <source>barInfo:</source>
         <translation>柜台信息：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1030"/>
+        <location filename="../purchase_invoicing.cpp" line="1036"/>
         <source>productStatus:</source>
         <translation>产品状态：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1036"/>
+        <location filename="../purchase_invoicing.cpp" line="1044"/>
         <source>replacementStatus:</source>
         <translation>换机状态：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1042"/>
+        <location filename="../purchase_invoicing.cpp" line="1050"/>
         <source>timeStamp:</source>
         <translation>时间：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1048"/>
+        <location filename="../purchase_invoicing.cpp" line="1056"/>
         <source>comments:</source>
         <translation>备注：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1054"/>
+        <location filename="../purchase_invoicing.cpp" line="1062"/>
         <source>skip1stRow:</source>
         <translation>跳过第一行：</translation>
     </message>
     <message>
-        <location filename="../purchase_invoicing.cpp" line="1059"/>
+        <location filename="../purchase_invoicing.cpp" line="1067"/>
         <source>config the colunm position of product info</source>
         <translation>配置产品信息在EXCEL中的列号</translation>
     </message>
