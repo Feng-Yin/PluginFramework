@@ -6,6 +6,7 @@
 #include "productmanagement_interface.h"
 #include "barchart.h"
 #include "statisticupdateproductdialog.h"
+#include "exportexcelobject.h"
 
 const char *sortTypeProperty = "SortType";
 
@@ -100,6 +101,7 @@ Statistic_Invoicing::Statistic_Invoicing():
     endTimeAllProductsDateTimeEdit(NULL),
     endTimeAllProductsCheckBox(NULL),
     allProductsFilterButton(NULL),
+    exportAllProducts2ExcelButton(NULL),
     allProductsSummaryLabel(NULL),
     allProductsSummaryLineEdit(NULL),
     serialNumberUnsellProductsLabel(NULL),
@@ -168,10 +170,13 @@ Statistic_Invoicing::Statistic_Invoicing():
     endTimeUnsellProductsDateTimeEdit(NULL),
     endTimeUnsellProductsCheckBox(NULL),
     unsellProductsFilterButton(NULL),
+    exportUnsellProducts2ExcelButton(NULL),
     unsellProductsSummaryLabel(NULL),
     unsellProductsSummaryLineEdit(NULL),
     statisticUpdateAllProductDialog(NULL),
-    statisticUpdateUnsellProductDialog(NULL)
+    statisticUpdateUnsellProductDialog(NULL),
+    unsellProductProgressBar(NULL),
+    allProductProgressBar(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -667,11 +672,18 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     unsellProductsFilterButton->setFont(f);
     connect(unsellProductsFilterButton, SIGNAL(clicked()), this, SLOT(onUnsellProductsFilter()));
 
+    exportUnsellProducts2ExcelButton = new QPushButton(tr("Export2Excel"), unsellProductsFilterPanel);
+    exportUnsellProducts2ExcelButton->setFont(f);
+    connect(exportUnsellProducts2ExcelButton, SIGNAL(clicked()), this, SLOT(onExportUnsellProducts2Excel()));
+
     QGridLayout *unsellProductsFilterLayout = new QGridLayout(unsellProductsFilterPanel);
     unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsLabel, 0, 0, Qt::AlignRight);
     unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsLineEdit, 0, 1);
     unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsCheckBox, 0, 2);
-    unsellProductsFilterLayout->addWidget(unsellProductsFilterButton, 0, 20, 1, 3);
+    QHBoxLayout *group = new QHBoxLayout();
+    group->addWidget(unsellProductsFilterButton);
+    group->addWidget(exportUnsellProducts2ExcelButton);
+    unsellProductsFilterLayout->addLayout(group, 0, 20, 1, 3);
 
     unsellProductsFilterLayout->addWidget(productTypeUnsellProductsLabel, 10, 0, Qt::AlignRight);
     unsellProductsFilterLayout->addWidget(productTypeUnsellProductsComboBox, 10, 1);
@@ -762,6 +774,10 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
 
     createUnsellProductsPanel();
     unsellProductsFilterLayout->addWidget(unsellProductsPanel, 55, 0, 1, unsellProductsFilterLayout->columnCount());
+
+    unsellProductProgressBar = new QProgressBar();
+    unsellProductProgressBar->setValue(0);
+    unsellProductsFilterLayout->addWidget(unsellProductProgressBar, 60, 0, 1, unsellProductsFilterLayout->columnCount());
 
     unsellProductsFilterPanel->setLayout(unsellProductsFilterLayout);
 
@@ -1076,11 +1092,18 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     allProductsFilterButton->setFont(f);
     connect(allProductsFilterButton, SIGNAL(clicked()), this, SLOT(onAllProductsFilter()));
 
+    exportAllProducts2ExcelButton = new QPushButton(tr("Export2Excel"), allProductsFilterPanel);
+    exportAllProducts2ExcelButton->setFont(f);
+    connect(exportAllProducts2ExcelButton, SIGNAL(clicked()), this, SLOT(onExportAllProducts2Excel()));
+
     QGridLayout *allProductsFilterLayout = new QGridLayout(allProductsFilterPanel);
     allProductsFilterLayout->addWidget(serialNumberAllProductsLabel, 0, 0, Qt::AlignRight);
     allProductsFilterLayout->addWidget(serialNumberAllProductsLineEdit, 0, 1);
     allProductsFilterLayout->addWidget(serialNumberAllProductsCheckBox, 0, 2);
-    allProductsFilterLayout->addWidget(allProductsFilterButton, 0, 20, 1, 3);
+    QHBoxLayout *group = new QHBoxLayout();
+    group->addWidget(allProductsFilterButton);
+    group->addWidget(exportAllProducts2ExcelButton);
+    allProductsFilterLayout->addLayout(group, 0, 20, 1, 3);
 
     allProductsFilterLayout->addWidget(productTypeAllProductsLabel, 10, 0, Qt::AlignRight);
     allProductsFilterLayout->addWidget(productTypeAllProductsComboBox, 10, 1);
@@ -1171,6 +1194,10 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
 
     createAllProductsPanel();
     allProductsFilterLayout->addWidget(allProductsPanel, 55, 0, 1, allProductsFilterLayout->columnCount());
+
+    allProductProgressBar = new QProgressBar();
+    allProductProgressBar->setValue(0);
+    allProductsFilterLayout->addWidget(allProductProgressBar, 60, 0, 1, allProductsFilterLayout->columnCount());
 
     allProductsFilterPanel->setLayout(allProductsFilterLayout);
 }
@@ -1938,6 +1965,88 @@ void Statistic_Invoicing::onUnsellProductsFilter()
 
     mainWidget->unsetCursor();
 
+}
+
+void Statistic_Invoicing::onExportUnsellProducts2Excel()
+{
+    QString fileName = QFileDialog::getSaveFileName(0, tr("Export to Excel"), qApp->applicationDirPath (),
+                                                    tr("Excel Files (*.xls)"));
+
+    ExportExcelObject obj(fileName, tr("UnsellProducts"), unsellProductsView);
+    //obj.addField(1, tr("ID"), "int");
+    obj.addField(1, tr("Serial Number"), "char(255)");
+    obj.addField(2, tr("Product Type"), "char(255)");
+    obj.addField(3, tr("Brand Name"), "char(255)");
+    obj.addField(4, tr("Model Name"), "char(255)");
+    obj.addField(5, tr("Color"), "char(255)");
+    obj.addField(6, tr("Vendor"), "char(255)");
+    obj.addField(7, tr("Schema Name"), "char(255)");
+    obj.addField(8, tr("Quantity"), "char(255)");
+    obj.addField(9, tr("Unit"), "char(255)");
+    obj.addField(10, tr("Old Purchase Price"), "char(255)");
+    obj.addField(11, tr("Purchase Price"), "char(255)");
+    obj.addField(12, tr("Selling Price"), "char(255)");
+    obj.addField(13, tr("Operator"), "char(255)");
+    obj.addField(14, tr("Seller"), "char(255)");
+    obj.addField(15, tr("Responser"), "char(255)");
+    obj.addField(16, tr("BarInfo"), "char(255)");
+    obj.addField(17, tr("Product Status"), "char(255)");
+    obj.addField(18, tr("Replacement Status"), "char(255)");
+    obj.addField(19, tr("TimeStamp"), "char(255)");
+    obj.addField(20, tr("Comments"), "char(255)");
+    unsellProductProgressBar->setValue(0);
+    unsellProductProgressBar->setMaximum(unsellProductsView->model()->rowCount());
+    connect(&obj, SIGNAL(exportedRowCount(int)), unsellProductProgressBar, SLOT(setValue(int)));
+    int retVal = obj.export2Excel();
+    if(retVal>0)
+    {
+        //QMessageBox::information(0, tr("Export To Excel"), tr("Done!"));
+    }
+    else
+    {
+        //QMessageBox::critical(0, tr("Export To Excel"), tr("Error!"));
+    }
+}
+
+void Statistic_Invoicing::onExportAllProducts2Excel()
+{
+    QString fileName = QFileDialog::getSaveFileName(0, tr("Export to Excel"), qApp->applicationDirPath (),
+                                                    tr("Excel Files (*.xls)"));
+
+    ExportExcelObject obj(fileName, tr("AllProducts"), allProductsView);
+    //obj.addField(1, tr("ID"), "int");
+    obj.addField(1, tr("Serial Number"), "char(255)");
+    obj.addField(2, tr("Product Type"), "char(255)");
+    obj.addField(3, tr("Brand Name"), "char(255)");
+    obj.addField(4, tr("Model Name"), "char(255)");
+    obj.addField(5, tr("Color"), "char(255)");
+    obj.addField(6, tr("Vendor"), "char(255)");
+    obj.addField(7, tr("Schema Name"), "char(255)");
+    obj.addField(8, tr("Quantity"), "char(255)");
+    obj.addField(9, tr("Unit"), "char(255)");
+    obj.addField(10, tr("Old Purchase Price"), "char(255)");
+    obj.addField(11, tr("Purchase Price"), "char(255)");
+    obj.addField(12, tr("Selling Price"), "char(255)");
+    obj.addField(13, tr("Operator"), "char(255)");
+    obj.addField(14, tr("Seller"), "char(255)");
+    obj.addField(15, tr("Responser"), "char(255)");
+    obj.addField(16, tr("BarInfo"), "char(255)");
+    obj.addField(17, tr("Product Status"), "char(255)");
+    obj.addField(18, tr("Replacement Status"), "char(255)");
+    obj.addField(19, tr("TimeStamp"), "char(255)");
+    obj.addField(20, tr("Comments"), "char(255)");
+    allProductProgressBar->setValue(0);
+    allProductProgressBar->setMaximum(allProductsView->model()->rowCount());
+    connect(&obj, SIGNAL(exportedRowCount(int)), allProductProgressBar, SLOT(setValue(int)));
+    int retVal = obj.export2Excel();
+    if(retVal>0)
+    {
+        //QMessageBox::information(0, tr("Export To Excel"), tr("Done!"));
+    }
+    else
+    {
+        //QMessageBox::critical(0, tr("Export To Excel"), tr("Error!"));
+    }
 }
 
 void Statistic_Invoicing::updateSalesStatisticPlot()
