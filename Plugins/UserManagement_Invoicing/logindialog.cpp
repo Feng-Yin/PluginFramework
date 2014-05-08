@@ -203,7 +203,7 @@ void LoginDialog::onAuthenticate()
     qDebug()<<ipaddress;
     if(!reAuthenticate) {
         if (!userManagementInterface->openDatabase(username, password, ipaddress)) {
-            QMessageBox::critical(0, tr("Database Authenticate Error"),
+            QMessageBox::critical(this, tr("Database Authenticate Error"),
                                   tr("Check your <b>Username</b>, <b>Password</b> & DB <b>IP</b>"));
         }
         else {
@@ -211,14 +211,14 @@ void LoginDialog::onAuthenticate()
             QSet<int> schemaIDSet = userManagementInterface->getSchemaIDSetByUserID(userID);
             if(schemaIDSet.count()==0) {
                 if(userManagementInterface->isAdmin(username)) {
-                    QMessageBox::information(0, tr("Setup"),
+                    QMessageBox::information(this, tr("Setup"),
                                              tr("Haven't create DB Schema. Pls create the DB Schema first!"));
                     if(createInvoicingSchema()) {
                         enableLogin(userManagementInterface->getAllSchemaName());
                     }
                 }
                 else {
-                    QMessageBox::information(0, tr("Setup"),
+                    QMessageBox::information(this, tr("Setup"),
                                              tr("Haven't DB Schema access. Pls contact admin!"));
                 }
             }
@@ -369,14 +369,14 @@ void LoginDialog::onLogin()
          ipaddressFromDomainname = addressIPV4.toString();
          // use the first IP address
     }
-    //QMessageBox::information(0, tr("Login"), ipaddressFromDomainname);
+    //QMessageBox::information(this, tr("Login"), ipaddressFromDomainname);
     int ad0 = ipaddress.split(".").at(0).toInt();
     int ad1 = ipaddress.split(".").at(1).toInt();
     int ad2 = ipaddress.split(".").at(2).toInt();
     int ad3 = ipaddress.split(".").at(3).toInt();
     ipaddress = QString("%1.%2.%3.%4").arg(ad0).arg(ad1).arg(ad2).arg(ad3);
     if (!userManagementInterface->openDatabase(username, password, ipaddressFromDomainname)) {
-        QMessageBox::critical(0, tr("Database Authenticate Error"),
+        QMessageBox::critical(this, tr("Database Authenticate Error"),
                               tr("Check your <b>Username</b>, <b>Password</b> & DB <b>IP</b>"));
         return;
 //        if (!userManagementInterface->openDatabase(username, password, ipaddressFromDomainname)) {
@@ -387,12 +387,12 @@ void LoginDialog::onLogin()
         QSet<int> schemaIDSet = userManagementInterface->getSchemaIDSetByUserID(userID);
         if(schemaIDSet.count()==0) {
             if(userManagementInterface->isAdmin(username)) {
-                QMessageBox::information(0, tr("Setup"),
+                QMessageBox::information(this, tr("Setup"),
                                          tr("Haven't create DB Schema. Pls create the DB Schema first!"));
                 createInvoicingSchema();
             }
             else if(!userManagementInterface->isStatistic(username)){
-                QMessageBox::information(0, tr("Setup"),
+                QMessageBox::information(this, tr("Setup"),
                                          tr("Haven't DB Schema access. Pls contact admin!"));
                 return;
             }

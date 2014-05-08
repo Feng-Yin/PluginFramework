@@ -20,6 +20,7 @@ class QPushButton;
 class QRadioButton;
 class QDateEdit;
 class QDateTimeEdit;
+class QProgressBar;
 QT_END_NAMESPACE
 
 class UserManagementInterface;
@@ -69,6 +70,8 @@ private slots:
     void populateSellerNameComboBox(QComboBox *sellerNameComboBox) const;
     void onAllProductsFilter();
     void onUnsellProductsFilter();
+    void onExportUnsellProducts2Excel();
+    void onExportAllProducts2Excel();
     void updateSalesStatisticPlot();
     void updateUnsellProductinfo();
     void updateAllProductinfo();
@@ -188,6 +191,7 @@ private:
     QCheckBox *endTimeAllProductsCheckBox;
 
     QPushButton *allProductsFilterButton;
+    QPushButton *exportAllProducts2ExcelButton;
     QLabel *allProductsSummaryLabel;
     QLineEdit *allProductsSummaryLineEdit;
 
@@ -276,11 +280,15 @@ private:
     QCheckBox *endTimeUnsellProductsCheckBox;
 
     QPushButton *unsellProductsFilterButton;
+    QPushButton *exportUnsellProducts2ExcelButton;
     QLabel *unsellProductsSummaryLabel;
     QLineEdit *unsellProductsSummaryLineEdit;
 
     StatisticUpdateProductDialog *statisticUpdateAllProductDialog;
     StatisticUpdateProductDialog *statisticUpdateUnsellProductDialog;
+
+    QProgressBar *unsellProductProgressBar;
+    QProgressBar *allProductProgressBar;
 };
 
 #endif // STATISTIC_INVOICING_H

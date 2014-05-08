@@ -399,7 +399,7 @@ void UserManagementDialog::addUser()
         username = QInputDialog::getText(0, tr("Create User"), tr("User Name: "),
                                          QLineEdit::Normal, "", &okUserName);
         if(!okUserName) {
-            //QMessageBox::critical(0, tr("Create User Error"), tr("Input UserName error !"));
+            //QMessageBox::critical(this, tr("Create User Error"), tr("Input UserName error !"));
             return;
         }
         username.simplified();
@@ -415,14 +415,14 @@ void UserManagementDialog::addUser()
                                               QString(tr("Password for user '%1': ")).arg(username),
                                               QLineEdit::Password, "", &okPassword1);
             if(!okPassword1) {
-                //QMessageBox::critical(0, tr("Create User Error"), tr("Input Password error !"));
+                //QMessageBox::critical(this, tr("Create User Error"), tr("Input Password error !"));
                 return;
             }
             if(passWord1.isEmpty()) {
-                QMessageBox::critical(0, tr("Create User Error"), tr("Password can't be empty !"));
+                QMessageBox::critical(this, tr("Create User Error"), tr("Password can't be empty !"));
             }
             else if(!UserManagementInterface::checkPassword(passWord1)) {
-                QMessageBox::critical(0, tr("Create User Error"), tr("Password illegal !"));
+                QMessageBox::critical(this, tr("Create User Error"), tr("Password illegal !"));
             }
         }while(passWord1.isEmpty()||!UserManagementInterface::checkPassword(passWord1));
 
@@ -431,12 +431,12 @@ void UserManagementDialog::addUser()
                                           QLineEdit::Password, "", &okPassword2);
 
         if(!okPassword2) {
-            //QMessageBox::critical(0, tr("Create User Error"), tr("Re-confirm Password error !"));
+            //QMessageBox::critical(this, tr("Create User Error"), tr("Re-confirm Password error !"));
             return;
         }
 
         if(passWord1.compare(passWord2)!=0) {
-            QMessageBox::critical(0, tr("Create User Error"),
+            QMessageBox::critical(this, tr("Create User Error"),
                                   tr("The two entries of the new password don't match , Retry !"));
         }
     }while(passWord1.compare(passWord2)!=0);
@@ -733,12 +733,12 @@ void UserManagementDialog::addUserAccessDialog()
 bool UserManagementDialog::checkUserName(QString username)
 {
     if(username.isEmpty()) {
-        QMessageBox::critical(0, tr("Username Error"), tr("User can't be empty, Try another !"));
+        QMessageBox::critical(this, tr("Username Error"), tr("User can't be empty, Try another !"));
         return false;
     }
     //check if the user name has exist
     if(userManagementInterface->getUserIDByUserName(username)) {
-        QMessageBox::critical(0, tr("Username Error"), tr("User has existed, Try another !"));
+        QMessageBox::critical(this, tr("Username Error"), tr("User has existed, Try another !"));
         return false;
     }
     else {
@@ -757,7 +757,7 @@ bool UserManagementDialog::checkUserName(QString username)
         length = convertedName.length();
         //qDebug()<<length;
         if(length>16) {
-            QMessageBox::critical(0, tr("Username Error"), tr("User name too long, Try another !"));
+            QMessageBox::critical(this, tr("Username Error"), tr("User name too long, Try another !"));
             return false;
         }
         else {
