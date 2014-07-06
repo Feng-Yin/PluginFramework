@@ -406,10 +406,14 @@ bool ProductManagementIF::updateProductDetailByProductID(int id, QString serialN
             break;
         }
         if(different) {
-            bool ret = query.exec(QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = \"%19\", serialNumber = '%20' WHERE id = %21;")
+//            bool ret = query.exec(QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = \"%19\", serialNumber = '%20' WHERE id = %21;")
+//                                  .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
+//                                  .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
+//                                  .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments).arg(serialNumber).arg(id));
+            bool ret = query.exec(QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, comments = \"%18\", serialNumber = '%19' WHERE id = %20;")
                                   .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
                                   .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
-                                  .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments).arg(serialNumber).arg(id));
+                                  .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(comments).arg(serialNumber).arg(id));
             qDebug()<<QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = '%19', serialNumber = '%20' WHERE id = %21;")
             .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
             .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
@@ -546,7 +550,8 @@ QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int ye
 bool ProductManagementIF::addProductinfoByProductID(int productID) const
 {
     QSqlQuery query(userManagementInterface->getSqlQuery());
-    QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `timeStamp`, `comments`";
+    //QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `timeStamp`, `comments`";
+    QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `comments`";
     return query.exec(QString("insert into productsinfo ( %1 ) (select %1 from products where id=%2)").arg(filedsString).arg(productID));
 }
 

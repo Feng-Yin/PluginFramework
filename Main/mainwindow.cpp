@@ -92,10 +92,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
         unsetCursor();
 
-        QTimer *timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-        timer->setInterval(1000*60);
-        timer->start();
+//        QTimer *timer = new QTimer(this);
+//        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+//        timer->setInterval(1000*60);
+//        timer->start();
     }
     splash->finish(this);
 }

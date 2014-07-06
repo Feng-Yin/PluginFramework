@@ -42,8 +42,8 @@ void CashUpdateProductDialog::init()
     productColorComboBox->setEnabled(false);
     productVendorLabel->setEnabled(false);
     productVendorComboBox->setEnabled(false);
-    replacementInfoLabel->setEnabled(false);
-    replacementInfoComboBox->setEnabled(false);
+    //replacementInfoLabel->setEnabled(false);
+    //replacementInfoComboBox->setEnabled(false);
     quantityLabel->setEnabled(false);
     quantitySpinBox->setEnabled(false);
     unitLabel->setEnabled(false);

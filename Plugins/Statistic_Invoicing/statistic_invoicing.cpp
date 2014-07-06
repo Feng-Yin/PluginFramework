@@ -1969,6 +1969,19 @@ void Statistic_Invoicing::onUnsellProductsFilter()
 
 void Statistic_Invoicing::onExportUnsellProducts2Excel()
 {
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    foreach(int i, roleset) {
+        //if(i == adminRoleID || i == storagerRoleID) {
+        if(i == adminRoleID) {
+            hide = false;
+        }
+    }
+
     QString fileName = QFileDialog::getSaveFileName(0, tr("Export to Excel"), qApp->applicationDirPath (),
                                                     tr("Excel Files (*.xls)"));
 
@@ -1983,8 +1996,11 @@ void Statistic_Invoicing::onExportUnsellProducts2Excel()
     obj.addField(7, tr("Schema Name"), "char(255)");
     obj.addField(8, tr("Quantity"), "char(255)");
     obj.addField(9, tr("Unit"), "char(255)");
-    obj.addField(10, tr("Old Purchase Price"), "char(255)");
-    obj.addField(11, tr("Purchase Price"), "char(255)");
+    if(!hide)
+    {
+        obj.addField(10, tr("Old Purchase Price"), "char(255)");
+        obj.addField(11, tr("Purchase Price"), "char(255)");
+    }
     obj.addField(12, tr("Selling Price"), "char(255)");
     obj.addField(13, tr("Operator"), "char(255)");
     obj.addField(14, tr("Seller"), "char(255)");
@@ -2010,6 +2026,19 @@ void Statistic_Invoicing::onExportUnsellProducts2Excel()
 
 void Statistic_Invoicing::onExportAllProducts2Excel()
 {
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("管理员");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("库管");
+    foreach(int i, roleset) {
+        //if(i == adminRoleID || i == storagerRoleID) {
+        if(i == adminRoleID) {
+            hide = false;
+        }
+    }
+
     QString fileName = QFileDialog::getSaveFileName(0, tr("Export to Excel"), qApp->applicationDirPath (),
                                                     tr("Excel Files (*.xls)"));
 
@@ -2024,8 +2053,11 @@ void Statistic_Invoicing::onExportAllProducts2Excel()
     obj.addField(7, tr("Schema Name"), "char(255)");
     obj.addField(8, tr("Quantity"), "char(255)");
     obj.addField(9, tr("Unit"), "char(255)");
-    obj.addField(10, tr("Old Purchase Price"), "char(255)");
-    obj.addField(11, tr("Purchase Price"), "char(255)");
+    if(!hide)
+    {
+        obj.addField(10, tr("Old Purchase Price"), "char(255)");
+        obj.addField(11, tr("Purchase Price"), "char(255)");
+    }
     obj.addField(12, tr("Selling Price"), "char(255)");
     obj.addField(13, tr("Operator"), "char(255)");
     obj.addField(14, tr("Seller"), "char(255)");
