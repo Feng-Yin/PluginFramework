@@ -1,4 +1,4 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include <QtSql>
 #include "storage_invoicing.h"
 #include "mainwindow.h"
@@ -130,8 +130,8 @@ void Storage_Invoicing::hidePurchasePrice()
     QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
                 userManagementInterface->getUserIDByUserName(
                     userManagementInterface->getCurrentUserName()));
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("¹ÜÀíÔ±");
-    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("¿â¹Ü");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ç®¡ç†å‘˜");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("åº“ç®¡");
     foreach(int i, roleset) {
         //if(i == adminRoleID || i == storagerRoleID) {
         if(i == adminRoleID) {
@@ -165,7 +165,7 @@ QString Storage_Invoicing::moduleDescription() const
 
 QSet<QString> Storage_Invoicing::getAccessRoleNameSet() const
 {
-    return QSet<QString>()<<"¹ÜÀíÔ±"<<"¿â¹Ü";
+    return QSet<QString>()<<"ç®¡ç†å‘˜"<<"åº“ç®¡";
 }
 
 QSet<QString> Storage_Invoicing::getDependencySet() const
@@ -410,7 +410,7 @@ void Storage_Invoicing::returnToVendor()
     if(purchaseIndex.isValid()) {
         QSqlRecord record = purchaseModel->record(purchaseIndex.row());
         int productID = record.value(ProductID).toInt();
-        int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÍË»õ");
+        int statusID = productManagementInterface->getStatusIDByStatusName("å·²é€€è´§");
         productManagementInterface->updateStatusIDByProductID(productID, statusID);
         purchaseModel->select();
         storageModel->select();
@@ -435,7 +435,7 @@ void Storage_Invoicing::deleteProduct()
     if(purchaseIndex.isValid()) {
         QSqlRecord record = purchaseModel->record(purchaseIndex.row());
         int productID = record.value(ProductID).toInt();
-        int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÉ¾³ý");
+        int statusID = productManagementInterface->getStatusIDByStatusName("å·²åˆ é™¤");
         productManagementInterface->updateStatusIDByProductID(productID, statusID);
         purchaseModel->select();
         storageModel->select();
@@ -460,7 +460,7 @@ void Storage_Invoicing::inStorage()
     if(purchaseIndex.isValid()) {
         QSqlRecord record = purchaseModel->record(purchaseIndex.row());
         int productID = record.value(ProductID).toInt();
-        int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÈë¿â");
+        int statusID = productManagementInterface->getStatusIDByStatusName("å·²å…¥åº“");
         productManagementInterface->updateStatusIDByProductID(productID, statusID);
         purchaseModel->select();
         storageModel->select();
@@ -481,10 +481,10 @@ void Storage_Invoicing::inStorage()
 
 void Storage_Invoicing::allInStorage()
 {
-    int statusID = productManagementInterface->getStatusIDByStatusName("´ýÈë¿â");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å¾…å…¥åº“");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
-    int deleteID = productManagementInterface->getStatusIDByStatusName("ÒÑÈë¿â");
+    int deleteID = productManagementInterface->getStatusIDByStatusName("å·²å…¥åº“");
     QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
     bar->setRange(0, productIDSet.count());
     bar->setValue(0);
@@ -506,7 +506,7 @@ void Storage_Invoicing::outStorage()
     if(storageIndex.isValid()) {
         QSqlRecord record = storageModel->record(storageIndex.row());
         int productID = record.value(ProductID).toInt();
-        int statusID = productManagementInterface->getStatusIDByStatusName("´ýÈë¿â");
+        int statusID = productManagementInterface->getStatusIDByStatusName("å¾…å…¥åº“");
         productManagementInterface->updateStatusIDByProductID(productID, statusID);
         purchaseModel->select();
         storageModel->select();
@@ -527,10 +527,10 @@ void Storage_Invoicing::outStorage()
 
 void Storage_Invoicing::allOutStorage()
 {
-    int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÈë¿â");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å·²å…¥åº“");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
-    int deleteID = productManagementInterface->getStatusIDByStatusName("´ýÈë¿â");
+    int deleteID = productManagementInterface->getStatusIDByStatusName("å¾…å…¥åº“");
     QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
     bar->setRange(0, productIDSet.count());
     bar->setValue(0);
@@ -651,7 +651,7 @@ void Storage_Invoicing::onFilter()
 
 void Storage_Invoicing::updatePurchaseFilter()
 {
-    int statusID = productManagementInterface->getStatusIDByStatusName("´ýÈë¿â");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å¾…å…¥åº“");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
     QSet<int> schemaSet = userManagementInterface->getSchemaIDSetByUserID(userID);
@@ -676,7 +676,7 @@ void Storage_Invoicing::updatePurchaseFilter()
 
 void Storage_Invoicing::updateStorageFilter()
 {
-    int statusID = productManagementInterface->getStatusIDByStatusName("ÒÑÈë¿â");
+    int statusID = productManagementInterface->getStatusIDByStatusName("å·²å…¥åº“");
     int userID = userManagementInterface->getUserIDByUserName(
                 userManagementInterface->getCurrentUserName());
     QSet<int> schemaSet = userManagementInterface->getSchemaIDSetByUserID(userID);
@@ -700,5 +700,7 @@ void Storage_Invoicing::updateStorageFilter()
 }
 
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(Storage_Invoicing, Storage_Invoicing)
+#endif
 QT_END_NAMESPACE

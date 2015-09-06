@@ -1,4 +1,4 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include <QtSql>
 #include "mainwindow.h"
 #include "usermanagement_invoicing.h"
@@ -145,7 +145,7 @@ QString UserManagement_Invoicing::moduleDescription() const
 
 QSet<QString> UserManagement_Invoicing::getAccessRoleNameSet() const
 {
-    return QSet<QString>()<<"¹ÜÀíÔ±";
+    return QSet<QString>()<<"ç®¡ç†å‘˜";
 }
 
 QSet<QString> UserManagement_Invoicing::getDependencySet() const
@@ -274,5 +274,7 @@ void UserManagement_Invoicing::update()
 }
 
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(UserManagement_Invoicing, UserManagement_Invoicing)
+#endif
 QT_END_NAMESPACE

@@ -1,4 +1,4 @@
-#ifndef STATISTIC_INVOICING_GLOBAL_H
+﻿#ifndef STATISTIC_INVOICING_GLOBAL_H
 #define STATISTIC_INVOICING_GLOBAL_H
 
 #include <QtCore/qglobal.h>

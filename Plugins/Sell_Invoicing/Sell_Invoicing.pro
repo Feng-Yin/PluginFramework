@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += sql
+QT       += sql widgets
 
 TARGET = Sell_Invoicing
 TEMPLATE = lib

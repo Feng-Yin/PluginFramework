@@ -1,4 +1,4 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include <QtSql>
 #include <usermanagement_interface.h>
 #include "productmanagement_interface.h"
@@ -15,28 +15,28 @@ AddProductDialog::AddProductDialog(UserManagementInterface *userManagementInterf
 void AddProductDialog::init()
 {
     productTypeComboBox->setCurrentIndex(
-                productTypeComboBox->findText("ÆäËü"));
+                productTypeComboBox->findText("å…¶å®ƒ"));
 
     brandNameComboBox->setCurrentIndex(
-                brandNameComboBox->findText("ÆäËü"));
+                brandNameComboBox->findText("å…¶å®ƒ"));
 
     productModelComboBox->setCurrentIndex(
-                productModelComboBox->findText("ÆäËü"));
+                productModelComboBox->findText("å…¶å®ƒ"));
 
     productColorComboBox->setCurrentIndex(
-                productColorComboBox->findText("ÆäËü"));
+                productColorComboBox->findText("å…¶å®ƒ"));
 
     productVendorComboBox->setCurrentIndex(
-                productVendorComboBox->findText("ÆäËü"));
+                productVendorComboBox->findText("å…¶å®ƒ"));
 
     replacementInfoComboBox->setCurrentIndex(
-                replacementInfoComboBox->findText("·ñ"));
+                replacementInfoComboBox->findText("å¦"));
 
     schemaComboBox->setCurrentIndex(
-                schemaComboBox->findText("Î´Ö¸¶¨"));
+                schemaComboBox->findText("æœªæŒ‡å®š"));
 
     sellerComboBox->setCurrentIndex(
-                sellerComboBox->findText("Î´Ö¸¶¨"));
+                sellerComboBox->findText("æœªæŒ‡å®š"));
 
     updateProductButton->disconnect();
     updateProductButton->setText(tr("Add Product"));
@@ -55,8 +55,8 @@ bool AddProductDialog::checkInput()
     }
 
     barInfo = "";
-    sellerID = userManagementInterface->getUserIDByUserName("Î´Ö¸¶¨");
-    statusID = productManagementInterface->getStatusIDByStatusName("Â¼Èë");
+    sellerID = userManagementInterface->getUserIDByUserName("æœªæŒ‡å®š");
+    statusID = productManagementInterface->getStatusIDByStatusName("å½•å…¥");
     return true;
 }
 
@@ -69,7 +69,7 @@ void AddProductDialog::addProduct()
     productManagementInterface->addProductByDetail(serialNumber, productTypeID, brandNameID,
                                                    productModelID, productColorID, productVendorID,
                                                    schemaID, quantity, unit, oldPurchasePrice, purchasePrice,
-                                                   sellingPrice, userID, userID, sellerID, "Î´Ö¸¶¨", statusID,
+                                                   sellingPrice, userID, userID, sellerID, "æœªæŒ‡å®š", statusID,
                                                    replacementInfoID, timeStamp, comments);
     emit(productAdded());
     updateDBTableModel();

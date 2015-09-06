@@ -1,4 +1,4 @@
-#ifndef _BAR_CHART_H_
+﻿#ifndef _BAR_CHART_H_
 
 #include <qwt_plot.h>
 #include <qwt_scale_draw.h>

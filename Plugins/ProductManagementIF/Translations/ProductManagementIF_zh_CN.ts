@@ -4,7 +4,7 @@
 <context>
     <name>ProductManagementIF</name>
     <message>
-        <location filename="../productmanagementif.cpp" line="80"/>
+        <location filename="../productmanagementif.cpp" line="84"/>
         <source>Product Management Interface Implement</source>
         <translation>产品管理接口模块</translation>
     </message>

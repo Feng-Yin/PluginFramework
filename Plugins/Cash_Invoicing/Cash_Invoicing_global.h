@@ -1,4 +1,4 @@
-#ifndef CASH_INVOICING_GLOBAL_H
+﻿#ifndef CASH_INVOICING_GLOBAL_H
 #define CASH_INVOICING_GLOBAL_H
 
 #include <QtCore/qglobal.h>

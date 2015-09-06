@@ -89,7 +89,9 @@ protected:
     int numRowsAffected();
     QVariant lastInsertId() const;
     QSqlRecord record() const;
+#if QT_VERSION < 0x050000
     void virtual_hook(int id, void *data);
+#endif
     bool nextResult();
 
 #if MYSQL_VERSION_ID >= 40108
@@ -103,6 +105,9 @@ private:
 class Q_EXPORT_SQLDRIVER_MYSQL QMYSQLDriver : public QSqlDriver
 {
     Q_OBJECT
+#if QT_VERSION >= 0x050000
+    Q_PLUGIN_METADATA(IID "QMYSQLDriverPlugin")
+#endif
     friend class QMYSQLResult;
 public:
     explicit QMYSQLDriver(QObject *parent=0);

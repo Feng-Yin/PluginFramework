@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += sql
+QT       += sql widgets
 TARGET = UpdateProductDialog
 INCLUDEPATH += ../../main
 CONFIG += copy_dir_files

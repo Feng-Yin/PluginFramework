@@ -4,12 +4,20 @@
 #
 #-------------------------------------------------
 
-QT       += sql
+lessThan(QT_MAJOR_VERSION, 5) {
+QT       += sql widgets
+}
+else {
+QT       += sql widgets axcontainer
+}
+
 
 TARGET = Purchase_Invoicing
 TEMPLATE = lib
 CONFIG += plugin copy_dir_files
+lessThan(QT_MAJOR_VERSION, 5) {
 CONFIG += qaxcontainer
+}
 INCLUDEPATH += ../../main
 INCLUDEPATH += ../UpdateProductDialog
 DEFINES += PURCHASE_INVOICING_LIBRARY

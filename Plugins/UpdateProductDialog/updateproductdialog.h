@@ -1,7 +1,21 @@
-#ifndef UPDATEPRODUCTDIALOG_H
+﻿#ifndef UPDATEPRODUCTDIALOG_H
 #define UPDATEPRODUCTDIALOG_H
 
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#else
 #include <QDialog>
+#endif
 #include <QSqlRecord>
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"

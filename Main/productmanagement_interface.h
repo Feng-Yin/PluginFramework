@@ -1,4 +1,4 @@
-#ifndef PRODUCTMANAGEMENT_INTERFACE_H
+﻿#ifndef PRODUCTMANAGEMENT_INTERFACE_H
 #define PRODUCTMANAGEMENT_INTERFACE_H
 
 #include <QtPlugin>
@@ -33,8 +33,34 @@ enum {
     ProductStatusID,
     ReplacementStatusID,
     TimeStamp,
-    Comments
+    Comments,
+    MaxFieldID
 };
+
+static QString filedsName[] = {
+    "ProductID",
+    "SerialNumber",
+    "ProductType",
+    "BrandName",
+    "ProductModel",
+    "Color",
+    "Vendor",
+    "SchemaName",
+    "Quantity",
+    "Unit",
+    "OldPurchasePrice",
+    "PurchasePrice",
+    "SellingPrice",
+    "OperatorUser",
+    "ResponserUser",
+    "Seller",
+    "BarInfo",
+    "ProductStatus",
+    "ReplacementStatus",
+    "TimeStamp",
+    "Comments",
+};
+
 
 typedef struct _SalesResult {
     double volume;

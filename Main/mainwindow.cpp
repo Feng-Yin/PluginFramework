@@ -1,4 +1,4 @@
-#include <QtGui>
+﻿#include <QtGui>
 #include <typeinfo>
 #include <windows.h>
 #include "mainwindow.h"
@@ -27,7 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     machineCodeLabel(NULL),
     machineCodeLineEdit(NULL),
     registerCodeLabel(NULL),
-    registerCodeLineEdit(NULL)
+    registerCodeLineEdit(NULL),
+    splash(NULL),
+    eventTimer(NULL)
 
 {
     QDir qmdir(":/Translations");
@@ -38,11 +40,26 @@ MainWindow::MainWindow(QWidget *parent) :
         QApplication::instance()->installTranslator(qtTranslator);
     }
 
+    eventTimer = new QTimer(this);
+    connect(eventTimer, SIGNAL(timeout()), this, SLOT(eventUpdate()));
+    eventTimer->setInterval(1000);
+    eventTimer->start();
+
+    if(!splash)
+    {
+        QPixmap pixmap(":/Icon/invoicing_icon.png");
+        splash = new QSplashScreen(pixmap, Qt::WindowStaysOnTopHint);
+    }
+    splash->show();
+
+    splash->showMessage(tr("createActions..."));
     createActions();
+    splash->showMessage(tr("createMenus..."));
     createMenus();
 
     if(isRegistration())
     {
+        splash->showMessage(tr("createToolBox..."));
         createToolBox();
 
         QHBoxLayout *layout = new QHBoxLayout;
@@ -65,7 +82,10 @@ MainWindow::MainWindow(QWidget *parent) :
         setWindowIcon(QIcon(":/Icon/plugin_icon.png"));
         setUnifiedTitleAndToolBarOnMac(true);
         setCursor(Qt::BusyCursor);
+
+        splash->showMessage(tr("loadPlugins..."));
         loadPlugins();
+        splash->showMessage(tr("finalize initialization..."));
         currentPlugin = getPlugin("UserManagement_Invoicing");
         //Set current user
         updateCurrentUserInfo();
@@ -73,20 +93,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
         unsetCursor();
 
-        QTimer *timer = new QTimer(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-        timer->setInterval(1000*10);
-        timer->start();
+//        QTimer *timer = new QTimer(this);
+//        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+//        timer->setInterval(1000*60);
+//        timer->start();
     }
+    splash->finish(this);
 }
 
 MainWindow::~MainWindow()
 {
-//    QList<PluginInterface *> pluginList = pluginMap.values();
-//    foreach(PluginInterface *plugin, pluginList)
-//    {
-//        plugin->deInit();
-//    }
     while(!pluginVector.empty()) {
         pluginVector.last()->deInit();
         pluginVector.pop_back();
@@ -302,8 +318,14 @@ PluginInterface* MainWindow::loadPlugin(QString filename)
         QSet<QString> loaded(pluginMap.keys().toSet());
         if(loaded.contains(dependency)) {
             qDebug()<<"load "<<filename;
+            //splash->raise();
+            splash->showMessage(tr("loading ")+QFileInfo(filename).baseName()+" ...");
+            qApp->processEvents();
             pluginMap.insert(QFileInfo(filename).baseName(), plugin);
             pluginVector.push_back(plugin);
+            splash->showMessage(tr("initialize ")+QFileInfo(filename).baseName()+" ...");
+            qApp->processEvents();
+            //splash->lower();
             if(!plugin->init(this)) {
                 QMessageBox::critical(this, tr("Init Error"),
                                       tr("plugin ") + filename + tr(" init error!"));
@@ -381,20 +403,22 @@ void MainWindow::pluginDialog()
 
 void MainWindow::update()
 {
-//    static int i = 0;
-//    i = i % pluginVector.size();
-//    pluginVector.at(i++)->update();
-//    qDebug()<<"currentPlugin"<<endl;
-//    qDebug()<<currentPlugin<<endl;
     PluginInterface *plugin = getPlugin("UserManagementIF");
     UserManagementInterface * userManagementInterface = dynamic_cast<UserManagementInterface *>(plugin);
     updateCurrentUserInfo();
     userManagementInterface->getDatabase();
     if(currentPlugin) {
         setCursor(Qt::BusyCursor);
+        qApp->processEvents();
         currentPlugin->update();
         unsetCursor();
+        qApp->processEvents();
     }
+}
+
+void MainWindow::eventUpdate()
+{
+    qApp->processEvents();
 }
 
 void MainWindow::updateAll()
@@ -509,7 +533,11 @@ QString MainWindow::calActiveCode(QString machineCode)
 
     QCryptographicHash sha1(QCryptographicHash::Sha1);
 
+#if QT_VERSION < 0x050000
     QByteArray datagram(seed.toAscii());
+#else
+    QByteArray datagram(seed.toLatin1());
+#endif
     const char* tempConstChar = datagram.data();
     sha1.addData(tempConstChar);
     QString  activeCode=sha1.result().toHex();

@@ -1,4 +1,4 @@
-#ifndef USERMANAGEMENTIF_H
+﻿#ifndef USERMANAGEMENTIF_H
 #define USERMANAGEMENTIF_H
 
 #include <QObject>
@@ -20,6 +20,9 @@ class USERMANAGEMENTIFSHARED_EXPORT UserManagementIF :
         public QObject, public PluginInterface, public UserManagementInterface
 {
     Q_OBJECT
+#if QT_VERSION >= 0x050000
+    Q_PLUGIN_METADATA(IID "UserManagementIF")
+#endif
     Q_INTERFACES(PluginInterface UserManagementInterface)
 public:
     UserManagementIF();

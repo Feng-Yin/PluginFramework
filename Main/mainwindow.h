@@ -1,7 +1,11 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#if QT_VERSION < 0x050000
 #include <QMainWindow>
+#else
+#include <QtWidgets>
+#endif
 #include <QMap>
 #include <Qset>
 #include <QVector>
@@ -15,6 +19,8 @@ class QTableWidget;
 class QDialog;
 class QLabel;
 class QLineEdit;
+class QSplashScreen;
+class QTimer;
 QT_END_NAMESPACE
 
 class PluginInterface;
@@ -46,6 +52,7 @@ private slots:
     void widgetChange();
     void pluginDialog();
     void update();
+    void eventUpdate();
     void updateAll();
     void registerSoftware();
 
@@ -86,6 +93,10 @@ private:
     QLineEdit *machineCodeLineEdit;
     QLabel *registerCodeLabel;
     QLineEdit *registerCodeLineEdit;
+
+    QSplashScreen *splash;
+
+    QTimer *eventTimer;
 };
 
 #endif // MAINWINDOW_H

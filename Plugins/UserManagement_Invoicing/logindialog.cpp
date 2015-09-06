@@ -1,4 +1,18 @@
-#include <QtGui>
+﻿#include <QtGui>
+#if QT_VERSION >= 0x050000
+#include <QGridLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QMessageBox>
+#include <QInputDialog>
+#include <QtWidgets>
+#include <QHBoxLayout>
+#endif
+
 #include <QChar>
 #include <QHostInfo>
 #include <QHostAddress>
@@ -6,7 +20,7 @@
 #include "usermanagement_interface.h"
 
 LoginDialog::LoginDialog(UserManagementInterface *userManagementInterface, QDialog *parent) :
-    QDialog(parent),
+    QDialog(parent, Qt::WindowStaysOnTopHint),
     userNameComboBox(NULL),
     rememberUsername(NULL),
     passwordLineEdit(NULL),
@@ -189,7 +203,7 @@ void LoginDialog::onAuthenticate()
     qDebug()<<ipaddress;
     if(!reAuthenticate) {
         if (!userManagementInterface->openDatabase(username, password, ipaddress)) {
-            QMessageBox::critical(0, tr("Database Authenticate Error"),
+            QMessageBox::critical(this, tr("Database Authenticate Error"),
                                   tr("Check your <b>Username</b>, <b>Password</b> & DB <b>IP</b>"));
         }
         else {
@@ -197,14 +211,14 @@ void LoginDialog::onAuthenticate()
             QSet<int> schemaIDSet = userManagementInterface->getSchemaIDSetByUserID(userID);
             if(schemaIDSet.count()==0) {
                 if(userManagementInterface->isAdmin(username)) {
-                    QMessageBox::information(0, tr("Setup"),
+                    QMessageBox::information(this, tr("Setup"),
                                              tr("Haven't create DB Schema. Pls create the DB Schema first!"));
                     if(createInvoicingSchema()) {
                         enableLogin(userManagementInterface->getAllSchemaName());
                     }
                 }
                 else {
-                    QMessageBox::information(0, tr("Setup"),
+                    QMessageBox::information(this, tr("Setup"),
                                              tr("Haven't DB Schema access. Pls contact admin!"));
                 }
             }
@@ -226,8 +240,8 @@ void LoginDialog::onAuthenticate()
 bool LoginDialog::createInvoicingSchema()
 {
     bool ret = false;
-    userManagementInterface->addSchema("δָ��");
-    userManagementInterface->addUser("δָ��", "test");
+    userManagementInterface->addSchema("未指定");
+    userManagementInterface->addUser("未指定", "test");
     QString dbSchema = QInputDialog::getText(0, tr("Create DB Schema"), tr("DB Schema Name: "),
                                              QLineEdit::Normal, "", &ret);
     dbSchema.simplified();
@@ -276,7 +290,11 @@ void LoginDialog::saveRegSetting()
     }
 
     if(rememberPassword->isChecked()) {
+#if QT_VERSION < 0x050000
         setting.setValue("passWord", passwordLineEdit->text().toAscii().toBase64());
+#else
+        setting.setValue("passWord", passwordLineEdit->text().toLatin1().toBase64());
+#endif
         setting.setValue("rememberPassword", Qt::Checked);
     }
     else {
@@ -310,8 +328,13 @@ void LoginDialog::populateRegSetting()
     if(setting.childGroups().contains(userNameComboBox->currentText())) {
         rememberUsername->setCheckState((Qt::CheckState)setting
                                         .value(QString("%1/rememberUsername").arg(userNameComboBox->currentText())).toInt());
+#if QT_VERSION < 0x050000
         passwordLineEdit->setText(QByteArray::fromBase64(setting.value(QString("%1/passWord")
                                                                        .arg(userNameComboBox->currentText())).toString().toAscii()));
+#else
+        passwordLineEdit->setText(QByteArray::fromBase64(setting.value(QString("%1/passWord")
+                                                                       .arg(userNameComboBox->currentText())).toString().toLatin1()));
+#endif
         rememberPassword->setCheckState((Qt::CheckState)setting
                                         .value(QString("%1/rememberPassword").arg(userNameComboBox->currentText())).toInt());
         ipAddressLineEdit->setText(setting.value(QString("%1/ipAddress").arg(userNameComboBox->currentText())).toString());
@@ -346,14 +369,14 @@ void LoginDialog::onLogin()
          ipaddressFromDomainname = addressIPV4.toString();
          // use the first IP address
     }
-    QMessageBox::information(0, tr("Login"), ipaddressFromDomainname);
+    //QMessageBox::information(this, tr("Login"), ipaddressFromDomainname);
     int ad0 = ipaddress.split(".").at(0).toInt();
     int ad1 = ipaddress.split(".").at(1).toInt();
     int ad2 = ipaddress.split(".").at(2).toInt();
     int ad3 = ipaddress.split(".").at(3).toInt();
     ipaddress = QString("%1.%2.%3.%4").arg(ad0).arg(ad1).arg(ad2).arg(ad3);
     if (!userManagementInterface->openDatabase(username, password, ipaddressFromDomainname)) {
-        QMessageBox::critical(0, tr("Database Authenticate Error"),
+        QMessageBox::critical(this, tr("Database Authenticate Error"),
                               tr("Check your <b>Username</b>, <b>Password</b> & DB <b>IP</b>"));
         return;
 //        if (!userManagementInterface->openDatabase(username, password, ipaddressFromDomainname)) {
@@ -364,12 +387,12 @@ void LoginDialog::onLogin()
         QSet<int> schemaIDSet = userManagementInterface->getSchemaIDSetByUserID(userID);
         if(schemaIDSet.count()==0) {
             if(userManagementInterface->isAdmin(username)) {
-                QMessageBox::information(0, tr("Setup"),
+                QMessageBox::information(this, tr("Setup"),
                                          tr("Haven't create DB Schema. Pls create the DB Schema first!"));
                 createInvoicingSchema();
             }
             else if(!userManagementInterface->isStatistic(username)){
-                QMessageBox::information(0, tr("Setup"),
+                QMessageBox::information(this, tr("Setup"),
                                          tr("Haven't DB Schema access. Pls contact admin!"));
                 return;
             }

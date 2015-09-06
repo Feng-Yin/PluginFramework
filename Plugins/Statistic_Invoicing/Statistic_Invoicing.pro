@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += sql
+QT       += sql widgets printsupport
 
 TARGET = Statistic_Invoicing
 TEMPLATE = lib
@@ -23,14 +23,16 @@ CONFIG(release, debug|release) {
     DLLDESTDIR = ../../Main/release/plugins/Invoicing/
 }
 
-SOURCES += statistic_invoicing.cpp\
+SOURCES += statistic_invoicing.cpp \
         barchart.cpp \
-    statisticupdateproductdialog.cpp
+    statisticupdateproductdialog.cpp \
+    exportexcelobject.cpp
 
 HEADERS += statistic_invoicing.h\
         Statistic_Invoicing_global.h\
         barchart.h \
-    statisticupdateproductdialog.h
+    statisticupdateproductdialog.h \
+    exportexcelobject.h
 
 symbian {
     MMP_RULES += EXPORTUNFROZEN

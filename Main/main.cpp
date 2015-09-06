@@ -1,4 +1,8 @@
+﻿#if QT_VERSION < 0x050000
 #include <QtGui>
+#else
+#include <QtWidgets>
+#endif
 #include "mainwindow.h"
 #include "qtsingleapplication.h"
 
@@ -6,10 +10,12 @@ int main(int argv, char *args[])
 {
     //QApplication app(argv, args);
     QtSingleApplication app(argv, args);
-    QTextCodec *codec = QTextCodec::codecForName("System");
+    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
     QTextCodec::setCodecForLocale(codec);
+#if QT_VERSION < 0x050000
     QTextCodec::setCodecForCStrings(codec);
     QTextCodec::setCodecForTr(codec);
+#endif
 
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {

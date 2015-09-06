@@ -1,4 +1,4 @@
-#include <QtGui>
+ï»¿#include <QtGui>
 #include <QtSql>
 #include <usermanagement_interface.h>
 #include "productmanagement_interface.h"
@@ -319,13 +319,13 @@ void UpdateProductDialog::populateSchemaComboBox() const
 
 void UpdateProductDialog::populateSellerNameComboBox() const
 {
-    int sellerRoleID = userManagementInterface->getRoleIDByRoleName("ÏúÊÛ");
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("¹ÜÀíÔ±");
+    int sellerRoleID = userManagementInterface->getRoleIDByRoleName("é”€å”®");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ç®¡ç†å‘˜");
     QSet<int> sellers = userManagementInterface->getUserIDSetByRoleID(sellerRoleID);
     QSet<int> admins = userManagementInterface->getUserIDSetByRoleID(adminRoleID);
     sellerComboBox->clear();
     //sellerComboBox->addItem(userManagementInterface->getUserNameByUserID(1));
-    sellerComboBox->addItem("Î´Ö¸¶¨");
+    sellerComboBox->addItem("æœªæŒ‡å®š");
     foreach(int admin, admins) {
         sellerComboBox->addItem(userManagementInterface->getUserNameByUserID(admin));
     }

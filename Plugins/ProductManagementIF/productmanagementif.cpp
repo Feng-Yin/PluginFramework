@@ -1,19 +1,23 @@
-#include <QtSql>
+ï»¿#include <QtSql>
+#if QT_VERSION < 0x050000
 #include <QApplication>
+#else
+#include <QtWidgets>
+#endif
 #include "mainwindow.h"
 #include <usermanagement_interface.h>
 #include <productmanagement_interface.h>
 #include "productmanagementif.h"
 
 const QStringList ProductManagementInterface::defaultProductType
-                                        = QStringList() <<"ÆäËü"<<"ÊÖ»ú"<<"ÊÖ»ú¿¨"<<"ÊÖ»úÅä¼þ"<<"Æ½°åµçÄÔ";
+                                        = QStringList() <<"å…¶å®ƒ"<<"æ‰‹æœº"<<"æ‰‹æœºå¡"<<"æ‰‹æœºé…ä»¶"<<"å¹³æ¿ç”µè„‘";
 const QStringList ProductManagementInterface::defaultBrandName
-                                        = QStringList() <<"ÆäËü"<<"Åµ»ùÑÇ"<<"Ä¦ÍÐÂÞÀ­"<<"ÈýÐÇ"<<"HTC"<<"Æ»¹û";
-const QStringList ProductManagementInterface::defaultProductModel = QStringList() <<"ÆäËü";
-const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList() <<"ÒÑÉ¾³ý"<<"´ý½ø»õ"<<"Â¼Èë"<<"´ýÈë¿â"<<"ÒÑÈë¿â"<<"ÒÑÏÂµ¥"<<"ÒÑÏúÊÛ"<<"ÒÑÍË»õ";
-const QStringList ProductManagementInterface::defaultVendorInfo = QStringList() <<"ÆäËü";
-const QStringList ProductManagementInterface::defaultColor = QStringList() <<"ÆäËü";
-const QStringList ProductManagementInterface::replacementStatus = QStringList() <<"·ñ"<<"ÊÇ";
+                                        = QStringList() <<"å…¶å®ƒ"<<"è¯ºåŸºäºš"<<"æ‘©æ‰˜ç½—æ‹‰"<<"ä¸‰æ˜Ÿ"<<"HTC"<<"è‹¹æžœ";
+const QStringList ProductManagementInterface::defaultProductModel = QStringList() <<"å…¶å®ƒ";
+const QStringList ProductManagementInterface::defaultProdcutStatus = QStringList() <<"å·²åˆ é™¤"<<"å¾…è¿›è´§"<<"å½•å…¥"<<"å¾…å…¥åº“"<<"å·²å…¥åº“"<<"å·²ä¸‹å•"<<"å·²é”€å”®"<<"å·²é€€è´§";
+const QStringList ProductManagementInterface::defaultVendorInfo = QStringList() <<"å…¶å®ƒ";
+const QStringList ProductManagementInterface::defaultColor = QStringList() <<"å…¶å®ƒ";
+const QStringList ProductManagementInterface::replacementStatus = QStringList() <<"å¦"<<"æ˜¯";
 
 ProductManagementIF::ProductManagementIF():
     userManagementInterface(NULL)
@@ -175,7 +179,8 @@ bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTy
     //qDebug()<<addProductSQL;
     QSqlQuery query(userManagementInterface->getSqlQuery());
     bool ret = query.exec(addProductSQL);
-    query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+    //query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+    query.exec(QString("select max(id) from products"));
     if(query.first()) {
         int id = query.record().value(ProductID).toInt();
         addProductinfoByProductID(id);
@@ -210,9 +215,11 @@ bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTy
                 .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments);
         qDebug()<<"new one: "<<addProductSQL;
         ret = query.exec(addProductSQL);
-        query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+        //query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+        query.exec(QString("select max(id) from products"));
         if(query.first()) {
             int id = query.record().value(ProductID).toInt();
+            qDebug()<<"max product ID: "<<id;
             addProductinfoByProductID(id);
         }
     }
@@ -402,10 +409,14 @@ bool ProductManagementIF::updateProductDetailByProductID(int id, QString serialN
             break;
         }
         if(different) {
-            bool ret = query.exec(QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = \"%19\", serialNumber = '%20' WHERE id = %21;")
+//            bool ret = query.exec(QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = \"%19\", serialNumber = '%20' WHERE id = %21;")
+//                                  .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
+//                                  .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
+//                                  .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments).arg(serialNumber).arg(id));
+            bool ret = query.exec(QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, comments = \"%18\", serialNumber = '%19' WHERE id = %20;")
                                   .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
                                   .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
-                                  .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments).arg(serialNumber).arg(id));
+                                  .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(comments).arg(serialNumber).arg(id));
             qDebug()<<QString("UPDATE products SET productTypeID = %1, brandNameID = %2, productModelID = %3, colorID = %4, vendorID = %5, schemaNameID = %6, quantity = %7, unit = '%8', oldPurchasePrice = '%9', purchasePrice = '%10', sellingPrice = '%11', operatorUserID = %12, responserUserID = %13, sellerID = %14, barInfo = '%15', productStatusID = %16, replacementStatusID = %17, timeStamp = '%18', comments = '%19', serialNumber = '%20' WHERE id = %21;")
             .arg(productTypeID).arg(brandNameID).arg(productModelID).arg(colorID).arg(vendorID).arg(schemaNameID)
             .arg(quantity).arg(unit).arg(oldPurchasePrice).arg(purchasePrice).arg(sellingPrice).arg(operatorUserID).arg(responserUserID)
@@ -524,7 +535,7 @@ QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int ye
     }
     timeRange += QString("'%1-%2-31'").arg(endYear).arg(endMonth);
     QString queryString = QString("select u1.name, sum(p1.sellingprice), sum(p1.quantity) from user u1, productsinfo p1 where p1.productstatusID = %1 and u1.id = p1.sellerID %2 group by u1.name")
-            .arg(getStatusIDByStatusName("ÒÑÏúÊÛ")).arg(timeRange);
+            .arg(getStatusIDByStatusName("å·²é”€å”®")).arg(timeRange);
     qDebug()<<queryString;
     QSqlQuery query(userManagementInterface->getSqlQuery());
     query.exec(queryString);
@@ -542,7 +553,9 @@ QMap<QString, SalesResult> ProductManagementIF::getSalesResultByTimeRange(int ye
 bool ProductManagementIF::addProductinfoByProductID(int productID) const
 {
     QSqlQuery query(userManagementInterface->getSqlQuery());
-    QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `timeStamp`, `comments`";
+    //QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `timeStamp`, `comments`";
+    QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `comments`";
+    qDebug()<<"addProductinfoByProductID: "<<QString("insert into productsinfo ( %1 ) (select %1 from products where id=%2)").arg(filedsString).arg(productID);
     return query.exec(QString("insert into productsinfo ( %1 ) (select %1 from products where id=%2)").arg(filedsString).arg(productID));
 }
 
@@ -906,7 +919,8 @@ bool ProductManagementIF::createProductManagementTables() const
 	}
     return true;
 }
-
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(ProductManagementIF, ProductManagementIF)
+#endif
 QT_END_NAMESPACE

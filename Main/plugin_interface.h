@@ -1,4 +1,4 @@
-#ifndef PLUGIN_INTERFACE_H
+﻿#ifndef PLUGIN_INTERFACE_H
 #define PLUGIN_INTERFACE_H
 
 #include <QtPlugin>

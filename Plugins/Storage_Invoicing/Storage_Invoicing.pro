@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += sql
+QT       += sql widgets
 
 TARGET = Storage_Invoicing
 TEMPLATE = lib

@@ -836,6 +836,7 @@ bool QMYSQLResult::nextResult()
 #endif
 }
 
+#if QT_VERSION < 0x050000
 void QMYSQLResult::virtual_hook(int id, void *data)
 {
     switch (id) {
@@ -847,6 +848,7 @@ void QMYSQLResult::virtual_hook(int id, void *data)
         QSqlResult::virtual_hook(id, data);
     }
 }
+#endif
 
 
 #if MYSQL_VERSION_ID >= 40108

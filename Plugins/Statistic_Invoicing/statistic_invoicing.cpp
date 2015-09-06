@@ -1,4 +1,4 @@
-#include <QtGui>
+Ôªø#include <QtGui>
 #include <QtSql>
 #include "statistic_invoicing.h"
 #include "mainwindow.h"
@@ -6,6 +6,7 @@
 #include "productmanagement_interface.h"
 #include "barchart.h"
 #include "statisticupdateproductdialog.h"
+#include "exportexcelobject.h"
 
 const char *sortTypeProperty = "SortType";
 
@@ -100,6 +101,7 @@ Statistic_Invoicing::Statistic_Invoicing():
     endTimeAllProductsDateTimeEdit(NULL),
     endTimeAllProductsCheckBox(NULL),
     allProductsFilterButton(NULL),
+    exportAllProducts2ExcelButton(NULL),
     allProductsSummaryLabel(NULL),
     allProductsSummaryLineEdit(NULL),
     serialNumberUnsellProductsLabel(NULL),
@@ -168,10 +170,13 @@ Statistic_Invoicing::Statistic_Invoicing():
     endTimeUnsellProductsDateTimeEdit(NULL),
     endTimeUnsellProductsCheckBox(NULL),
     unsellProductsFilterButton(NULL),
+    exportUnsellProducts2ExcelButton(NULL),
     unsellProductsSummaryLabel(NULL),
     unsellProductsSummaryLineEdit(NULL),
     statisticUpdateAllProductDialog(NULL),
-    statisticUpdateUnsellProductDialog(NULL)
+    statisticUpdateUnsellProductDialog(NULL),
+    unsellProductProgressBar(NULL),
+    allProductProgressBar(NULL)
 {
     QDir qmdir(":/Translations");
     foreach (QString fileName, qmdir.entryList(QDir::Files)) {
@@ -279,7 +284,7 @@ QString Statistic_Invoicing::moduleDescription() const
 
 QSet<QString> Statistic_Invoicing::getAccessRoleNameSet() const
 {
-    return QSet<QString>()<<"π‹¿Ì‘±"<<"…Ûº∆";
+    return QSet<QString>()<<"ÁÆ°ÁêÜÂëò"<<"ÂÆ°ËÆ°";
 }
 
 QSet<QString> Statistic_Invoicing::getDependencySet() const
@@ -305,7 +310,7 @@ void Statistic_Invoicing::createAllProductsPanel()
 {
     allProductsPanel = new QWidget();
     QSqlDatabase db(userManagementInterface->getDatabase());
-    allProductsModel = new QSqlRelationalTableModel(this, db);
+    allProductsModel = new QSqlRelationalTableModel(NULL, db);
     allProductsModel->setTable("productsinfo");
     allProductsModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     allProductsModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
@@ -360,38 +365,38 @@ void Statistic_Invoicing::createAllProductsPanel()
     allProductsPanel->setLayout(layout);
 
     productTypeAllProductsComboBox->setCurrentIndex(
-                productTypeAllProductsComboBox->findText("∆‰À¸"));
+                productTypeAllProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     brandNameAllProductsComboBox->setCurrentIndex(
-                brandNameAllProductsComboBox->findText("∆‰À¸"));
+                brandNameAllProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     productModelAllProductsComboBox->setCurrentIndex(
-                productModelAllProductsComboBox->findText("∆‰À¸"));
+                productModelAllProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     productColorAllProductsComboBox->setCurrentIndex(
-                productColorAllProductsComboBox->findText("∆‰À¸"));
+                productColorAllProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     productVendorAllProductsComboBox->setCurrentIndex(
-                productVendorAllProductsComboBox->findText("∆‰À¸"));
+                productVendorAllProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     replacementInfoAllProductsComboBox->setCurrentIndex(
-                replacementInfoAllProductsComboBox->findText("∑Ò"));
+                replacementInfoAllProductsComboBox->findText("Âê¶"));
 
     productStatusAllProductsComboBox->setCurrentIndex(
-                productStatusAllProductsComboBox->findText("“—…æ≥˝"));
+                productStatusAllProductsComboBox->findText("Â∑≤Âà†Èô§"));
 
     sellerAllProductsComboBox->setCurrentIndex(
-                sellerAllProductsComboBox->findText("Œ¥÷∏∂®"));
+                sellerAllProductsComboBox->findText("Êú™ÊåáÂÆö"));
 
     schemaAllProductsComboBox->setCurrentIndex(
-                schemaAllProductsComboBox->findText("Œ¥÷∏∂®"));
+                schemaAllProductsComboBox->findText("Êú™ÊåáÂÆö"));
 }
 
 void Statistic_Invoicing::createUnsellProductsPanel()
 {
     unsellProductsPanel = new QWidget();
     QSqlDatabase db(userManagementInterface->getDatabase());
-    unsellProductsModel = new QSqlRelationalTableModel(this, db);
+    unsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     unsellProductsModel->setTable("products");
     unsellProductsModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     unsellProductsModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
@@ -464,7 +469,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productTypeUnsellProductsComboBox->setEnabled(false);
     productTypeUnsellProductsComboBox->setEditable(true);
     QSqlDatabase db(userManagementInterface->getDatabase());
-    productTypeUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productTypeUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productTypeUnsellProductsModel->setTable("producttype");
     productTypeUnsellProductsModel->select();
     productTypeUnsellProductsComboBox->setModel(productTypeUnsellProductsModel);
@@ -478,7 +483,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     brandNameUnsellProductsComboBox->setEditable(true);
     brandNameUnsellProductsLabel->setEnabled(false);
     brandNameUnsellProductsComboBox->setEnabled(false);
-    brandNameUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    brandNameUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     brandNameUnsellProductsModel->setTable("brandname");
     brandNameUnsellProductsModel->select();
     brandNameUnsellProductsComboBox->setModel(brandNameUnsellProductsModel);
@@ -492,7 +497,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productModelUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     productModelUnsellProductsComboBox->setEnabled(false);
     productModelUnsellProductsComboBox->setEditable(true);
-    productModelUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productModelUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productModelUnsellProductsModel->setTable("productmodel");
     productModelUnsellProductsModel->select();
     productModelUnsellProductsComboBox->setModel(productModelUnsellProductsModel);
@@ -506,7 +511,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productColorUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     productColorUnsellProductsComboBox->setEnabled(false);
     productColorUnsellProductsComboBox->setEditable(true);
-    productColorUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productColorUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productColorUnsellProductsModel->setTable("colorinfo");
     productColorUnsellProductsModel->select();
     productColorUnsellProductsComboBox->setModel(productColorUnsellProductsModel);
@@ -520,7 +525,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productVendorUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     productVendorUnsellProductsComboBox->setEnabled(false);
     productVendorUnsellProductsComboBox->setEditable(true);
-    productVendorUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productVendorUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productVendorUnsellProductsModel->setTable("vendorinfo");
     productVendorUnsellProductsModel->select();
     productVendorUnsellProductsComboBox->setModel(productVendorUnsellProductsModel);
@@ -534,7 +539,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     replacementInfoUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     replacementInfoUnsellProductsComboBox->setEnabled(false);
     replacementInfoUnsellProductsComboBox->setEditable(false);
-    replacementInfoUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    replacementInfoUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     replacementInfoUnsellProductsModel->setTable("replacementstatus");
     replacementInfoUnsellProductsModel->select();
     replacementInfoUnsellProductsComboBox->setModel(replacementInfoUnsellProductsModel);
@@ -566,7 +571,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productStatusUnsellProductsLabel->setEnabled(false);
     productStatusUnsellProductsComboBox->setEnabled(false);
     productStatusUnsellProductsComboBox->setEditable(false);
-    productStatusUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productStatusUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productStatusUnsellProductsModel->setTable("productstatus");
     productStatusUnsellProductsModel->select();
     productStatusUnsellProductsComboBox->setModel(productStatusUnsellProductsModel);
@@ -667,11 +672,18 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     unsellProductsFilterButton->setFont(f);
     connect(unsellProductsFilterButton, SIGNAL(clicked()), this, SLOT(onUnsellProductsFilter()));
 
+    exportUnsellProducts2ExcelButton = new QPushButton(tr("Export2Excel"), unsellProductsFilterPanel);
+    exportUnsellProducts2ExcelButton->setFont(f);
+    connect(exportUnsellProducts2ExcelButton, SIGNAL(clicked()), this, SLOT(onExportUnsellProducts2Excel()));
+
     QGridLayout *unsellProductsFilterLayout = new QGridLayout(unsellProductsFilterPanel);
     unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsLabel, 0, 0, Qt::AlignRight);
     unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsLineEdit, 0, 1);
     unsellProductsFilterLayout->addWidget(serialNumberUnsellProductsCheckBox, 0, 2);
-    unsellProductsFilterLayout->addWidget(unsellProductsFilterButton, 0, 20, 1, 3);
+    QHBoxLayout *group = new QHBoxLayout();
+    group->addWidget(unsellProductsFilterButton);
+    group->addWidget(exportUnsellProducts2ExcelButton);
+    unsellProductsFilterLayout->addLayout(group, 0, 20, 1, 3);
 
     unsellProductsFilterLayout->addWidget(productTypeUnsellProductsLabel, 10, 0, Qt::AlignRight);
     unsellProductsFilterLayout->addWidget(productTypeUnsellProductsComboBox, 10, 1);
@@ -763,34 +775,38 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     createUnsellProductsPanel();
     unsellProductsFilterLayout->addWidget(unsellProductsPanel, 55, 0, 1, unsellProductsFilterLayout->columnCount());
 
+    unsellProductProgressBar = new QProgressBar();
+    unsellProductProgressBar->setValue(0);
+    unsellProductsFilterLayout->addWidget(unsellProductProgressBar, 60, 0, 1, unsellProductsFilterLayout->columnCount());
+
     unsellProductsFilterPanel->setLayout(unsellProductsFilterLayout);
 
     productTypeUnsellProductsComboBox->setCurrentIndex(
-                productTypeUnsellProductsComboBox->findText("∆‰À¸"));
+                productTypeUnsellProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     brandNameUnsellProductsComboBox->setCurrentIndex(
-                brandNameUnsellProductsComboBox->findText("∆‰À¸"));
+                brandNameUnsellProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     productModelUnsellProductsComboBox->setCurrentIndex(
-                productModelUnsellProductsComboBox->findText("∆‰À¸"));
+                productModelUnsellProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     productColorUnsellProductsComboBox->setCurrentIndex(
-                productColorUnsellProductsComboBox->findText("∆‰À¸"));
+                productColorUnsellProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     productVendorUnsellProductsComboBox->setCurrentIndex(
-                productVendorUnsellProductsComboBox->findText("∆‰À¸"));
+                productVendorUnsellProductsComboBox->findText("ÂÖ∂ÂÆÉ"));
 
     replacementInfoUnsellProductsComboBox->setCurrentIndex(
-                replacementInfoUnsellProductsComboBox->findText("∑Ò"));
+                replacementInfoUnsellProductsComboBox->findText("Âê¶"));
 
     productStatusUnsellProductsComboBox->setCurrentIndex(
-                productStatusUnsellProductsComboBox->findText("“—…æ≥˝"));
+                productStatusUnsellProductsComboBox->findText("Â∑≤Âà†Èô§"));
 
     sellerUnsellProductsComboBox->setCurrentIndex(
-                sellerUnsellProductsComboBox->findText("Œ¥÷∏∂®"));
+                sellerUnsellProductsComboBox->findText("Êú™ÊåáÂÆö"));
 
     schemaUnsellProductsComboBox->setCurrentIndex(
-                schemaUnsellProductsComboBox->findText("Œ¥÷∏∂®"));
+                schemaUnsellProductsComboBox->findText("Êú™ÊåáÂÆö"));
 }
 
 void Statistic_Invoicing::createBarChartPanel()
@@ -873,7 +889,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productTypeAllProductsComboBox->setEnabled(false);
     productTypeAllProductsComboBox->setEditable(true);
     QSqlDatabase db(userManagementInterface->getDatabase());
-    productTypeAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productTypeAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productTypeAllProductsModel->setTable("producttype");
     productTypeAllProductsModel->select();
     productTypeAllProductsComboBox->setModel(productTypeAllProductsModel);
@@ -887,7 +903,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     brandNameAllProductsComboBox->setEditable(true);
     brandNameAllProductsLabel->setEnabled(false);
     brandNameAllProductsComboBox->setEnabled(false);
-    brandNameAllProductsModel = new QSqlRelationalTableModel(this, db);
+    brandNameAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     brandNameAllProductsModel->setTable("brandname");
     brandNameAllProductsModel->select();
     brandNameAllProductsComboBox->setModel(brandNameAllProductsModel);
@@ -901,7 +917,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productModelAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     productModelAllProductsComboBox->setEnabled(false);
     productModelAllProductsComboBox->setEditable(true);
-    productModelAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productModelAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productModelAllProductsModel->setTable("productmodel");
     productModelAllProductsModel->select();
     productModelAllProductsComboBox->setModel(productModelAllProductsModel);
@@ -915,7 +931,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productColorAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     productColorAllProductsComboBox->setEnabled(false);
     productColorAllProductsComboBox->setEditable(true);
-    productColorAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productColorAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productColorAllProductsModel->setTable("colorinfo");
     productColorAllProductsModel->select();
     productColorAllProductsComboBox->setModel(productColorAllProductsModel);
@@ -929,7 +945,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productVendorAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     productVendorAllProductsComboBox->setEnabled(false);
     productVendorAllProductsComboBox->setEditable(true);
-    productVendorAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productVendorAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productVendorAllProductsModel->setTable("vendorinfo");
     productVendorAllProductsModel->select();
     productVendorAllProductsComboBox->setModel(productVendorAllProductsModel);
@@ -943,7 +959,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     replacementInfoAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     replacementInfoAllProductsComboBox->setEnabled(false);
     replacementInfoAllProductsComboBox->setEditable(false);
-    replacementInfoAllProductsModel = new QSqlRelationalTableModel(this, db);
+    replacementInfoAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     replacementInfoAllProductsModel->setTable("replacementstatus");
     replacementInfoAllProductsModel->select();
     replacementInfoAllProductsComboBox->setModel(replacementInfoAllProductsModel);
@@ -975,7 +991,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productStatusAllProductsLabel->setEnabled(false);
     productStatusAllProductsComboBox->setEnabled(false);
     productStatusAllProductsComboBox->setEditable(false);
-    productStatusAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productStatusAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productStatusAllProductsModel->setTable("productstatus");
     productStatusAllProductsModel->select();
     productStatusAllProductsComboBox->setModel(productStatusAllProductsModel);
@@ -1076,11 +1092,18 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     allProductsFilterButton->setFont(f);
     connect(allProductsFilterButton, SIGNAL(clicked()), this, SLOT(onAllProductsFilter()));
 
+    exportAllProducts2ExcelButton = new QPushButton(tr("Export2Excel"), allProductsFilterPanel);
+    exportAllProducts2ExcelButton->setFont(f);
+    connect(exportAllProducts2ExcelButton, SIGNAL(clicked()), this, SLOT(onExportAllProducts2Excel()));
+
     QGridLayout *allProductsFilterLayout = new QGridLayout(allProductsFilterPanel);
     allProductsFilterLayout->addWidget(serialNumberAllProductsLabel, 0, 0, Qt::AlignRight);
     allProductsFilterLayout->addWidget(serialNumberAllProductsLineEdit, 0, 1);
     allProductsFilterLayout->addWidget(serialNumberAllProductsCheckBox, 0, 2);
-    allProductsFilterLayout->addWidget(allProductsFilterButton, 0, 20, 1, 3);
+    QHBoxLayout *group = new QHBoxLayout();
+    group->addWidget(allProductsFilterButton);
+    group->addWidget(exportAllProducts2ExcelButton);
+    allProductsFilterLayout->addLayout(group, 0, 20, 1, 3);
 
     allProductsFilterLayout->addWidget(productTypeAllProductsLabel, 10, 0, Qt::AlignRight);
     allProductsFilterLayout->addWidget(productTypeAllProductsComboBox, 10, 1);
@@ -1172,6 +1195,10 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     createAllProductsPanel();
     allProductsFilterLayout->addWidget(allProductsPanel, 55, 0, 1, allProductsFilterLayout->columnCount());
 
+    allProductProgressBar = new QProgressBar();
+    allProductProgressBar->setValue(0);
+    allProductsFilterLayout->addWidget(allProductProgressBar, 60, 0, 1, allProductsFilterLayout->columnCount());
+
     allProductsFilterPanel->setLayout(allProductsFilterLayout);
 }
 
@@ -1191,52 +1218,6 @@ void Statistic_Invoicing::createFilterPanel()
 
 void Statistic_Invoicing::updateDBTableModel()
 {
-//    if(productManagementInterface->isModelOutdate(allProductsModel, timeStamp)) {
-//        QModelIndex index = allProductsView->currentIndex();
-//        static QModelIndex outViewPortindex;
-//        allProductsModel->select();
-//        allProductsView->resizeColumnsToContents();
-//        if(index.isValid()) {
-//            int rowPosition = allProductsView->rowViewportPosition(index.row());
-//            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
-//                allProductsView->setCurrentIndex(index);
-//            }
-//            else {
-//                outViewPortindex = index;
-//            }
-//        }
-//        else if(outViewPortindex.isValid()) {
-//            int rowPosition = allProductsView->rowViewportPosition(outViewPortindex.row());
-//            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
-//                allProductsView->setCurrentIndex(outViewPortindex);
-//            }
-//        }
-//        allProductsView->resizeColumnsToContents();
-//    }
-
-//    static QString unsellProductTimeStamp("");
-//    if(productManagementInterface->isModelOutdate(unsellProductsModel, unsellProductTimeStamp)) {
-//        QModelIndex index = unsellProductsView->currentIndex();
-//        static QModelIndex outViewPortindex;
-//        unsellProductsModel->select();
-//        unsellProductsView->resizeColumnsToContents();
-//        if(index.isValid()) {
-//            int rowPosition = unsellProductsView->rowViewportPosition(index.row());
-//            if(rowPosition>=0 && rowPosition<unsellProductsView->height()) {
-//                unsellProductsView->setCurrentIndex(index);
-//            }
-//            else {
-//                outViewPortindex = index;
-//            }
-//        }
-//        else if(outViewPortindex.isValid()) {
-//            int rowPosition = unsellProductsView->rowViewportPosition(outViewPortindex.row());
-//            if(rowPosition>=0 && rowPosition<unsellProductsView->height()) {
-//                unsellProductsView->setCurrentIndex(outViewPortindex);
-//            }
-//        }
-//        unsellProductsView->resizeColumnsToContents();
-//    }
     QString productTypeUnsell = productTypeUnsellProductsComboBox->currentText();
     QString brandNameUnsell = brandNameUnsellProductsComboBox->currentText();
     QString productModelUnsell = productModelUnsellProductsComboBox->currentText();
@@ -1355,8 +1336,8 @@ void Statistic_Invoicing::hidePurchasePrice()
     QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
                 userManagementInterface->getUserIDByUserName(
                     userManagementInterface->getCurrentUserName()));
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("π‹¿Ì‘±");
-    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("ø‚π‹");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ÁÆ°ÁêÜÂëò");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("Â∫ìÁÆ°");
     foreach(int i, roleset) {
         //if(i == adminRoleID || i == storagerRoleID) {
         if(i == adminRoleID) {
@@ -1940,6 +1921,120 @@ void Statistic_Invoicing::onUnsellProductsFilter()
 
 }
 
+void Statistic_Invoicing::onExportUnsellProducts2Excel()
+{
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ÁÆ°ÁêÜÂëò");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("Â∫ìÁÆ°");
+    foreach(int i, roleset) {
+        //if(i == adminRoleID || i == storagerRoleID) {
+        if(i == adminRoleID) {
+            hide = false;
+        }
+    }
+
+    QString fileName = QFileDialog::getSaveFileName(0, tr("Export to Excel"), qApp->applicationDirPath (),
+                                                    tr("Excel Files (*.xls)"));
+
+    ExportExcelObject obj(fileName, tr("UnsellProducts"), unsellProductsView);
+    //obj.addField(1, tr("ID"), "int");
+    obj.addField(1, tr("Serial Number"), "char(255)");
+    obj.addField(2, tr("Product Type"), "char(255)");
+    obj.addField(3, tr("Brand Name"), "char(255)");
+    obj.addField(4, tr("Model Name"), "char(255)");
+    obj.addField(5, tr("Color"), "char(255)");
+    obj.addField(6, tr("Vendor"), "char(255)");
+    obj.addField(7, tr("Schema Name"), "char(255)");
+    obj.addField(8, tr("Quantity"), "char(255)");
+    obj.addField(9, tr("Unit"), "char(255)");
+    if(!hide)
+    {
+        obj.addField(10, tr("Old Purchase Price"), "char(255)");
+        obj.addField(11, tr("Purchase Price"), "char(255)");
+    }
+    obj.addField(12, tr("Selling Price"), "char(255)");
+    obj.addField(13, tr("Operator"), "char(255)");
+    obj.addField(14, tr("Seller"), "char(255)");
+    obj.addField(15, tr("Responser"), "char(255)");
+    obj.addField(16, tr("BarInfo"), "char(255)");
+    obj.addField(17, tr("Product Status"), "char(255)");
+    obj.addField(18, tr("Replacement Status"), "char(255)");
+    obj.addField(19, tr("TimeStamp"), "char(255)");
+    obj.addField(20, tr("Comments"), "char(255)");
+    unsellProductProgressBar->setValue(0);
+    unsellProductProgressBar->setMaximum(unsellProductsView->model()->rowCount());
+    connect(&obj, SIGNAL(exportedRowCount(int)), unsellProductProgressBar, SLOT(setValue(int)));
+    int retVal = obj.export2Excel();
+    if(retVal>0)
+    {
+        //QMessageBox::information(0, tr("Export To Excel"), tr("Done!"));
+    }
+    else
+    {
+        //QMessageBox::critical(0, tr("Export To Excel"), tr("Error!"));
+    }
+}
+
+void Statistic_Invoicing::onExportAllProducts2Excel()
+{
+    bool hide = true;
+    QSet<int> roleset = userManagementInterface->getRoleIDSetByUserID(
+                userManagementInterface->getUserIDByUserName(
+                    userManagementInterface->getCurrentUserName()));
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ÁÆ°ÁêÜÂëò");
+    //int storagerRoleID = userManagementInterface->getRoleIDByRoleName("Â∫ìÁÆ°");
+    foreach(int i, roleset) {
+        //if(i == adminRoleID || i == storagerRoleID) {
+        if(i == adminRoleID) {
+            hide = false;
+        }
+    }
+
+    QString fileName = QFileDialog::getSaveFileName(0, tr("Export to Excel"), qApp->applicationDirPath (),
+                                                    tr("Excel Files (*.xls)"));
+
+    ExportExcelObject obj(fileName, tr("AllProducts"), allProductsView);
+    //obj.addField(1, tr("ID"), "int");
+    obj.addField(1, tr("Serial Number"), "char(255)");
+    obj.addField(2, tr("Product Type"), "char(255)");
+    obj.addField(3, tr("Brand Name"), "char(255)");
+    obj.addField(4, tr("Model Name"), "char(255)");
+    obj.addField(5, tr("Color"), "char(255)");
+    obj.addField(6, tr("Vendor"), "char(255)");
+    obj.addField(7, tr("Schema Name"), "char(255)");
+    obj.addField(8, tr("Quantity"), "char(255)");
+    obj.addField(9, tr("Unit"), "char(255)");
+    if(!hide)
+    {
+        obj.addField(10, tr("Old Purchase Price"), "char(255)");
+        obj.addField(11, tr("Purchase Price"), "char(255)");
+    }
+    obj.addField(12, tr("Selling Price"), "char(255)");
+    obj.addField(13, tr("Operator"), "char(255)");
+    obj.addField(14, tr("Seller"), "char(255)");
+    obj.addField(15, tr("Responser"), "char(255)");
+    obj.addField(16, tr("BarInfo"), "char(255)");
+    obj.addField(17, tr("Product Status"), "char(255)");
+    obj.addField(18, tr("Replacement Status"), "char(255)");
+    obj.addField(19, tr("TimeStamp"), "char(255)");
+    obj.addField(20, tr("Comments"), "char(255)");
+    allProductProgressBar->setValue(0);
+    allProductProgressBar->setMaximum(allProductsView->model()->rowCount());
+    connect(&obj, SIGNAL(exportedRowCount(int)), allProductProgressBar, SLOT(setValue(int)));
+    int retVal = obj.export2Excel();
+    if(retVal>0)
+    {
+        //QMessageBox::information(0, tr("Export To Excel"), tr("Done!"));
+    }
+    else
+    {
+        //QMessageBox::critical(0, tr("Export To Excel"), tr("Error!"));
+    }
+}
+
 void Statistic_Invoicing::updateSalesStatisticPlot()
 {
     int year = time->date().year();
@@ -1974,13 +2069,13 @@ void Statistic_Invoicing::updateSalesStatisticPlot()
 
 void Statistic_Invoicing::populateSellerNameComboBox(QComboBox *sellerNameComboBox) const
 {
-    int sellerRoleID = userManagementInterface->getRoleIDByRoleName("œ˙ €");
-    int adminRoleID = userManagementInterface->getRoleIDByRoleName("π‹¿Ì‘±");
+    int sellerRoleID = userManagementInterface->getRoleIDByRoleName("ÈîÄÂîÆ");
+    int adminRoleID = userManagementInterface->getRoleIDByRoleName("ÁÆ°ÁêÜÂëò");
     QSet<int> sellers = userManagementInterface->getUserIDSetByRoleID(sellerRoleID);
     QSet<int> admins = userManagementInterface->getUserIDSetByRoleID(adminRoleID);
     sellerNameComboBox->clear();
     //sellerComboBox->addItem(userManagementInterface->getUserNameByUserID(1));
-    sellerNameComboBox->addItem("Œ¥÷∏∂®");
+    sellerNameComboBox->addItem("Êú™ÊåáÂÆö");
     foreach(int admin, admins) {
         sellerNameComboBox->addItem(userManagementInterface->getUserNameByUserID(admin));
     }
@@ -2016,5 +2111,7 @@ void Statistic_Invoicing::updateUnsellProductinfo()
 }
 
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(Statistic_Invoicing, Statistic_Invoicing)
+#endif
 QT_END_NAMESPACE

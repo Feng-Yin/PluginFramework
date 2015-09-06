@@ -1,11 +1,14 @@
-#include <QtSql>
+Ôªø#include <QtSql>
+#if QT_VERSION < 0x050000
 #include <QApplication>
+#else
+#include <QtWidgets>
+#endif
 #include <QtGui>
 #include "usermanagementif.h"
 
-
 const QStringList UserManagementInterface::defaultSchema = QStringList();
-const QStringList UserManagementInterface::defaultRole = QStringList() <<"π‹¿Ì‘±"<<"≤…π∫"<<"ø‚π‹"<<"œ˙ €"<<" ’“¯‘±"<<"…Ûº∆";
+const QStringList UserManagementInterface::defaultRole = QStringList() <<"ÁÆ°ÁêÜÂëò"<<"ÈááË¥≠"<<"Â∫ìÁÆ°"<<"ÈîÄÂîÆ"<<"Êî∂Èì∂Âëò"<<"ÂÆ°ËÆ°";
 const QStringList UserManagementInterface::defaultUser = QStringList() <<"root";
 
 UserManagementIF::UserManagementIF() :
@@ -120,6 +123,7 @@ QSqlDatabase UserManagementIF::getDatabase() const
     QSqlQuery query(db);
     if(db.isOpen() && !query.exec("SHOW DATABASES")) {
         QMessageBox::critical(0, tr("Error"), tr("DB connection lost! Restart the program to try again"));
+        exit(0);
     }
     return db;
 }
@@ -252,14 +256,16 @@ bool UserManagementIF::checkAccess(QSet<QString> accessRoleNameSet) const
 
 bool UserManagementIF::isAdmin(QString username) const
 {
-    int adminRoleID = getRoleIDByRoleName("π‹¿Ì‘±");
+    int adminRoleID = getRoleIDByRoleName("ÁÆ°ÁêÜÂëò");
+//    QMessageBox::information(0, tr("Setup"), QString("%1").arg(adminRoleID));
+//    QMessageBox::information(0, tr("Setup"), QString("%1").arg("ÁÆ°ÁêÜÂëò"));
     QSet<int> roleIDSet = getRoleIDSetByUserID(getUserIDByUserName(username));
     return roleIDSet.contains(adminRoleID);
 }
 
 bool UserManagementIF::isStatistic(QString username) const
 {
-    int adminRoleID = getRoleIDByRoleName("…Ûº∆");
+    int adminRoleID = getRoleIDByRoleName("ÂÆ°ËÆ°");
     QSet<int> roleIDSet = getRoleIDSetByUserID(getUserIDByUserName(username));
     return roleIDSet.contains(adminRoleID);
 }
@@ -434,7 +440,7 @@ bool UserManagementIF::addUserRoleByUserIDRoleID(int userID, int roleID) const
 //for table userschema
 QSet<int> UserManagementIF::getSchemaIDSetByUserID(int userID) const
 {
-    if(getRoleIDSetByUserID(userID).contains(getRoleIDByRoleName("π‹¿Ì‘±"))) {
+    if(getRoleIDSetByUserID(userID).contains(getRoleIDByRoleName("ÁÆ°ÁêÜÂëò"))) {
         return getAllSchemaID();
     }
     QSet<int> schemaIDSet;
@@ -561,7 +567,7 @@ bool UserManagementIF::createUserManagementTables() const
 			query.exec(QString("INSERT INTO `user` (`id`, `name`) VALUES (%1, '%2')")
 					   .arg(id).arg(user));
 			query.exec(QString("INSERT INTO `userrole` (`id`, `userID`, `roleID`) VALUES (%1, %2, %3)")
-					   .arg(id).arg(id).arg(getRoleIDByRoleName("π‹¿Ì‘±")));
+					   .arg(id).arg(id).arg(getRoleIDByRoleName("ÁÆ°ÁêÜÂëò")));
 			id++;
 		}
     }
@@ -570,5 +576,7 @@ bool UserManagementIF::createUserManagementTables() const
 }
 
 QT_BEGIN_NAMESPACE
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(UserManagementIF, UserManagementIF)
+#endif
 QT_END_NAMESPACE
