@@ -28,7 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
     machineCodeLineEdit(NULL),
     registerCodeLabel(NULL),
     registerCodeLineEdit(NULL),
-    splash(NULL)
+    splash(NULL),
+    eventTimer(NULL)
 
 {
     QDir qmdir(":/Translations");
@@ -39,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
         QApplication::instance()->installTranslator(qtTranslator);
     }
 
-    QTimer *eventTimer = new QTimer(this);
+    eventTimer = new QTimer(this);
     connect(eventTimer, SIGNAL(timeout()), this, SLOT(eventUpdate()));
     eventTimer->setInterval(1000);
     eventTimer->start();
@@ -102,11 +103,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-//    QList<PluginInterface *> pluginList = pluginMap.values();
-//    foreach(PluginInterface *plugin, pluginList)
-//    {
-//        plugin->deInit();
-//    }
     while(!pluginVector.empty()) {
         pluginVector.last()->deInit();
         pluginVector.pop_back();

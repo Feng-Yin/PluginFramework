@@ -179,7 +179,8 @@ bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTy
     //qDebug()<<addProductSQL;
     QSqlQuery query(userManagementInterface->getSqlQuery());
     bool ret = query.exec(addProductSQL);
-    query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+    //query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+    query.exec(QString("select max(id) from products"));
     if(query.first()) {
         int id = query.record().value(ProductID).toInt();
         addProductinfoByProductID(id);
@@ -214,9 +215,11 @@ bool ProductManagementIF::addProductByDetail(QString serialNumber, int productTy
                 .arg(sellerID).arg(barInfo).arg(productStatusID).arg(replacementStatusID).arg(time).arg(comments);
         qDebug()<<"new one: "<<addProductSQL;
         ret = query.exec(addProductSQL);
-        query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+        //query.exec(QString("select id from products where serialNumber='%1'").arg(serialNumber));
+        query.exec(QString("select max(id) from products"));
         if(query.first()) {
             int id = query.record().value(ProductID).toInt();
+            qDebug()<<"max product ID: "<<id;
             addProductinfoByProductID(id);
         }
     }
@@ -552,6 +555,7 @@ bool ProductManagementIF::addProductinfoByProductID(int productID) const
     QSqlQuery query(userManagementInterface->getSqlQuery());
     //QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `timeStamp`, `comments`";
     QString filedsString = " `serialNumber`, `productTypeID`, `brandNameID`, `productModelID`, `colorID`, `vendorID`, `schemaNameID`, `quantity`, `unit`, `oldPurchasePrice`, `purchasePrice`, `sellingPrice`, `operatorUserID`, `responserUserID`, `sellerID`, `barInfo`, `productStatusID`, `replacementStatusID`, `comments`";
+    qDebug()<<"addProductinfoByProductID: "<<QString("insert into productsinfo ( %1 ) (select %1 from products where id=%2)").arg(filedsString).arg(productID);
     return query.exec(QString("insert into productsinfo ( %1 ) (select %1 from products where id=%2)").arg(filedsString).arg(productID));
 }
 

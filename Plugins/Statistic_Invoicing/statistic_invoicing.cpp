@@ -310,7 +310,7 @@ void Statistic_Invoicing::createAllProductsPanel()
 {
     allProductsPanel = new QWidget();
     QSqlDatabase db(userManagementInterface->getDatabase());
-    allProductsModel = new QSqlRelationalTableModel(this, db);
+    allProductsModel = new QSqlRelationalTableModel(NULL, db);
     allProductsModel->setTable("productsinfo");
     allProductsModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     allProductsModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
@@ -396,7 +396,7 @@ void Statistic_Invoicing::createUnsellProductsPanel()
 {
     unsellProductsPanel = new QWidget();
     QSqlDatabase db(userManagementInterface->getDatabase());
-    unsellProductsModel = new QSqlRelationalTableModel(this, db);
+    unsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     unsellProductsModel->setTable("products");
     unsellProductsModel->setRelation(ProductTypeID, QSqlRelation("producttype", "id", "name"));
     unsellProductsModel->setRelation(BrandNameID, QSqlRelation("brandname", "id", "name"));
@@ -469,7 +469,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productTypeUnsellProductsComboBox->setEnabled(false);
     productTypeUnsellProductsComboBox->setEditable(true);
     QSqlDatabase db(userManagementInterface->getDatabase());
-    productTypeUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productTypeUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productTypeUnsellProductsModel->setTable("producttype");
     productTypeUnsellProductsModel->select();
     productTypeUnsellProductsComboBox->setModel(productTypeUnsellProductsModel);
@@ -483,7 +483,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     brandNameUnsellProductsComboBox->setEditable(true);
     brandNameUnsellProductsLabel->setEnabled(false);
     brandNameUnsellProductsComboBox->setEnabled(false);
-    brandNameUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    brandNameUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     brandNameUnsellProductsModel->setTable("brandname");
     brandNameUnsellProductsModel->select();
     brandNameUnsellProductsComboBox->setModel(brandNameUnsellProductsModel);
@@ -497,7 +497,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productModelUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     productModelUnsellProductsComboBox->setEnabled(false);
     productModelUnsellProductsComboBox->setEditable(true);
-    productModelUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productModelUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productModelUnsellProductsModel->setTable("productmodel");
     productModelUnsellProductsModel->select();
     productModelUnsellProductsComboBox->setModel(productModelUnsellProductsModel);
@@ -511,7 +511,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productColorUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     productColorUnsellProductsComboBox->setEnabled(false);
     productColorUnsellProductsComboBox->setEditable(true);
-    productColorUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productColorUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productColorUnsellProductsModel->setTable("colorinfo");
     productColorUnsellProductsModel->select();
     productColorUnsellProductsComboBox->setModel(productColorUnsellProductsModel);
@@ -525,7 +525,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productVendorUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     productVendorUnsellProductsComboBox->setEnabled(false);
     productVendorUnsellProductsComboBox->setEditable(true);
-    productVendorUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productVendorUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productVendorUnsellProductsModel->setTable("vendorinfo");
     productVendorUnsellProductsModel->select();
     productVendorUnsellProductsComboBox->setModel(productVendorUnsellProductsModel);
@@ -539,7 +539,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     replacementInfoUnsellProductsComboBox = new QComboBox(unsellProductsFilterPanel);
     replacementInfoUnsellProductsComboBox->setEnabled(false);
     replacementInfoUnsellProductsComboBox->setEditable(false);
-    replacementInfoUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    replacementInfoUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     replacementInfoUnsellProductsModel->setTable("replacementstatus");
     replacementInfoUnsellProductsModel->select();
     replacementInfoUnsellProductsComboBox->setModel(replacementInfoUnsellProductsModel);
@@ -571,7 +571,7 @@ void Statistic_Invoicing::createUnsellProductsFilterPanel()
     productStatusUnsellProductsLabel->setEnabled(false);
     productStatusUnsellProductsComboBox->setEnabled(false);
     productStatusUnsellProductsComboBox->setEditable(false);
-    productStatusUnsellProductsModel = new QSqlRelationalTableModel(this, db);
+    productStatusUnsellProductsModel = new QSqlRelationalTableModel(NULL, db);
     productStatusUnsellProductsModel->setTable("productstatus");
     productStatusUnsellProductsModel->select();
     productStatusUnsellProductsComboBox->setModel(productStatusUnsellProductsModel);
@@ -889,7 +889,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productTypeAllProductsComboBox->setEnabled(false);
     productTypeAllProductsComboBox->setEditable(true);
     QSqlDatabase db(userManagementInterface->getDatabase());
-    productTypeAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productTypeAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productTypeAllProductsModel->setTable("producttype");
     productTypeAllProductsModel->select();
     productTypeAllProductsComboBox->setModel(productTypeAllProductsModel);
@@ -903,7 +903,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     brandNameAllProductsComboBox->setEditable(true);
     brandNameAllProductsLabel->setEnabled(false);
     brandNameAllProductsComboBox->setEnabled(false);
-    brandNameAllProductsModel = new QSqlRelationalTableModel(this, db);
+    brandNameAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     brandNameAllProductsModel->setTable("brandname");
     brandNameAllProductsModel->select();
     brandNameAllProductsComboBox->setModel(brandNameAllProductsModel);
@@ -917,7 +917,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productModelAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     productModelAllProductsComboBox->setEnabled(false);
     productModelAllProductsComboBox->setEditable(true);
-    productModelAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productModelAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productModelAllProductsModel->setTable("productmodel");
     productModelAllProductsModel->select();
     productModelAllProductsComboBox->setModel(productModelAllProductsModel);
@@ -931,7 +931,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productColorAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     productColorAllProductsComboBox->setEnabled(false);
     productColorAllProductsComboBox->setEditable(true);
-    productColorAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productColorAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productColorAllProductsModel->setTable("colorinfo");
     productColorAllProductsModel->select();
     productColorAllProductsComboBox->setModel(productColorAllProductsModel);
@@ -945,7 +945,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productVendorAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     productVendorAllProductsComboBox->setEnabled(false);
     productVendorAllProductsComboBox->setEditable(true);
-    productVendorAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productVendorAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productVendorAllProductsModel->setTable("vendorinfo");
     productVendorAllProductsModel->select();
     productVendorAllProductsComboBox->setModel(productVendorAllProductsModel);
@@ -959,7 +959,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     replacementInfoAllProductsComboBox = new QComboBox(allProductsFilterPanel);
     replacementInfoAllProductsComboBox->setEnabled(false);
     replacementInfoAllProductsComboBox->setEditable(false);
-    replacementInfoAllProductsModel = new QSqlRelationalTableModel(this, db);
+    replacementInfoAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     replacementInfoAllProductsModel->setTable("replacementstatus");
     replacementInfoAllProductsModel->select();
     replacementInfoAllProductsComboBox->setModel(replacementInfoAllProductsModel);
@@ -991,7 +991,7 @@ void Statistic_Invoicing::createAllProductsFilterPanel()
     productStatusAllProductsLabel->setEnabled(false);
     productStatusAllProductsComboBox->setEnabled(false);
     productStatusAllProductsComboBox->setEditable(false);
-    productStatusAllProductsModel = new QSqlRelationalTableModel(this, db);
+    productStatusAllProductsModel = new QSqlRelationalTableModel(NULL, db);
     productStatusAllProductsModel->setTable("productstatus");
     productStatusAllProductsModel->select();
     productStatusAllProductsComboBox->setModel(productStatusAllProductsModel);
@@ -1218,52 +1218,6 @@ void Statistic_Invoicing::createFilterPanel()
 
 void Statistic_Invoicing::updateDBTableModel()
 {
-//    if(productManagementInterface->isModelOutdate(allProductsModel, timeStamp)) {
-//        QModelIndex index = allProductsView->currentIndex();
-//        static QModelIndex outViewPortindex;
-//        allProductsModel->select();
-//        allProductsView->resizeColumnsToContents();
-//        if(index.isValid()) {
-//            int rowPosition = allProductsView->rowViewportPosition(index.row());
-//            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
-//                allProductsView->setCurrentIndex(index);
-//            }
-//            else {
-//                outViewPortindex = index;
-//            }
-//        }
-//        else if(outViewPortindex.isValid()) {
-//            int rowPosition = allProductsView->rowViewportPosition(outViewPortindex.row());
-//            if(rowPosition>=0 && rowPosition<allProductsView->height()) {
-//                allProductsView->setCurrentIndex(outViewPortindex);
-//            }
-//        }
-//        allProductsView->resizeColumnsToContents();
-//    }
-
-//    static QString unsellProductTimeStamp("");
-//    if(productManagementInterface->isModelOutdate(unsellProductsModel, unsellProductTimeStamp)) {
-//        QModelIndex index = unsellProductsView->currentIndex();
-//        static QModelIndex outViewPortindex;
-//        unsellProductsModel->select();
-//        unsellProductsView->resizeColumnsToContents();
-//        if(index.isValid()) {
-//            int rowPosition = unsellProductsView->rowViewportPosition(index.row());
-//            if(rowPosition>=0 && rowPosition<unsellProductsView->height()) {
-//                unsellProductsView->setCurrentIndex(index);
-//            }
-//            else {
-//                outViewPortindex = index;
-//            }
-//        }
-//        else if(outViewPortindex.isValid()) {
-//            int rowPosition = unsellProductsView->rowViewportPosition(outViewPortindex.row());
-//            if(rowPosition>=0 && rowPosition<unsellProductsView->height()) {
-//                unsellProductsView->setCurrentIndex(outViewPortindex);
-//            }
-//        }
-//        unsellProductsView->resizeColumnsToContents();
-//    }
     QString productTypeUnsell = productTypeUnsellProductsComboBox->currentText();
     QString brandNameUnsell = brandNameUnsellProductsComboBox->currentText();
     QString productModelUnsell = productModelUnsellProductsComboBox->currentText();
