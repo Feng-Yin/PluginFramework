@@ -363,12 +363,15 @@ void LoginDialog::onLogin()
     QString domainname = domainNameLineEdit->text();
     QString ipaddressFromDomainname;
     QHostInfo host = QHostInfo::fromName(domainname);
-    if (!host.addresses().isEmpty()) {
-         QHostAddress address = host.addresses().first();
-         QHostAddress addressIPV4(address.toIPv4Address());
-         ipaddressFromDomainname = addressIPV4.toString();
-         // use the first IP address
+    foreach(QHostAddress address, host.addresses())
+    {
+        if(address.toIPv4Address()!=0)
+        {
+            ipaddressFromDomainname = address.toString();
+            break;
+        }
     }
+
     //QMessageBox::information(this, tr("Login"), ipaddressFromDomainname);
     int ad0 = ipaddress.split(".").at(0).toInt();
     int ad1 = ipaddress.split(".").at(1).toInt();
