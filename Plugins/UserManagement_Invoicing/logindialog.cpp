@@ -361,7 +361,7 @@ void LoginDialog::onLogin()
     QString password = passwordLineEdit->text();
     QString ipaddress = ipAddressLineEdit->text();
     QString domainname = domainNameLineEdit->text();
-    QString ipaddressFromDomainname;
+    QString ipaddressFromDomainname = "";
     QHostInfo host = QHostInfo::fromName(domainname);
     foreach(QHostAddress address, host.addresses())
     {
@@ -373,6 +373,12 @@ void LoginDialog::onLogin()
     }
 
     //QMessageBox::information(this, tr("Login"), ipaddressFromDomainname);
+    if(ipaddressFromDomainname=="")
+    {
+        QMessageBox::critical(this, tr("Database Authenticate Error"),
+                              tr("Check your <b>Username</b>, <b>Password</b> & DB <b>IP</b>"));
+        return;
+    }
     int ad0 = ipaddressFromDomainname.split(".").at(0).toInt();
     int ad1 = ipaddressFromDomainname.split(".").at(1).toInt();
     int ad2 = ipaddressFromDomainname.split(".").at(2).toInt();
