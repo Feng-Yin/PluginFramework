@@ -373,10 +373,10 @@ void LoginDialog::onLogin()
     }
 
     //QMessageBox::information(this, tr("Login"), ipaddressFromDomainname);
-    int ad0 = ipaddress.split(".").at(0).toInt();
-    int ad1 = ipaddress.split(".").at(1).toInt();
-    int ad2 = ipaddress.split(".").at(2).toInt();
-    int ad3 = ipaddress.split(".").at(3).toInt();
+    int ad0 = ipaddressFromDomainname.split(".").at(0).toInt();
+    int ad1 = ipaddressFromDomainname.split(".").at(1).toInt();
+    int ad2 = ipaddressFromDomainname.split(".").at(2).toInt();
+    int ad3 = ipaddressFromDomainname.split(".").at(3).toInt();
     ipaddress = QString("%1.%2.%3.%4").arg(ad0).arg(ad1).arg(ad2).arg(ad3);
     if (!userManagementInterface->openDatabase(username, password, ipaddressFromDomainname)) {
         QMessageBox::critical(this, tr("Database Authenticate Error"),
