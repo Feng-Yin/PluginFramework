@@ -68,160 +68,160 @@
     <message>
         <location filename="../statistic_invoicing.cpp" line="329"/>
         <location filename="../statistic_invoicing.cpp" line="415"/>
-        <location filename="../statistic_invoicing.cpp" line="1977"/>
-        <location filename="../statistic_invoicing.cpp" line="2018"/>
+        <location filename="../statistic_invoicing.cpp" line="1944"/>
+        <location filename="../statistic_invoicing.cpp" line="2001"/>
         <source>Serial Number</source>
         <translation>序列号</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="330"/>
         <location filename="../statistic_invoicing.cpp" line="416"/>
-        <location filename="../statistic_invoicing.cpp" line="1978"/>
-        <location filename="../statistic_invoicing.cpp" line="2019"/>
+        <location filename="../statistic_invoicing.cpp" line="1945"/>
+        <location filename="../statistic_invoicing.cpp" line="2002"/>
         <source>Product Type</source>
         <translation>产品类型</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="331"/>
         <location filename="../statistic_invoicing.cpp" line="417"/>
-        <location filename="../statistic_invoicing.cpp" line="1979"/>
-        <location filename="../statistic_invoicing.cpp" line="2020"/>
+        <location filename="../statistic_invoicing.cpp" line="1946"/>
+        <location filename="../statistic_invoicing.cpp" line="2003"/>
         <source>Brand Name</source>
         <translation>品牌名称</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="332"/>
         <location filename="../statistic_invoicing.cpp" line="418"/>
-        <location filename="../statistic_invoicing.cpp" line="1980"/>
-        <location filename="../statistic_invoicing.cpp" line="2021"/>
+        <location filename="../statistic_invoicing.cpp" line="1947"/>
+        <location filename="../statistic_invoicing.cpp" line="2004"/>
         <source>Model Name</source>
         <translation>产品型号</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="333"/>
         <location filename="../statistic_invoicing.cpp" line="419"/>
-        <location filename="../statistic_invoicing.cpp" line="1981"/>
-        <location filename="../statistic_invoicing.cpp" line="2022"/>
+        <location filename="../statistic_invoicing.cpp" line="1948"/>
+        <location filename="../statistic_invoicing.cpp" line="2005"/>
         <source>Color</source>
         <translation>产品颜色</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="334"/>
         <location filename="../statistic_invoicing.cpp" line="420"/>
-        <location filename="../statistic_invoicing.cpp" line="1982"/>
-        <location filename="../statistic_invoicing.cpp" line="2023"/>
+        <location filename="../statistic_invoicing.cpp" line="1949"/>
+        <location filename="../statistic_invoicing.cpp" line="2006"/>
         <source>Vendor</source>
         <translation>供应商</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="335"/>
         <location filename="../statistic_invoicing.cpp" line="421"/>
-        <location filename="../statistic_invoicing.cpp" line="1983"/>
-        <location filename="../statistic_invoicing.cpp" line="2024"/>
+        <location filename="../statistic_invoicing.cpp" line="1950"/>
+        <location filename="../statistic_invoicing.cpp" line="2007"/>
         <source>Schema Name</source>
         <translation>店铺名称</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="336"/>
         <location filename="../statistic_invoicing.cpp" line="422"/>
-        <location filename="../statistic_invoicing.cpp" line="1984"/>
-        <location filename="../statistic_invoicing.cpp" line="2025"/>
+        <location filename="../statistic_invoicing.cpp" line="1951"/>
+        <location filename="../statistic_invoicing.cpp" line="2008"/>
         <source>Quantity</source>
         <translation>数量</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="337"/>
         <location filename="../statistic_invoicing.cpp" line="423"/>
-        <location filename="../statistic_invoicing.cpp" line="1985"/>
-        <location filename="../statistic_invoicing.cpp" line="2026"/>
+        <location filename="../statistic_invoicing.cpp" line="1952"/>
+        <location filename="../statistic_invoicing.cpp" line="2009"/>
         <source>Unit</source>
         <translation>单位</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="338"/>
         <location filename="../statistic_invoicing.cpp" line="424"/>
-        <location filename="../statistic_invoicing.cpp" line="1986"/>
-        <location filename="../statistic_invoicing.cpp" line="2027"/>
+        <location filename="../statistic_invoicing.cpp" line="1955"/>
+        <location filename="../statistic_invoicing.cpp" line="2012"/>
         <source>Old Purchase Price</source>
         <translation>上次进货价格</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="339"/>
         <location filename="../statistic_invoicing.cpp" line="425"/>
-        <location filename="../statistic_invoicing.cpp" line="1987"/>
-        <location filename="../statistic_invoicing.cpp" line="2028"/>
+        <location filename="../statistic_invoicing.cpp" line="1956"/>
+        <location filename="../statistic_invoicing.cpp" line="2013"/>
         <source>Purchase Price</source>
         <translation>进货价格</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="340"/>
         <location filename="../statistic_invoicing.cpp" line="426"/>
-        <location filename="../statistic_invoicing.cpp" line="1988"/>
-        <location filename="../statistic_invoicing.cpp" line="2029"/>
+        <location filename="../statistic_invoicing.cpp" line="1958"/>
+        <location filename="../statistic_invoicing.cpp" line="2015"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="341"/>
         <location filename="../statistic_invoicing.cpp" line="427"/>
-        <location filename="../statistic_invoicing.cpp" line="1989"/>
-        <location filename="../statistic_invoicing.cpp" line="2030"/>
+        <location filename="../statistic_invoicing.cpp" line="1959"/>
+        <location filename="../statistic_invoicing.cpp" line="2016"/>
         <source>Operator</source>
         <translation>操作员</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="342"/>
         <location filename="../statistic_invoicing.cpp" line="428"/>
-        <location filename="../statistic_invoicing.cpp" line="1991"/>
-        <location filename="../statistic_invoicing.cpp" line="2032"/>
+        <location filename="../statistic_invoicing.cpp" line="1961"/>
+        <location filename="../statistic_invoicing.cpp" line="2018"/>
         <source>Responser</source>
         <translation>负责人</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="343"/>
         <location filename="../statistic_invoicing.cpp" line="429"/>
-        <location filename="../statistic_invoicing.cpp" line="1990"/>
-        <location filename="../statistic_invoicing.cpp" line="2031"/>
+        <location filename="../statistic_invoicing.cpp" line="1960"/>
+        <location filename="../statistic_invoicing.cpp" line="2017"/>
         <source>Seller</source>
         <translation>销售人员</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="344"/>
         <location filename="../statistic_invoicing.cpp" line="430"/>
-        <location filename="../statistic_invoicing.cpp" line="1992"/>
-        <location filename="../statistic_invoicing.cpp" line="2033"/>
+        <location filename="../statistic_invoicing.cpp" line="1962"/>
+        <location filename="../statistic_invoicing.cpp" line="2019"/>
         <source>BarInfo</source>
         <translation>柜台信息</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="345"/>
         <location filename="../statistic_invoicing.cpp" line="431"/>
-        <location filename="../statistic_invoicing.cpp" line="1993"/>
-        <location filename="../statistic_invoicing.cpp" line="2034"/>
+        <location filename="../statistic_invoicing.cpp" line="1963"/>
+        <location filename="../statistic_invoicing.cpp" line="2020"/>
         <source>Product Status</source>
         <translation>产品状态</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="346"/>
         <location filename="../statistic_invoicing.cpp" line="432"/>
-        <location filename="../statistic_invoicing.cpp" line="1994"/>
-        <location filename="../statistic_invoicing.cpp" line="2035"/>
+        <location filename="../statistic_invoicing.cpp" line="1964"/>
+        <location filename="../statistic_invoicing.cpp" line="2021"/>
         <source>Replacement Status</source>
         <translation>换机状态</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="347"/>
         <location filename="../statistic_invoicing.cpp" line="433"/>
-        <location filename="../statistic_invoicing.cpp" line="1995"/>
-        <location filename="../statistic_invoicing.cpp" line="2036"/>
+        <location filename="../statistic_invoicing.cpp" line="1965"/>
+        <location filename="../statistic_invoicing.cpp" line="2022"/>
         <source>TimeStamp</source>
         <translation>时间</translation>
     </message>
     <message>
         <location filename="../statistic_invoicing.cpp" line="348"/>
         <location filename="../statistic_invoicing.cpp" line="434"/>
-        <location filename="../statistic_invoicing.cpp" line="1996"/>
-        <location filename="../statistic_invoicing.cpp" line="2037"/>
+        <location filename="../statistic_invoicing.cpp" line="1966"/>
+        <location filename="../statistic_invoicing.cpp" line="2023"/>
         <source>Comments</source>
         <translation>备注</translation>
     </message>
@@ -244,24 +244,24 @@
         <translation>导出到Excel</translation>
     </message>
     <message>
-        <location filename="../statistic_invoicing.cpp" line="1972"/>
-        <location filename="../statistic_invoicing.cpp" line="2013"/>
+        <location filename="../statistic_invoicing.cpp" line="1939"/>
+        <location filename="../statistic_invoicing.cpp" line="1996"/>
         <source>Export to Excel</source>
         <translation>导出到Excel</translation>
     </message>
     <message>
-        <location filename="../statistic_invoicing.cpp" line="1973"/>
-        <location filename="../statistic_invoicing.cpp" line="2014"/>
+        <location filename="../statistic_invoicing.cpp" line="1940"/>
+        <location filename="../statistic_invoicing.cpp" line="1997"/>
         <source>Excel Files (*.xls)</source>
         <translation>Excel文件(*.xls)</translation>
     </message>
     <message>
-        <location filename="../statistic_invoicing.cpp" line="1975"/>
+        <location filename="../statistic_invoicing.cpp" line="1942"/>
         <source>UnsellProducts</source>
         <translation>未销售产品</translation>
     </message>
     <message>
-        <location filename="../statistic_invoicing.cpp" line="2016"/>
+        <location filename="../statistic_invoicing.cpp" line="1999"/>
         <source>AllProducts</source>
         <translation>全部产品</translation>
     </message>
@@ -270,14 +270,14 @@
         <translation type="obsolete">序列号*：</translation>
     </message>
     <message>
-        <location filename="../statistic_invoicing.cpp" line="1696"/>
-        <location filename="../statistic_invoicing.cpp" line="1961"/>
+        <location filename="../statistic_invoicing.cpp" line="1650"/>
+        <location filename="../statistic_invoicing.cpp" line="1915"/>
         <source>Numbers of Total Products: </source>
         <translation>商品总件数： </translation>
     </message>
     <message>
-        <location filename="../statistic_invoicing.cpp" line="1698"/>
-        <location filename="../statistic_invoicing.cpp" line="1963"/>
+        <location filename="../statistic_invoicing.cpp" line="1652"/>
+        <location filename="../statistic_invoicing.cpp" line="1917"/>
         <source>Numbers of Total Selling: </source>
         <translation>商品总售价： </translation>
     </message>

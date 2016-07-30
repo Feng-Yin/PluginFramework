@@ -787,18 +787,21 @@ void Purchase_Invoicing::emptyProducts()
                 userManagementInterface->getCurrentUserName());
     int deleteID = productManagementInterface->getStatusIDByStatusName("已删除");
     QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
-    bar->setRange(0, productIDSet.count());
-    bar->setValue(0);
-    int i = 0;
-    mainWidget->setCursor(Qt::BusyCursor);
-    foreach(int id, productIDSet) {
-        productManagementInterface->updateStatusIDByProductID(id, deleteID);
-        productManagementInterface->deleteProductByProductID(id);
-        bar->setValue(++i);
-        //qApp->processEvents();
+    if(productIDSet.count()>0)
+    {
+        bar->setRange(0, productIDSet.count());
+        bar->setValue(0);
+        int i = 0;
+        mainWidget->setCursor(Qt::BusyCursor);
+        foreach(int id, productIDSet) {
+            productManagementInterface->updateStatusIDByProductID(id, deleteID);
+            productManagementInterface->deleteProductByProductID(id);
+            bar->setValue(++i);
+            //qApp->processEvents();
+        }
+        mainWidget->unsetCursor();
+        purchaseModel->select();
     }
-    mainWidget->unsetCursor();
-    purchaseModel->select();
 }
 
 void Purchase_Invoicing::importProducts()
@@ -1169,18 +1172,21 @@ void Purchase_Invoicing::commitAllProducts()
                 userManagementInterface->getCurrentUserName());
     int deleteID = productManagementInterface->getStatusIDByStatusName("待入库");
     QSet<int> productIDSet = productManagementInterface->getProductIDSetByUserIDStatusID(userID, statusID);
-    bar->setRange(0, productIDSet.count());
-    bar->setValue(0);
-    int i = 0;
-    mainWidget->setCursor(Qt::BusyCursor);
-    foreach(int id, productIDSet) {
-        productManagementInterface->updateStatusIDByProductID(id, deleteID);
-        bar->setValue(++i);
-        //bar->update();
-        //qApp->processEvents();
+    if(productIDSet.count()>0)
+    {
+        bar->setRange(0, productIDSet.count());
+        bar->setValue(0);
+        int i = 0;
+        mainWidget->setCursor(Qt::BusyCursor);
+        foreach(int id, productIDSet) {
+            productManagementInterface->updateStatusIDByProductID(id, deleteID);
+            bar->setValue(++i);
+            //bar->update();
+            //qApp->processEvents();
+        }
+        mainWidget->unsetCursor();
+        productAdded();
     }
-    mainWidget->unsetCursor();
-    productAdded();
 }
 
 void Purchase_Invoicing::updateDBTableModel()

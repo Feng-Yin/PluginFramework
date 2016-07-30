@@ -193,6 +193,7 @@ void Storage_Invoicing::initMainWidget()
     inAllStoragePushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     inAllStoragePushButton->setIcon(QIcon(":/Icon/downall_icon.png"));
     inAllStoragePushButton->setIconSize(inAllStoragePushButton->sizeHint());
+    inAllStoragePushButton->setEnabled(false);
 	returnToVendorPushButton = new QPushButton();
     connect(returnToVendorPushButton, SIGNAL(clicked()), this, SLOT(returnToVendor()));
     returnToVendorPushButton->setToolTip(tr("Return to Vendor"));
@@ -218,6 +219,7 @@ void Storage_Invoicing::initMainWidget()
     outAllStoragePushButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     outAllStoragePushButton->setIcon(QIcon(":/Icon/upall_icon.png"));
     outAllStoragePushButton->setIconSize(outAllStoragePushButton->sizeHint());
+    outAllStoragePushButton->setEnabled(false);
 
     QLabel *purchaseLabel = new QLabel(tr("Waiting For Storage :"));
     QLabel *storageLabel = new QLabel(tr("Storaged :"));

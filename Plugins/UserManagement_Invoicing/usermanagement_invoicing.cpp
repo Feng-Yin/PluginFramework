@@ -161,6 +161,7 @@ void UserManagement_Invoicing::logout()
     }
     else {
         parent->show();
+        update();
     }
 
 }
@@ -271,6 +272,8 @@ void UserManagement_Invoicing::update()
 {
     //qDebug()<<"UserManagement_Invoicing::update()"<<endl;
     mainWidget->update();
+    parent->updateCurrentUserInfo();
+    userManagement();
 }
 
 QT_BEGIN_NAMESPACE

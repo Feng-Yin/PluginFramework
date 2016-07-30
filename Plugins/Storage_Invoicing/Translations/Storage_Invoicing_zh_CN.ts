@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="zh_CN">
+<TS version="2.1" language="zh_CN">
 <context>
     <name>Storage_Invoicing</name>
     <message>
@@ -24,168 +24,168 @@
         <translation>全部入库</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="198"/>
+        <location filename="../storage_invoicing.cpp" line="199"/>
         <source>Return to Vendor</source>
         <translation>退回供应商</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="204"/>
+        <location filename="../storage_invoicing.cpp" line="205"/>
         <source>Delete The Product</source>
         <translation>删除产品</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="211"/>
+        <location filename="../storage_invoicing.cpp" line="212"/>
         <source>Out Storage</source>
         <translation>出库</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="217"/>
+        <location filename="../storage_invoicing.cpp" line="218"/>
         <source>All Out Storage</source>
         <translation>全部出库</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="222"/>
+        <location filename="../storage_invoicing.cpp" line="224"/>
         <source>Waiting For Storage :</source>
         <translation>等待入库：</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="223"/>
+        <location filename="../storage_invoicing.cpp" line="225"/>
         <source>Storaged :</source>
         <translation>已入库：</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="253"/>
+        <location filename="../storage_invoicing.cpp" line="255"/>
         <source>Serial Number : </source>
         <translation>序列号：</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="255"/>
+        <location filename="../storage_invoicing.cpp" line="257"/>
         <source>Filter</source>
         <translation>过滤</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="303"/>
-        <location filename="../storage_invoicing.cpp" line="364"/>
+        <location filename="../storage_invoicing.cpp" line="305"/>
+        <location filename="../storage_invoicing.cpp" line="366"/>
         <source>ID</source>
         <translation>产品ID</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="304"/>
-        <location filename="../storage_invoicing.cpp" line="365"/>
+        <location filename="../storage_invoicing.cpp" line="306"/>
+        <location filename="../storage_invoicing.cpp" line="367"/>
         <source>Serial Number</source>
         <translation>序列号</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="305"/>
-        <location filename="../storage_invoicing.cpp" line="366"/>
+        <location filename="../storage_invoicing.cpp" line="307"/>
+        <location filename="../storage_invoicing.cpp" line="368"/>
         <source>Product Type</source>
         <translation>产品类型</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="306"/>
-        <location filename="../storage_invoicing.cpp" line="367"/>
+        <location filename="../storage_invoicing.cpp" line="308"/>
+        <location filename="../storage_invoicing.cpp" line="369"/>
         <source>Brand Name</source>
         <translation>品牌名称</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="307"/>
-        <location filename="../storage_invoicing.cpp" line="368"/>
+        <location filename="../storage_invoicing.cpp" line="309"/>
+        <location filename="../storage_invoicing.cpp" line="370"/>
         <source>Model Name</source>
         <translation>产品型号</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="308"/>
-        <location filename="../storage_invoicing.cpp" line="369"/>
+        <location filename="../storage_invoicing.cpp" line="310"/>
+        <location filename="../storage_invoicing.cpp" line="371"/>
         <source>Color</source>
         <translation>颜色</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="309"/>
-        <location filename="../storage_invoicing.cpp" line="370"/>
+        <location filename="../storage_invoicing.cpp" line="311"/>
+        <location filename="../storage_invoicing.cpp" line="372"/>
         <source>Vendor</source>
         <translation>供应商</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="310"/>
-        <location filename="../storage_invoicing.cpp" line="371"/>
+        <location filename="../storage_invoicing.cpp" line="312"/>
+        <location filename="../storage_invoicing.cpp" line="373"/>
         <source>Schema Name</source>
         <translation>店铺名称</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="311"/>
-        <location filename="../storage_invoicing.cpp" line="372"/>
+        <location filename="../storage_invoicing.cpp" line="313"/>
+        <location filename="../storage_invoicing.cpp" line="374"/>
         <source>Quantity</source>
         <translation>数量</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="312"/>
-        <location filename="../storage_invoicing.cpp" line="373"/>
+        <location filename="../storage_invoicing.cpp" line="314"/>
+        <location filename="../storage_invoicing.cpp" line="375"/>
         <source>Unit</source>
         <translation>单位</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="313"/>
-        <location filename="../storage_invoicing.cpp" line="374"/>
+        <location filename="../storage_invoicing.cpp" line="315"/>
+        <location filename="../storage_invoicing.cpp" line="376"/>
         <source>Old Purchase Price</source>
         <translation>上次进货价格</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="314"/>
-        <location filename="../storage_invoicing.cpp" line="375"/>
+        <location filename="../storage_invoicing.cpp" line="316"/>
+        <location filename="../storage_invoicing.cpp" line="377"/>
         <source>Purchase Price</source>
         <translation>进货价格</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="315"/>
-        <location filename="../storage_invoicing.cpp" line="376"/>
+        <location filename="../storage_invoicing.cpp" line="317"/>
+        <location filename="../storage_invoicing.cpp" line="378"/>
         <source>Selling Price</source>
         <translation>销售价格</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="316"/>
-        <location filename="../storage_invoicing.cpp" line="377"/>
+        <location filename="../storage_invoicing.cpp" line="318"/>
+        <location filename="../storage_invoicing.cpp" line="379"/>
         <source>Operator</source>
         <translation>操作员</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="317"/>
-        <location filename="../storage_invoicing.cpp" line="378"/>
+        <location filename="../storage_invoicing.cpp" line="319"/>
+        <location filename="../storage_invoicing.cpp" line="380"/>
         <source>Responser</source>
         <translation>负责人</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="318"/>
-        <location filename="../storage_invoicing.cpp" line="379"/>
+        <location filename="../storage_invoicing.cpp" line="320"/>
+        <location filename="../storage_invoicing.cpp" line="381"/>
         <source>Seller</source>
         <translation>销售人员</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="319"/>
-        <location filename="../storage_invoicing.cpp" line="380"/>
+        <location filename="../storage_invoicing.cpp" line="321"/>
+        <location filename="../storage_invoicing.cpp" line="382"/>
         <source>BarInfo</source>
         <translation>柜台信息</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="320"/>
-        <location filename="../storage_invoicing.cpp" line="381"/>
+        <location filename="../storage_invoicing.cpp" line="322"/>
+        <location filename="../storage_invoicing.cpp" line="383"/>
         <source>Product Status</source>
         <translation>品牌状态</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="321"/>
-        <location filename="../storage_invoicing.cpp" line="382"/>
+        <location filename="../storage_invoicing.cpp" line="323"/>
+        <location filename="../storage_invoicing.cpp" line="384"/>
         <source>Replacement Status</source>
         <translation>换机状态</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="322"/>
-        <location filename="../storage_invoicing.cpp" line="383"/>
+        <location filename="../storage_invoicing.cpp" line="324"/>
+        <location filename="../storage_invoicing.cpp" line="385"/>
         <source>TimeStamp</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../storage_invoicing.cpp" line="323"/>
-        <location filename="../storage_invoicing.cpp" line="384"/>
+        <location filename="../storage_invoicing.cpp" line="325"/>
+        <location filename="../storage_invoicing.cpp" line="386"/>
         <source>Comments</source>
         <translation>备注</translation>
     </message>

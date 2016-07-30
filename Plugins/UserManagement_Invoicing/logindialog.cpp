@@ -242,7 +242,7 @@ bool LoginDialog::createInvoicingSchema()
     bool ret = false;
     userManagementInterface->addSchema("未指定");
     userManagementInterface->addUser("未指定", "test");
-    QString dbSchema = QInputDialog::getText(0, tr("Create DB Schema"), tr("DB Schema Name: "),
+    QString dbSchema = QInputDialog::getText(this, tr("Create DB Schema"), tr("DB Schema Name: "),
                                              QLineEdit::Normal, "", &ret);
     dbSchema.simplified();
     if(ret && !dbSchema.isEmpty()) {

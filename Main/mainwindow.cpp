@@ -219,7 +219,8 @@ void MainWindow::createPluginToolBox(QWidget *toolbox, PluginInterface *plugin)
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Invoicing"),
-                       tr("<b>Invoicing</b> use the plugin framework"));
+                       tr("<b>Invoicing</b> use the plugin framework"
+                          "<br><br> Contact Author: feng.yin@live.cn"));
 }
 
 void MainWindow::widgetChange()
@@ -385,6 +386,7 @@ void MainWindow::pluginDialog()
             pluginTable->setItem(row++, 1, description);
         }
         pluginTable->resizeColumnsToContents();
+        pluginTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     }
     if(!containerDialog) {
         containerDialog = new QDialog(this);
@@ -393,7 +395,7 @@ void MainWindow::pluginDialog()
         QHBoxLayout *containerLayout = new QHBoxLayout();
         containerLayout->addWidget(pluginTable);
         containerDialog->setLayout(containerLayout);
-        containerDialog->resize(QSize((pluginTable->columnWidth(0)+pluginTable->columnWidth(1)
+        containerDialog->setFixedSize(QSize((pluginTable->columnWidth(0)+pluginTable->columnWidth(1)
                                        +50),
                                       pluginTable->rowHeight(1)*(pluginTable->rowCount()+2)));
     }

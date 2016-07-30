@@ -37,6 +37,9 @@ public:
     static bool isRegistration();
     void updateUserNameTitle(QString userName);
     virtual PluginInterface* getPlugin(QString pluginName);
+    virtual void updateCurrentUserInfo();
+
+
 
 private:
     explicit MainWindow(QWidget *parent = 0);
@@ -51,10 +54,10 @@ private slots:
     void about();
     void widgetChange();
     void pluginDialog();
-    void update();
     void eventUpdate();
     void updateAll();
     void registerSoftware();
+    void update();
 
 private:
     void createToolBox();
@@ -64,7 +67,6 @@ private:
     void createPluginToolBox(QWidget *toolbox, PluginInterface *plugin);
     void loadPlugins();
     PluginInterface* loadPlugin(QString filename);
-    void updateCurrentUserInfo();
 
 private:
 
