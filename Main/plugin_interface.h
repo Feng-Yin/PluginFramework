@@ -1,5 +1,4 @@
-﻿#ifndef PLUGIN_INTERFACE_H
-#define PLUGIN_INTERFACE_H
+#pragma once
 
 #include <QtPlugin>
 #include <QSet>
@@ -35,10 +34,9 @@ protected:
     QString timeStamp;
 };
 
+
 Q_DECLARE_METATYPE(PluginInterface*)
 
 QT_BEGIN_NAMESPACE
 Q_DECLARE_INTERFACE(PluginInterface, "com.emma.PluginInterface/1.0")
 QT_END_NAMESPACE
-
-#endif // PLUGIN_INTERFACE_H

@@ -2,23 +2,19 @@ QT       += network sql widgets core
 TARGET = Invoicing
 TRANSLATIONS = ./Translations/Invoicing_zh_CN.ts
 
+include(../singleapplication/singleapplication.pri)
+DEFINES += QAPPLICATION_CLASS=QApplication
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    qtlocalpeer.cpp \
-    qtsingleapplication.cpp \
-    qtlockedfile.cpp \
-    qtlockedfile_unix.cpp \
-    qtlockedfile_win.cpp
 
 HEADERS += \
+    helper.h \
     mainwindow.h \
     plugin_interface.h \
     usermanagement_interface.h \
     productmanagement_interface.h \
-    qtsingleapplication.h \
-    qtlocalpeer.h \
-    qtlockedfile.h
 
 OTHER_FILES += \
     ideas.txt \

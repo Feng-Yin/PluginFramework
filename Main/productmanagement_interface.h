@@ -1,5 +1,4 @@
-﻿#ifndef PRODUCTMANAGEMENT_INTERFACE_H
-#define PRODUCTMANAGEMENT_INTERFACE_H
+#pragma once
 
 #include <QtPlugin>
 #include <QSet>
@@ -112,16 +111,16 @@ public:
                                     QString barInfo, int productStatusID, int replacementStatusID, QString time,
                                     QString comments) const = 0;
     virtual bool updateProductDetailByProductID(int id, QString serialNumber, int productTypeID, int brandNameID,
-                                    int productModelID, int schemaNameID, int quantity, QString unit,
-                                    QString oldPurchasePrice, QString purchasePrice, QString sellingPrice,
-                                    int operatorUserID, int responserUserID, int productStatusID,
-                                    QString comments) const = 0;
+                                                int productModelID, int schemaNameID, int quantity, QString unit,
+                                                QString oldPurchasePrice, QString purchasePrice, QString sellingPrice,
+                                                int operatorUserID, int responserUserID, int productStatusID,
+                                                QString comments) const = 0;
     virtual bool updateProductDetailByProductID(int id, QString serialNumber, int productTypeID, int brandNameID,
-                                    int productModelID, int colorID, int vendorID, int schemaNameID,
-                                    int quantity, QString unit, QString oldPurchasePrice, QString purchasePrice,
-                                    QString sellingPrice, int operatorUserID, int responserUserID, int sellerID,
-                                    QString barInfo, int productStatusID, int replacementStatusID, QString time,
-                                    QString comments) const = 0;
+                                                int productModelID, int colorID, int vendorID, int schemaNameID,
+                                                int quantity, QString unit, QString oldPurchasePrice, QString purchasePrice,
+                                                QString sellingPrice, int operatorUserID, int responserUserID, int sellerID,
+                                                QString barInfo, int productStatusID, int replacementStatusID, QString time,
+                                                QString comments) const = 0;
     virtual int getResponserUserIDByProductID(int id) const = 0;
     virtual bool updateStatusIDByProductID(int productID, int statusID) const = 0;
     virtual int getProductCountByQuery(QString queryString) const = 0;
@@ -146,4 +145,3 @@ public:
 QT_BEGIN_NAMESPACE
 Q_DECLARE_INTERFACE(ProductManagementInterface, "com.emma.ProductManagementInterface/1.0")
 QT_END_NAMESPACE
-#endif // PRODUCTMANAGEMENT_INTERFACE_H

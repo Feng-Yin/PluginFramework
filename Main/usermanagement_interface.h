@@ -1,5 +1,4 @@
-﻿#ifndef USERMANAGEMENT_INTERFACE_H
-#define USERMANAGEMENT_INTERFACE_H
+#pragma once
 
 #include <QtPlugin>
 #include <QSet>
@@ -59,13 +58,13 @@ public:
     //for db usage
     virtual QString getCurrentUserName() const = 0;
     virtual void setCurrentUserName(QString username) = 0;
-//    virtual QString getCurrentSchemaName() const = 0;
-//    virtual void setCurrentSchemaName(QString schemaname) = 0;
+    //    virtual QString getCurrentSchemaName() const = 0;
+    //    virtual void setCurrentSchemaName(QString schemaname) = 0;
     virtual QString getCurrentIPAdress() const = 0;
     virtual void setCurrentIPAdress(QString ipaddress) = 0;
     virtual QSqlQuery getSqlQuery() const = 0;
     virtual QSqlDatabase getDatabase() const = 0;
-    virtual bool openDatabase(QString username, QString password, QString ipaddress) = 0;
+    virtual bool openDatabase(QString username, QString password, QString ipaddress, int port=3306) = 0;
     virtual void changePassword(QString username, QString password) const = 0;
     //for user change notify
     virtual void registeObserver(UserChangeNotifyInterface *obsever) = 0;
@@ -74,7 +73,7 @@ public:
     //for access checking
     virtual bool checkAccess(QSet<QString> accessRoleNameSet) const = 0;
     virtual bool isAdmin(QString username) const = 0;
-	virtual bool isStatistic(QString username) const  = 0;
+    virtual bool isAuditor(QString username) const  = 0;
     //for table schemaname
     virtual QSet<QString> getAllSchemaName() const = 0;
     virtual QSet<int> getAllSchemaID() const = 0;
@@ -115,7 +114,7 @@ public:
         return true;
     }
 
-    //help function
+    //help function to convert a chinese name to a unique id
     static QString getDBLoginUserName(QString username)
     {
         QChar NUL(0);
@@ -146,5 +145,3 @@ QT_BEGIN_NAMESPACE
 Q_DECLARE_INTERFACE(UserManagementInterface, "com.emma.UserManagementInterface/1.0")
 Q_DECLARE_INTERFACE(UserChangeNotifyInterface, "com.emma.UserChangeNotifyInterface/1.0")
 QT_END_NAMESPACE
-
-#endif // USERMANAGEMENT_INTERFACE_H
