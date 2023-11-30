@@ -1,8 +1,8 @@
-﻿#ifndef LOGINDIALOG_H
-#define LOGINDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QSet>
+#include "qspinbox.h"
 
 QT_BEGIN_NAMESPACE
 class QLineEdit;
@@ -11,7 +11,6 @@ class QComboBox;
 class QPushButton;
 class QLabel;
 class QDialogButtonBox;
-class QStringList;
 class QString;
 class QChar;
 QT_END_NAMESPACE
@@ -30,17 +29,12 @@ signals:
 public slots:
 
 private slots:
-    void onAuthenticate();
     bool createInvoicingSchema();
     void onLogin();
     void init();
-    void disableLogin();
-    void enableAuthenticate(bool toggle);
     QStringList initRegSetting();
     void saveRegSetting();
     void populateRegSetting();
-    void enableLogin(QSet<QString> dbSchemas);
-    void updateIPAddress();
 
 private:
 
@@ -50,18 +44,12 @@ private:
     QCheckBox *rememberUsername;
     QLineEdit *passwordLineEdit;
     QCheckBox *rememberPassword;
-    QLineEdit *ipAddressLineEdit;
-    QCheckBox *rememberIPAddress;
     QLineEdit *domainNameLineEdit;
     QCheckBox *rememberDomainName;
-    QPushButton *authenticateButton;
-    QLabel *dbSchemaLabel;
-    QComboBox *dbSchemaComboBox;
+    QSpinBox *portSpinBox;
+    QCheckBox *rememberPort;
     QPushButton *loginButton;
     QPushButton *cancelButton;
     QDialogButtonBox *loginButtonBox;
-    bool reAuthenticate;
     UserManagementInterface *userManagementInterface;
 };
-
-#endif // LOGINDIALOG_H

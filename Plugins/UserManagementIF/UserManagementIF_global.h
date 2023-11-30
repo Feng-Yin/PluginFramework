@@ -1,5 +1,4 @@
-﻿#ifndef USERMANAGEMENTIF_GLOBAL_H
-#define USERMANAGEMENTIF_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define USERMANAGEMENTIFSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // USERMANAGEMENTIF_GLOBAL_H

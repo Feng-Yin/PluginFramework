@@ -1,5 +1,4 @@
-﻿#ifndef USERMANAGEMENTDIALOG_H
-#define USERMANAGEMENTDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QModelIndex>
@@ -107,5 +106,3 @@ private:
 
     UserManagementInterface *userManagementInterface;
 };
-
-#endif // USERMANAGEMENTDIALOG_H

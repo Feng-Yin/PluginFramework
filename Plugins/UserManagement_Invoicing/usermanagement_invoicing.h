@@ -1,5 +1,4 @@
-﻿#ifndef USERMANAGEMENT_INVOICING_H
-#define USERMANAGEMENT_INVOICING_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -17,7 +16,6 @@ class QToolBar;
 class QAction;
 class QSqlQuery;
 class QSqlDatabase;
-class QStringList;
 class QLayout;
 QT_END_NAMESPACE
 
@@ -72,6 +70,3 @@ private:
     UserManagementInterface *userManagementInterface;
     MainWindow *parent;
 };
-
-
-#endif // USERMANAGEMENT_INVOICING_H

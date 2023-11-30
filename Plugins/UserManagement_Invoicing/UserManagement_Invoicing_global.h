@@ -1,5 +1,4 @@
-﻿#ifndef USERMANAGEMENT_INVOICING_GLOBAL_H
-#define USERMANAGEMENT_INVOICING_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define USERMANAGEMENT_INVOICINGSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // USERMANAGEMENT_INVOICING_GLOBAL_H

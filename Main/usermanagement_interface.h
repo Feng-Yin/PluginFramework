@@ -57,14 +57,11 @@ public:
     virtual ~UserManagementInterface() {}
     //for db usage
     virtual QString getCurrentUserName() const = 0;
-    virtual void setCurrentUserName(QString username) = 0;
-    //    virtual QString getCurrentSchemaName() const = 0;
-    //    virtual void setCurrentSchemaName(QString schemaname) = 0;
     virtual QString getCurrentIPAdress() const = 0;
-    virtual void setCurrentIPAdress(QString ipaddress) = 0;
+    virtual int getCurrentPort() const = 0;
     virtual QSqlQuery getSqlQuery() const = 0;
-    virtual QSqlDatabase getDatabase() const = 0;
-    virtual bool openDatabase(QString username, QString password, QString ipaddress, int port=3306) = 0;
+    virtual QSqlDatabase getDatabase(QString username = "") const = 0;
+    virtual bool openDatabase(QString username, QString password, QString ipaddress, int port) = 0;
     virtual void changePassword(QString username, QString password) const = 0;
     //for user change notify
     virtual void registeObserver(UserChangeNotifyInterface *obsever) = 0;

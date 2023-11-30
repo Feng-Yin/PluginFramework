@@ -1,5 +1,4 @@
-﻿#include <QtGui>
-#if QT_VERSION >= 0x050000
+#include <QtGui>
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -11,12 +10,9 @@
 #include <QInputDialog>
 #include <QtWidgets>
 #include <QHBoxLayout>
-#endif
 #include <QtSql>
-#include <limits>
 #include "usermanagementdialog.h"
 #include "usermanagement_invoicing.h"
-#include "usermanagement_interface.h"
 
 UserManagementDialog::UserManagementDialog(UserManagementInterface *userManagementInterface, QWidget *parent) :
     QWidget(parent),
@@ -402,7 +398,6 @@ void UserManagementDialog::addUser()
             //QMessageBox::critical(this, tr("Create User Error"), tr("Input UserName error !"));
             return;
         }
-        username.simplified();
     }while(!checkUserName(username));
 
     bool okPassword1 = false;
@@ -501,7 +496,6 @@ void UserManagementDialog::addSchema()
     bool ok = false;
     QString dbSchema = QInputDialog::getText(0, tr("Create DB Schema"), tr("DB Schema Name: "),
                                              QLineEdit::Normal, "", &ok);
-    dbSchema.simplified();
     if(ok && !dbSchema.isEmpty()) {
         userManagementInterface->addSchema(dbSchema);
         schemaModel->select();
@@ -631,7 +625,7 @@ void UserManagementDialog::cleanLoginInfo()
         return;
     }
     QString username = userModel->record(index.row()).value("name").toString();
-    qDebug()<<"cleanLoginInfo "<<username<<endl;
+    qDebug() << "cleanLoginInfo " << username << Qt::endl;
     setting.remove(username);
 }
 
