@@ -1,11 +1,6 @@
-﻿#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
-#if QT_VERSION < 0x050000
-#include <QMainWindow>
-#else
 #include <QtWidgets>
-#endif
 #include <QMap>
 #include <Qset>
 #include <QVector>
@@ -34,20 +29,17 @@ public:
     static void release();
     static QString calActiveCode(QString machineCode);
     static QString getHDLogicalID();
-    static bool isRegistration();
+    static bool isRegistered();
     void updateUserNameTitle(QString userName);
     virtual PluginInterface* getPlugin(QString pluginName);
     virtual void updateCurrentUserInfo();
-
-
 
 private:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    
 signals:
-    
+
 public slots:
 
 private slots:
@@ -100,5 +92,3 @@ private:
 
     QTimer *eventTimer;
 };
-
-#endif // MAINWINDOW_H

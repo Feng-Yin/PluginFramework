@@ -1,8 +1,9 @@
-﻿#include <QtGui>
-#include <QtSql>
-#include "mainwindow.h"
 #include "usermanagement_invoicing.h"
+#include <QtGui>
+#include <QtSql>
+#include "helper.h"
 #include "logindialog.h"
+#include "mainwindow.h"
 #include "usermanagementdialog.h"
 
 UserManagement_Invoicing::UserManagement_Invoicing() :
@@ -16,9 +17,7 @@ UserManagement_Invoicing::UserManagement_Invoicing() :
     userManagementInterface(NULL),
     parent(NULL)
 {
-    QTranslator *qtTranslator = new QTranslator(this);
-    qtTranslator->load("UserManagement_Invoicing_zh_CN", ":/Translations");
-    QApplication::instance()->installTranslator(qtTranslator);
+    INSTALL_TRANSLATION;
 }
 
 UserManagement_Invoicing::~UserManagement_Invoicing()
@@ -209,7 +208,8 @@ void UserManagement_Invoicing::changeCurrentUserPassword()
         }
 
         QString ipaddress = userManagementInterface->getCurrentIPAdress();
-        okDBOpen = userManagementInterface->openDatabase(username, oldPassword, ipaddress);
+        int port = userManagementInterface->getCurrentPort();
+        okDBOpen = userManagementInterface->openDatabase(username, oldPassword, ipaddress, port);
         if (!okDBOpen) {
             QMessageBox::critical(0, tr("Change Password"), tr("Old Password is wrong, try it again"));
         }
@@ -264,8 +264,9 @@ void UserManagement_Invoicing::changePassword(QString username)
 
 void UserManagement_Invoicing::switchUser()
 {
-    showLoginWindow();
-    update();
+    if (showLoginWindow()) {
+        update();
+    }
 }
 
 void UserManagement_Invoicing::update()

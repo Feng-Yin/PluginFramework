@@ -1,30 +1,24 @@
-﻿#include <QtSql>
-#if QT_VERSION < 0x050000
-#include <QApplication>
-#else
-#include <QtWidgets>
-#endif
-#include <QtGui>
 #include "usermanagementif.h"
+#include <QtGui>
+#include <QtSql>
+#include <QtWidgets>
+#include "helper.h"
 
 const QStringList UserManagementInterface::defaultSchema = QStringList();
 const QStringList UserManagementInterface::defaultRole = QStringList() <<"管理员"<<"采购"<<"库管"<<"销售"<<"收银员"<<"审计";
-const QStringList UserManagementInterface::defaultUser = QStringList() <<"root";
+const QStringList UserManagementInterface::defaultUser = QStringList() << "admin";
 
-UserManagementIF::UserManagementIF() :
-    currentUser(""),
-    currentDBSchema(""),
-    currentIP(""),
-    currentPassword(""),
-    observerSet(QSet<UserChangeNotifyInterface *>())
+const char *defaultDBSchemaName = "information_schema";
+const char *dbSchemaName = "invoicing_schema";
+
+UserManagementIF::UserManagementIF()
+    : currentUser("")
+    , currentDBSchema("")
+    , currentIP("")
+    , currentPassword("")
+    , observerSet(QSet<UserChangeNotifyInterface *>())
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
 }
 
 UserManagementIF::~UserManagementIF()
@@ -51,14 +45,13 @@ QToolBar* UserManagementIF::getToolBar() const
     return NULL;
 }
 
-bool UserManagementIF::init(MainWindow *parent)
+bool UserManagementIF::init(MainWindow * /*parent*/)
 {
     return true;
 }
 
 bool UserManagementIF::deInit()
 {
-    removeDatabase("default");
     return true;
 }
 
@@ -87,29 +80,14 @@ QString UserManagementIF::getCurrentUserName() const
     return currentUser;
 }
 
-void UserManagementIF::setCurrentUserName(QString username)
-{
-    currentUser = username;
-}
-
-//QString UserManagementIF::getCurrentSchemaName() const
-//{
-//    return currentDBSchema;
-//}
-
-//void UserManagementIF::setCurrentSchemaName(QString schemaname)
-//{
-//    currentDBSchema = schemaname;
-//}
-
 QString UserManagementIF::getCurrentIPAdress() const
 {
     return currentIP;
 }
 
-void UserManagementIF::setCurrentIPAdress(QString ipaddress)
+int UserManagementIF::getCurrentPort() const
 {
-    currentIP = ipaddress;
+    return currentPort;
 }
 
 QSqlQuery UserManagementIF::getSqlQuery() const
@@ -117,14 +95,10 @@ QSqlQuery UserManagementIF::getSqlQuery() const
     return QSqlQuery(getDatabase());
 }
 
-QSqlDatabase UserManagementIF::getDatabase() const
+QSqlDatabase UserManagementIF::getDatabase(QString name) const
 {
-    QSqlDatabase db = QSqlDatabase::database(getDBLoginUserName("default"));
-    QSqlQuery query(db);
-    if(db.isOpen() && !query.exec("SHOW DATABASES")) {
-        QMessageBox::critical(0, tr("Error"), tr("DB connection lost! Restart the program to try again"));
-        exit(0);
-    }
+    QString dbName = getDBLoginUserName(name.isEmpty() ? currentUser : name);
+    QSqlDatabase db = QSqlDatabase::database(dbName);
     return db;
 }
 
@@ -137,85 +111,56 @@ void UserManagementIF::setDataBaseName(QString dbName) const
     }
 }
 
-bool UserManagementIF::reopenDatabase() const
+bool UserManagementIF::openDatabase(QString username, QString password, QString ipaddress, int port)
 {
-    removeDatabase(currentUser);
-    {
-        QSqlDatabase db(addDatabase(currentUser));
-        db.setHostName(currentIP);
-        db.setUserName(getDBLoginUserName(currentUser));
-        db.setPassword(currentPassword);
-        if(db.open()) {
-            //qDebug()<<"QSqlDriver::Transactions "<<db.driver()->hasFeature(QSqlDriver::Transactions);
-            //create default db
-            if(!getDatabase().isValid()) {
-                QSqlDatabase defaultDB(addDatabase("default"));
-                defaultDB.setHostName(currentIP);
-                defaultDB.setUserName(getDBLoginUserName(currentUser));
-                defaultDB.setPassword(currentPassword);
-                defaultDB.open();
-            }
-        }
+    if (getDatabase(username).isValid()) {
+        currentUser = username;
+        currentIP = ipaddress;
+        currentPassword = password;
+        currentPort = port;
+        return true;
     }
-    removeDatabase(currentUser);
-    return false;
-}
 
-bool UserManagementIF::openDatabase(QString username, QString password, QString ipaddress)
-{
-    removeDatabase(username);
     {
+        // this is for when open db at very first time, there is no invoice db, so use default db for
+        // open connection and then create the invoice db
         QSqlDatabase db(addDatabase(username));
+        db.setDatabaseName(defaultDBSchemaName);
         db.setHostName(ipaddress);
-        db.setUserName(getDBLoginUserName(username));
-        db.setPassword(password);
-        if(db.open()) {
-            currentUser = username;
-            currentIP = ipaddress;
-            currentPassword = password;
-            //qDebug()<<"QSqlDriver::Transactions "<<db.driver()->hasFeature(QSqlDriver::Transactions);
-            //create default db
-            if(!getDatabase().isValid()) {
-                QSqlDatabase defaultDB(addDatabase("default"));
-                defaultDB.setHostName(ipaddress);
-                defaultDB.setUserName(getDBLoginUserName(username));
-                defaultDB.setPassword(password);
-                defaultDB.open();
-            }
-            if(createUserManagementTables()) {
-                return true;
-            }
+        db.setPort(port);
+        if (!db.open(getDBLoginUserName(username), password)) {
+            return false;
+        }
+        currentUser = username;
+        currentIP = ipaddress;
+        currentPassword = password;
+        currentPort = port;
+        if (!createUserManagementTables()) {
+            return false;
         }
     }
-    removeDatabase(username);
-    return false;
+    QSqlDatabase db(addDatabase(username));
+    db.setDatabaseName(dbSchemaName);
+    db.setHostName(ipaddress);
+    db.setPort(port);
+    if (!db.open(getDBLoginUserName(username), password)) {
+        return false;
+    }
+    return true;
 }
 
 QSqlDatabase UserManagementIF::addDatabase(QString username) const
 {
-    removeDatabase(username);
     return QSqlDatabase::addDatabase("QMYSQL", getDBLoginUserName(username));
-}
-
-void UserManagementIF::removeDatabase(QString username) const
-{
-    if(username.isEmpty()) {
-        QString loginUserName = getDBLoginUserName(currentUser);
-        QSqlDatabase::database(loginUserName).close();
-        QSqlDatabase::removeDatabase(loginUserName);
-    }
-    else {
-        QString loginUserName = getDBLoginUserName(username);
-        QSqlDatabase::database(loginUserName).close();
-        QSqlDatabase::removeDatabase(loginUserName);
-    }
 }
 
 void UserManagementIF::changePassword(QString username, QString password) const
 {
     QSqlQuery query(getSqlQuery());
-    query.exec(QString("SET PASSWORD FOR '%1'@'localhost' = PASSWORD('%2')").arg(getDBLoginUserName(username)).arg(password));
-    query.exec(QString("SET PASSWORD FOR '%1'@'%' = PASSWORD('%2')").arg(getDBLoginUserName(username)).arg(password));
+    query.exec(QString("SET PASSWORD FOR '%1'@'localhost' = PASSWORD('%2')")
+                   .arg(getDBLoginUserName(username), password));
+    query.exec(QString("SET PASSWORD FOR '%1'@'%' = PASSWORD('%2')")
+                   .arg(getDBLoginUserName(username), password));
 }
 
 void UserManagementIF::registeObserver(UserChangeNotifyInterface *observer)
@@ -257,13 +202,11 @@ bool UserManagementIF::checkAccess(QSet<QString> accessRoleNameSet) const
 bool UserManagementIF::isAdmin(QString username) const
 {
     int adminRoleID = getRoleIDByRoleName("管理员");
-//    QMessageBox::information(0, tr("Setup"), QString("%1").arg(adminRoleID));
-//    QMessageBox::information(0, tr("Setup"), QString("%1").arg("管理员"));
     QSet<int> roleIDSet = getRoleIDSetByUserID(getUserIDByUserName(username));
     return roleIDSet.contains(adminRoleID);
 }
 
-bool UserManagementIF::isStatistic(QString username) const
+bool UserManagementIF::isAuditor(QString username) const
 {
     int adminRoleID = getRoleIDByRoleName("审计");
     QSet<int> roleIDSet = getRoleIDSetByUserID(getUserIDByUserName(username));
@@ -384,10 +327,22 @@ void UserManagementIF::addUser(QString username, QString password) const
 {
     QSqlQuery query(getSqlQuery());
     QString loginName = getDBLoginUserName(username);
-    query.exec(QString("CREATE USER '%1'@'%' IDENTIFIED BY '%2'").arg(loginName).arg(password));
-    query.exec(QString("GRANT ALL PRIVILEGES ON *.* TO '%1'@'%' WITH GRANT OPTION").arg(loginName));
-    query.exec(QString("CREATE USER '%1'@'localhost' IDENTIFIED BY '%2'").arg(loginName).arg(password));
-    query.exec(QString("GRANT ALL PRIVILEGES ON *.* TO '%1'@'localhost' WITH GRANT OPTION").arg(loginName));
+    query.exec(QString("CREATE USER '%1'@'%' IDENTIFIED BY '%2'").arg(loginName, password));
+    query.exec(
+        QString(
+            "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, PROCESS, REFERENCES, "
+            "INDEX, ALTER, SHOW DATABASES, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, "
+            "REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER "
+            "ROUTINE, CREATE USER, EVENT, TRIGGER ON *.* TO `%1`@`%` WITH GRANT OPTION")
+            .arg(loginName));
+    query.exec(QString("CREATE USER '%1'@'localhost' IDENTIFIED BY '%2'").arg(loginName, password));
+    query.exec(
+        QString(
+            "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, PROCESS, REFERENCES, "
+            "INDEX, ALTER, SHOW DATABASES, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, "
+            "REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER "
+            "ROUTINE, CREATE USER, EVENT, TRIGGER ON *.* TO `%1`@`localhost` WITH GRANT OPTION")
+            .arg(loginName));
     query.exec(QString("INSERT INTO user (`name`) VALUES ('%1')").arg(username));
 }
 
@@ -471,7 +426,8 @@ bool UserManagementIF::addUserSchemaByUserIDSchemaID(int userID, int schemaID) c
 {
     QSqlQuery query(getSqlQuery());
     return query.exec(QString("INSERT INTO `userschema` (`userID`, `schemaID`) VALUES (%1, %2)")
-                      .arg(userID).arg(schemaID));
+                          .arg(userID)
+                          .arg(schemaID));
 }
 
 QStringList UserManagementIF::getDefaultSchema() const
@@ -493,18 +449,20 @@ QStringList UserManagementIF::getDefaultUser() const
 bool UserManagementIF::createUserManagementTables() const
 {
     QSqlQuery query(getSqlQuery());
-    if(!query.exec("use invoicingschema")) {
-        if(!query.exec("CREATE SCHEMA `invoicingschema` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci")) {
+    if (!query.exec(QString("use %1").arg(dbSchemaName))) {
+        if (!query.exec(
+                QString("CREATE SCHEMA `%1` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci")
+                    .arg(dbSchemaName))) {
             return false;
         }
     }
-    setDataBaseName("invoicingschema");
+    setDataBaseName(dbSchemaName);
     if(!query.exec("desc schemaname")) {
         if(!query.exec("CREATE TABLE `schemaname` \
                         (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
                          `name` VARCHAR(45) NOT NULL ,\
                          PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `invoicingschema`");
+            query.exec(QString("drop schema `%1`").arg(dbSchemaName));
             return false;
         }
 		//insert default schema Name
@@ -519,7 +477,7 @@ bool UserManagementIF::createUserManagementTables() const
                         (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
                          `name` VARCHAR(45) NOT NULL ,\
                          PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `invoicingschema`");
+            query.exec(QString("drop schema `%1`").arg(dbSchemaName));
             return false;
         }
 	    //insert default role Name
@@ -534,7 +492,7 @@ bool UserManagementIF::createUserManagementTables() const
                         (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,\
                          `name` VARCHAR(45) NOT NULL ,\
                          PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `invoicingschema`");
+            query.exec(QString("drop schema `%1`").arg(dbSchemaName));
             return false;
         }
     }
@@ -546,7 +504,7 @@ bool UserManagementIF::createUserManagementTables() const
                         `schemaID` INT UNSIGNED NOT NULL ,\
                         FOREIGN KEY (`schemaID`) REFERENCES schemaname(`id`) ,\
                         PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `invoicingschema`");
+            query.exec(QString("drop schema `%1`").arg(dbSchemaName));
             return false;
         }
     }
@@ -558,7 +516,7 @@ bool UserManagementIF::createUserManagementTables() const
                          `roleID` INT UNSIGNED NOT NULL ,\
                          FOREIGN KEY (`roleID`) REFERENCES role(`id`) ,\
                          PRIMARY KEY (`id`) )")) {
-            query.exec("drop schema `invoicingschema`");
+            query.exec(QString("drop schema `%1`").arg(dbSchemaName));
             return false;
         }
 		//insert default user & userrole
@@ -574,9 +532,3 @@ bool UserManagementIF::createUserManagementTables() const
 
     return true;
 }
-
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(UserManagementIF, UserManagementIF)
-#endif
-QT_END_NAMESPACE

@@ -1,5 +1,4 @@
-﻿#ifndef USERMANAGEMENTIF_H
-#define USERMANAGEMENTIF_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -13,7 +12,6 @@ class QToolBar;
 class QAction;
 class QSqlQuery;
 class QSqlDatabase;
-class QStringList;
 QT_END_NAMESPACE
 
 class USERMANAGEMENTIFSHARED_EXPORT UserManagementIF :
@@ -44,14 +42,11 @@ public:
     //UserManagementInterface
     //for db usage
     virtual QString getCurrentUserName() const;
-    virtual void setCurrentUserName(QString username);
-//    virtual QString getCurrentSchemaName() const;
-//    virtual void setCurrentSchemaName(QString schemaname);
     virtual QString getCurrentIPAdress() const;
-    virtual void setCurrentIPAdress(QString ipaddress);
+    virtual int getCurrentPort() const;
     virtual QSqlQuery getSqlQuery() const;
-    virtual QSqlDatabase getDatabase() const;
-    virtual bool openDatabase(QString username, QString password, QString ipaddress);
+    virtual QSqlDatabase getDatabase(QString name = "") const;
+    virtual bool openDatabase(QString username, QString password, QString ipaddress, int port);
     virtual void changePassword(QString username, QString password) const;
     //for user change notify
     virtual void registeObserver(UserChangeNotifyInterface *observer);
@@ -60,7 +55,7 @@ public:
     //for access checking
     virtual bool checkAccess(QSet<QString> accessRoleNameSet) const;
     virtual bool isAdmin(QString username) const;
-	virtual bool isStatistic(QString username) const;
+    virtual bool isAuditor(QString username) const;
     //for table schemaname
     virtual QSet<QString> getAllSchemaName() const;
     virtual QSet<int> getAllSchemaID() const;
@@ -93,8 +88,6 @@ private:
     bool createUserManagementTables() const;
     void setDataBaseName(QString dbName) const;
     QSqlDatabase addDatabase(QString username) const;
-    void removeDatabase(QString username="") const;
-    bool reopenDatabase() const;
 
 private:
 
@@ -102,7 +95,6 @@ private:
     QString currentDBSchema;
     QString currentIP;
     QString currentPassword;
+    int currentPort;
     QSet<UserChangeNotifyInterface *> observerSet;
 };
-
-#endif // USERMANAGEMENTIF_H
