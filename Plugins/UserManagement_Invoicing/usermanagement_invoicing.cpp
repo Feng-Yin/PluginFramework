@@ -276,9 +276,3 @@ void UserManagement_Invoicing::update()
     parent->updateCurrentUserInfo();
     userManagement();
 }
-
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(UserManagement_Invoicing, UserManagement_Invoicing)
-#endif
-QT_END_NAMESPACE

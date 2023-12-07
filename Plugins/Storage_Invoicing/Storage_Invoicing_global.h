@@ -1,5 +1,4 @@
-﻿#ifndef STORAGE_INVOICING_GLOBAL_H
-#define STORAGE_INVOICING_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define STORAGE_INVOICINGSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // STORAGE_INVOICING_GLOBAL_H

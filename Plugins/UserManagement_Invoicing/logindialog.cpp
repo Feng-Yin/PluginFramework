@@ -1,5 +1,4 @@
 #include <QtGui>
-#if QT_VERSION >= 0x050000
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -11,7 +10,7 @@
 #include <QInputDialog>
 #include <QtWidgets>
 #include <QHBoxLayout>
-#endif
+
 
 #include <QChar>
 #include <QHostInfo>

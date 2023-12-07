@@ -1,63 +1,60 @@
-﻿#include <QtGui>
+#include <QtGui>
 #include <QtSql>
 #include <usermanagement_interface.h>
+
 #include "productmanagement_interface.h"
 #include "updateproductdialog.h"
 
+#include "helper.h"
+
 UpdateProductDialog::UpdateProductDialog(UserManagementInterface *userManagementInterface,
                                          ProductManagementInterface *productManagementInterface,
-                                         QWidget *parent):
-    QDialog(parent),
-    userManagementInterface(userManagementInterface),
-    productManagementInterface(productManagementInterface),
-    serialNumberLabel(NULL),
-    serialNumberLineEdit(NULL),
-    productTypeLabel(NULL),
-    productTypeComboBox(NULL),
-    productTypeModel(NULL),
-    brandNameLabel(NULL),
-    brandNameComboBox(NULL),
-    brandNameModel(NULL),
-    productModelLabel(NULL),
-    productModelComboBox(NULL),
-    productModelModel(NULL),
-    productColorLabel(NULL),
-    productColorComboBox(NULL),
-    productColorModel(NULL),
-    productVendorLabel(NULL),
-    productVendorComboBox(NULL),
-    productVendorModel(NULL),
-    replacementInfoLabel(NULL),
-    replacementInfoComboBox(NULL),
-    replacementInfoModel(NULL),
-    barInfoLabel(NULL),
-    barInfoLineEdit(NULL),
-    quantityLabel(NULL),
-    quantitySpinBox(NULL),
-    unitLabel(NULL),
-    unitLineEdit(NULL),
-    schemaLabel(NULL),
-    schemaComboBox(NULL),
-    userSchemaModel(NULL),
-    oldPurchasePriceLabel(NULL),
-    oldPurchasePriceLineEdit(NULL),
-    purchasePriceLabel(NULL),
-    purchasePriceLineEdit(NULL),
-    sellingPriceLabel(NULL),
-    sellingPriceLineEdit(NULL),
-    commentsLabel(NULL),
-    commentsTextEdit(NULL),
-    updateProductButton(NULL),
-    leftButton(NULL),
-    rightButton(NULL)
+                                         QWidget *parent)
+    : QDialog(parent)
+    , userManagementInterface(userManagementInterface)
+    , productManagementInterface(productManagementInterface)
+    , serialNumberLabel(NULL)
+    , serialNumberLineEdit(NULL)
+    , productTypeLabel(NULL)
+    , productTypeComboBox(NULL)
+    , productTypeModel(NULL)
+    , brandNameLabel(NULL)
+    , brandNameComboBox(NULL)
+    , brandNameModel(NULL)
+    , productModelLabel(NULL)
+    , productModelComboBox(NULL)
+    , productModelModel(NULL)
+    , productColorLabel(NULL)
+    , productColorComboBox(NULL)
+    , productColorModel(NULL)
+    , productVendorLabel(NULL)
+    , productVendorComboBox(NULL)
+    , productVendorModel(NULL)
+    , replacementInfoLabel(NULL)
+    , replacementInfoComboBox(NULL)
+    , replacementInfoModel(NULL)
+    , barInfoLabel(NULL)
+    , barInfoLineEdit(NULL)
+    , quantityLabel(NULL)
+    , quantitySpinBox(NULL)
+    , unitLabel(NULL)
+    , unitLineEdit(NULL)
+    , schemaLabel(NULL)
+    , schemaComboBox(NULL)
+    , userSchemaModel(NULL)
+    , oldPurchasePriceLabel(NULL)
+    , oldPurchasePriceLineEdit(NULL)
+    , purchasePriceLabel(NULL)
+    , purchasePriceLineEdit(NULL)
+    , sellingPriceLabel(NULL)
+    , sellingPriceLineEdit(NULL)
+    , commentsLabel(NULL)
+    , commentsTextEdit(NULL)
+    , updateProductButton(NULL)
+    , leftButton(NULL)
+    , rightButton(NULL)
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
     init();
 }
 
@@ -152,15 +149,18 @@ void UpdateProductDialog::init()
 
     oldPurchasePriceLabel = new QLabel(tr("Old Purchase Price: "), this);
     oldPurchasePriceLineEdit = new QLineEdit(this);
-    oldPurchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
+    oldPurchasePriceLineEdit->setValidator(
+        new QRegularExpressionValidator(QRegularExpression("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
 
     purchasePriceLabel = new QLabel(tr("Purchase Price: "), this);
     purchasePriceLineEdit = new QLineEdit(this);
-    purchasePriceLineEdit->setValidator(new QRegExpValidator(QRegExp("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
+    purchasePriceLineEdit->setValidator(
+        new QRegularExpressionValidator(QRegularExpression("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
 
     sellingPriceLabel = new QLabel(tr("Selling Price: "), this);
     sellingPriceLineEdit = new QLineEdit(this);
-    sellingPriceLineEdit->setValidator(new QRegExpValidator(QRegExp("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
+    sellingPriceLineEdit->setValidator(
+        new QRegularExpressionValidator(QRegularExpression("(0|([1-9][0-9]*\\.?[0-9]*))"), this));
 
     commentsLabel = new QLabel(tr("Comments: "), this);
     commentsTextEdit = new QTextEdit(this);
@@ -314,7 +314,7 @@ void UpdateProductDialog::populateSchemaComboBox() const
     }
 
     schemaComboBox->clear();
-    schemaComboBox->addItems(schemaNameSet.toList());
+    schemaComboBox->addItems(schemaNameSet.values());
 }
 
 void UpdateProductDialog::populateSellerNameComboBox() const
@@ -427,7 +427,7 @@ void UpdateProductDialog::hidePurchasePrice(bool hide)
 bool UpdateProductDialog::checkInput()
 {
     serialNumber = serialNumberLineEdit->text();
-    serialNumber.simplified();
+    serialNumber = serialNumber.simplified();
     if(serialNumber.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Serial Number can't be empty !"));
         serialNumberLineEdit->setFocus();
@@ -435,7 +435,7 @@ bool UpdateProductDialog::checkInput()
     }
 
     unit = unitLineEdit->text();
-    unit.simplified();
+    unit = unit.simplified();
     if(unit.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Unit can't be empty !"));
         unitLineEdit->setFocus();
@@ -446,7 +446,7 @@ bool UpdateProductDialog::checkInput()
     QString brandName = brandNameComboBox->currentText();
     QString productModel = productModelComboBox->currentText();
 
-    productType.simplified();
+    productType = productType.simplified();
     if(productType.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Product Type can't be empty !"));
         productTypeComboBox->setFocus();
@@ -457,7 +457,7 @@ bool UpdateProductDialog::checkInput()
         productManagementInterface->addProductType(productType);
     }
 
-    brandName.simplified();
+    brandName = brandName.simplified();
     if(brandName.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Brand Name can't be empty !"));
         brandNameComboBox->setFocus();
@@ -468,7 +468,7 @@ bool UpdateProductDialog::checkInput()
         productManagementInterface->addBrandName(brandName);
     }
 
-    productModel.simplified();
+    productModel = productModel.simplified();
     if(productModel.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Product Model can't be empty !"));
         productModelComboBox->setFocus();
@@ -480,7 +480,7 @@ bool UpdateProductDialog::checkInput()
     }
 
     QString productColor = productColorComboBox->currentText();
-    productColor.simplified();
+    productColor = productColor.simplified();
     if(productColor.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Product Color can't be empty !"));
         productColorComboBox->setFocus();
@@ -492,7 +492,7 @@ bool UpdateProductDialog::checkInput()
     }
 
     QString productVendor = productVendorComboBox->currentText();
-    productVendor.simplified();
+    productVendor = productVendor.simplified();
     if(productVendor.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Product Vendor can't be empty !"));
         productVendorComboBox->setFocus();
@@ -504,7 +504,7 @@ bool UpdateProductDialog::checkInput()
     }
 
     QString replacementInfo = replacementInfoComboBox->currentText();
-    replacementInfo.simplified();
+    replacementInfo = replacementInfo.simplified();
     if(replacementInfo.isEmpty()) {
         QMessageBox::critical(this, tr("Error"), tr("Replacement Info can't be empty !"));
         replacementInfoComboBox->setFocus();

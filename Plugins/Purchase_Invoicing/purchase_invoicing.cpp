@@ -1,12 +1,14 @@
-﻿#include <QtGui>
+#include <QtGui>
 #include <QtSql>
 #include <QAxObject>
-#include "purchase_invoicing.h"
-#include "mainwindow.h"
-#include "usermanagement_interface.h"
-#include "productmanagement_interface.h"
+
 #include "addproductdialog.h"
+#include "helper.h"
+#include "mainwindow.h"
+#include "productmanagement_interface.h"
+#include "purchase_invoicing.h"
 #include "updateproductdialog.h"
+#include "usermanagement_interface.h"
 
 Purchase_Invoicing::Purchase_Invoicing() :
     mainWidget(NULL),
@@ -49,13 +51,7 @@ Purchase_Invoicing::Purchase_Invoicing() :
     commentsComboBox(NULL),
     skip1stRowCheckBox(NULL)
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
     initImportConfigFile();
 }
 
@@ -1298,9 +1294,3 @@ void Purchase_Invoicing::initImportConfigFile()
         importConfig.setValue("config/Skip1stRow", true);
     }
 }
-
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Purchase_Invoicing, Purchase_Invoicing)
-#endif
-QT_END_NAMESPACE

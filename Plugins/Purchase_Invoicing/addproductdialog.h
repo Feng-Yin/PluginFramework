@@ -1,5 +1,4 @@
-﻿#ifndef ADDPRODUCTDIALOG_H
-#define ADDPRODUCTDIALOG_H
+#pragma once
 
 #include "updateproductdialog.h"
 
@@ -21,5 +20,3 @@ private:
     void init();
     bool checkInput();
 };
-
-#endif // ADDPRODUCTDIALOG_H

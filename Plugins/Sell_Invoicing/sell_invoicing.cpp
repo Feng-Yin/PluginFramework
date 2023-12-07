@@ -1,10 +1,12 @@
-﻿#include <QtGui>
+#include <QtGui>
 #include <QtSql>
-#include "sell_invoicing.h"
+
+#include "helper.h"
 #include "mainwindow.h"
-#include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
+#include "sell_invoicing.h"
 #include "sellupdateproductdialog.h"
+#include "usermanagement_interface.h"
 
 Sell_Invoicing::Sell_Invoicing():
     parentWindow(NULL),
@@ -24,13 +26,7 @@ Sell_Invoicing::Sell_Invoicing():
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
 }
 
 QWidget* Sell_Invoicing::getMainWidget() const
@@ -560,10 +556,3 @@ void Sell_Invoicing::updateOrderFilter()
 
     orderModel->setFilter(filter);
 }
-
-
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Sell_Invoicing, Sell_Invoicing)
-#endif
-QT_END_NAMESPACE

@@ -1,10 +1,12 @@
-﻿#include <QtGui>
+#include <QtGui>
 #include <QtSql>
+
 #include "cash_invoicing.h"
-#include "mainwindow.h"
-#include "usermanagement_interface.h"
-#include "productmanagement_interface.h"
 #include "cashupdateproductdialog.h"
+#include "helper.h"
+#include "mainwindow.h"
+#include "productmanagement_interface.h"
+#include "usermanagement_interface.h"
 
 Cash_Invoicing::Cash_Invoicing():
     parentWindow(NULL),
@@ -15,13 +17,7 @@ Cash_Invoicing::Cash_Invoicing():
     serialNumberLineEdit(NULL),
     filterPushButton(NULL)
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
 }
 
 
@@ -335,9 +331,3 @@ void Cash_Invoicing::productUpdated()
     cashModel->select();
     cashView->resizeColumnsToContents();
 }
-
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Cash_Invoicing, Cash_Invoicing)
-#endif
-QT_END_NAMESPACE

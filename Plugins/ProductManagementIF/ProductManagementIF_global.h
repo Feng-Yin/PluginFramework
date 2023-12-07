@@ -1,5 +1,4 @@
-﻿#ifndef PRODUCTMANAGEMENTIF_GLOBAL_H
-#define PRODUCTMANAGEMENTIF_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define PRODUCTMANAGEMENTIFSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // PRODUCTMANAGEMENTIF_GLOBAL_H

@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#if QT_VERSION >= 0x050000
+
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -11,9 +11,6 @@
 #include <QInputDialog>
 #include <QtWidgets>
 #include <QHBoxLayout>
-#else
-#include <QtGui>
-#endif
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -79,11 +76,8 @@ QString MainWindow::calActiveCode(QString machineCode)
 
     QCryptographicHash sha1(QCryptographicHash::Sha1);
 
-#if QT_VERSION < 0x050000
-    QByteArray datagram(seed.toAscii());
-#else
     QByteArray datagram(seed.toLatin1());
-#endif
+
     const char* tempConstChar = datagram.data();
     sha1.addData(tempConstChar);
     QString  activeCode=sha1.result().toHex();

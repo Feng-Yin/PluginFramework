@@ -1,5 +1,5 @@
-﻿#include "storageupdateproductdialog.h"
-#if QT_VERSION >= 0x050000
+#include "storageupdateproductdialog.h"
+
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -11,9 +11,6 @@
 #include <QInputDialog>
 #include <QtWidgets>
 #include <QHBoxLayout>
-#else
-#include <QtGui>
-#endif
 
 StorageUpdateProductDialog::StorageUpdateProductDialog(UserManagementInterface *userManagementInterface,
                                                        ProductManagementInterface *productManagementInterface,

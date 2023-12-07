@@ -1,5 +1,4 @@
-﻿#ifndef STATISTICUPDATEPRODUCTDIALOG_H
-#define STATISTICUPDATEPRODUCTDIALOG_H
+#pragma once
 
 #include "updateproductdialog.h"
 
@@ -16,5 +15,3 @@ public slots:
 private:
     void init();
 };
-
-#endif // STATISTICUPDATEPRODUCTDIALOG_H

@@ -1,7 +1,5 @@
-﻿#ifndef UPDATEPRODUCTDIALOG_H
-#define UPDATEPRODUCTDIALOG_H
+#pragma once
 
-#if QT_VERSION >= 0x050000
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -13,10 +11,8 @@
 #include <QInputDialog>
 #include <QtWidgets>
 #include <QHBoxLayout>
-#else
-#include <QDialog>
-#endif
 #include <QSqlRecord>
+
 #include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
 
@@ -152,5 +148,3 @@ public:
     QString timeStamp;
     int productID;
 };
-
-#endif // UPDATEPRODUCTDIALOG_H

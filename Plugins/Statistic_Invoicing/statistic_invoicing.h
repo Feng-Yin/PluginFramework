@@ -1,5 +1,4 @@
-﻿#ifndef STATISTIC_INVOICING_H
-#define STATISTIC_INVOICING_H
+#pragma once
 
 #include <QObject>
 #include <plugin_interface.h>
@@ -32,9 +31,7 @@ class STATISTIC_INVOICINGSHARED_EXPORT Statistic_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
 {
     Q_OBJECT
-#if QT_VERSION >= 0x050000
     Q_PLUGIN_METADATA(IID "Statistic_Invoicing")
-#endif
     Q_INTERFACES(PluginInterface UserChangeNotifyInterface)
 public:
     Statistic_Invoicing();
@@ -290,5 +287,3 @@ private:
     QProgressBar *unsellProductProgressBar;
     QProgressBar *allProductProgressBar;
 };
-
-#endif // STATISTIC_INVOICING_H

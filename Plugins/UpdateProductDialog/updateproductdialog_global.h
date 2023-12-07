@@ -1,5 +1,4 @@
-﻿#ifndef UPDATEPRODUCTDIALOG_GLOBAL_H
-#define UPDATEPRODUCTDIALOG_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define UPDATEPRODUCTDIALOGSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // UPDATEPRODUCTDIALOG_GLOBAL_H

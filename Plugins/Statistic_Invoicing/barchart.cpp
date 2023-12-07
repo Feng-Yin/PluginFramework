@@ -1,4 +1,5 @@
-﻿#include "barchart.h"
+#include "barchart.h"
+
 #include <qwt_plot_renderer.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_multi_barchart.h>
@@ -6,7 +7,6 @@
 #include <qwt_plot_layout.h>
 #include <qwt_legend.h>
 #include <QtGlobal>
-#if QT_VERSION >= 0x050000
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -20,9 +20,6 @@
 #include <QHBoxLayout>
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
-#else
-#include <QtGui>
-#endif
 
 BarChart::BarChart(QWidget *parent):
     QwtPlot(parent),
@@ -98,19 +95,19 @@ void BarChart::populate()
     QList<QString> keys = salesData.keys();
     switch (sortArg.sortType){
     case SORTBYVOLUMEASCEND:
-        qSort(keys.begin(), keys.end(), SortByVolumeAscend(salesData));
+        std::sort(keys.begin(), keys.end(), SortByVolumeAscend(salesData));
         break;
     case SORTBYVOLUMEDESCEND:
-        qSort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
+        std::sort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
         break;
     case SORTBYQUANTITYASCEND:
-        qSort(keys.begin(), keys.end(), SortByQuantityAscend(salesData));
+        std::sort(keys.begin(), keys.end(), SortByQuantityAscend(salesData));
         break;
     case SORTBYQUANTITYDESCEND:
-        qSort(keys.begin(), keys.end(), SortByQuantityDescend(salesData));
+        std::sort(keys.begin(), keys.end(), SortByQuantityDescend(salesData));
         break;
     default:
-        qSort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
+        std::sort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
     }
 
     int finalRange = salesData.count()>sortArg.peopleRange?
@@ -214,18 +211,20 @@ void BarChart::exportChart()
 void BarChart::printChart()
 {
     QPrinter printer(QPrinter::HighResolution);
-    printer.setOrientation(QPrinter::Landscape);
+    printer.setPageOrientation(QPageLayout::Landscape);
 
     QPrintDialog *dialog = new QPrintDialog(&printer, this);
     dialog->setWindowTitle(tr("Print Statistic Chart"));
     if (dialog->exec() == QDialog::Accepted) {
         QPainter painter;
         painter.begin(&printer);
-        double xscale = printer.pageRect().width()/double(width());
-        double yscale = printer.pageRect().height()/double(height());
+        double xscale = printer.pageRect(QPrinter::DevicePixel).width() / double(width());
+        double yscale = printer.pageRect(QPrinter::DevicePixel).height() / double(height());
         double scale = qMin(xscale, yscale);
-        painter.translate(printer.paperRect().x() + printer.pageRect().width()/2,
-                          printer.paperRect().y() + printer.pageRect().height()/2);
+        painter.translate(printer.paperRect(QPrinter::DevicePixel).x()
+                              + printer.pageRect(QPrinter::DevicePixel).width() / 2,
+                          printer.paperRect(QPrinter::DevicePixel).y()
+                              + printer.pageRect(QPrinter::DevicePixel).height() / 2);
         painter.scale(scale, scale);
         painter.translate(-width()/2, -height()/2);
 

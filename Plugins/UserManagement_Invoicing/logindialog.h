@@ -2,6 +2,7 @@
 
 #include <QDialog>
 #include <QSet>
+
 #include "qspinbox.h"
 
 QT_BEGIN_NAMESPACE

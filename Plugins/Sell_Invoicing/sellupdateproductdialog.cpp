@@ -1,5 +1,5 @@
-﻿#include "sellupdateproductdialog.h"
-#if QT_VERSION >= 0x050000
+#include "sellupdateproductdialog.h"
+
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -11,9 +11,6 @@
 #include <QInputDialog>
 #include <QtWidgets>
 #include <QHBoxLayout>
-#else
-#include <QtGui>
-#endif
 
 SellUpdateProductDialog::SellUpdateProductDialog(UserManagementInterface *userManagementInterface,
                                                  ProductManagementInterface *productManagementInterface,

@@ -1,5 +1,4 @@
-﻿#ifndef STORAGEUPDATEPRODUCTDIALOG_H
-#define STORAGEUPDATEPRODUCTDIALOG_H
+#pragma once
 
 #include "updateproductdialog.h"
 
@@ -15,5 +14,3 @@ public:
 private:
     void init();
 };
-
-#endif // STORAGEUPDATEPRODUCTDIALOG_H

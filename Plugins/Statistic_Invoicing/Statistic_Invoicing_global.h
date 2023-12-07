@@ -1,5 +1,4 @@
-﻿#ifndef STATISTIC_INVOICING_GLOBAL_H
-#define STATISTIC_INVOICING_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define STATISTIC_INVOICINGSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // STATISTIC_INVOICING_GLOBAL_H

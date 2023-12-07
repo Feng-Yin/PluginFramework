@@ -1,5 +1,4 @@
-﻿#ifndef SELLUPDATEPRODUCTDIALOG_H
-#define SELLUPDATEPRODUCTDIALOG_H
+#pragma once
 
 #include "updateproductdialog.h"
 
@@ -23,5 +22,3 @@ private:
     bool checkInput();
 
 };
-
-#endif // SELLUPDATEPRODUCTDIALOG_H

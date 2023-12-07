@@ -4,7 +4,15 @@
 #
 #-------------------------------------------------
 
+#include( qwtconfig.pri )
+
 QT       += sql widgets printsupport
+
+# QXlsx code for Application Qt project
+QXLSX_PARENTPATH=./         # current QXlsx path is . (. means curret directory)
+QXLSX_HEADERPATH=./header/  # current QXlsx header path is ./header/
+QXLSX_SOURCEPATH=./source/  # current QXlsx source path is ./source/
+include(./QXlsx.pri)
 
 TARGET = Statistic_Invoicing
 TEMPLATE = lib
@@ -37,7 +45,7 @@ HEADERS += statistic_invoicing.h\
 symbian {
     MMP_RULES += EXPORTUNFROZEN
     TARGET.UID3 = 0xED5A9B43
-    TARGET.CAPABILITY = 
+    TARGET.CAPABILITY =
     TARGET.EPOCALLOWDLLDATA = 1
     addFiles.sources = Statistic_Invoicing.dll
     addFiles.path = !:/sys/bin

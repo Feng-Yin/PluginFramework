@@ -1,12 +1,14 @@
-﻿#include <QtGui>
+#include <QtGui>
 #include <QtSql>
-#include "statistic_invoicing.h"
-#include "mainwindow.h"
-#include "usermanagement_interface.h"
-#include "productmanagement_interface.h"
+
 #include "barchart.h"
-#include "statisticupdateproductdialog.h"
 #include "exportexcelobject.h"
+#include "helper.h"
+#include "mainwindow.h"
+#include "productmanagement_interface.h"
+#include "statistic_invoicing.h"
+#include "statisticupdateproductdialog.h"
+#include "usermanagement_interface.h"
 
 const char *sortTypeProperty = "SortType";
 
@@ -178,13 +180,7 @@ Statistic_Invoicing::Statistic_Invoicing():
     unsellProductProgressBar(NULL),
     allProductProgressBar(NULL)
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
 }
 
 
@@ -1387,7 +1383,7 @@ void Statistic_Invoicing::populateSchemaComboBox(QComboBox *schemaComboBox) cons
     QSet<QString> schemaNameSet = userManagementInterface->getAllSchemaName();;
 
     schemaComboBox->clear();
-    schemaComboBox->addItems(schemaNameSet.toList());
+    schemaComboBox->addItems(schemaNameSet.values());
 }
 
 void Statistic_Invoicing::onAllProductsFilter()
@@ -1936,7 +1932,9 @@ void Statistic_Invoicing::onExportUnsellProducts2Excel()
         }
     }
 
-    QString fileName = QFileDialog::getSaveFileName(0, tr("Export to Excel"), qApp->applicationDirPath (),
+    QString fileName = QFileDialog::getSaveFileName(0,
+                                                    tr("Export to Excel"),
+                                                    qApp->applicationDirPath(),
                                                     tr("Excel Files (*.xls)"));
 
     ExportExcelObject obj(fileName, tr("UnsellProducts"), unsellProductsView);
@@ -2109,9 +2107,3 @@ void Statistic_Invoicing::updateUnsellProductinfo()
     statisticUpdateUnsellProductDialog->updateRecord(record);
     statisticUpdateUnsellProductDialog->exec();
 }
-
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Statistic_Invoicing, Statistic_Invoicing)
-#endif
-QT_END_NAMESPACE

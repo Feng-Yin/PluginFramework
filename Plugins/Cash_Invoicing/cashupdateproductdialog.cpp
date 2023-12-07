@@ -1,5 +1,5 @@
-﻿#include "cashupdateproductdialog.h"
-#if QT_VERSION >= 0x050000
+#include "cashupdateproductdialog.h"
+
 #include <QGridLayout>
 #include <QLabel>
 #include <QComboBox>
@@ -13,9 +13,6 @@
 #include <QHBoxLayout>
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
-#else
-#include <QtGui>
-#endif
 
 CashUpdateProductDialog::CashUpdateProductDialog(UserManagementInterface *userManagementInterface,
                                                  ProductManagementInterface *productManagementInterface,

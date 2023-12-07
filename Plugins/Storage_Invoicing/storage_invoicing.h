@@ -1,5 +1,4 @@
-﻿#ifndef STORAGE_INVOICING_H
-#define STORAGE_INVOICING_H
+#pragma once
 
 #include <QObject>
 #include <plugin_interface.h>
@@ -23,9 +22,7 @@ class STORAGE_INVOICINGSHARED_EXPORT Storage_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
 {
     Q_OBJECT
-#if QT_VERSION >= 0x050000
     Q_PLUGIN_METADATA(IID "Storage_Invoicing")
-#endif
     Q_INTERFACES(PluginInterface UserChangeNotifyInterface)
 public:
     Storage_Invoicing();
@@ -94,5 +91,3 @@ private:
 
     QString purchageTimeStamp;
 };
-
-#endif // STORAGE_INVOICING_H

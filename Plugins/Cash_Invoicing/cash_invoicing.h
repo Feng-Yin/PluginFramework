@@ -1,9 +1,9 @@
-﻿#ifndef CASH_INVOICING_H
-#define CASH_INVOICING_H
+#pragma once
 
 #include <QObject>
 #include <plugin_interface.h>
 #include <usermanagement_interface.h>
+
 #include "Cash_Invoicing_global.h"
 
 QT_BEGIN_NAMESPACE
@@ -21,9 +21,7 @@ class CASH_INVOICINGSHARED_EXPORT Cash_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
 {
     Q_OBJECT
-#if QT_VERSION >= 0x050000
     Q_PLUGIN_METADATA(IID "Cash_Invoicing")
-#endif
     Q_INTERFACES(PluginInterface UserChangeNotifyInterface)
 public:
     Cash_Invoicing();
@@ -71,5 +69,3 @@ private:
     QPushButton *filterPushButton;
 
 };
-
-#endif // CASH_INVOICING_H

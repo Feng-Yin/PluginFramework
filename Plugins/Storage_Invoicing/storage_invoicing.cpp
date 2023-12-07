@@ -1,10 +1,12 @@
-﻿#include <QtGui>
+#include <QtGui>
 #include <QtSql>
-#include "storage_invoicing.h"
+
+#include "helper.h"
 #include "mainwindow.h"
-#include "usermanagement_interface.h"
 #include "productmanagement_interface.h"
+#include "storage_invoicing.h"
 #include "storageupdateproductdialog.h"
+#include "usermanagement_interface.h"
 
 Storage_Invoicing::Storage_Invoicing():
     parentWindow(NULL),
@@ -28,13 +30,7 @@ Storage_Invoicing::Storage_Invoicing():
     filterPushButton(NULL)
 
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
 }
 
 QWidget* Storage_Invoicing::getMainWidget() const
@@ -700,9 +696,3 @@ void Storage_Invoicing::updateStorageFilter()
 
     storageModel->setFilter(filter);
 }
-
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(Storage_Invoicing, Storage_Invoicing)
-#endif
-QT_END_NAMESPACE

@@ -1,9 +1,12 @@
-﻿#ifndef _BAR_CHART_H_
+#pragma once
 
-#include <qwt_plot.h>
+#include <QwtPlot>
+#include <QwtText>
 #include <qwt_scale_draw.h>
-#include <QMap>
+
 #include <QList>
+#include <QMap>
+
 #include <productmanagement_interface.h>
 
 class QwtPlotMultiBarChart;
@@ -111,19 +114,19 @@ public:
         QList<QString> keys = salesData.keys();
         switch (sortArg.sortType){
         case SORTBYVOLUMEASCEND:
-            qSort(keys.begin(), keys.end(), SortByVolumeAscend(salesData));
+            std::sort(keys.begin(), keys.end(), SortByVolumeAscend(salesData));
             break;
         case SORTBYVOLUMEDESCEND:
-            qSort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
+            std::sort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
             break;
         case SORTBYQUANTITYASCEND:
-            qSort(keys.begin(), keys.end(), SortByQuantityAscend(salesData));
+            std::sort(keys.begin(), keys.end(), SortByQuantityAscend(salesData));
             break;
         case SORTBYQUANTITYDESCEND:
-            qSort(keys.begin(), keys.end(), SortByQuantityDescend(salesData));
+            std::sort(keys.begin(), keys.end(), SortByQuantityDescend(salesData));
             break;
         default:
-            qSort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
+            std::sort(keys.begin(), keys.end(), SortByVolumeDescend(salesData));
         }
         if(value<keys.size()) {
             QString key = keys.at(value);
@@ -162,5 +165,3 @@ public:
         return QwtText(QString("%1").arg((ulong)value));
     }
 };
-
-#endif

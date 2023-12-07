@@ -1,5 +1,4 @@
-﻿#ifndef CASH_INVOICING_GLOBAL_H
-#define CASH_INVOICING_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define CASH_INVOICINGSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // CASH_INVOICING_GLOBAL_H

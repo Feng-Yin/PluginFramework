@@ -1,9 +1,9 @@
-﻿#ifndef PURCHASE_INVOICING_H
-#define PURCHASE_INVOICING_H
+#pragma once
 
 #include <QObject>
 #include <plugin_interface.h>
 #include <usermanagement_interface.h>
+
 #include "Purchase_Invoicing_global.h"
 
 
@@ -30,9 +30,7 @@ class PURCHASE_INVOICINGSHARED_EXPORT Purchase_Invoicing :
         public QObject, public PluginInterface, public UserChangeNotifyInterface
 {
     Q_OBJECT
-#if QT_VERSION >= 0x050000
     Q_PLUGIN_METADATA(IID "Purchase_Invoicing")
-#endif
     Q_INTERFACES(PluginInterface UserChangeNotifyInterface)
 public:
     Purchase_Invoicing();
@@ -127,5 +125,3 @@ private:
     QComboBox *commentsComboBox;
     QCheckBox *skip1stRowCheckBox;
 };
-
-#endif // PURCHASE_INVOICING_H

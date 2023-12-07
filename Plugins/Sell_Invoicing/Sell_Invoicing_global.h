@@ -1,5 +1,4 @@
-﻿#ifndef SELL_INVOICING_GLOBAL_H
-#define SELL_INVOICING_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #  define SELL_INVOICINGSHARED_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif // SELL_INVOICING_GLOBAL_H

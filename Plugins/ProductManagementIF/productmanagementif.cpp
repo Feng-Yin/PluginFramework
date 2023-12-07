@@ -1,13 +1,12 @@
-﻿#include <QtSql>
-#if QT_VERSION < 0x050000
-#include <QApplication>
-#else
+#include <QtSql>
 #include <QtWidgets>
-#endif
+
 #include "mainwindow.h"
 #include <usermanagement_interface.h>
 #include <productmanagement_interface.h>
 #include "productmanagementif.h"
+
+#include "helper.h"
 
 const QStringList ProductManagementInterface::defaultProductType
                                         = QStringList() <<"其它"<<"手机"<<"手机卡"<<"手机配件"<<"平板电脑";
@@ -22,13 +21,7 @@ const QStringList ProductManagementInterface::replacementStatus = QStringList() 
 ProductManagementIF::ProductManagementIF():
     userManagementInterface(NULL)
 {
-    QDir qmdir(":/Translations");
-    foreach (QString fileName, qmdir.entryList(QDir::Files)) {
-        //qDebug()<<QFileInfo(fileName).baseName();
-        QTranslator *qtTranslator = new QTranslator(this);
-        qtTranslator->load(QFileInfo(fileName).baseName(), ":/Translations");
-        QApplication::instance()->installTranslator(qtTranslator);
-    }
+    INSTALL_TRANSLATION;
 }
 
 ProductManagementIF::~ProductManagementIF()
@@ -478,11 +471,11 @@ bool ProductManagementIF::isModelOutdate(QSqlRelationalTableModel* model, QStrin
     int fromIndex = queryString.indexOf("from", 0, Qt::CaseInsensitive);
     queryString.insert(fromIndex, ") ");
     queryString.insert(selectIndex+QString("select").length(), " count(");
-    QRegExp reg1("count\\(.*\\)");
-    reg1.setMinimal(true);
+    QRegularExpression reg1("count\\(.*\\)");
+    reg1.setPatternOptions(QRegularExpression::InvertedGreedinessOption);
     queryString.replace(reg1, "count(*)");
-    QRegExp reg2("order by.*");
-    reg2.setCaseSensitivity(Qt::CaseInsensitive);
+    QRegularExpression reg2("order by.*");
+    reg2.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
     queryString.remove(reg2);
     QSqlQuery query(userManagementInterface->getSqlQuery());
     query.exec(queryString);
@@ -919,8 +912,3 @@ bool ProductManagementIF::createProductManagementTables() const
 	}
     return true;
 }
-QT_BEGIN_NAMESPACE
-#if QT_VERSION < 0x050000
-Q_EXPORT_PLUGIN2(ProductManagementIF, ProductManagementIF)
-#endif
-QT_END_NAMESPACE

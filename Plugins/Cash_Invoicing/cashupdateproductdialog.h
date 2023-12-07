@@ -1,5 +1,4 @@
-﻿#ifndef CASHUPDATEPRODUCTDIALOG_H
-#define CASHUPDATEPRODUCTDIALOG_H
+#pragma once
 
 #include "updateproductdialog.h"
 
@@ -33,5 +32,3 @@ public:
     QDialogButtonBox *updateProductButtonBox;
     QPrinter *printer;
 };
-
-#endif // CASHUPDATEPRODUCTDIALOG_H
