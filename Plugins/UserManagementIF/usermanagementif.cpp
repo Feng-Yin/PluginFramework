@@ -6,7 +6,8 @@
 
 const QStringList UserManagementInterface::defaultSchema = QStringList();
 const QStringList UserManagementInterface::defaultRole = QStringList() <<"管理员"<<"采购"<<"库管"<<"销售"<<"收银员"<<"审计";
-const QStringList UserManagementInterface::defaultUser = QStringList() << "admin";
+const QStringList UserManagementInterface::defaultUser = QStringList() << "root"
+                                                                       << "admin";
 
 const char *defaultDBSchemaName = "information_schema";
 const char *dbSchemaName = "invoicing_schema";
@@ -113,13 +114,13 @@ void UserManagementIF::setDataBaseName(QString dbName) const
 
 bool UserManagementIF::openDatabase(QString username, QString password, QString ipaddress, int port)
 {
-    if (getDatabase(username).isValid()) {
-        currentUser = username;
-        currentIP = ipaddress;
-        currentPassword = password;
-        currentPort = port;
-        return true;
-    }
+    // if (getDatabase(username).isValid()) {
+    //     currentUser = username;
+    //     currentIP = ipaddress;
+    //     currentPassword = password;
+    //     currentPort = port;
+    //     return true;
+    // }
 
     {
         // this is for when open db at very first time, there is no invoice db, so use default db for
@@ -129,6 +130,7 @@ bool UserManagementIF::openDatabase(QString username, QString password, QString 
         db.setHostName(ipaddress);
         db.setPort(port);
         if (!db.open(getDBLoginUserName(username), password)) {
+            qDebug() << "Failed to open!!" << getDBLoginUserName(username) << password;
             return false;
         }
         currentUser = username;
@@ -315,6 +317,7 @@ int UserManagementIF::getUserIDByUserName(QString username) const
 QString UserManagementIF::getUserNameByUserID(int userID) const
 {
     QSqlQuery query(getSqlQuery());
+    qDebug() << QString("select name from user where id = %1").arg(userID);
     query.exec(QString("select name from user where id = %1").arg(userID));
     if(query.first()) {
         return query.record().value("name").toString();
@@ -395,7 +398,10 @@ bool UserManagementIF::addUserRoleByUserIDRoleID(int userID, int roleID) const
 //for table userschema
 QSet<int> UserManagementIF::getSchemaIDSetByUserID(int userID) const
 {
-    if(getRoleIDSetByUserID(userID).contains(getRoleIDByRoleName("管理员"))) {
+    qDebug() << "getUserNameByUserID(userID)" << getUserNameByUserID(userID);
+    //if(getRoleIDSetByUserID(userID).contains(getRoleIDByRoleName("管理员"))) {
+    if (isAdmin(getUserNameByUserID(userID))) {
+        qDebug() << getAllSchemaName();
         return getAllSchemaID();
     }
     QSet<int> schemaIDSet;
@@ -521,13 +527,12 @@ bool UserManagementIF::createUserManagementTables() const
         }
 		//insert default user & userrole
 		int id = 1;
-		foreach(QString user, defaultUser) {
-			query.exec(QString("INSERT INTO `user` (`id`, `name`) VALUES (%1, '%2')")
-					   .arg(id).arg(user));
-			query.exec(QString("INSERT INTO `userrole` (`id`, `userID`, `roleID`) VALUES (%1, %2, %3)")
-					   .arg(id).arg(id).arg(getRoleIDByRoleName("管理员")));
-			id++;
-		}
+        query.exec(
+            QString("INSERT INTO `user` (`id`, `name`) VALUES (%1, '%2')").arg(id).arg(currentUser));
+        query.exec(QString("INSERT INTO `userrole` (`id`, `userID`, `roleID`) VALUES (%1, %2, %3)")
+                       .arg(id)
+                       .arg(id)
+                       .arg(getRoleIDByRoleName("管理员")));
     }
 
     return true;

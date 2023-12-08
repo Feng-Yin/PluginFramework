@@ -53,12 +53,12 @@ void LoginDialog::init()
     mainLayout->addWidget(rememberUsername, 0, 2);
 
     QLabel *passwordLabel = new QLabel(tr("Pass Word: "),this);
-    QRegularExpression pwRegExp("([a-zA-Z0-9]*)");
+    QRegularExpression pwRegExp("([a-zA-Z0-9\\:\\@\\.\\,\\/\\+\\-\\!\\=]*)");
     passwordLineEdit = new QLineEdit(this);
     QValidator *pwValidator = new QRegularExpressionValidator(pwRegExp, passwordLineEdit);
     passwordLineEdit->setValidator(pwValidator);
     passwordLineEdit->setEchoMode(QLineEdit::Password);
-    passwordLineEdit->setToolTip(tr("<b>alphabet</b> & <b>number</b> only"));
+    passwordLineEdit->setToolTip(tr("<b>alphabet</b>, <b>number</b> and :@.,/+-!= only"));
     rememberPassword = new QCheckBox(this);
     rememberPassword->setToolTip(tr("Remember Password"));
     mainLayout->addWidget(passwordLabel, 1,0, Qt::AlignRight);
